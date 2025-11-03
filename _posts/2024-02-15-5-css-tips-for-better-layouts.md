@@ -4,7 +4,7 @@ title: "5 CSS Tips for Better Layouts"
 date: 2024-02-15 09:00:00 -0000
 categories: [web-development, css]
 tags: [css, flexbox, grid, responsive-design]
-author: Your Name
+author: Chris Taylor
 excerpt: "Master these 5 CSS techniques to create beautiful, responsive layouts that work on any device."
 ---
 

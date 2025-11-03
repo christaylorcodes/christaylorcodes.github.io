@@ -4,7 +4,7 @@ title: "Welcome to My Blog!"
 date: 2024-01-15 10:00:00 -0000
 categories: [general, introduction]
 tags: [welcome, first-post]
-author: Your Name
+author: Chris Taylor
 excerpt: "Welcome to my personal blog! This is my first post where I introduce myself and share what you can expect from this blog."
 ---
 

@@ -4,7 +4,7 @@ title: "Getting Started with Jekyll and GitHub Pages"
 date: 2024-02-01 14:30:00 -0000
 categories: [web-development, tutorial]
 tags: [jekyll, github-pages, static-sites]
-author: Your Name
+author: Chris Taylor
 excerpt: "Learn how to create and deploy a beautiful static website using Jekyll and GitHub Pages. Perfect for beginners!"
 ---
 
