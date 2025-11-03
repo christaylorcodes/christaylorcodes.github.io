@@ -16,6 +16,12 @@ plugins:
   - jekyll-feed
   - jekyll-seo-tag
 
+# Collections
+collections:
+  projects:
+    output: false
+    sort_by: order
+
 # Exclude from processing
 exclude:
   - Gemfile
