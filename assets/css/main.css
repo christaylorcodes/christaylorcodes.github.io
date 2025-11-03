@@ -271,6 +271,41 @@ section {
     line-height: 1.6;
 }
 
+/* ===== RECENT POSTS SECTION ===== */
+.recent-posts {
+    background-color: var(--bg-white);
+}
+
+.recent-posts .feature-card h3 a:hover {
+    color: var(--primary-color);
+}
+
+.recent-posts .read-more {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    color: var(--primary-color);
+    text-decoration: none;
+    font-weight: 600;
+    transition: gap 0.3s ease;
+}
+
+.recent-posts .read-more:hover {
+    gap: 1rem;
+}
+
+/* ===== FEATURED PROJECTS SECTION ===== */
+.featured-projects {
+    background-color: var(--bg-light);
+}
+
+.featured-projects .project-tags {
+    display: flex;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
 /* ===== CTA SECTION ===== */
 .cta {
     background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
