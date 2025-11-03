@@ -6,23 +6,26 @@
 }
 
 :root {
-    --primary-color: #6366f1;
-    --primary-dark: #4f46e5;
-    --secondary-color: #ec4899;
-    --text-dark: #1f2937;
-    --text-light: #6b7280;
-    --bg-light: #f9fafb;
-    --bg-white: #ffffff;
-    --border-color: #e5e7eb;
-    --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
-    --shadow-lg: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+    --primary-color: #06b6d4;
+    --primary-dark: #0891b2;
+    --primary-light: #22d3ee;
+    --secondary-color: #14b8a6;
+    --text-dark: #f1f5f9;
+    --text-light: #cbd5e1;
+    --bg-dark: #0f172a;
+    --bg-darker: #020617;
+    --bg-light: #1e293b;
+    --bg-white: #334155;
+    --border-color: #475569;
+    --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.3), 0 2px 4px -1px rgba(0, 0, 0, 0.2);
+    --shadow-lg: 0 20px 25px -5px rgba(0, 0, 0, 0.4), 0 10px 10px -5px rgba(0, 0, 0, 0.3);
 }
 
 body {
     font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
     line-height: 1.6;
     color: var(--text-dark);
-    background-color: var(--bg-white);
+    background-color: var(--bg-dark);
 }
 
 .container {
@@ -33,12 +36,13 @@ body {
 
 /* ===== NAVIGATION ===== */
 .navbar {
-    background-color: var(--bg-white);
+    background-color: var(--bg-darker);
     box-shadow: var(--shadow);
     position: sticky;
     top: 0;
     z-index: 1000;
     padding: 1rem 0;
+    border-bottom: 1px solid var(--border-color);
 }
 
 .navbar .container {
@@ -133,7 +137,7 @@ body {
 /* ===== HERO SECTION ===== */
 .hero {
     padding: 6rem 0;
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    background: linear-gradient(135deg, #0891b2 0%, #06b6d4 50%, #14b8a6 100%);
     color: white;
     text-align: center;
 }
@@ -151,8 +155,9 @@ body {
 }
 
 .highlight {
-    color: #ffd700;
+    color: #22d3ee;
     position: relative;
+    text-shadow: 0 0 20px rgba(34, 211, 238, 0.5);
 }
 
 .hero-subtitle {
@@ -189,24 +194,26 @@ body {
 }
 
 .btn-primary {
-    background-color: var(--bg-white);
-    color: var(--primary-color);
+    background-color: var(--primary-color);
+    color: var(--bg-darker);
 }
 
 .btn-primary:hover {
     transform: translateY(-2px);
-    box-shadow: var(--shadow-lg);
+    box-shadow: 0 0 20px rgba(6, 182, 212, 0.5);
+    background-color: var(--primary-light);
 }
 
 .btn-secondary {
     background-color: transparent;
-    color: var(--bg-white);
-    border: 2px solid var(--bg-white);
+    color: white;
+    border: 2px solid var(--primary-color);
 }
 
 .btn-secondary:hover {
-    background-color: var(--bg-white);
-    color: var(--primary-color);
+    background-color: var(--primary-color);
+    color: var(--bg-darker);
+    box-shadow: 0 0 20px rgba(6, 182, 212, 0.5);
 }
 
 /* ===== SECTIONS ===== */
@@ -224,7 +231,7 @@ section {
 
 /* ===== FEATURES SECTION ===== */
 .features {
-    background-color: var(--bg-light);
+    background-color: var(--bg-darker);
 }
 
 .features-grid {
@@ -234,17 +241,19 @@ section {
 }
 
 .feature-card {
-    background-color: var(--bg-white);
+    background-color: var(--bg-light);
     padding: 2rem;
     border-radius: 1rem;
     text-align: center;
     box-shadow: var(--shadow);
     transition: transform 0.3s ease, box-shadow 0.3s ease;
+    border: 1px solid var(--border-color);
 }
 
 .feature-card:hover {
     transform: translateY(-5px);
-    box-shadow: var(--shadow-lg);
+    box-shadow: var(--shadow-lg), 0 0 20px rgba(6, 182, 212, 0.3);
+    border-color: var(--primary-color);
 }
 
 .feature-icon {
@@ -273,7 +282,7 @@ section {
 
 /* ===== RECENT POSTS SECTION ===== */
 .recent-posts {
-    background-color: var(--bg-white);
+    background-color: var(--bg-dark);
 }
 
 .recent-posts .feature-card h3 a:hover {
@@ -296,7 +305,7 @@ section {
 
 /* ===== FEATURED PROJECTS SECTION ===== */
 .featured-projects {
-    background-color: var(--bg-light);
+    background-color: var(--bg-darker);
 }
 
 .featured-projects .project-tags {
@@ -308,7 +317,7 @@ section {
 
 /* ===== CTA SECTION ===== */
 .cta {
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    background: linear-gradient(135deg, #0891b2 0%, #06b6d4 50%, #14b8a6 100%);
     color: white;
     text-align: center;
 }
@@ -331,10 +340,11 @@ section {
 }
 
 .about-content {
-    background-color: var(--bg-white);
+    background-color: var(--bg-light);
     padding: 3rem;
     border-radius: 1rem;
     box-shadow: var(--shadow);
+    border: 1px solid var(--border-color);
 }
 
 .about-content h2 {
@@ -357,7 +367,7 @@ section {
 }
 
 .skill-tag {
-    background-color: var(--bg-light);
+    background-color: var(--bg-darker);
     padding: 0.75rem 1rem;
     border-radius: 0.5rem;
     text-align: center;
@@ -369,7 +379,8 @@ section {
 
 .skill-tag:hover {
     background-color: var(--primary-color);
-    color: white;
+    color: var(--bg-darker);
+    box-shadow: 0 0 15px rgba(6, 182, 212, 0.5);
 }
 
 /* ===== PROJECTS PAGE ===== */
@@ -380,22 +391,24 @@ section {
 }
 
 .project-card {
-    background-color: var(--bg-white);
+    background-color: var(--bg-light);
     border-radius: 1rem;
     overflow: hidden;
     box-shadow: var(--shadow);
     transition: transform 0.3s ease, box-shadow 0.3s ease;
+    border: 1px solid var(--border-color);
 }
 
 .project-card:hover {
     transform: translateY(-10px);
-    box-shadow: var(--shadow-lg);
+    box-shadow: var(--shadow-lg), 0 0 20px rgba(6, 182, 212, 0.3);
+    border-color: var(--primary-color);
 }
 
 .project-image {
     width: 100%;
     height: 200px;
-    background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+    background: linear-gradient(135deg, #0891b2 0%, #06b6d4 50%, #14b8a6 100%);
     display: flex;
     align-items: center;
     justify-content: center;
@@ -426,11 +439,12 @@ section {
 }
 
 .tag {
-    background-color: var(--bg-light);
+    background-color: var(--bg-darker);
     padding: 0.25rem 0.75rem;
     border-radius: 0.25rem;
     font-size: 0.875rem;
     color: var(--primary-color);
+    border: 1px solid var(--primary-color);
 }
 
 .project-links {
@@ -456,10 +470,11 @@ section {
 }
 
 .contact-form {
-    background-color: var(--bg-white);
+    background-color: var(--bg-light);
     padding: 3rem;
     border-radius: 1rem;
     box-shadow: var(--shadow);
+    border: 1px solid var(--border-color);
 }
 
 .form-group {
@@ -481,13 +496,16 @@ section {
     border-radius: 0.5rem;
     font-family: inherit;
     font-size: 1rem;
-    transition: border-color 0.3s ease;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+    background-color: var(--bg-darker);
+    color: var(--text-dark);
 }
 
 .form-group input:focus,
 .form-group textarea:focus {
     outline: none;
     border-color: var(--primary-color);
+    box-shadow: 0 0 10px rgba(6, 182, 212, 0.3);
 }
 
 .form-group textarea {
@@ -537,9 +555,10 @@ section {
 
 /* ===== FOOTER ===== */
 .footer {
-    background-color: var(--text-dark);
+    background-color: var(--bg-darker);
     color: white;
     padding: 3rem 0 1.5rem;
+    border-top: 1px solid var(--border-color);
 }
 
 .footer-content {
@@ -570,16 +589,20 @@ section {
     justify-content: center;
     width: 40px;
     height: 40px;
-    background-color: rgba(255, 255, 255, 0.1);
+    background-color: var(--bg-light);
     border-radius: 50%;
-    color: white;
+    color: var(--primary-color);
     text-decoration: none;
     transition: all 0.3s ease;
+    border: 1px solid var(--border-color);
 }
 
 .social-links a:hover {
     background-color: var(--primary-color);
+    color: var(--bg-darker);
     transform: translateY(-3px);
+    box-shadow: 0 0 15px rgba(6, 182, 212, 0.5);
+    border-color: var(--primary-color);
 }
 
 .footer-bottom {
@@ -690,7 +713,7 @@ section {
 
 /* ===== BLOG SECTION ===== */
 .blog-section {
-    background-color: var(--bg-light);
+    background-color: var(--bg-dark);
 }
 
 .blog-intro {
@@ -709,16 +732,18 @@ section {
 }
 
 .blog-post-card {
-    background-color: var(--bg-white);
+    background-color: var(--bg-light);
     border-radius: 1rem;
     padding: 2rem;
     box-shadow: var(--shadow);
     transition: transform 0.3s ease, box-shadow 0.3s ease;
+    border: 1px solid var(--border-color);
 }
 
 .blog-post-card:hover {
     transform: translateY(-5px);
-    box-shadow: var(--shadow-lg);
+    box-shadow: var(--shadow-lg), 0 0 20px rgba(6, 182, 212, 0.3);
+    border-color: var(--primary-color);
 }
 
 .post-card-header {
@@ -733,7 +758,7 @@ section {
 }
 
 .category-badge {
-    background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+    background: linear-gradient(135deg, #0891b2 0%, #06b6d4 50%, #14b8a6 100%);
     color: white;
     padding: 0.25rem 0.75rem;
     border-radius: 1rem;
@@ -821,7 +846,7 @@ section {
 
 /* Blog Categories Section */
 .blog-categories {
-    background-color: var(--bg-white);
+    background-color: var(--bg-darker);
 }
 
 .categories-list {
@@ -842,26 +867,28 @@ section {
     border-radius: 0.5rem;
     font-weight: 600;
     transition: all 0.3s ease;
-    border: 2px solid transparent;
+    border: 2px solid var(--border-color);
 }
 
 .category-link:hover {
     background-color: var(--primary-color);
-    color: white;
+    color: var(--bg-darker);
     border-color: var(--primary-color);
+    box-shadow: 0 0 15px rgba(6, 182, 212, 0.5);
 }
 
 .category-count {
-    background-color: var(--bg-white);
+    background-color: var(--bg-darker);
     padding: 0.25rem 0.5rem;
     border-radius: 0.25rem;
     font-size: 0.875rem;
     font-weight: 700;
+    color: var(--primary-color);
 }
 
 /* ===== INDIVIDUAL BLOG POST ===== */
 .blog-post {
-    background-color: var(--bg-light);
+    background-color: var(--bg-dark);
     min-height: 100vh;
 }
 
@@ -870,11 +897,12 @@ section {
 }
 
 .post-header {
-    background-color: var(--bg-white);
+    background-color: var(--bg-light);
     padding: 3rem;
     border-radius: 1rem;
     box-shadow: var(--shadow);
     margin-bottom: 2rem;
+    border: 1px solid var(--border-color);
 }
 
 .post-title {
@@ -916,7 +944,7 @@ section {
     line-height: 1.7;
     margin-bottom: 1.5rem;
     padding: 1rem;
-    background-color: var(--bg-light);
+    background-color: var(--bg-darker);
     border-left: 4px solid var(--primary-color);
     border-radius: 0.25rem;
 }
@@ -928,12 +956,13 @@ section {
 }
 
 .post-content {
-    background-color: var(--bg-white);
+    background-color: var(--bg-light);
     padding: 3rem;
     border-radius: 1rem;
     box-shadow: var(--shadow);
     margin-bottom: 2rem;
     line-height: 1.8;
+    border: 1px solid var(--border-color);
 }
 
 .post-content h1,
@@ -999,21 +1028,22 @@ section {
 }
 
 .post-content code {
-    background-color: var(--bg-light);
+    background-color: var(--bg-darker);
     padding: 0.25rem 0.5rem;
     border-radius: 0.25rem;
     font-family: 'Courier New', Courier, monospace;
     font-size: 0.9em;
-    color: var(--secondary-color);
+    color: var(--primary-light);
 }
 
 .post-content pre {
-    background-color: var(--text-dark);
+    background-color: var(--bg-darker);
     color: #fff;
     padding: 1.5rem;
     border-radius: 0.5rem;
     overflow-x: auto;
     margin-bottom: 1.5rem;
+    border: 1px solid var(--border-color);
 }
 
 .post-content pre code {
@@ -1049,16 +1079,17 @@ section {
 }
 
 .post-content th {
-    background-color: var(--bg-light);
+    background-color: var(--bg-darker);
     font-weight: 600;
 }
 
 .post-footer {
-    background-color: var(--bg-white);
+    background-color: var(--bg-light);
     padding: 2rem;
     border-radius: 1rem;
     box-shadow: var(--shadow);
     margin-bottom: 2rem;
+    border: 1px solid var(--border-color);
 }
 
 .post-navigation {
@@ -1073,19 +1104,20 @@ section {
     align-items: center;
     gap: 1rem;
     padding: 1.5rem;
-    background-color: var(--bg-light);
+    background-color: var(--bg-darker);
     border-radius: 0.5rem;
     text-decoration: none;
     color: var(--text-dark);
     transition: all 0.3s ease;
-    border: 2px solid transparent;
+    border: 2px solid var(--border-color);
 }
 
 .post-nav-link:hover {
     background-color: var(--primary-color);
-    color: white;
+    color: var(--bg-darker);
     border-color: var(--primary-color);
     transform: translateX(5px);
+    box-shadow: 0 0 15px rgba(6, 182, 212, 0.5);
 }
 
 .post-nav-link.prev:hover {
