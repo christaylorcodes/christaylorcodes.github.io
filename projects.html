@@ -28,15 +28,9 @@ permalink: /projects/
                     {% endif %}
 
                     <div class="project-links">
-                        {% if project.demo_url %}
-                        <a href="{{ project.demo_url }}" class="project-link" {% if project.demo_url != '#' %}target="_blank" rel="noopener noreferrer"{% endif %}>
-                            <i class="fas fa-external-link-alt"></i> Live Demo
-                        </a>
-                        {% endif %}
-
                         {% if project.github_url %}
                         <a href="{{ project.github_url }}" class="project-link" {% if project.github_url != '#' %}target="_blank" rel="noopener noreferrer"{% endif %}>
-                            <i class="fab fa-github"></i> GitHub
+                            <i class="fab fa-github"></i> View on GitHub
                         </a>
                         {% endif %}
                     </div>

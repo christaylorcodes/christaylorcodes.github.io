@@ -6,7 +6,6 @@ tags:
   - PowerShell
   - Automation
   - API
-demo_url: "https://demo.example.com"
 github_url: "https://github.com/christaylorcodes/project-name"
 order: 10
 ---
@@ -38,9 +37,6 @@ order: 10
     - Technologies: REST API, Azure, AWS, GCP, Docker
     - Categories: Automation, MSP Tools, Networking, Monitoring
     - Platforms: ConnectWise, GitHub Actions, Jenkins
-- **demo_url**: Link to live demo or PowerShell Gallery (optional)
-  - Use `"#"` if no demo available
-  - For PowerShell modules: `"https://www.powershellgallery.com/packages/ModuleName"`
 - **github_url**: Link to GitHub repository (optional)
   - Use `"#"` if no public repository
   - Format: `"https://github.com/christaylorcodes/repo-name"`
@@ -83,7 +79,6 @@ tags:
   - ConnectWise
   - REST API
   - MSP Tools
-demo_url: "https://www.powershellgallery.com/packages/ConnectWiseManageAPI"
 github_url: "https://github.com/christaylorcodes/ConnectWiseManageAPI"
 order: 10
 ```
@@ -98,7 +93,6 @@ tags:
   - Automation
   - PowerShell
   - Infrastructure
-demo_url: "#"
 github_url: "https://github.com/christaylorcodes/network-automation"
 order: 20
 ```
@@ -114,7 +108,6 @@ tags:
   - GCP
   - Automation
   - API Integration
-demo_url: "https://demo.example.com"
 github_url: "https://github.com/christaylorcodes/cloud-manager"
 order: 30
 ```
