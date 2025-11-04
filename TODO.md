@@ -19,6 +19,8 @@ This document tracks improvements and enhancements for christaylor.codes. Tasks 
 ## Priority 2: Features & Functionality
 
 ### Blog Enhancements
+Update the Featured Projects section of the homepage
+Generate one short paragraph summary of the module to display here
 - [ ] Add reading time estimates to blog posts
 - [ ] Implement pagination for blog posts (currently shows all posts on one page)
 - [ ] Add category/tag filtering functionality on blog index page

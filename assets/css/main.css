@@ -463,6 +463,49 @@ section {
     box-shadow: 0 0 15px rgba(6, 182, 212, 0.5);
 }
 
+/* About Page Callout */
+.about-callout {
+    margin: 3rem 0;
+    padding: 2rem;
+    background: linear-gradient(135deg, var(--bg-darker) 0%, var(--bg-light) 100%);
+    border-left: 5px solid var(--accent-orange);
+    border-radius: 0.5rem;
+    box-shadow: var(--shadow-lg);
+}
+
+.about-callout blockquote {
+    margin: 0;
+    padding: 0;
+    border: none;
+}
+
+.about-callout .callout-text {
+    font-size: 1.25rem;
+    font-style: italic;
+    color: var(--text-dark);
+    margin-bottom: 1rem;
+    line-height: 1.6;
+}
+
+.about-callout .callout-footer {
+    font-size: 0.95rem;
+    color: var(--text-light);
+    font-style: normal;
+    margin-top: 1rem;
+}
+
+.about-callout .callout-footer a {
+    color: var(--primary-color);
+    text-decoration: none;
+    border-bottom: 1px dotted var(--primary-color);
+    transition: all 0.3s ease;
+}
+
+.about-callout .callout-footer a:hover {
+    color: var(--primary-light);
+    border-bottom-color: var(--primary-light);
+}
+
 /* ===== PROJECTS PAGE ===== */
 .projects-grid {
     display: grid;
