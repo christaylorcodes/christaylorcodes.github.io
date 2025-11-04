@@ -1,0 +1,128 @@
+/* ========================================
+   OCEANIC THEME - RESPONSIVE DESIGN
+   ========================================
+
+   Media queries and responsive overrides
+
+   Responsive Strategy:
+   - Desktop-first approach (base styles for desktop, scale down for mobile)
+   - Two breakpoints: 768px (tablet) and 480px (mobile)
+   - Many grids use CSS Grid auto-fit/minmax for intrinsic responsiveness
+   - 768px breakpoint handles tablet and mobile portrait
+   - 480px breakpoint handles very small mobile screens
+
+   Breakpoint Choices:
+   - 768px: Common tablet width, where navigation needs to collapse
+   - 480px: Small phone screens, where text sizes need further reduction
+
+   ======================================== */
+
+@media (max-width: 768px) {
+    /* Mobile Navigation: Convert horizontal nav to vertical dropdown menu
+       JavaScript toggles .active class to show/hide menu */
+    .nav-menu {
+        display: none;              /* Hidden by default on mobile */
+        position: absolute;
+        top: 100%;
+        left: 0;
+        right: 0;
+        background-color: var(--bg-white);
+        flex-direction: column;     /* Stack links vertically */
+        padding: 1rem;
+        box-shadow: var(--shadow);
+    }
+
+    .nav-menu.active {
+        display: flex;              /* JavaScript adds this class to show menu */
+    }
+
+    .nav-toggle {
+        display: block;             /* Show hamburger menu on mobile */
+    }
+
+    .hero-title {
+        font-size: 2.5rem;
+    }
+
+    .hero-subtitle {
+        font-size: 1.25rem;
+    }
+
+    .section-title {
+        font-size: 2rem;
+    }
+
+    .hero-buttons {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .features-grid,
+    .projects-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .contact-method-card {
+        padding: 2rem 1.5rem;
+    }
+
+    .contact-methods-grid {
+        grid-template-columns: 1fr;
+    }
+
+    /* Blog Responsive */
+    .post-header {
+        padding: 2rem 1.5rem;
+    }
+
+    .post-title {
+        font-size: 2rem;
+    }
+
+    .post-content {
+        padding: 2rem 1.5rem;
+    }
+
+    .post-footer {
+        padding: 1.5rem;
+    }
+
+    .post-navigation {
+        grid-template-columns: 1fr;
+    }
+
+    .blog-post-card {
+        padding: 1.5rem;
+    }
+
+    .post-card-title a {
+        font-size: 1.5rem;
+    }
+
+    /* About page responsive */
+    .quote-text {
+        font-size: 1.25rem;
+    }
+
+    .about-quote {
+        padding-left: 1.5rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .hero {
+        padding: 4rem 0;
+    }
+
+    .hero-title {
+        font-size: 2rem;
+    }
+
+    section {
+        padding: 3rem 0;
+    }
+
+    .about-content {
+        padding: 2rem 1.5rem;
+    }
+}

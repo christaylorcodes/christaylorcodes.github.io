@@ -1,0 +1,72 @@
+/* ========================================
+   OCEANIC THEME - FEATURES SECTION
+   ========================================
+
+   Features grid and card components
+
+   ======================================== */
+
+.features {
+    background-color: var(--bg-dark);
+}
+
+/* Auto-fit grid creates responsive layout without media queries
+   minmax(250px, 1fr) ensures cards don't get too narrow but fill available space */
+.features-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 2rem;
+}
+
+/* UNIVERSAL CARD HOVER PATTERN:
+   This hover effect pattern is used consistently across the site for:
+   - Feature cards
+   - Project cards
+   - Blog post cards
+   - Contact method cards
+
+   Hover Effects:
+   1. translateY(-5px or -10px) - Lifts card up
+   2. Enhanced shadow with cyan glow - Creates depth
+   3. Border color changes to primary - Highlights interactivity
+
+   This creates a cohesive, polished feel across all interactive elements */
+.feature-card {
+    background-color: var(--bg-light);
+    padding: 2rem;
+    border-radius: 1rem;
+    text-align: center;
+    box-shadow: var(--shadow);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    border: 1px solid var(--border-color);
+}
+
+.feature-card:hover {
+    transform: translateY(-5px);        /* Lifts card on hover */
+    box-shadow: var(--shadow-lg), 0 0 20px rgba(6, 182, 212, 0.3);  /* Enhanced shadow + glow */
+    border-color: var(--primary-color);  /* Cyan border highlight */
+}
+
+.feature-icon {
+    width: 4rem;
+    height: 4rem;
+    background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 1.5rem;
+    font-size: 1.75rem;
+    color: white;
+}
+
+.feature-card h3 {
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+    color: var(--text-dark);
+}
+
+.feature-card p {
+    color: var(--text-light);
+    line-height: 1.6;
+}

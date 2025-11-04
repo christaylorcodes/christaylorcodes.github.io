@@ -1,0 +1,43 @@
+/* ========================================
+   OCEANIC THEME - BASE STYLES
+   ========================================
+
+   Reset, typography, and layout fundamentals
+
+   ======================================== */
+
+/* Universal box-sizing ensures consistent sizing calculations across all elements */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* System font stack provides native look while Inter loads for consistency */
+body {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+    line-height: 1.6;
+    color: var(--text-dark);
+    background-color: var(--bg-dark);
+}
+
+/* Container: 1200px max-width balances readability with modern wide-screen usage
+   20px horizontal padding ensures content doesn't touch screen edges on mobile */
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+/* Generic section padding */
+section {
+    padding: 5rem 0;
+}
+
+.section-title {
+    text-align: center;
+    font-size: 2.5rem;
+    font-weight: 700;
+    margin-bottom: 3rem;
+    color: var(--text-dark);
+}

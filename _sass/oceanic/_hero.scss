@@ -1,0 +1,67 @@
+/* ========================================
+   OCEANIC THEME - HERO SECTION
+   ========================================
+
+   Hero/banner section for top of pages
+
+   ======================================== */
+
+/* Gradient background creates visual depth from dark to light
+   6rem top/bottom padding provides generous breathing room for hero content */
+.hero {
+    padding: 6rem 0;
+    background: linear-gradient(135deg, var(--bg-darker) 0%, var(--bg-light) 100%);
+    color: white;
+    text-align: center;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.hero-content {
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.hero-title {
+    font-size: 3.5rem;
+    font-weight: 700;
+    margin-bottom: 1rem;
+    line-height: 1.2;
+}
+
+.highlight {
+    color: var(--primary-color);
+    position: relative;
+    text-shadow: 0 0 20px rgba(6, 182, 212, 0.5);
+}
+
+.highlight-primary {
+    color: var(--primary-color);
+    position: relative;
+    text-shadow: 0 0 20px rgba(6, 182, 212, 0.5);
+}
+
+.highlight-secondary {
+    color: var(--secondary-color);
+    position: relative;
+    text-shadow: 0 0 20px rgba(245, 158, 11, 0.5);
+}
+
+.hero-subtitle {
+    font-size: 1.5rem;
+    font-weight: 400;
+    margin-bottom: 1.5rem;
+    opacity: 0.95;
+}
+
+.hero-description {
+    font-size: 1.125rem;
+    margin-bottom: 2rem;
+    opacity: 0.9;
+}
+
+.hero-buttons {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    flex-wrap: wrap;
+}

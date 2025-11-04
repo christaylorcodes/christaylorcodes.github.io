@@ -1,0 +1,46 @@
+/* ========================================
+   OCEANIC THEME - ANIMATIONS
+   ========================================
+
+   Keyframe animations and animation utilities
+
+   ======================================== */
+
+/* Fade-In-Up Animation:
+   Creates smooth entrance effect for hero content
+   30px vertical movement creates subtle upward motion
+   backwards fill-mode hides elements until animation starts */
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Staggered Animation Timing:
+   Hero elements animate in sequence with 0.1s delays
+   Creates cascading effect: title → subtitle → description → buttons
+   0.8s duration balances smooth motion with quick page load feel */
+.hero-content > * {
+    animation: fadeInUp 0.8s ease-out backwards;
+}
+
+.hero-title {
+    animation-delay: 0.1s;      /* First to animate */
+}
+
+.hero-subtitle {
+    animation-delay: 0.2s;      /* Second to animate */
+}
+
+.hero-description {
+    animation-delay: 0.3s;      /* Third to animate */
+}
+
+.hero-buttons {
+    animation-delay: 0.4s;      /* Last to animate */
+}

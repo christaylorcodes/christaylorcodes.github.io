@@ -1,0 +1,42 @@
+/* ========================================
+   OCEANIC THEME - MAIN IMPORT FILE
+   ========================================
+
+   Author: Chris Taylor
+   Description: Modern dark theme with Electric Blue and warm accents
+   Version: 0.1.0
+   License: MIT
+
+   This file imports all theme partials in the correct order.
+   Order matters: Variables first, base styles, then components.
+
+   ======================================== */
+
+/* 1. Variables and Theming */
+@import "oceanic/variables";
+
+/* 2. Base Styles */
+@import "oceanic/base";
+
+/* 3. Navigation */
+@import "oceanic/navigation";
+
+/* 4. Hero Section */
+@import "oceanic/hero";
+
+/* 5. Buttons */
+@import "oceanic/buttons";
+
+/* 6. Components */
+@import "oceanic/features";
+@import "oceanic/posts";
+@import "oceanic/projects";
+@import "oceanic/contact";
+@import "oceanic/about";
+@import "oceanic/footer";
+
+/* 7. Animations */
+@import "oceanic/animations";
+
+/* 8. Responsive (Media Queries Last) */
+@import "oceanic/responsive";

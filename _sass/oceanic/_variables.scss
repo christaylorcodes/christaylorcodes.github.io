@@ -1,0 +1,44 @@
+/* ========================================
+   OCEANIC THEME - VARIABLES
+   ========================================
+
+   Color System: Oceanic Palette with Electric Blue Primary
+   - Primary colors use cyan/blue for tech/trust feeling
+   - Secondary colors use amber/orange for warmth and calls-to-action
+   - Background uses deep slate for comfortable dark theme
+   - All colors defined as CSS variables for easy theming
+
+   ======================================== */
+
+/* Font display swap prevents invisible text during font loading (FOIT prevention) */
+@font-face {
+    font-display: swap;
+}
+
+:root {
+    /* Primary Colors - Electric Blue Theme */
+    --primary-color: #06b6d4;        /* Cyan - main accent */
+    --primary-dark: #0284c7;         /* Sky Blue - darker accent */
+    --primary-light: #38bdf8;        /* Light Blue - lighter accent */
+    --secondary-color: #f59e0b;      /* Amber - warm accent */
+
+    /* Background Colors - Deep Slate */
+    --bg-darker: #020617;            /* Rich Black - darkest backgrounds */
+    --bg-dark: #0f172a;              /* Dark Slate - main background */
+    --bg-light: #1e293b;             /* Slate - elevated sections */
+    --bg-white: #334155;             /* Light Slate - highest elevation */
+
+    /* Text Colors */
+    --text-dark: #f1f5f9;            /* Off White - primary text */
+    --text-light: #cbd5e1;           /* Light Gray - secondary text */
+
+    /* Utility Colors */
+    --border-color: #475569;         /* Slate Gray - borders */
+    --accent-warm: #f59e0b;          /* Amber - warm highlights */
+    --accent-orange: #ea580c;        /* Orange - call-to-action */
+    --accent-rust: #dc2626;          /* Red - warnings */
+
+    /* Shadows */
+    --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.5), 0 2px 4px -1px rgba(0, 0, 0, 0.3);
+    --shadow-lg: 0 20px 25px -5px rgba(0, 0, 0, 0.6), 0 10px 10px -5px rgba(0, 0, 0, 0.4);
+}

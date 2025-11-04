@@ -1,0 +1,45 @@
+/* ========================================
+   OCEANIC THEME - BUTTONS
+   ========================================
+
+   Button components and variations
+
+   ======================================== */
+
+/* Base button class provides consistent styling across all button types
+   0.875rem (14px) padding creates comfortable click target size
+   All transitions are 0.3s for consistent feel throughout site */
+.btn {
+    display: inline-block;
+    padding: 0.875rem 2rem;
+    border-radius: 0.5rem;
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.3s ease;      /* Smooth transitions for all properties */
+    cursor: pointer;
+    border: none;
+    font-size: 1rem;
+}
+
+.btn-primary {
+    background-color: var(--primary-color);
+    color: var(--bg-darker);
+}
+
+.btn-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 0 20px rgba(6, 182, 212, 0.5);
+    background-color: var(--primary-light);
+}
+
+.btn-secondary {
+    background-color: transparent;
+    color: white;
+    border: 2px solid var(--primary-color);
+}
+
+.btn-secondary:hover {
+    background-color: var(--primary-color);
+    color: var(--bg-darker);
+    box-shadow: 0 0 20px rgba(6, 182, 212, 0.5);
+}

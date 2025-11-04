@@ -23,13 +23,29 @@ Website/
 ├── _includes/               # Reusable components
 │   ├── navigation.html     # Site navigation bar
 │   └── footer.html         # Site footer
+├── _sass/                   # SCSS source files (Oceanic theme)
+│   ├── oceanic/
+│   │   ├── _variables.scss    # Color system and CSS variables
+│   │   ├── _base.scss         # Reset and base styles
+│   │   ├── _navigation.scss   # Navigation component
+│   │   ├── _hero.scss         # Hero section
+│   │   ├── _buttons.scss      # Button styles
+│   │   ├── _features.scss     # Feature cards
+│   │   ├── _posts.scss        # Blog post styles
+│   │   ├── _projects.scss     # Project cards
+│   │   ├── _contact.scss      # Contact page
+│   │   ├── _about.scss        # About page
+│   │   ├── _footer.scss       # Footer component
+│   │   ├── _animations.scss   # Animations
+│   │   └── _responsive.scss   # Media queries
+│   └── oceanic.scss         # Main import file
 ├── _posts/                  # Blog posts (markdown)
 │   └── YYYY-MM-DD-title.md
 ├── _projects/               # Project entries (markdown)
 │   └── project-name.md
 ├── assets/
 │   ├── css/
-│   │   └── main.css        # Custom styles
+│   │   └── styles.scss      # Compiled stylesheet (processed by Jekyll)
 │   ├── js/
 │   │   └── main.js         # JavaScript functionality
 │   └── images/             # Site images
@@ -38,8 +54,12 @@ Website/
 ├── blog.html                # Blog index
 ├── projects.html            # Projects showcase
 ├── contact.html             # Contact page
+├── oceanic.gemspec          # Gem specification for theme
+├── LICENSE                  # MIT License
 ├── Gemfile                  # Ruby dependencies
-└── README.md                # Project documentation
+├── README.md                # Project documentation
+├── THEME-README.md          # Theme-specific documentation
+└── CLAUDE.md                # This file
 ```
 
 ## Key Configuration (_config.yml)
@@ -58,10 +78,76 @@ collections:
 ```
 
 **Important Notes:**
-- The site does NOT use a theme (no `theme:` in config)
+- The site uses a custom "Oceanic" theme (gem-based, structured for future distribution)
+- Theme follows Jekyll conventions with modular SCSS in `_sass/oceanic/`
 - Uses custom layouts in `_layouts/`
 - Collections are used for projects (data-driven)
 - No `.nojekyll` file should exist (Jekyll processing is required)
+
+## Oceanic Theme Structure
+
+The site uses a custom-built Jekyll theme called **"Oceanic"** that follows official Jekyll theme conventions. The theme is structured for potential future distribution as a RubyGems package.
+
+### Theme Architecture
+
+**SCSS Organization** (`_sass/oceanic/`):
+The monolithic CSS file has been refactored into 13 modular SCSS partials for better maintainability:
+
+1. **`_variables.scss`** (45 lines) - CSS custom properties, color system, shadows
+2. **`_base.scss`** (45 lines) - Reset, body, typography, container, sections
+3. **`_navigation.scss`** (125 lines) - Navbar, logo, mobile menu, hamburger
+4. **`_hero.scss`** (60 lines) - Hero sections, highlights, buttons container
+5. **`_buttons.scss`** (40 lines) - Button components (primary, secondary)
+6. **`_features.scss`** (70 lines) - Feature cards and grid
+7. **`_posts.scss`** (400 lines) - Blog list, individual posts, categories, content styles
+8. **`_projects.scss`** (110 lines) - Project cards, grid, CTA section
+9. **`_contact.scss`** (85 lines) - Contact page, method cards, form styles
+10. **`_about.scss`** (110 lines) - About page, photo, skills grid, quote
+11. **`_footer.scss`** (60 lines) - Footer, social links, copyright
+12. **`_animations.scss`** (45 lines) - Keyframe animations (fadeInUp)
+13. **`_responsive.scss`** (115 lines) - Media queries for 768px and 480px breakpoints
+
+**Main Import File** (`_sass/oceanic.scss`):
+Imports all partials in the correct order (variables → base → components → animations → responsive).
+
+**Asset Pipeline** (`assets/css/styles.scss`):
+Contains Jekyll front matter (the dashes) and imports `oceanic.scss`. Jekyll processes this file and outputs `_site/assets/css/styles.css`.
+
+### Modifying Styles
+
+**To change colors**: Edit `_sass/oceanic/_variables.scss` only
+```scss
+:root {
+    --primary-color: #06b6d4;    /* Change this to update accent color */
+    --secondary-color: #f59e0b;  /* Change this to update warm accent */
+    /* ... etc */
+}
+```
+
+**To modify a specific component**: Edit the corresponding partial
+- Navigation styles: `_sass/oceanic/_navigation.scss`
+- Blog posts: `_sass/oceanic/_posts.scss`
+- Projects: `_sass/oceanic/_projects.scss`
+- etc.
+
+**To add new styles**: Create a new partial in `_sass/oceanic/` and import it in `_sass/oceanic.scss`
+
+### Theme Distribution Files
+
+- **`oceanic.gemspec`** - Gem specification for RubyGems distribution
+- **`LICENSE`** - MIT License
+- **`THEME-README.md`** - Complete theme documentation for users
+
+**Note**: The theme is not yet published to RubyGems. To use it, the files must be present in the site directory.
+
+### Import Order (Important!)
+
+The order in `_sass/oceanic.scss` matters:
+1. Variables (defines CSS custom properties used by all other files)
+2. Base (foundational styles)
+3. Components (navigation, hero, buttons, etc.)
+4. Animations (keyframes)
+5. Responsive (media queries must be last)
 
 ## Content Management
 
@@ -340,7 +426,7 @@ All colors are defined as CSS custom properties (variables) for easy theming and
 
 #### CSS Variables Location
 
-All variables are defined in `assets/css/main.css` at lines 51-77 within the `:root` selector:
+All variables are defined in `_sass/oceanic/_variables.scss` within the `:root` selector:
 
 ```css
 :root {
@@ -411,7 +497,7 @@ All variables are defined in `assets/css/main.css` at lines 51-77 within the `:r
 #### Changing the Color Scheme
 
 **To update colors:**
-1. Edit the `:root` variables in `assets/css/main.css` (lines 51-77)
+1. Edit the `:root` variables in `_sass/oceanic/_variables.scss`
 2. Maintain contrast ratios for accessibility (WCAG AA: 4.5:1 for text)
 3. Test hover states and interactive elements
 4. Update glow effect rgba values to match new primary color
@@ -586,7 +672,8 @@ Edit `_includes/navigation.html` to add/remove/reorder nav items:
 - `_layouts/default.html` - Base layout
 - `_includes/navigation.html` - Site navigation
 - `_includes/footer.html` - Site footer
-- `assets/css/main.css` - All styles
+- `_sass/oceanic/*.scss` - Theme SCSS partials
+- `assets/css/styles.scss` - Main stylesheet (processed by Jekyll)
 - `assets/js/main.js` - JavaScript functionality
 - `Gemfile` - Ruby dependencies
 - `.gitignore` - Git ignore rules

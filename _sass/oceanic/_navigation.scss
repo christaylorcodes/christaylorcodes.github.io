@@ -1,0 +1,130 @@
+/* ========================================
+   OCEANIC THEME - NAVIGATION
+   ========================================
+
+   Site navigation bar including mobile hamburger menu
+
+   ======================================== */
+
+/* Sticky navigation stays visible during scroll for better UX
+   z-index: 1000 ensures it sits above all page content */
+.navbar {
+    background-color: var(--bg-darker);
+    box-shadow: var(--shadow);
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    padding: 1rem 0;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.navbar .container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+/* Two-Tone Logo System:
+   Logo uses two colors (cyan + amber) for visual interest and brand recognition
+   Hover effect darkens both colors for interactive feedback */
+.logo {
+    font-size: 1.5rem;
+    font-weight: 700;
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+.logo-primary {
+    color: var(--primary-color);        /* Cyan for "chris" */
+}
+
+.logo-secondary {
+    color: var(--secondary-color);      /* Amber for "taylor" */
+}
+
+.logo:hover .logo-primary {
+    color: var(--primary-dark);         /* Darker cyan on hover */
+}
+
+.logo:hover .logo-secondary {
+    color: var(--accent-orange);        /* Darker amber on hover */
+}
+
+.nav-menu {
+    display: flex;
+    list-style: none;
+    gap: 2rem;
+    align-items: center;
+}
+
+/* Navigation Link Animation Pattern:
+   Uses ::after pseudo-element for animated underline
+   Width animates from 0 to 100% on hover for smooth sliding effect
+   Same animation applies to .active class for current page indication */
+.nav-link {
+    color: var(--text-dark);
+    text-decoration: none;
+    font-weight: 500;
+    transition: color 0.3s ease;
+    position: relative;              /* Required for ::after positioning */
+}
+
+.nav-link::after {
+    content: '';
+    position: absolute;
+    bottom: -5px;
+    left: 0;
+    width: 0;                       /* Starts at 0 width */
+    height: 2px;
+    background-color: var(--primary-color);
+    transition: width 0.3s ease;    /* Animates width property */
+}
+
+.nav-link:hover::after,
+.nav-link.active::after {
+    width: 100%;                    /* Expands to full width */
+}
+
+.nav-link:hover,
+.nav-link.active {
+    color: var(--primary-color);
+}
+
+/* Mobile Hamburger Menu:
+   Hidden on desktop, shown on mobile via media query
+   Three-line hamburger uses main element + ::before/::after pseudo-elements
+   8px spacing creates visually balanced hamburger icon */
+.nav-toggle {
+    display: none;              /* Hidden on desktop */
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 0.5rem;
+}
+
+.hamburger {
+    display: block;
+    width: 25px;
+    height: 2px;
+    background-color: var(--text-dark);
+    position: relative;
+    transition: background-color 0.3s ease;
+}
+
+.hamburger::before,
+.hamburger::after {
+    content: '';
+    position: absolute;
+    width: 25px;
+    height: 2px;
+    background-color: var(--text-dark);
+    transition: all 0.3s ease;      /* Enables potential animation effects */
+}
+
+.hamburger::before {
+    top: -8px;                      /* Top line of hamburger */
+}
+
+.hamburger::after {
+    bottom: -8px;                   /* Bottom line of hamburger */
+}
