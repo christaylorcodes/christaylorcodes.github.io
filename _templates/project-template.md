@@ -1,7 +1,8 @@
 ---
 title: Project Name Here
 icon: fa-code
-description: Brief one or two sentence description of the project that appears on the project card. Keep it concise and focused on the value it provides.
+short_description: Concise 1-2 sentence benefit-focused summary for homepage cards (20-30 words max).
+description: More detailed 3-4 sentence description that explains features, benefits, and use cases for the full projects page (70-90 words).
 tags:
   - PowerShell
   - Automation
@@ -26,10 +27,16 @@ order: 10
   - Use format: `fa-iconname` (e.g., `fa-code`, `fa-rocket`, `fa-cogs`)
   - Browse icons at: https://fontawesome.com/icons
   - Common icons: `fa-code`, `fa-rocket`, `fa-cogs`, `fa-network-wired`, `fa-server`, `fa-cloud`, `fa-terminal`
-- **description**: Short description for the project card (required)
-  - Keep to 1-2 sentences
-  - Focus on the problem solved or value provided
-  - This appears on both the home page and projects page
+- **short_description**: Concise summary for homepage featured projects (required)
+  - 1-2 sentences, 20-30 words maximum
+  - Benefit-focused: emphasize what problem it solves or value it provides
+  - Used on homepage "Featured Projects" section only
+  - Example: "Automates ConnectWise ticket workflows with PowerShell cmdlets for streamlined MSP operations."
+- **description**: Detailed description for the full projects page (required)
+  - 3-4 sentences, 70-90 words
+  - Explain features, benefits, use cases, and technical highlights
+  - Used on the main projects page where more detail is appropriate
+  - Example: "Comprehensive PowerShell module that automates ConnectWise Manage PSA operations... [longer detailed text]"
 - **tags**: List of technologies/categories (required)
   - 3-6 tags recommended
   - Suggested tags:
@@ -73,7 +80,8 @@ Get-SomeCommand -Parameter Value
 ```yaml
 title: ConnectWiseManageAPI
 icon: fa-plug
-description: PowerShell wrapper for the ConnectWise Manage REST API, enabling automation of MSP workflows and integrations.
+short_description: PowerShell module that simplifies ConnectWise Manage automation with intuitive cmdlets and intelligent error handling for streamlined MSP operations.
+description: Comprehensive PowerShell module that automates ConnectWise Manage PSA operations by providing intuitive cmdlets for the REST API. Features dynamic parameter validation, automatic pagination, and intelligent error handling, eliminating complex manual API construction. Enables MSPs to streamline ticket management, company operations, and configuration workflows while maintaining type-safety and providing extensive inline documentation for rapid development.
 tags:
   - PowerShell
   - ConnectWise
@@ -87,7 +95,8 @@ order: 10
 ```yaml
 title: Network Config Automation
 icon: fa-network-wired
-description: Automated network configuration and monitoring solution for multi-site enterprise environments.
+short_description: Automated network configuration and monitoring solution for multi-site enterprise environments.
+description: PowerShell-based automation framework that standardizes network device configuration, monitors compliance, and provides real-time alerting across multi-site deployments. Supports Cisco, HPE, and Dell networking equipment with extensible plugin architecture. Reduces configuration drift and enables rapid deployment of security updates and policy changes across distributed infrastructure.
 tags:
   - Networking
   - Automation
@@ -101,7 +110,8 @@ order: 20
 ```yaml
 title: Multi-Cloud Resource Manager
 icon: fa-cloud
-description: Unified management interface for Azure, AWS, and GCP resources with automated provisioning and monitoring.
+short_description: Unified management interface for Azure, AWS, and GCP resources with automated provisioning and monitoring.
+description: Enterprise cloud management platform providing unified control across Azure, AWS, and GCP environments. Features automated resource provisioning, cost optimization recommendations, security compliance monitoring, and centralized billing analytics. Integrates with existing ITSM workflows and provides role-based access control for team collaboration. Reduces multi-cloud complexity while maintaining vendor-specific capabilities.
 tags:
   - Azure
   - AWS

@@ -1,6 +1,7 @@
 ---
 title: ConnectWise Control API
 icon: fa-plug
+short_description: Automate remote support operations and integrate ConnectWise Control into ticketing workflows and monitoring systems with clean PowerShell cmdlets.
 description: Feature-rich PowerShell module that streamlines ConnectWise Control (formerly ScreenConnect) automation by providing programmatic access to remote support operations. Manages sessions, guest access, extensions, and host configurations through clean cmdlet interfaces. Enables MSPs to integrate remote support capabilities into ticketing workflows, automated remediation processes, and monitoring systems, transforming manual remote access into scalable automation.
 tags:
   - PowerShell

@@ -100,7 +100,7 @@ title: Home
                     <i class="fas {{ project.icon }}"></i>
                 </div>
                 <h3>{{ project.title }}</h3>
-                <p>{{ project.description }}</p>
+                <p>{% if project.short_description %}{{ project.short_description }}{% else %}{{ project.description }}{% endif %}</p>
                 {% if project.tags %}
                 <div class="featured-project-tags">
                     {% for tag in project.tags limit:3 %}
