@@ -1,0 +1,229 @@
+TOPIC
+    about_ChrisTaylor
+
+SHORT DESCRIPTION
+    Network Operations Chief, vCTO, and Automation Engineer specializing in
+    infrastructure automation, AI integration, and MSP operations.
+
+LONG DESCRIPTION
+    Chris Taylor is a seasoned technology leader with 20+ years of professional
+    experience (since 2002) in infrastructure automation, systems integration,
+    and managed services operations. Currently serving as Network Operations
+    Chief at i.t.NOW, Chris specializes in building scalable multi-tenant
+    solutions that power MSP operations across diverse industries.
+
+    His journey in technology began in elementary school helping the school
+    librarian troubleshoot and fix computer issues. That early spark of
+    curiosity grew into a lifelong passion for understanding how systems work
+    and finding better ways to make them run. Starting his professional career
+    in 2002 with EchoStar doing satellite communications, Chris has evolved
+    into a leader who specializes in MSP operations, infrastructure automation,
+    and AI-driven solutions.
+
+    What drives Chris is the challenge of creating creative solutions to
+    resolve complex problems. Whether automating repetitive tasks with
+    PowerShell, designing efficient network architectures, or integrating
+    disparate systems through APIs, he thrives on finding elegant solutions
+    that make a real impact.
+
+PROFESSIONAL ROLE
+    Title       : Network Operations Chief, vCTO, Automation Engineer
+    Company     : i.t.NOW (Global Managed Services Provider)
+    Location    : United States
+    Experience  : 20+ years (2002-Present)
+
+EXPERTISE AREAS
+    PowerShell & Automation
+        - Expert-level PowerShell development and automation
+        - Infrastructure as Code (IaC)
+        - Process automation and workflow optimization
+        - API wrapper development
+        - Custom module creation and distribution
+
+    MSP Operations
+        - Multi-tenant architecture design
+        - RMM (Remote Monitoring and Management) integration
+        - PSA (Professional Services Automation) workflows
+        - Client onboarding and offboarding automation
+        - Service delivery optimization
+
+    Systems Integration
+        - API development and integration
+        - Third-party platform connectivity
+        - Data synchronization and transformation
+        - Webhook automation
+        - Custom integration solutions
+
+    Infrastructure & Cloud
+        - Azure cloud architecture and management
+        - AWS infrastructure design
+        - Network architecture and optimization
+        - Hybrid cloud solutions
+        - Infrastructure monitoring and alerting
+
+    AI/ML Integration
+        - AI workflow automation
+        - Machine learning model integration
+        - LLM (Large Language Model) implementation
+        - AI-assisted operations
+        - Intelligent process automation
+
+TECHNOLOGIES & PLATFORMS
+    Languages & Scripting:
+        - PowerShell (Expert)
+        - TypeScript
+        - SQL (T-SQL, PostgreSQL)
+        - Jinja templating
+        - Markdown
+        - YAML/JSON
+
+    Platforms & Tools:
+        - ConnectWise Platform (Manage, Automate, Control)
+        - ImmyBot (PowerShell-based automation)
+        - Rewst (Workflow automation)
+        - Azure (Cloud infrastructure)
+        - AWS (Cloud infrastructure)
+        - Git (Version control)
+        - Visual Studio Code
+
+    Frameworks & APIs:
+        - REST API design and consumption
+        - .NET Framework
+        - Node.js
+        - Jekyll (Static site generation)
+        - GitHub Actions (CI/CD)
+
+OPEN SOURCE PROJECTS
+    PowerShell Modules (Published to PowerShell Gallery):
+
+    ConnectWiseControlAPI
+        Automate remote support operations and integrate ConnectWise Control
+        into ticketing workflows and monitoring systems.
+        Gallery: https://www.powershellgallery.com/packages/ConnectWiseControlAPI
+
+    ConnectWiseManageAPI
+        Comprehensive PowerShell wrapper for ConnectWise Manage REST API with
+        full CRUD operations and pipeline support.
+        Gallery: https://www.powershellgallery.com/packages/ConnectWiseManageAPI
+
+    ConnectWiseAutomateAgent
+        Manage and deploy ConnectWise Automate agents with clean PowerShell
+        cmdlets for MSP automation.
+        Gallery: https://www.powershellgallery.com/packages/ConnectWiseAutomateAgent
+
+    WebrootUnity
+        PowerShell integration for Webroot SecureAnywhere Unity API with
+        endpoint management capabilities.
+        Gallery: https://www.powershellgallery.com/packages/WebrootUnity
+
+    AzureKeyVaultHelper
+        Simplifies Azure Key Vault integration with automatic serialization,
+        PSCredential management, and secure string operations.
+        Gallery: https://www.powershellgallery.com/packages/AzureKeyVaultHelper
+
+    Initialize-PSGallery
+        Streamlines PowerShell Gallery module publishing with automated build
+        and release workflows.
+        Gallery: https://www.powershellgallery.com/packages/Initialize-PSGallery
+
+CAREER HIGHLIGHTS
+    2002-2004   : EchoStar - Satellite Communications Technician
+    2004-2015   : Progressive roles in IT support and systems administration
+    2015-2020   : Automation Engineer - Focus on PowerShell and API integration
+    2020-Present: Network Operations Chief at i.t.NOW
+                  Leading infrastructure automation and AI integration initiatives
+
+COMMUNITY CONTRIBUTIONS
+    - Active PowerShell Gallery contributor (6+ published modules)
+    - Technical blog writer focusing on MSP automation
+    - Open source maintainer and collaborator
+    - GitHub: @christaylorcodes
+    - Website: christaylor.codes
+
+PHILOSOPHY & APPROACH
+    "I believe in the power of automation to free people from mundane tasks
+    and enable them to focus on more meaningful work."
+
+    Core Principles:
+        - Readability over cleverness in code
+        - Verbose, descriptive naming conventions
+        - Self-documenting code with meaningful comments
+        - Security-conscious development practices
+        - Thorough testing before deployment
+        - Comprehensive documentation
+
+INTERESTS
+    When not architecting solutions or optimizing workflows, Chris can be
+    found on mountain biking trails. The combination of technical skill,
+    physical challenge, and connection with nature provides the perfect
+    balance and recharge. Just like in technology, mountain biking requires
+    problem-solving, adaptability, and the willingness to tackle tough terrain.
+
+CONTACT INFORMATION
+    Email   : ctaylor@christaylor.codes
+    Website : https://christaylor.codes
+    GitHub  : https://github.com/christaylorcodes
+    LinkedIn: https://linkedin.com/in/christaylorcodes
+
+EXAMPLES
+    Example 1: View Chris Taylor's PowerShell modules
+    ----------------------------
+    Find-Module -Author 'christaylorcodes' | Format-Table -AutoSize
+
+    Name                        Version  Description
+    ----                        -------  -----------
+    ConnectWiseControlAPI       0.3.0    PowerShell wrapper for ConnectWise Control API
+    ConnectWiseManageAPI        0.4.7    PowerShell wrapper for ConnectWise Manage API
+    ConnectWiseAutomateAgent    1.0.2    Manage ConnectWise Automate agents
+    WebrootUnity                1.0.0    Webroot Unity API wrapper
+    AzureKeyVaultHelper         1.2.0    Azure Key Vault integration helper
+    Initialize-PSGallery        1.0.0    PSGallery publishing automation
+
+
+    Example 2: Install Chris Taylor's most popular module
+    ----------------------------
+    Install-Module -Name ConnectWiseManageAPI -Scope CurrentUser
+    Import-Module ConnectWiseManageAPI
+    Get-Command -Module ConnectWiseManageAPI
+
+
+    Example 3: Follow best practices from Chris's coding standards
+    ----------------------------
+    # Use verbose, descriptive variable names
+    $connectWiseManageTicketList = Get-CWMTicket -Condition "status/name = 'In Progress'"
+
+    # Write self-documenting code with clear intent
+    foreach ($currentTicket in $connectWiseManageTicketList) {
+        # Process only tickets assigned to current user
+        if ($currentTicket.owner.identifier -eq $currentUserIdentifier) {
+            Update-CWMTicket -TicketID $currentTicket.id -Status 'Completed'
+        }
+    }
+
+SEE ALSO
+    Online Resources:
+        Website     : https://christaylor.codes
+        Blog        : https://christaylor.codes/blog/
+        Projects    : https://christaylor.codes/projects/
+        GitHub      : https://github.com/christaylorcodes
+
+    PowerShell Gallery:
+        Profile     : https://www.powershellgallery.com/profiles/christaylorcodes
+
+    Related Topics:
+        about_PowerShell_Gallery
+        about_Modules
+        about_Functions_Advanced
+        about_Comment_Based_Help
+
+KEYWORDS
+    PowerShell, Automation, MSP, API, Integration, Infrastructure, Cloud,
+    Azure, AWS, ConnectWise, ImmyBot, Rewst, DevOps, CI/CD
+
+COPYRIGHT
+    Copyright (c) 2025 Chris Taylor. All rights reserved.
+    MIT License - https://opensource.org/licenses/MIT
+
+VERSION
+    1.0.0
+    Last Updated: 2025-11-04
