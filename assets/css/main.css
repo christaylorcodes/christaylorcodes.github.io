@@ -232,7 +232,7 @@ section {
 
 /* ===== FEATURES SECTION ===== */
 .features {
-    background-color: var(--bg-darker);
+    background-color: var(--bg-dark);
 }
 
 .features-grid {
@@ -283,7 +283,7 @@ section {
 
 /* ===== RECENT POSTS SECTION ===== */
 .recent-posts {
-    background-color: var(--bg-dark);
+    background-color: var(--bg-light);
 }
 
 .recent-posts .feature-card h3 a:hover {
@@ -306,7 +306,7 @@ section {
 
 /* ===== FEATURED PROJECTS SECTION ===== */
 .featured-projects {
-    background-color: var(--bg-darker);
+    background-color: var(--bg-dark);
 }
 
 .featured-projects .project-tags {
