@@ -1,0 +1,8 @@
+# robots.txt for christaylor.codes
+# Allow all robots to crawl the entire site
+
+User-agent: *
+Allow: /
+
+# Sitemap location
+Sitemap: https://christaylor.codes/sitemap.xml
