@@ -67,7 +67,7 @@ collections:
 
 ### Adding Blog Posts
 
-1. Create a new file in `_posts/` with naming format: `YYYY-MM-DD-title-of-post.md`
+1. Create a new file in `_posts/` with naming format: `YYYY-MM-DD-title.md` (use short, simple titles)
 2. Add front matter:
 
 ```yaml

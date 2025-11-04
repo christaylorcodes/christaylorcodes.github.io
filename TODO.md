@@ -6,6 +6,8 @@ This document tracks improvements and enhancements for christaylor.codes. Tasks 
 
 ### Content Management
 - [ ] Replace placeholder blog posts with real content about automation, PowerShell, and network operations
+- [ ] Standardize blog post filenames to use simpler titles (e.g., `YYYY-MM-DD-title.md` instead of `YYYY-MM-DD-long-descriptive-title.md`)
+- [ ] Rename existing blog posts to follow simplified naming convention
 - [ ] Update project entries in `_projects/` with actual projects from your portfolio
 - [ ] Replace placeholder project URLs (`#`) with real demo and GitHub repository links
 
@@ -122,6 +124,7 @@ These tasks can be completed quickly and provide immediate value:
 - Test all changes locally before pushing to GitHub Pages
 - Maintain responsive design for all new features
 - **Current color theme:** Oceanic palette (dark cyan, midnight green, tiffany blue with warm accents)
+- **Blog post naming:** Use simplified titles with required date prefix (e.g., `YYYY-MM-DD-title.md`)
 - Prioritize page load performance
 - Ensure all new content aligns with Chris Taylor's professional brand
 

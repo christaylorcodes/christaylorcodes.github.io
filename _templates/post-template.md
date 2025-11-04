@@ -13,8 +13,8 @@ description: "Optional SEO meta description if different from excerpt. Used in s
 # Instructions for Creating a New Blog Post
 
 1. Copy this template to the `_posts` directory
-2. Rename the file using the format: `YYYY-MM-DD-title-of-post.md`
-   - Example: `2024-11-03-automating-connectwise-with-powershell.md`
+2. Rename the file using the format: `YYYY-MM-DD-title.md` (use short, simple titles)
+   - Example: `2024-11-03-connectwise-automation.md`
 3. Update the front matter (the section between the `---` markers above)
 4. Write your content below this section using Markdown
 5. Commit and push to publish
