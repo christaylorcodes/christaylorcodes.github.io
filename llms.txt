@@ -1,0 +1,164 @@
+# llms.txt - AI-readable site information for christaylor.codes
+
+## Site Overview
+
+This is the personal website and portfolio of Chris Taylor, a Network Operations Chief with 30 years of experience in infrastructure automation, network operations, and systems integration.
+
+**Owner**: Chris Taylor
+**Location**: Salt Lake City, UT, USA
+**Email**: ctaylor@christaylor.codes
+**GitHub**: https://github.com/christaylorcodes
+**Website**: https://christaylor.codes
+
+## Site Purpose
+
+Professional portfolio and blog showcasing automation expertise, PowerShell development, network operations knowledge, and open source contributions to the MSP (Managed Services Provider) community.
+
+## Key Areas of Expertise
+
+- Infrastructure Automation
+- Network Operations & Architecture
+- PowerShell Scripting & Module Development
+- Business Process Automation
+- Systems Administration & Integration
+- MSP Operations & Tools
+- ConnectWise Platform (Manage, Automate, Control)
+- Multi-cloud environments (Azure, AWS, GCP)
+
+## Site Structure
+
+### Main Pages
+
+**Home** (/)
+- Hero section introducing Chris Taylor
+- What I Do: Automation, Network Operations, Business Process Automation, Problem Solving
+- Recent Blog Posts (latest 3 posts)
+- Featured Projects (latest 4 projects)
+- Call-to-action for optimization services
+
+**About** (/about)
+- Professional biography and 30-year career journey
+- Started helping librarian in elementary school
+- Expertise in PowerShell, automation, network operations, systems administration
+- Personal interest: Mountain biking
+- Skills grid showing technical competencies
+
+**Blog** (/blog)
+- Technology blog posts about automation, PowerShell, and network operations
+- Categories and tags for organization
+- RSS feed available at /feed.xml
+
+**Projects** (/projects)
+- Portfolio of automation projects and tools
+- Focus on MSP tooling and ConnectWise integrations
+- Each project shows technologies used and links to demos/GitHub repos
+
+**Contact** (/contact)
+- Direct email contact: ctaylor@christaylor.codes
+- GitHub profile: https://github.com/christaylorcodes
+- No contact form - prefers direct email or GitHub
+
+## Notable Open Source Projects
+
+- **ConnectWiseManageAPI**: PowerShell wrapper for ConnectWise Manage REST API (118 stars, 69 forks)
+- **ConnectWiseControlAPI**: PowerShell wrapper for ConnectWise Control (81 stars, 38 forks)
+- **ConnectWiseAutomateAgent**: PowerShell module for CW Automate (13 stars)
+- **Initialize-PSGallery**: PowerShell Gallery initialization tool (21 stars)
+
+All projects published to PowerShell Gallery under MIT license.
+
+## Technical Stack
+
+**Static Site Generator**: Jekyll
+**Hosting**: GitHub Pages
+**Language**: Ruby (Jekyll), HTML, CSS, JavaScript
+**Styling**: Custom CSS with dark theme and turquoise (#06b6d4) accent colors
+**Icons**: Font Awesome 6.4.0
+**Fonts**: Inter (Google Fonts)
+**SEO**: jekyll-seo-tag, jekyll-sitemap plugins
+
+## Design Philosophy
+
+- Dark theme (#0f172a background) with turquoise accent colors
+- Card-based layout throughout
+- Fully responsive design (mobile, tablet, desktop)
+- Accessibility-focused with proper alt text and semantic HTML
+- Professional, clean aesthetic
+
+## Content Focus
+
+Chris writes about:
+- PowerShell automation and scripting
+- MSP operations and best practices
+- ConnectWise platform integrations
+- Network operations and infrastructure
+- Systems administration techniques
+- API integration and business process automation
+- Open source tool development
+
+## Target Audience
+
+- MSP professionals and technicians
+- PowerShell developers and scripters
+- Network operations engineers
+- System administrators
+- Automation engineers
+- IT professionals seeking automation solutions
+
+## Key Terminology
+
+**MSP**: Managed Services Provider - company providing IT services to clients
+**PSA**: Professional Services Automation - software like ConnectWise Manage
+**RMM**: Remote Monitoring and Management - software like ConnectWise Automate
+**ConnectWise**: Suite of MSP tools (Manage, Automate, Control, RMM)
+**PowerShell Gallery**: Official repository for PowerShell modules (PSGallery)
+
+## Professional Background
+
+- **Current Role**: Network Operations Chief, vCTO, Automation Engineer
+- **Experience**: 30+ years (started professionally in 2002)
+- **Early Start**: Helping school librarian in elementary school
+- **Industry**: Managed Services Provider (MSP) - global client support
+- **Specialization**: Infrastructure automation, multi-tenant environments
+- **Community**: Active open source contributor, PowerShell module maintainer
+
+## How to Use This Site
+
+**For job seekers/recruiters**: Review About page for background, Projects page for portfolio, Blog for expertise demonstration
+
+**For MSP professionals**: Explore open source projects on GitHub, read blog posts about automation and PowerShell
+
+**For collaboration**: Contact via email (ctaylor@christaylor.codes) or GitHub
+
+**For learning**: Blog posts contain practical automation and PowerShell examples
+
+## Additional Context
+
+- Site follows web development best practices (semantic HTML, CSS variables, responsive design)
+- All code available on GitHub: https://github.com/christaylorcodes/christaylorcodes.github.io
+- Built with Claude Code assistance and can be maintained the same way
+- Comprehensive documentation in CLAUDE.md file in repository
+- Active maintenance and regular content updates
+
+## Navigation Tips
+
+- Sitemap available at /sitemap.xml
+- RSS feed available at /feed.xml
+- All pages accessible from main navigation
+- Mobile-friendly with hamburger menu
+- Clean URL structure (no file extensions)
+
+## Contact Preferences
+
+Chris prefers:
+- Direct email for detailed discussions
+- GitHub for open source collaboration and issues
+- Professional, technical communication
+- Real problems and automation challenges
+- Community engagement and knowledge sharing
+
+---
+
+This llms.txt file helps AI models understand the site structure, content focus, and professional context of christaylor.codes.
+
+Last Updated: 2025-11-03
