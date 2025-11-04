@@ -22,7 +22,13 @@ body {
 }
 
 /* Container: 1200px max-width balances readability with modern wide-screen usage
-   20px horizontal padding ensures content doesn't touch screen edges on mobile */
+   20px horizontal padding ensures content doesn't touch screen edges on mobile
+
+   Width Strategy:
+   - Container: 1200px (overall layout wrapper)
+   - Content-heavy sections: 800-900px (optimal reading width)
+   - Hero/intro text: 700-800px (focused attention)
+   - Code blocks: 1100px (breaks out of content area to support 120+ char lines) */
 .container {
     max-width: 1200px;
     margin: 0 auto;

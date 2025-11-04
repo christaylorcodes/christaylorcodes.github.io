@@ -273,11 +273,12 @@
 
 /* Post Content Styles */
 .post-content {
+    max-width: 800px;
+    margin: 0 auto 2rem auto;
     background-color: var(--bg-light);
     padding: 3rem;
     border-radius: 1rem;
     box-shadow: var(--shadow);
-    margin-bottom: 2rem;
     line-height: 1.8;
     border: 1px solid var(--border-color);
 }
@@ -361,6 +362,11 @@
     overflow-x: auto;
     margin-bottom: 1.5rem;
     border: 1px solid var(--border-color);
+    /* Code blocks break out of the 800px content width to support 120+ character lines
+       Uses negative margins to expand into available container space (1200px total) */
+    max-width: 1100px;
+    margin-left: calc((800px - 1100px) / 2);
+    margin-right: calc((800px - 1100px) / 2);
 }
 
 .post-content pre code {
@@ -402,11 +408,12 @@
 
 /* Post Footer (Navigation and Share) */
 .post-footer {
+    max-width: 800px;
+    margin: 0 auto 2rem auto;
     background-color: var(--bg-light);
     padding: 2rem;
     border-radius: 1rem;
     box-shadow: var(--shadow);
-    margin-bottom: 2rem;
     border: 1px solid var(--border-color);
 }
 

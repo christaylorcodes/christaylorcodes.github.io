@@ -83,6 +83,13 @@
         padding: 2rem 1.5rem;
     }
 
+    /* Reset code block negative margins on mobile to prevent overflow */
+    .post-content pre {
+        margin-left: 0;
+        margin-right: 0;
+        max-width: 100%;
+    }
+
     .post-footer {
         padding: 1.5rem;
     }

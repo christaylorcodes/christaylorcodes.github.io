@@ -91,24 +91,25 @@ The site uses a custom-built Jekyll theme called **"Oceanic"** that follows offi
 ### Theme Architecture
 
 **SCSS Organization** (`_sass/oceanic/`):
-The monolithic CSS file has been refactored into 13 modular SCSS partials for better maintainability:
+The monolithic CSS file has been refactored into 14 modular SCSS partials for better maintainability:
 
 1. **`_variables.scss`** (45 lines) - CSS custom properties, color system, shadows
-2. **`_base.scss`** (45 lines) - Reset, body, typography, container, sections
+2. **`_base.scss`** (50 lines) - Reset, body, typography, container, sections, width strategy
 3. **`_navigation.scss`** (125 lines) - Navbar, logo, mobile menu, hamburger
 4. **`_hero.scss`** (60 lines) - Hero sections, highlights, buttons container
 5. **`_buttons.scss`** (40 lines) - Button components (primary, secondary)
 6. **`_features.scss`** (70 lines) - Feature cards and grid
-7. **`_posts.scss`** (400 lines) - Blog list, individual posts, categories, content styles
+7. **`_posts.scss`** (520 lines) - Blog list, individual posts, categories, content styles, code blocks
 8. **`_projects.scss`** (110 lines) - Project cards, grid, CTA section
 9. **`_contact.scss`** (85 lines) - Contact page, method cards, form styles
 10. **`_about.scss`** (110 lines) - About page, photo, skills grid, quote
 11. **`_footer.scss`** (60 lines) - Footer, social links, copyright
-12. **`_animations.scss`** (45 lines) - Keyframe animations (fadeInUp)
-13. **`_responsive.scss`** (115 lines) - Media queries for 768px and 480px breakpoints
+12. **`_syntax.scss`** (200 lines) - Rouge syntax highlighting with Oceanic color scheme
+13. **`_animations.scss`** (45 lines) - Keyframe animations (fadeInUp)
+14. **`_responsive.scss`** (130 lines) - Media queries for 768px and 480px breakpoints
 
 **Main Import File** (`_sass/oceanic.scss`):
-Imports all partials in the correct order (variables → base → components → animations → responsive).
+Imports all partials in the correct order (variables → base → components → syntax → animations → responsive).
 
 **Asset Pipeline** (`assets/css/styles.scss`):
 Contains Jekyll front matter (the dashes) and imports `oceanic.scss`. Jekyll processes this file and outputs `_site/assets/css/styles.css`.
@@ -177,9 +178,23 @@ Your content here in Markdown...
 - Automatic post navigation (previous/next)
 - Social sharing buttons
 - Category and tag display
-- Code syntax highlighting
+- Code syntax highlighting (Rouge with Oceanic theme)
 - Responsive images
 - SEO optimization via jekyll-seo-tag
+
+**Code Syntax Highlighting:**
+The site uses Rouge syntax highlighter with a custom Oceanic-themed color scheme that matches the site's design:
+- **Supported languages**: PowerShell, Python, JavaScript, TypeScript, Bash, YAML, JSON, and 100+ others
+- **Color scheme**: Dark theme with cyan keywords, amber operators, green strings, matching the Oceanic palette
+- **Usage**: Use markdown code fences with language specification:
+  ```
+  ```powershell
+  Get-Process | Where-Object CPU -gt 10
+  ```
+  ```
+- **Wide code support**: Code blocks are 1100px wide (breaks out of normal 800px content width) to support 120+ character lines without horizontal scrolling
+- **Styling location**: [_sass/oceanic/_syntax.scss](_sass/oceanic/_syntax.scss)
+- **Configuration**: [_config.yml](_config.yml) - kramdown with Rouge, GFM (GitHub Flavored Markdown) input
 
 ### Adding Projects
 
@@ -753,6 +768,40 @@ bundle exec jekyll serve --port 4001
 - Card padding: `2rem`
 - Gap between items: `2rem`
 - Container max-width: `1200px`
+
+### Width Strategy
+
+The theme uses a hierarchical width system optimized for readability and user experience:
+
+**Overall Layout:**
+- Container: `1200px` - Main layout wrapper for all pages
+- Horizontal padding: `20px` - Prevents content from touching screen edges
+
+**Content-Optimized Widths** (for readability):
+- Blog post content: `800px` - Optimal reading width (50-75 characters per line)
+- Blog post footer: `800px` - Matches content width for visual consistency
+- Post header: `800px` - Creates focused attention on post metadata
+- Blog posts list: `900px` - Slightly wider for card layout
+- About page content: `900px` - Comfortable width for bio and skills
+- Contact page: `900px` section / `700px` form - Progressive narrowing to focus
+- Hero content: `800px` - Creates visual hierarchy and focus
+- Blog intro text: `700px` - Narrower for emphasis
+
+**Technical Content:**
+- Code blocks: `1100px` max-width (breaks out of 800px content area to support 120+ character lines without scrolling)
+- Code blocks use negative margins on desktop (`calc((800px - 1100px) / 2)`) to expand 150px on each side
+- On mobile (≤768px): Code blocks reset to `100%` width with `overflow-x: auto` for horizontal scrolling
+- Tables: `100%` width within content container
+- Images: `max-width: 100%` to prevent overflow
+
+**Benefits:**
+- Improves readability by preventing excessively long text lines
+- Creates visual hierarchy through progressive narrowing
+- Maintains consistent reading experience across different content types
+- Allows technical content (code, tables) to use full available width when needed
+
+**Modifying Widths:**
+All max-width values are set in the respective SCSS partials in `_sass/oceanic/`. To change content width, edit the `max-width` property in the relevant component file.
 
 ## Performance Considerations
 
