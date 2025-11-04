@@ -1,16 +1,53 @@
-/* ===== RESET & BASE STYLES ===== */
+/* ========================================
+   CHRISTAYLOR.CODES - MAIN STYLESHEET
+   ========================================
+
+   Author: Chris Taylor
+   Description: Custom styles for Jekyll-based portfolio site
+   Color Theme: Oceanic Palette (Electric Blue with Warm Accents)
+
+   Table of Contents:
+   1. Reset & Base Styles
+   2. CSS Custom Properties (Color System)
+   3. Typography & Layout
+   4. Navigation
+   5. Hero Section
+   6. Buttons
+   7. Section Layouts
+   8. Features Section
+   9. Recent Posts Section
+   10. Featured Projects Section
+   11. CTA Section
+   12. About Page
+   13. Projects Page
+   14. Contact Page
+   15. Blog Index Page
+   16. Individual Blog Posts
+   17. Footer
+   18. Responsive Design
+   19. Animations
+
+   ======================================== */
+
+/* ===== 1. RESET & BASE STYLES ===== */
+/* Universal box-sizing ensures consistent sizing calculations across all elements */
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
 }
 
-/* ===== FONT OPTIMIZATION ===== */
-/* Ensure all fonts use swap display for better performance */
+/* ===== 2. CSS CUSTOM PROPERTIES (COLOR SYSTEM) ===== */
+/* Font display swap prevents invisible text during font loading (FOIT prevention) */
 @font-face {
     font-display: swap;
 }
 
+/* Color System: Oceanic Palette with Electric Blue Primary
+   - Primary colors use cyan/blue for tech/trust feeling
+   - Secondary colors use amber/orange for warmth and calls-to-action
+   - Background uses deep slate for comfortable dark theme
+   - All colors defined as CSS variables for easy theming */
 :root {
     /* Primary Colors - Electric Blue Theme */
     --primary-color: #06b6d4;        /* Cyan - main accent */
@@ -39,6 +76,8 @@
     --shadow-lg: 0 20px 25px -5px rgba(0, 0, 0, 0.6), 0 10px 10px -5px rgba(0, 0, 0, 0.4);
 }
 
+/* ===== 3. TYPOGRAPHY & LAYOUT ===== */
+/* System font stack provides native look while Inter loads for consistency */
 body {
     font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
     line-height: 1.6;
@@ -46,13 +85,17 @@ body {
     background-color: var(--bg-dark);
 }
 
+/* Container: 1200px max-width balances readability with modern wide-screen usage
+   20px horizontal padding ensures content doesn't touch screen edges on mobile */
 .container {
     max-width: 1200px;
     margin: 0 auto;
     padding: 0 20px;
 }
 
-/* ===== NAVIGATION ===== */
+/* ===== 4. NAVIGATION ===== */
+/* Sticky navigation stays visible during scroll for better UX
+   z-index: 1000 ensures it sits above all page content */
 .navbar {
     background-color: var(--bg-darker);
     box-shadow: var(--shadow);
@@ -69,6 +112,9 @@ body {
     align-items: center;
 }
 
+/* Two-Tone Logo System:
+   Logo uses two colors (cyan + amber) for visual interest and brand recognition
+   Hover effect darkens both colors for interactive feedback */
 .logo {
     font-size: 1.5rem;
     font-weight: 700;
@@ -77,19 +123,19 @@ body {
 }
 
 .logo-primary {
-    color: var(--primary-color);
+    color: var(--primary-color);        /* Cyan for "chris" */
 }
 
 .logo-secondary {
-    color: var(--secondary-color);
+    color: var(--secondary-color);      /* Amber for "taylor" */
 }
 
 .logo:hover .logo-primary {
-    color: var(--primary-dark);
+    color: var(--primary-dark);         /* Darker cyan on hover */
 }
 
 .logo:hover .logo-secondary {
-    color: var(--accent-orange);
+    color: var(--accent-orange);        /* Darker amber on hover */
 }
 
 .nav-menu {
@@ -99,12 +145,16 @@ body {
     align-items: center;
 }
 
+/* Navigation Link Animation Pattern:
+   Uses ::after pseudo-element for animated underline
+   Width animates from 0 to 100% on hover for smooth sliding effect
+   Same animation applies to .active class for current page indication */
 .nav-link {
     color: var(--text-dark);
     text-decoration: none;
     font-weight: 500;
     transition: color 0.3s ease;
-    position: relative;
+    position: relative;              /* Required for ::after positioning */
 }
 
 .nav-link::after {
@@ -112,15 +162,15 @@ body {
     position: absolute;
     bottom: -5px;
     left: 0;
-    width: 0;
+    width: 0;                       /* Starts at 0 width */
     height: 2px;
     background-color: var(--primary-color);
-    transition: width 0.3s ease;
+    transition: width 0.3s ease;    /* Animates width property */
 }
 
 .nav-link:hover::after,
 .nav-link.active::after {
-    width: 100%;
+    width: 100%;                    /* Expands to full width */
 }
 
 .nav-link:hover,
@@ -128,8 +178,12 @@ body {
     color: var(--primary-color);
 }
 
+/* Mobile Hamburger Menu:
+   Hidden on desktop, shown on mobile via media query
+   Three-line hamburger uses main element + ::before/::after pseudo-elements
+   8px spacing creates visually balanced hamburger icon */
 .nav-toggle {
-    display: none;
+    display: none;              /* Hidden on desktop */
     background: none;
     border: none;
     cursor: pointer;
@@ -152,18 +206,20 @@ body {
     width: 25px;
     height: 2px;
     background-color: var(--text-dark);
-    transition: all 0.3s ease;
+    transition: all 0.3s ease;      /* Enables potential animation effects */
 }
 
 .hamburger::before {
-    top: -8px;
+    top: -8px;                      /* Top line of hamburger */
 }
 
 .hamburger::after {
-    bottom: -8px;
+    bottom: -8px;                   /* Bottom line of hamburger */
 }
 
-/* ===== HERO SECTION ===== */
+/* ===== 5. HERO SECTION ===== */
+/* Gradient background creates visual depth from dark to light
+   6rem top/bottom padding provides generous breathing room for hero content */
 .hero {
     padding: 6rem 0;
     background: linear-gradient(135deg, var(--bg-darker) 0%, var(--bg-light) 100%);
@@ -222,14 +278,17 @@ body {
     flex-wrap: wrap;
 }
 
-/* ===== BUTTONS ===== */
+/* ===== 6. BUTTONS ===== */
+/* Base button class provides consistent styling across all button types
+   0.875rem (14px) padding creates comfortable click target size
+   All transitions are 0.3s for consistent feel throughout site */
 .btn {
     display: inline-block;
     padding: 0.875rem 2rem;
     border-radius: 0.5rem;
     text-decoration: none;
     font-weight: 600;
-    transition: all 0.3s ease;
+    transition: all 0.3s ease;      /* Smooth transitions for all properties */
     cursor: pointer;
     border: none;
     font-size: 1rem;
@@ -271,17 +330,32 @@ section {
     color: var(--text-dark);
 }
 
-/* ===== FEATURES SECTION ===== */
+/* ===== 8. FEATURES SECTION ===== */
 .features {
     background-color: var(--bg-dark);
 }
 
+/* Auto-fit grid creates responsive layout without media queries
+   minmax(250px, 1fr) ensures cards don't get too narrow but fill available space */
 .features-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
     gap: 2rem;
 }
 
+/* UNIVERSAL CARD HOVER PATTERN:
+   This hover effect pattern is used consistently across the site for:
+   - Feature cards
+   - Project cards
+   - Blog post cards
+   - Contact method cards
+
+   Hover Effects:
+   1. translateY(-5px or -10px) - Lifts card up
+   2. Enhanced shadow with cyan glow - Creates depth
+   3. Border color changes to primary - Highlights interactivity
+
+   This creates a cohesive, polished feel across all interactive elements */
 .feature-card {
     background-color: var(--bg-light);
     padding: 2rem;
@@ -293,9 +367,9 @@ section {
 }
 
 .feature-card:hover {
-    transform: translateY(-5px);
-    box-shadow: var(--shadow-lg), 0 0 20px rgba(6, 182, 212, 0.3);
-    border-color: var(--primary-color);
+    transform: translateY(-5px);        /* Lifts card on hover */
+    box-shadow: var(--shadow-lg), 0 0 20px rgba(6, 182, 212, 0.3);  /* Enhanced shadow + glow */
+    border-color: var(--primary-color);  /* Cyan border highlight */
 }
 
 .feature-icon {
@@ -741,26 +815,38 @@ section {
     opacity: 0.8;
 }
 
-/* ===== RESPONSIVE DESIGN ===== */
+/* ===== 18. RESPONSIVE DESIGN ===== */
+/* Responsive Strategy:
+   - Desktop-first approach (base styles for desktop, scale down for mobile)
+   - Two breakpoints: 768px (tablet) and 480px (mobile)
+   - Many grids use CSS Grid auto-fit/minmax for intrinsic responsiveness
+   - 768px breakpoint handles tablet and mobile portrait
+   - 480px breakpoint handles very small mobile screens
+
+   Breakpoint Choices:
+   - 768px: Common tablet width, where navigation needs to collapse
+   - 480px: Small phone screens, where text sizes need further reduction */
 @media (max-width: 768px) {
+    /* Mobile Navigation: Convert horizontal nav to vertical dropdown menu
+       JavaScript toggles .active class to show/hide menu */
     .nav-menu {
-        display: none;
+        display: none;              /* Hidden by default on mobile */
         position: absolute;
         top: 100%;
         left: 0;
         right: 0;
         background-color: var(--bg-white);
-        flex-direction: column;
+        flex-direction: column;     /* Stack links vertically */
         padding: 1rem;
         box-shadow: var(--shadow);
     }
 
     .nav-menu.active {
-        display: flex;
+        display: flex;              /* JavaScript adds this class to show menu */
     }
 
     .nav-toggle {
-        display: block;
+        display: block;             /* Show hamburger menu on mobile */
     }
 
     .hero-title {
@@ -812,7 +898,11 @@ section {
     }
 }
 
-/* ===== ANIMATIONS ===== */
+/* ===== 19. ANIMATIONS ===== */
+/* Fade-In-Up Animation:
+   Creates smooth entrance effect for hero content
+   30px vertical movement creates subtle upward motion
+   backwards fill-mode hides elements until animation starts */
 @keyframes fadeInUp {
     from {
         opacity: 0;
@@ -824,24 +914,28 @@ section {
     }
 }
 
+/* Staggered Animation Timing:
+   Hero elements animate in sequence with 0.1s delays
+   Creates cascading effect: title → subtitle → description → buttons
+   0.8s duration balances smooth motion with quick page load feel */
 .hero-content > * {
     animation: fadeInUp 0.8s ease-out backwards;
 }
 
 .hero-title {
-    animation-delay: 0.1s;
+    animation-delay: 0.1s;      /* First to animate */
 }
 
 .hero-subtitle {
-    animation-delay: 0.2s;
+    animation-delay: 0.2s;      /* Second to animate */
 }
 
 .hero-description {
-    animation-delay: 0.3s;
+    animation-delay: 0.3s;      /* Third to animate */
 }
 
 .hero-buttons {
-    animation-delay: 0.4s;
+    animation-delay: 0.4s;      /* Last to animate */
 }
 
 /* ===== BLOG SECTION ===== */

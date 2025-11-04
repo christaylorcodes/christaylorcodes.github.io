@@ -7,7 +7,7 @@ description: >-
 baseurl: "" # the subpath of your site, e.g. /blog
 url: "https://christaylor.codes" # the base hostname & protocol for your site
 github_username: christaylorcodes
-#linkedin_username: yourlinkedin
+linkedin_username: christaylorcodes
 #twitter_username: yourtwitter
 
 # Social media defaults for Open Graph and Twitter Cards
@@ -16,6 +16,7 @@ social:
   name: Chris Taylor
   links:
     - https://github.com/christaylorcodes
+    - https://www.linkedin.com/in/christaylorcodes
     - https://christaylor.codes
 
 # Default social sharing image (used when page doesn't specify one)

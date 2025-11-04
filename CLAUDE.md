@@ -144,91 +144,278 @@ Optional longer description...
 - Change contact methods
 - Update email and social links
 
+### Content Contribution Guidelines
+
+This section defines standards for creating and maintaining content on the site to ensure consistency, quality, and professionalism.
+
+#### Content Standards
+
+**Target Audience:**
+- MSP (Managed Service Provider) professionals
+- PowerShell developers and automation engineers
+- IT operations teams
+- Technology decision-makers
+
+**Content Voice & Style:**
+- **Professional but approachable** - Expert without being condescending
+- **Practical and actionable** - Focus on real-world application
+- **Specific over generic** - Concrete examples, not abstract concepts
+- **Show, don't just tell** - Code examples, screenshots, demonstrations
+- **Explain the why** - Context and reasoning, not just instructions
+
+**Writing Quality Standards:**
+- Clear, concise writing with proper grammar and spelling
+- Technical accuracy - all code examples must be tested and functional
+- Proper attribution for external sources, code, or ideas
+- No marketing fluff or excessive superlatives
+- Professional tone without emojis (unless specifically requested)
+
+#### Blog Post Requirements
+
+When creating blog posts, ensure they meet these standards:
+
+**Technical Content:**
+- All code examples must be tested and working
+- Include error handling where appropriate
+- Explain security considerations for production code
+- Provide performance implications when relevant
+- Link to documentation for non-obvious functions
+
+**Structure:**
+- Clear, descriptive title that includes key technologies
+- Excerpt summarizing the post's value proposition
+- Introduction explaining the problem and why it matters
+- Body with clear sections and headings
+- Conclusion with key takeaways
+- Tags: 3-5 relevant, searchable terms
+- Categories: 1-2 high-level classifications
+
+**SEO Optimization:**
+- Front matter includes `title`, `excerpt`, `tags`, `categories`
+- Optional custom `description` for search results
+- Optional custom social sharing `image` (1200x630px)
+- Use descriptive headings (H2, H3) throughout post
+- Internal links to other relevant posts when applicable
+
+**Code Formatting:**
+- Use proper markdown code blocks with language specification
+- Inline code for short references: `Get-Process`
+- Code blocks for longer examples with syntax highlighting
+- Add comments in code to explain non-obvious logic
+
+**Pre-Publication Checklist:**
+- [ ] Code examples tested and working
+- [ ] All links verified (no broken links)
+- [ ] Proper front matter with all required fields
+- [ ] Preview rendered post in local Jekyll server
+- [ ] Proofread for grammar and clarity
+- [ ] Security review - no credentials or sensitive data
+- [ ] Images optimized for web (if included)
+
+#### Project Entry Requirements
+
+**Required Information:**
+- Descriptive title
+- Clear description of what the project does (focus on value/benefits)
+- Accurate technology tags
+- Valid GitHub repository URL
+- Font Awesome icon that matches project type
+- Display order number
+
+**Description Best Practices:**
+- Lead with the benefit/value proposition
+- Explain what problem it solves
+- Mention key features or capabilities
+- Keep under 200 words for project card readability
+- Use active voice and strong verbs
+
+#### File Naming Conventions
+
+**Blog Posts:**
+- Format: `YYYY-MM-DD-title.md`
+- Use short, simple titles (3-5 words)
+- Lowercase, hyphen-separated
+- Example: `2024-11-15-powershell-automation.md`
+
+**Project Files:**
+- Format: `project-name.md`
+- Match GitHub repository name when possible
+- Lowercase, hyphen-separated
+- Example: `connectwisemanageapi.md`
+
+**Images:**
+- Descriptive names: `project-dashboard-screenshot.png`
+- Include dimensions for social sharing images: `post-title-1200x630.png`
+- Optimize before uploading (compress, appropriate format)
+
+#### Testing Before Committing
+
+**Local Testing (Recommended):**
+```bash
+# Start Jekyll local server
+bundle exec jekyll serve --livereload
+
+# View site at http://localhost:4000
+# Check for errors in terminal output
+```
+
+**Pre-Commit Checklist:**
+- [ ] Local Jekyll build completes without errors
+- [ ] Visual inspection of changed pages
+- [ ] Links work correctly
+- [ ] Images display properly
+- [ ] Responsive design works on mobile
+- [ ] No console errors in browser developer tools
+
+**After Pushing to GitHub:**
+- Monitor GitHub Actions for build status
+- Wait 2-5 minutes for deployment
+- Visit live site to verify changes
+- Test social sharing preview (Twitter Card Validator, Facebook Debugger)
+
+#### Content Organization Best Practices
+
+**When to Create New Content:**
+- Blog post: In-depth technical tutorials, lessons learned, project showcases
+- Project entry: Reusable tools, modules, or significant code repositories
+- Page update: About page milestones, contact method changes
+
+**Content Maintenance:**
+- Review older blog posts annually for accuracy
+- Update broken links or deprecated information
+- Add update notices to posts with outdated information
+- Archive or remove placeholder content
+
+**SEO and Social Media:**
+- Create custom social sharing images for important posts
+- Use consistent branding across all content
+- Internal linking between related posts improves SEO
+- Share new content on professional social media (LinkedIn)
+
 ## Styling and Design
 
 ### Theme Color Palette
 
-The site uses a **dark theme** with **turquoise accent** colors. All colors are defined as CSS custom properties (variables) for easy theming.
+The site uses an **Oceanic Palette** with **Electric Blue primary** colors and **warm amber accents**. This creates a professional tech aesthetic (cyan/blue for trust and technology) balanced with warm orange/amber tones for calls-to-action and visual interest.
+
+**Design Philosophy:**
+- **Cool + Warm Balance**: Electric blue (cool, tech-focused) paired with amber/orange (warm, human, inviting)
+- **Elevation System**: Four background shades create visual depth without color changes
+- **Consistent Interactions**: All hover states use cyan glow + shadow + lift pattern
+- **Accessibility**: High contrast ratios (WCAG AA compliant) for excellent readability
+
+All colors are defined as CSS custom properties (variables) for easy theming and consistency across the site.
 
 #### Color Reference
 
-**Primary Colors (Turquoise Accents)**
+**Primary Colors (Electric Blue Theme)**
 ```
---primary-color:     #06b6d4    ████ Cyan/Turquoise    - Main accent, buttons, links, hover states
---primary-dark:      #0891b2    ████ Dark Turquoise    - Button hover, active states
---primary-light:     #22d3ee    ████ Light Turquoise   - Highlights, glows
---secondary-color:   #14b8a6    ████ Teal             - Secondary accent, variations
+--primary-color:     #06b6d4    ████ Cyan             - Main accent, buttons, links, hover states
+--primary-dark:      #0284c7    ████ Sky Blue         - Darker accent, button hover, active states
+--primary-light:     #38bdf8    ████ Light Blue       - Lighter accent, highlights, glows
+--secondary-color:   #f59e0b    ████ Amber            - Warm accent, secondary branding
 ```
 
-**Background Colors (Dark Slate)**
+**Background Colors (Deep Slate)**
 ```
---bg-darker:         #020617    ████ Almost Black      - Hero, CTA, navbar (darkest backgrounds)
---bg-dark:           #0f172a    ████ Dark Slate        - Main body background
---bg-light:          #1e293b    ████ Slate            - Cards, content sections
---bg-white:          #334155    ████ Light Slate       - Elevated elements, form inputs
+--bg-darker:         #020617    ████ Rich Black       - Hero, CTA, navbar (darkest backgrounds)
+--bg-dark:           #0f172a    ████ Dark Slate       - Main body background
+--bg-light:          #1e293b    ████ Slate            - Cards, content sections (elevated)
+--bg-white:          #334155    ████ Light Slate      - Highest elevation (form inputs, modals)
 ```
 
 **Text Colors**
 ```
---text-dark:         #f1f5f9    ████ Off White        - Main text, headings
+--text-dark:         #f1f5f9    ████ Off White        - Main text, headings (high contrast)
 --text-light:        #cbd5e1    ████ Light Gray       - Secondary text, descriptions
 ```
 
-**Border & UI**
+**Utility Colors**
 ```
 --border-color:      #475569    ████ Slate Gray       - Borders, dividers
+--accent-warm:       #f59e0b    ████ Amber            - Warm highlights, secondary accent
+--accent-orange:     #ea580c    ████ Orange           - Call-to-action elements
+--accent-rust:       #dc2626    ████ Red              - Warnings, destructive actions
 ```
 
 #### CSS Variables Location
 
-All variables are defined in `assets/css/main.css` at lines 8-19:
+All variables are defined in `assets/css/main.css` at lines 51-77 within the `:root` selector:
 
 ```css
 :root {
-    --primary-color: #06b6d4;
-    --primary-dark: #0891b2;
-    --primary-light: #22d3ee;
-    --secondary-color: #14b8a6;
-    --text-dark: #f1f5f9;
-    --text-light: #cbd5e1;
-    --bg-dark: #0f172a;
-    --bg-darker: #020617;
-    --bg-light: #1e293b;
-    --bg-white: #334155;
-    --border-color: #475569;
+    /* Primary Colors - Electric Blue Theme */
+    --primary-color: #06b6d4;        /* Cyan - main accent */
+    --primary-dark: #0284c7;         /* Sky Blue - darker accent */
+    --primary-light: #38bdf8;        /* Light Blue - lighter accent */
+    --secondary-color: #f59e0b;      /* Amber - warm accent */
+
+    /* Background Colors - Deep Slate */
+    --bg-darker: #020617;            /* Rich Black - darkest backgrounds */
+    --bg-dark: #0f172a;              /* Dark Slate - main background */
+    --bg-light: #1e293b;             /* Slate - elevated sections */
+    --bg-white: #334155;             /* Light Slate - highest elevation */
+
+    /* Text Colors */
+    --text-dark: #f1f5f9;            /* Off White - primary text */
+    --text-light: #cbd5e1;           /* Light Gray - secondary text */
+
+    /* Utility Colors */
+    --border-color: #475569;         /* Slate Gray - borders */
+    --accent-warm: #f59e0b;          /* Amber - warm highlights */
+    --accent-orange: #ea580c;        /* Orange - call-to-action */
+    --accent-rust: #dc2626;          /* Red - warnings */
+
+    /* Shadows */
+    --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.5), 0 2px 4px -1px rgba(0, 0, 0, 0.3);
+    --shadow-lg: 0 20px 25px -5px rgba(0, 0, 0, 0.6), 0 10px 10px -5px rgba(0, 0, 0, 0.4);
 }
 ```
 
 #### Color Usage Guidelines
 
-**Primary Turquoise (`--primary-color`)** - Use for:
+**Primary Cyan (`--primary-color` #06b6d4)** - Main brand color, use for:
 - Primary buttons (background)
 - Hover states on cards and links
 - Active navigation states
 - Icon accents
-- Call-to-action elements
+- Links and interactive elements
+- Border highlights on hover
 
-**Dark Backgrounds** - Layer hierarchy:
-1. `--bg-darker` (#020617) - Hero, CTA, navbar (top layer)
+**Secondary Amber (`--secondary-color` #f59e0b)** - Warm accent, use for:
+- Secondary branding (logo second color)
+- Complementary accent color
+- Alternative call-to-action elements
+- Visual warmth and balance
+
+**Accent Orange (`--accent-orange` #ea580c)** - Use sparingly for:
+- High-priority call-to-action buttons
+- Important highlights
+- "Hot" or urgent items
+
+**Dark Backgrounds** - Layer hierarchy (elevation system):
+1. `--bg-darker` (#020617) - Hero, CTA sections, navbar (darkest/highest contrast)
 2. `--bg-dark` (#0f172a) - Body background (base layer)
 3. `--bg-light` (#1e293b) - Content cards, sections (elevated)
-4. `--bg-white` (#334155) - Form inputs, modals (most elevated)
+4. `--bg-white` (#334155) - Form inputs, modals (most elevated/lightest)
 
 **Text Colors** - Hierarchy:
-- `--text-dark` (#f1f5f9) - Headings, primary content (high contrast)
-- `--text-light` (#cbd5e1) - Descriptions, metadata (medium contrast)
+- `--text-dark` (#f1f5f9) - Headings, primary content (highest contrast for readability)
+- `--text-light` (#cbd5e1) - Descriptions, metadata, secondary text (medium contrast)
 
 **Special Effects:**
-- Glow effects use `rgba(6, 182, 212, 0.3)` for turquoise glow
-- Hover states often add `0 0 20px rgba(6, 182, 212, 0.5)` box-shadow
+- Cyan glow effects: `rgba(6, 182, 212, 0.3)` for subtle glow
+- Cyan hover shadow: `0 0 20px rgba(6, 182, 212, 0.5)` for interactive emphasis
+- All card hover effects use consistent pattern: lift (translateY), enhanced shadow, and cyan glow
 
 #### Changing the Color Scheme
 
 **To update colors:**
-1. Edit the `:root` variables in `assets/css/main.css` (lines 8-19)
+1. Edit the `:root` variables in `assets/css/main.css` (lines 51-77)
 2. Maintain contrast ratios for accessibility (WCAG AA: 4.5:1 for text)
 3. Test hover states and interactive elements
-4. Commit and push changes
+4. Update glow effect rgba values to match new primary color
+5. Commit and push changes
 
 **Example - Change accent to purple:**
 ```css

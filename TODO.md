@@ -8,15 +8,15 @@ This document tracks improvements and enhancements for christaylor.codes. Tasks 
 - [ ] Replace placeholder blog posts with real content about automation, PowerShell, and network operations
 - [x] Standardize blog post filenames to use simpler titles (e.g., `YYYY-MM-DD-title.md` instead of `YYYY-MM-DD-long-descriptive-title.md`)
 - [x] Rename existing blog posts to follow simplified naming convention
-- [ ] Update project entries in `_projects/` with actual projects from your portfolio
-- [ ] Replace placeholder project URLs (`#`) with real demo and GitHub repository links
+- [x] Update project entries in `_projects/` with actual projects from your portfolio (Completed 2025-11-04)
+- [x] Replace placeholder project URLs (`#`) with real demo and GitHub repository links (Completed 2025-11-04)
 
 ### Code Organization
-- [ ] Add code comments in main.css to document major sections
+- [x] Add code comments in main.css to document major sections (Completed 2025-11-04)
 
 ### Documentation
-- [ ] Update CLAUDE.md with oceanic color palette documentation
-- [ ] Add content contribution guidelines to CLAUDE.md
+- [x] Update CLAUDE.md with oceanic color palette documentation (Completed 2025-11-04)
+- [x] Add content contribution guidelines to CLAUDE.md (Completed 2025-11-04)
 
 ## Priority 2: Features & Functionality
 
@@ -38,7 +38,7 @@ Generate one short paragraph summary of the module to display here
 - [ ] Create project categories for filtering (Automation, PowerShell, Web, etc.)
 
 ### Contact Enhancements
-- [ ] Add LinkedIn profile link (uncomment in [_config.yml:10](_config.yml#L10))
+- [x] Add LinkedIn profile link (uncomment in [_config.yml:10](_config.yml#L10)) (Completed 2025-11-04)
 - [ ] Add professional social media links (Twitter, etc.)
 - [ ] Consider adding calendly/scheduling link for consultations
 
@@ -113,9 +113,9 @@ Generate one short paragraph summary of the module to display here
 
 These tasks can be completed quickly and provide immediate value:
 
-1. [ ] Add LinkedIn profile link to config and footer
+1. [x] Add LinkedIn profile link to config and footer (Completed 2025-11-04)
 2. [ ] Create first real blog post about PowerShell automation
-3. [ ] Add at least one real project from your portfolio
+3. [x] Add at least one real project from your portfolio (Completed 2025-11-04)
 4. [x] Add Open Graph and Twitter Card meta tags for better social sharing (Completed 2025-11-03)
 5. [ ] Add structured data (JSON-LD) for improved search results
 
@@ -170,3 +170,11 @@ These tasks can be completed quickly and provide immediate value:
 - [x] Standardize blog post filenames to simpler naming convention (commit: 2667c27)
 - [x] Rename existing blog posts to follow simplified format (commit: 2667c27)
 - [x] Update CLAUDE.md and templates with simplified naming documentation (commit: 2667c27)
+- [x] Update project entries in `_projects/` with actual projects from portfolio (2025-11-04)
+- [x] Replace placeholder project URLs with real GitHub repository links (2025-11-04)
+- [x] Add LinkedIn profile link to config and footer (2025-11-04)
+- [x] Add comprehensive code comments to main.css documenting all major sections (2025-11-04)
+
+### Documentation (November 2025)
+- [x] Update CLAUDE.md with oceanic color palette documentation (2025-11-04)
+- [x] Add comprehensive content contribution guidelines to CLAUDE.md (2025-11-04)
