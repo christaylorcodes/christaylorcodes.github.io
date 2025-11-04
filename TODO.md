@@ -6,8 +6,8 @@ This document tracks improvements and enhancements for christaylor.codes. Tasks 
 
 ### Content Management
 - [ ] Replace placeholder blog posts with real content about automation, PowerShell, and network operations
-- [ ] Standardize blog post filenames to use simpler titles (e.g., `YYYY-MM-DD-title.md` instead of `YYYY-MM-DD-long-descriptive-title.md`)
-- [ ] Rename existing blog posts to follow simplified naming convention
+- [x] Standardize blog post filenames to use simpler titles (e.g., `YYYY-MM-DD-title.md` instead of `YYYY-MM-DD-long-descriptive-title.md`)
+- [x] Rename existing blog posts to follow simplified naming convention
 - [ ] Update project entries in `_projects/` with actual projects from your portfolio
 - [ ] Replace placeholder project URLs (`#`) with real demo and GitHub repository links
 
@@ -165,3 +165,8 @@ These tasks can be completed quickly and provide immediate value:
 - [x] Fix render blocking requests - main.js defer attribute (commit: 2113c91)
 - [x] Add font-display: swap for faster text rendering (commit: 2113c91)
 - [x] Add preconnect hints for CDN resources (commit: 2113c91)
+
+### Content Organization (November 2025)
+- [x] Standardize blog post filenames to simpler naming convention (commit: 2667c27)
+- [x] Rename existing blog posts to follow simplified format (commit: 2667c27)
+- [x] Update CLAUDE.md and templates with simplified naming documentation (commit: 2667c27)
