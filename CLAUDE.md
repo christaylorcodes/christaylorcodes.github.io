@@ -499,6 +499,131 @@ bundle exec jekyll serve --port 4001
 - Social sharing meta tags
 - RSS feed via jekyll-feed
 
+## Social Media Sharing (Open Graph & Twitter Cards)
+
+The site is configured for rich social media previews when links are shared on platforms like Twitter, LinkedIn, Facebook, and Slack. This is handled automatically by the jekyll-seo-tag plugin with configuration in `_config.yml`.
+
+### Configuration (_config.yml)
+
+```yaml
+# Social media defaults for Open Graph and Twitter Cards
+social:
+  name: Chris Taylor
+  links:
+    - https://github.com/christaylorcodes
+    - https://christaylor.codes
+
+# Default social sharing image
+logo: /assets/images/profile-photo.png
+
+# Author defaults
+author:
+  name: Chris Taylor
+  email: ctaylor@christaylor.codes
+
+# Twitter card settings
+twitter:
+  card: summary_large_image
+  # username: christaylorcodes  # Uncomment when Twitter account is active
+```
+
+### Generated Meta Tags
+
+The `{% seo %}` tag in [_layouts/default.html:19](_layouts/default.html#L19) automatically generates:
+
+**Open Graph Tags:**
+- `og:title` - Page or post title
+- `og:description` - Page description or excerpt
+- `og:url` - Canonical URL of the page
+- `og:type` - Content type (website, article, etc.)
+- `og:image` - Social sharing image
+- `og:site_name` - Site title
+
+**Twitter Card Tags:**
+- `twitter:card` - Card type (summary_large_image)
+- `twitter:site` - Twitter username (when configured)
+- `twitter:title` - Post/page title
+- `twitter:description` - Description or excerpt
+- `twitter:image` - Social sharing image
+
+**Structured Data:**
+- JSON-LD schema for rich search results
+- Author information
+- Organization data
+
+### Page-Specific Overrides
+
+Add these fields to front matter in blog posts or pages to customize social sharing:
+
+```yaml
+---
+title: "Your Post Title"
+description: "Custom description for social media and search results"
+image: /assets/images/posts/custom-social-card.png
+excerpt: "Brief preview text"
+---
+```
+
+**Field Priority:**
+1. `image` - Custom social sharing image (overrides site default)
+2. `description` - Custom meta description (falls back to excerpt, then site description)
+3. `title` - Page title (combines with site title)
+
+### Creating Social Sharing Images
+
+**Recommended Specifications:**
+- **Size**: 1200x630 pixels (16:9 aspect ratio)
+- **Format**: PNG or JPG
+- **File size**: Under 1MB
+- **Location**: `assets/images/posts/`
+- **Content**: Post title, author name, relevant visual
+
+**Image Guidelines:**
+- Keep text large and readable (previews appear small)
+- Use high contrast for text visibility
+- Include branding (site name or logo)
+- Avoid placing critical text near edges (may be cropped)
+- Test on multiple platforms (Twitter, LinkedIn, Facebook)
+
+**Default Behavior:**
+- Without a page-specific `image`, the site uses `logo` from `_config.yml`
+- Currently using profile photo as placeholder
+- Create a proper 1200x630px branded card for better sharing experience
+
+### Testing Social Sharing
+
+**Before Publishing:**
+
+1. **Twitter Card Validator**: https://cards-dev.twitter.com/validator
+   - Enter your URL
+   - View preview and debug any issues
+
+2. **Facebook Sharing Debugger**: https://developers.facebook.com/tools/debug/
+   - Enter your URL
+   - View Open Graph tags and preview
+   - Use "Scrape Again" to refresh cache
+
+3. **LinkedIn Post Inspector**: https://www.linkedin.com/post-inspector/
+   - Enter your URL
+   - View preview and metadata
+
+**Common Issues:**
+- **Image not appearing**: Ensure image path is absolute (starts with `/`)
+- **Wrong image showing**: Clear social media cache using validation tools
+- **Description missing**: Add `excerpt` or `description` to front matter
+- **Changes not updating**: Social platforms cache for 24-48 hours; use validation tools to force refresh
+
+### Template Updates
+
+The [_templates/post-template.md](_templates/post-template.md) includes social media fields:
+
+```yaml
+image: /assets/images/posts/your-post-image.png  # Social sharing image
+description: "SEO meta description for search and social media"
+```
+
+See template for complete documentation on creating posts with social media optimization.
+
 ## Backup and Version Control
 
 - All code in Git
@@ -531,6 +656,147 @@ For Claude Code users: This project was built with Claude Code assistance and ca
 
 ---
 
+## Working with Chris - AI Guidelines
+
+This section provides context for AI assistants working with Chris on this website.
+
+### Communication Preferences
+
+**Style**: Detailed and collaborative
+- Explain reasoning and provide step-by-step guidance
+- Teaching mode: Explain why, not just what
+- Advanced technical level (20+ years experience)
+- **Never use emojis** unless explicitly requested
+- Professional, clear, concise communication
+
+**Approach**:
+- Pair programming style - work together collaboratively
+- Provide examples and alternatives when relevant
+- Reference documentation and best practices
+- Break complex tasks into manageable steps
+- Ask clarifying questions when needed
+
+### Code Philosophy
+
+**Core Principles**:
+- **Readability over cleverness** - Code should be clear and maintainable
+- **Verbose, descriptive naming** - Full words, no abbreviations (e.g., `navigationMenu` not `navMenu`)
+- **Explicit over implicit** - Make intentions clear
+- **Self-documenting code** - Code should tell a story
+- **Comment the "why" not the "what"** - Explain reasoning, not obvious actions
+
+**Quality Standards**:
+- Input validation where applicable
+- Error handling for user-facing features
+- Security-conscious (sanitize inputs, no hardcoded credentials)
+- Test changes before committing
+- Follow existing patterns in the codebase
+
+### Blog Content Guidelines
+
+**For blog post creation**, see: [docs/blog-guidelines.md](c:\_Code\CHRIS\docs\blog-guidelines.md)
+
+**Content Strategy**:
+- Target audience: MSP professionals, PowerShell developers, IT operations teams
+- Content pillars: PowerShell & Automation, MSP Operations, AI Integration, Lessons Learned
+- Voice: Professional but approachable, practical and actionable
+- Style: Show don't tell, explain the why, be specific
+- Technical depth: Assume competent audience, explain non-obvious choices
+
+**Blog Post Requirements**:
+- Clear, specific titles with key technologies
+- Working, tested code examples
+- Real-world application and context
+- Security and performance considerations
+- Proper formatting and metadata
+- Quality checklist before publishing
+
+**2025 Blog Goals**:
+- Minimum 4 posts published
+- Focus on quality over quantity
+- Build professional reputation
+- Share practical, immediately useful knowledge
+
+See full guidelines at: `c:\_Code\CHRIS\docs\blog-guidelines.md`
+
+### Task Management
+
+**TODO Workflow**:
+- Check relevant TODO files before starting work
+- Break complex tasks into smaller steps
+- Track progress and mark completion
+- Document learnings and decisions
+
+**Main task files**:
+- [c:\_Code\CHRIS\tasks\TODO.md](c:\_Code\CHRIS\tasks\TODO.md) - Main task tracking
+- [c:\_Code\CHRIS\projects/christaylor-codes-brand.md](c:\_Code\CHRIS\projects/christaylor-codes-brand.md) - Website/brand tasks
+
+### Git Workflow
+
+**Commit Messages**:
+- Descriptive and clear about what changed
+- Include context for why changes were made
+- Follow existing commit style in repository
+
+**Best Practices**:
+- Review changes before committing
+- Test locally when possible
+- Don't commit sensitive data
+- Use meaningful commit messages
+
+### Reference Files
+
+**For comprehensive context**, see the CHRIS repository:
+- `c:\_Code\CHRIS\config\preferences.yaml` - Detailed AI preferences
+- `c:\_Code\CHRIS\config\coding_standards.md` - Complete coding standards
+- `c:\_Code\CHRIS\profile\professional.md` - Professional background and expertise
+- `c:\_Code\CHRIS\docs\blog-guidelines.md` - Blog writing guidelines
+- `c:\_Code\CHRIS\docs\guides\claude-usage-optimization.md` - Claude Projects optimization
+
+### Claude Projects Optimization
+
+**For improved efficiency**, consider using Claude Projects:
+
+**Benefits**:
+- Cached content doesn't count against usage limits
+- 200,000 token context window
+- Persistent custom instructions
+- Better organization by work type
+
+**Recommended Setup**:
+- Create a "christaylor.codes - Website" project
+- Upload this CLAUDE.md file to knowledge base
+- Upload blog-guidelines.md for content work
+- Add custom instructions for website-specific context
+
+**See**: `c:\_Code\CHRIS\docs\guides\claude-usage-optimization.md` for detailed setup guide
+
+### About Chris
+
+**Role**: Network Operations Chief, vCTO, Automation Engineer, System Integrator at i.t.NOW
+**Experience**: 20+ years (since 2002)
+**Expertise**: Infrastructure automation, MSP operations, PowerShell, API integrations
+**Focus**: AI integration, business process automation, multi-tenant systems
+
+**Primary Technologies**:
+- Languages: PowerShell (expert), TypeScript, SQL, Jinja
+- Platforms: ConnectWise (Manage, Automate, Control), Azure, ImmyBot, Rewst
+- Domain: Managed Services Provider (MSP) industry
+
+**Community**:
+- GitHub: @christaylorcodes
+- Website: christaylor.codes
+- Email: ctaylor@christaylor.codes
+- LinkedIn: Chris Taylor (christaylorcodes)
+
+**Working Style**:
+- 90-minute Pomodoro blocks for deep work
+- Collaboration and pair programming approach
+- Values clear communication and teaching
+- Open source contributor
+
+---
+
 **Last Updated:** 2025-11-03
 **Jekyll Version:** GitHub Pages compatible
-**Documentation Version:** 1.0
+**Documentation Version:** 1.1

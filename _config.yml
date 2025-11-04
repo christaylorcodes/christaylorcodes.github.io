@@ -10,6 +10,29 @@ github_username: christaylorcodes
 #linkedin_username: yourlinkedin
 #twitter_username: yourtwitter
 
+# Social media defaults for Open Graph and Twitter Cards
+# These settings work with jekyll-seo-tag plugin
+social:
+  name: Chris Taylor
+  links:
+    - https://github.com/christaylorcodes
+    - https://christaylor.codes
+
+# Default social sharing image (used when page doesn't specify one)
+# This appears when links are shared on social media
+# TODO: Create a proper 1200x630px social card image for better sharing
+logo: /assets/images/profile-photo.png
+
+# Author defaults for blog posts
+author:
+  name: Chris Taylor
+  email: ctaylor@christaylor.codes
+
+# Twitter card settings
+twitter:
+  card: summary_large_image
+  # username: christaylorcodes  # Uncomment and update when Twitter account is active
+
 # Build settings
 markdown: kramdown
 plugins:

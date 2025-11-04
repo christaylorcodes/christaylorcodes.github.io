@@ -7,7 +7,15 @@
     <title>{% if page.title %}{{ page.title }} | {% endif %}{{ site.title }}</title>
     <meta name="description" content="{{ page.description | default: site.description }}">
 
-    <!-- SEO -->
+    <!-- SEO, Open Graph, and Twitter Cards -->
+    <!-- The jekyll-seo-tag plugin generates comprehensive meta tags including:
+         - Basic SEO: title, description, canonical URL
+         - Open Graph: og:title, og:description, og:url, og:type, og:image, og:site_name
+         - Twitter Cards: twitter:card, twitter:title, twitter:description, twitter:image
+         - Structured data: JSON-LD for rich search results
+         Configuration in _config.yml controls default values.
+         Page-specific front matter (image, description, title) overrides defaults.
+    -->
     {% seo %}
 
     <!-- Favicon -->

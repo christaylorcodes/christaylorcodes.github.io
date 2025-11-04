@@ -8,23 +8,12 @@ This document tracks improvements and enhancements for christaylor.codes. Tasks 
 - [ ] Replace placeholder blog posts with real content about automation, PowerShell, and network operations
 - [ ] Update project entries in `_projects/` with actual projects from your portfolio
 - [ ] Replace placeholder project URLs (`#`) with real demo and GitHub repository links
-- [ ] Update contact form action URL - Replace `YOUR_FORM_ID` in [contact.html:16](contact.html#L16) with actual Formspree ID
-- [ ] Add professional headshot or profile image to About page
 
 ### Code Organization
-- [ ] Move inline styles to CSS classes for better maintainability
-  - Blog post links in [index.html:75](index.html#L75)
-  - Post date styling in [index.html:76](index.html#L76)
-  - Read more link in [index.html:80](index.html#L80)
-  - Project tags margin in [index.html:105](index.html#L105)
-  - Contact form intro in [contact.html:12](contact.html#L12)
-- [ ] Create reusable CSS classes for repeated patterns (cards, buttons, spacing)
 - [ ] Add code comments in main.css to document major sections
 
 ### Documentation
-- [ ] Create template file for new blog posts in `_templates/post-template.md`
-- [ ] Create template file for new projects in `_templates/project-template.md`
-- [ ] Document CSS custom property usage in CLAUDE.md
+- [ ] Update CLAUDE.md with oceanic color palette documentation
 - [ ] Add content contribution guidelines to CLAUDE.md
 
 ## Priority 2: Features & Functionality
@@ -45,7 +34,6 @@ This document tracks improvements and enhancements for christaylor.codes. Tasks 
 - [ ] Create project categories for filtering (Automation, PowerShell, Web, etc.)
 
 ### Contact Enhancements
-- [ ] Add form validation feedback (success/error messages)
 - [ ] Add LinkedIn profile link (uncomment in [_config.yml:10](_config.yml#L10))
 - [ ] Add professional social media links (Twitter, etc.)
 - [ ] Consider adding calendly/scheduling link for consultations
@@ -59,12 +47,9 @@ This document tracks improvements and enhancements for christaylor.codes. Tasks 
 
 ### SEO Optimization
 - [ ] Add custom meta descriptions to all pages using front matter
-- [ ] Add Open Graph tags for better social media sharing
-- [ ] Add Twitter Card meta tags
-- [ ] Create `sitemap.xml` (can use jekyll-sitemap plugin)
-- [ ] Create `robots.txt` file
-- [ ] Add favicon and Apple touch icons
-- [ ] Add structured data (JSON-LD) for better search results
+- [x] Add Open Graph tags for better social media sharing (Completed 2025-11-03)
+- [x] Add Twitter Card meta tags (Completed 2025-11-03)
+- [ ] Add structured data (JSON-LD) for better search results (partially complete - jekyll-seo-tag provides basic JSON-LD)
 
 ### Performance
 - [ ] Implement image optimization workflow
@@ -72,7 +57,6 @@ This document tracks improvements and enhancements for christaylor.codes. Tasks 
 - [ ] Minify CSS for production
 - [ ] Consider adding service worker for offline functionality
 - [ ] Optimize Font Awesome usage (only load needed icons)
-- [ ] Add preconnect hints for Google Fonts and Font Awesome CDN
 
 ### Accessibility
 - [ ] Add ARIA labels to navigation and interactive elements
@@ -92,7 +76,6 @@ This document tracks improvements and enhancements for christaylor.codes. Tasks 
 - [ ] Add dark/light mode toggle (currently dark only)
 - [ ] Add print stylesheet
 - [ ] Create PDF export functionality for blog posts
-- [ ] Add code syntax highlighting for blog posts with code samples
 - [ ] Add image galleries/lightbox for projects
 
 ### Content Types
@@ -126,25 +109,23 @@ This document tracks improvements and enhancements for christaylor.codes. Tasks 
 
 These tasks can be completed quickly and provide immediate value:
 
-1. [ ] Add real Formspree form ID to contact page
-2. [ ] Add favicon set (can use https://realfavicongenerator.net/)
-3. [ ] Add LinkedIn profile link to config and footer
-4. [ ] Create first real blog post about PowerShell automation
-5. [ ] Add at least one real project from your portfolio
-6. [ ] Add sitemap.xml using jekyll-sitemap plugin
-7. [ ] Add robots.txt file
-8. [ ] Move all inline styles to CSS classes
+1. [ ] Add LinkedIn profile link to config and footer
+2. [ ] Create first real blog post about PowerShell automation
+3. [ ] Add at least one real project from your portfolio
+4. [x] Add Open Graph and Twitter Card meta tags for better social sharing (Completed 2025-11-03)
+5. [ ] Add structured data (JSON-LD) for improved search results
 
 ## Notes
 
 - Test all changes locally before pushing to GitHub Pages
 - Maintain responsive design for all new features
-- Keep dark theme and turquoise accent colors consistent
+- **Current color theme:** Oceanic palette (dark cyan, midnight green, tiffany blue with warm accents)
 - Prioritize page load performance
 - Ensure all new content aligns with Chris Taylor's professional brand
 
 ## Completed Tasks
 
+### Initial Setup (2024)
 - [x] Initial Jekyll site setup
 - [x] Custom layouts and includes
 - [x] Dark theme with turquoise accent colors
@@ -157,3 +138,25 @@ These tasks can be completed quickly and provide immediate value:
 - [x] Featured projects section on home page
 - [x] SEO plugin integration (jekyll-seo-tag)
 - [x] RSS feed plugin integration (jekyll-feed)
+
+### November 2025 Updates
+- [x] Add professional headshot or profile image to About page (commit: 73ffbad)
+- [x] Add favicon and Apple touch icons (commit: f193c9a)
+- [x] Move inline styles to CSS classes for better maintainability (commit: afe678e)
+- [x] Create reusable CSS classes for repeated patterns (commit: afe678e)
+- [x] Create template file for new blog posts in `_templates/post-template.md` (commit: 2985fa5)
+- [x] Create template file for new projects in `_templates/project-template.md` (commit: 2985fa5)
+- [x] Create `sitemap.xml` using jekyll-sitemap plugin (commit: afe678e)
+- [x] Create `robots.txt` file (commit: afe678e)
+- [x] Add preconnect hints for Google Fonts and Font Awesome CDN (commit: 2113c91)
+- [x] Remove Formspree form and replace with direct contact methods (commit: 54c2282)
+- [x] Implement oceanic color palette redesign (commit: 2113c91)
+- [x] Add code syntax highlighting for blog posts (already in post.html layout)
+- [x] Add llms.txt for AI model context and understanding (commit: 378554d)
+- [x] Document CSS custom property usage in CLAUDE.md (commit: 307f5c1)
+
+### Performance Optimizations (November 2025)
+- [x] Fix render blocking requests - Font Awesome async loading (commit: 2113c91)
+- [x] Fix render blocking requests - main.js defer attribute (commit: 2113c91)
+- [x] Add font-display: swap for faster text rendering (commit: 2113c91)
+- [x] Add preconnect hints for CDN resources (commit: 2113c91)
