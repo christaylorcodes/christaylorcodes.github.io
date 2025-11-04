@@ -1,0 +1,34 @@
+---
+layout: default
+title: Search
+---
+
+<section class="search-hero">
+    <div class="container">
+        <h1>Search</h1>
+        <p class="search-subtitle">Search across blog posts and projects</p>
+    </div>
+</section>
+
+<section class="search-section">
+    <div class="container">
+        <div class="search-container">
+            <div class="search-box">
+                <input
+                    type="text"
+                    id="search-input"
+                    placeholder="Enter your search terms..."
+                    autocomplete="off"
+                    aria-label="Search"
+                >
+                <button id="search-button" aria-label="Search">
+                    <i class="fas fa-search"></i>
+                </button>
+            </div>
+
+            <div id="search-results" class="search-results" role="region" aria-live="polite">
+                <p class="search-instructions">Enter a search term to find blog posts and projects.</p>
+            </div>
+        </div>
+    </div>
+</section>

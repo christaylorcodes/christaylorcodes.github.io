@@ -50,7 +50,7 @@
 .feature-icon {
     width: 4rem;
     height: 4rem;
-    background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+    background: var(--primary-color);  /* Default cyan */
     border-radius: 50%;
     display: flex;
     align-items: center;
@@ -58,6 +58,24 @@
     margin: 0 auto 1.5rem;
     font-size: 1.75rem;
     color: white;
+}
+
+/* Individual icon color variants using Oceanic palette
+   Alternating cool/warm for visual contrast */
+.feature-icon.icon-cyan {
+    background: var(--primary-color);      /* Cyan #06b6d4 - Cool */
+}
+
+.feature-icon.icon-amber {
+    background: var(--secondary-color);    /* Amber #f59e0b - Warm */
+}
+
+.feature-icon.icon-sky {
+    background: var(--primary-dark);       /* Sky Blue #0284c7 - Cool */
+}
+
+.feature-icon.icon-orange {
+    background: var(--accent-orange);      /* Orange #ea580c - Warm */
 }
 
 .feature-card h3 {

@@ -5,6 +5,7 @@
    Color System: Oceanic Palette with Electric Blue Primary
    - Primary colors use cyan/blue for tech/trust feeling
    - Secondary colors use amber/orange for warmth and calls-to-action
+   - Button colors use emerald green for distinct, ocean-themed interaction
    - Background uses deep slate for comfortable dark theme
    - All colors defined as CSS variables for easy theming
 
@@ -16,11 +17,16 @@
 }
 
 :root {
-    /* Primary Colors - Electric Blue Theme */
+    /* Primary Colors - Electric Blue Theme (for highlights, links, accents) */
     --primary-color: #06b6d4;        /* Cyan - main accent */
     --primary-dark: #0284c7;         /* Sky Blue - darker accent */
     --primary-light: #38bdf8;        /* Light Blue - lighter accent */
     --secondary-color: #f59e0b;      /* Amber - warm accent */
+
+    /* Button Colors - Emerald Green Theme (for interactive buttons) */
+    --button-color: #10b981;         /* Emerald - button primary */
+    --button-dark: #059669;          /* Dark Emerald - button hover */
+    --button-light: #34d399;         /* Mint - button light accent */
 
     /* Background Colors - Deep Slate */
     --bg-darker: #020617;            /* Rich Black - darkest backgrounds */

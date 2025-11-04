@@ -54,6 +54,279 @@
     margin: -1rem auto 3rem;
 }
 
+/* Blog Filter Controls */
+.blog-filters {
+    max-width: 900px;
+    margin: 0 auto 3rem;
+    padding: 2rem;
+    background-color: var(--bg-light);
+    border-radius: 1rem;
+    border: 1px solid var(--border-color);
+}
+
+.filter-group {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+
+    &:last-child {
+        margin-bottom: 0;
+    }
+}
+
+.filter-label {
+    font-weight: 600;
+    color: var(--text-dark);
+    font-size: 1rem;
+}
+
+/* Blog Search Box */
+.blog-search-box {
+    position: relative;
+    display: flex;
+    align-items: center;
+    width: 100%;
+
+    input {
+        flex: 1;
+        padding: 0.75rem 3rem 0.75rem 1rem;
+        font-size: 1rem;
+        background: var(--bg-dark);
+        border: 2px solid var(--border-color);
+        border-radius: 8px;
+        color: var(--text-dark);
+        transition: all 0.3s ease;
+
+        &:focus {
+            outline: none;
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 3px rgba(6, 182, 212, 0.1);
+        }
+
+        &::placeholder {
+            color: var(--text-light);
+            opacity: 0.6;
+        }
+    }
+}
+
+.search-clear-btn {
+    position: absolute;
+    right: 0.75rem;
+    background: transparent;
+    border: none;
+    color: var(--text-light);
+    cursor: pointer;
+    padding: 0.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 4px;
+    transition: all 0.3s ease;
+
+    &:hover {
+        color: var(--primary-color);
+        background: rgba(6, 182, 212, 0.1);
+    }
+
+    i {
+        font-size: 0.875rem;
+    }
+}
+
+.filter-buttons {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+}
+
+.filter-btn {
+    background-color: var(--bg-dark);
+    color: var(--text-light);
+    border: 1px solid var(--border-color);
+    padding: 0.5rem 1rem;
+    border-radius: 0.5rem;
+    font-size: 0.95rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.filter-btn:hover {
+    background-color: var(--primary-color);
+    color: white;
+    border-color: var(--primary-color);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(6, 182, 212, 0.3);
+}
+
+.filter-btn.active {
+    background-color: var(--primary-color);
+    color: white;
+    border-color: var(--primary-color);
+    box-shadow: 0 0 15px rgba(6, 182, 212, 0.5);
+}
+
+.filter-count {
+    background-color: rgba(255, 255, 255, 0.2);
+    padding: 0.125rem 0.5rem;
+    border-radius: 0.25rem;
+    font-size: 0.875rem;
+    font-weight: 600;
+}
+
+.filter-btn.active .filter-count {
+    background-color: rgba(255, 255, 255, 0.3);
+}
+
+/* ========================================
+   FILTER BUTTON COLOR VARIATIONS
+   ========================================
+
+   Modifier classes for different color schemes
+   based on the Oceanic palette.
+
+   Usage: Add modifier class after filter-btn
+   Example: <button class="filter-btn filter-emerald">Button</button>
+
+   ======================================== */
+
+/* Cyan - Primary Brand Color (Default)
+   Use for: Primary filtering, blog categories, main content filters */
+.filter-btn.filter-cyan:hover {
+    background-color: var(--primary-color);
+    color: white;
+    border-color: var(--primary-color);
+    box-shadow: 0 4px 12px rgba(6, 182, 212, 0.3);
+}
+
+.filter-btn.filter-cyan.active {
+    background-color: var(--primary-color);
+    color: white;
+    border-color: var(--primary-color);
+    box-shadow: 0 0 15px rgba(6, 182, 212, 0.5);
+}
+
+/* Emerald Green
+   Use for: Success states, positive filters, active selections */
+.filter-btn.filter-emerald:hover {
+    background-color: var(--button-color);
+    color: white;
+    border-color: var(--button-color);
+    box-shadow: 0 4px 12px rgba(16, 185, 129, 0.3);
+}
+
+.filter-btn.filter-emerald.active {
+    background-color: var(--button-color);
+    color: white;
+    border-color: var(--button-color);
+    box-shadow: 0 0 15px rgba(16, 185, 129, 0.5);
+}
+
+/* Amber - Warm Accent Color
+   Use for: Warning states, in-progress filters, pending items */
+.filter-btn.filter-amber:hover {
+    background-color: var(--secondary-color);
+    color: white;
+    border-color: var(--secondary-color);
+    box-shadow: 0 4px 12px rgba(245, 158, 11, 0.3);
+}
+
+.filter-btn.filter-amber.active {
+    background-color: var(--secondary-color);
+    color: white;
+    border-color: var(--secondary-color);
+    box-shadow: 0 0 15px rgba(245, 158, 11, 0.5);
+}
+
+/* Red - Warning/Error Color
+   Use for: Error states, blocked items, deprecated content */
+.filter-btn.filter-red:hover {
+    background-color: var(--accent-rust);
+    color: white;
+    border-color: var(--accent-rust);
+    box-shadow: 0 4px 12px rgba(220, 38, 38, 0.3);
+}
+
+.filter-btn.filter-red.active {
+    background-color: var(--accent-rust);
+    color: white;
+    border-color: var(--accent-rust);
+    box-shadow: 0 0 15px rgba(220, 38, 38, 0.5);
+}
+
+/* Filter Dropdown */
+.filter-dropdown {
+    position: relative;
+    display: inline-block;
+}
+
+.filter-dropdown-btn {
+    cursor: pointer;
+}
+
+.filter-dropdown-btn i {
+    font-size: 0.75rem;
+    transition: transform 0.3s ease;
+}
+
+.filter-dropdown.active .filter-dropdown-btn i {
+    transform: rotate(180deg);
+}
+
+.filter-dropdown-menu {
+    position: absolute;
+    top: calc(100% + 0.5rem);
+    left: 0;
+    background-color: var(--bg-light);
+    border: 1px solid var(--border-color);
+    border-radius: 0.5rem;
+    padding: 0.5rem;
+    display: none;
+    flex-direction: column;
+    gap: 0.5rem;
+    min-width: 200px;
+    max-height: 300px;
+    overflow-y: auto;
+    box-shadow: var(--shadow-lg);
+    z-index: 100;
+}
+
+.filter-dropdown.active .filter-dropdown-menu {
+    display: flex;
+}
+
+.filter-dropdown-item {
+    width: 100%;
+    justify-content: space-between;
+    text-align: left;
+}
+
+.filter-dropdown-item:hover {
+    background-color: var(--primary-color);
+}
+
+.no-filter-results {
+    text-align: center;
+    padding: 3rem 2rem;
+    color: var(--text-light);
+}
+
+.no-filter-results i {
+    font-size: 3rem;
+    margin-bottom: 1rem;
+    color: var(--primary-color);
+    display: block;
+}
+
+.no-filter-results p {
+    font-size: 1.125rem;
+}
+
 .blog-posts {
     display: grid;
     gap: 2rem;
@@ -95,6 +368,52 @@
     font-size: 0.875rem;
     font-weight: 600;
     text-transform: capitalize;
+}
+
+/* ========================================
+   CATEGORY BADGE COLOR VARIATIONS
+   ========================================
+
+   Modifier classes for different colored badges
+   based on the Oceanic palette.
+
+   Usage: Add modifier class after category-badge
+   Example: <span class="category-badge badge-emerald">Label</span>
+
+   ======================================== */
+
+/* Cyan - Primary Brand Color (Default gradient already defined above)
+   Use for: General categories, primary content labels, default tags
+   Colors from Oceanic palette: primary-dark → primary → primary-light */
+.category-badge.badge-cyan {
+    background: linear-gradient(135deg, #0284c7 0%, #06b6d4 50%, #38bdf8 100%);
+}
+
+/* Emerald Green
+   Use for: Success states, completed items, stable releases
+   Colors from Oceanic palette: button-dark → button → button-light */
+.category-badge.badge-emerald {
+    background: linear-gradient(135deg, #059669 0%, #10b981 50%, #34d399 100%);
+}
+
+/* Amber - Warm Accent Color
+   Use for: In-progress content, beta features, pending updates
+   Colors from Oceanic palette: darker amber → secondary-color → lighter amber */
+.category-badge.badge-amber {
+    background: linear-gradient(135deg, #d97706 0%, #f59e0b 50%, #fbbf24 100%);
+}
+
+/* Red - Warning/Error Color
+   Use for: Deprecated content, breaking changes, critical issues
+   Colors from Oceanic palette: darker red → accent-rust → lighter red */
+.category-badge.badge-red {
+    background: linear-gradient(135deg, #b91c1c 0%, #dc2626 50%, #f87171 100%);
+}
+
+/* Purple - Special/New Color
+   Use for: Special content, new features, experimental, AI-related */
+.category-badge.badge-purple {
+    background: linear-gradient(135deg, #7e22ce 0%, #a855f7 50%, #d8b4fe 100%);
 }
 
 .post-card-title {
@@ -464,6 +783,49 @@
     background-color: transparent;
     padding: 0;
     color: inherit;
+}
+
+/* Code Block Copy Button */
+.code-block-wrapper {
+    position: relative;
+    margin-bottom: 1.5rem;
+}
+
+.copy-code-btn {
+    position: absolute;
+    top: 0.5rem;
+    right: 0.5rem;
+    background-color: var(--bg-light);
+    color: var(--text-light);
+    border: 1px solid var(--border-color);
+    padding: 0.5rem 1rem;
+    border-radius: 0.375rem;
+    font-size: 0.875rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    z-index: 10;
+}
+
+.copy-code-btn:hover {
+    background-color: var(--primary-color);
+    color: white;
+    border-color: var(--primary-color);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(6, 182, 212, 0.3);
+}
+
+.copy-code-btn.copied {
+    background-color: #10b981;
+    color: white;
+    border-color: #10b981;
+}
+
+.copy-code-btn i {
+    font-size: 0.875rem;
 }
 
 .post-content img {

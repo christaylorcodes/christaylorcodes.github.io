@@ -55,6 +55,7 @@ Website/
 ├── projects.html            # Projects showcase
 ├── contact.html             # Contact page
 ├── oceanic.gemspec          # Gem specification for theme
+├── build.ps1                # PowerShell build script
 ├── LICENSE                  # MIT License
 ├── Gemfile                  # Ruby dependencies
 ├── README.md                # Project documentation
@@ -97,9 +98,9 @@ The monolithic CSS file has been refactored into 14 modular SCSS partials for be
 2. **`_base.scss`** (50 lines) - Reset, body, typography, container, sections, width strategy
 3. **`_navigation.scss`** (125 lines) - Navbar, logo, mobile menu, hamburger
 4. **`_hero.scss`** (60 lines) - Hero sections, highlights, buttons container
-5. **`_buttons.scss`** (40 lines) - Button components (primary, secondary)
+5. **`_buttons.scss`** (145 lines) - Button components with color variations (primary, secondary, cyan, amber, orange, red)
 6. **`_features.scss`** (70 lines) - Feature cards and grid
-7. **`_posts.scss`** (520 lines) - Blog list, individual posts, categories, content styles, code blocks
+7. **`_posts.scss`** (670 lines) - Blog list, posts, categories, content styles, code blocks, filter buttons, category badges with color variations
 8. **`_projects.scss`** (110 lines) - Project cards, grid, CTA section
 9. **`_contact.scss`** (85 lines) - Contact page, method cards, form styles
 10. **`_about.scss`** (110 lines) - About page, photo, skills grid, quote
@@ -203,30 +204,47 @@ The site uses Rouge syntax highlighter with a custom Oceanic-themed color scheme
 
 ```yaml
 ---
+layout: project
 title: Project Name
 icon: fa-icon-name
-description: Brief description for the project card
+category: PowerShell
+short_description: Brief, concise description for the project card (135-145 characters recommended)
+description: |
+  Longer detailed description with multiple paragraphs explaining features,
+  benefits, and technical details. This appears on the project detail page.
 tags:
   - Technology 1
   - Technology 2
 demo_url: "https://demo.com"
 github_url: "https://github.com/user/repo"
+powershell_gallery_url: "https://www.powershellgallery.com/packages/PackageName"
 order: 1
 ---
-
-Optional longer description...
 ```
 
 3. Commit and push to deploy
 
 **Project Field Definitions:**
+- `layout`: Always use `project` layout
 - `title`: Display name
-- `icon`: Font Awesome icon class (e.g., `fa-rocket`, `fa-code`)
-- `description`: Short text shown on project card
+- `icon`: Font Awesome icon class (e.g., `fa-rocket`, `fa-code`, `fa-plug`)
+- `category`: Project category (e.g., `PowerShell`, `ConnectWiseManageAPI`)
+- `short_description`: Concise text shown on project card (135-145 characters for visual consistency)
+- `description`: Extended multi-paragraph description with technical details
 - `tags`: List of technologies used
-- `demo_url`: Link to live demo (use `#` if none)
-- `github_url`: Link to repository (use `#` if none)
+- `demo_url`: Link to live demo (optional)
+- `github_url`: Link to repository
+- `powershell_gallery_url`: PowerShell Gallery link (if applicable)
 - `order`: Display order (lower numbers appear first)
+
+**Short Description Guidelines:**
+- **Length**: 135-145 characters for uniform visual appearance across project cards
+- **Structure**: Start with action verb (e.g., "Simplifies", "Automates", "Enables")
+- **Content**: Focus on primary value proposition and key benefits
+- **Clarity**: Be specific about what the project does and who it's for
+- **Examples**:
+  - "Simplifies Azure Key Vault integration with automatic serialization, PSCredential management, and secure string operations for PowerShell." (140 chars)
+  - "Automate remote support operations and integrate ConnectWise Control into ticketing workflows and monitoring systems with clean PowerShell cmdlets." (141 chars)
 
 ### Updating Pages
 
@@ -323,12 +341,21 @@ When creating blog posts, ensure they meet these standards:
 - Font Awesome icon that matches project type
 - Display order number
 
-**Description Best Practices:**
-- Lead with the benefit/value proposition
-- Explain what problem it solves
-- Mention key features or capabilities
-- Keep under 200 words for project card readability
+**Short Description Best Practices:**
+- **Standardized length**: 135-145 characters for visual consistency across project cards
+- Lead with action verb (Simplifies, Automates, Enables, etc.)
+- Focus on primary value proposition and key benefits
+- Be specific about what the project does and target audience
+- Mention 2-3 key features or capabilities
 - Use active voice and strong verbs
+
+**Extended Description Best Practices:**
+- Lead with the benefit/value proposition in first paragraph
+- Explain what problem it solves and why it matters
+- Provide technical details about implementation and features
+- Mention key capabilities with specific examples
+- Keep under 200 words per paragraph for readability
+- Use active voice and descriptive language
 
 #### File Naming Conventions
 
@@ -540,6 +567,317 @@ All variables are defined in `_sass/oceanic/_variables.scss` within the `:root` 
 - Tablet: max-width 768px
 - Desktop: 769px and above
 
+### Button System
+
+The Oceanic theme includes a comprehensive, standardized button system with multiple color variations based on the Oceanic palette. All buttons use consistent styling, hover effects, and transitions throughout the site.
+
+**Styles Location:** [_sass/oceanic/_buttons.scss](_sass/oceanic/_buttons.scss)
+
+#### Button Classes
+
+**Base Classes:**
+- `.btn` - Base button class (required on all buttons)
+- `.btn-primary` - Solid filled button
+- `.btn-secondary` - Outlined transparent button
+
+**Color Modifiers:**
+- `.btn-cyan` - Cyan/primary brand color
+- `.btn-amber` - Amber/warm accent color
+- `.btn-orange` - Orange/call-to-action color
+- `.btn-red` - Red/warning color
+- No modifier - Emerald green (default button color)
+
+#### Usage Examples
+
+```html
+<!-- Standard buttons (Emerald Green) -->
+<a href="#" class="btn btn-primary">Primary Button</a>
+<a href="#" class="btn btn-secondary">Secondary Button</a>
+
+<!-- Color variations -->
+<a href="#" class="btn btn-primary btn-cyan">Cyan Button</a>
+<a href="#" class="btn btn-primary btn-amber">Amber Button</a>
+<a href="#" class="btn btn-primary btn-orange">Orange Button</a>
+<a href="#" class="btn btn-primary btn-red">Delete Button</a>
+
+<!-- With icons -->
+<a href="#" class="btn btn-primary">
+    <i class="fas fa-download"></i> Download
+</a>
+```
+
+#### Button Color Guide
+
+**Emerald Green (Default - no modifier):**
+- **Color:** #10b981
+- **Use for:** Primary actions, form submissions, main CTAs
+- **Example:** "View My Work", "Submit", "Download"
+
+**Cyan (.btn-cyan):**
+- **Color:** #06b6d4
+- **Use for:** Brand-focused actions, navigation highlights
+- **Example:** "View on GitHub", brand-specific CTAs
+
+**Amber (.btn-amber):**
+- **Color:** #f59e0b
+- **Use for:** Secondary branding, warm highlights, alternative CTAs
+- **Example:** Secondary feature buttons
+
+**Orange (.btn-orange):**
+- **Color:** #ea580c
+- **Use for:** High-priority actions, urgent notifications
+- **Example:** "Upgrade Now", important actions
+
+**Red (.btn-red):**
+- **Color:** #dc2626
+- **Use for:** Destructive actions, warnings, delete confirmations
+- **Example:** "Delete", "Remove", "Cancel Subscription"
+
+#### Button States
+
+All buttons include consistent hover effects:
+- **Lift animation:** `translateY(-2px)` for tactile feedback
+- **Glow effect:** Color-matched shadow (e.g., `0 0 20px rgba(6, 182, 212, 0.5)`)
+- **Color shift:** Slightly lighter shade on hover
+- **Smooth transition:** 0.3s ease for all properties
+
+**Example:** View live button examples at `/buttons.html` (button sample page)
+
+#### Best Practices
+
+1. **Hierarchy:** Use `.btn-primary` for primary actions, `.btn-secondary` for secondary actions
+2. **Color meaning:** Reserve red for destructive actions, orange for high-priority
+3. **Consistency:** Stick to emerald green (default) for most primary buttons
+4. **Icons:** Add Font Awesome icons for visual clarity when appropriate
+5. **Accessibility:** Buttons maintain WCAG AA contrast ratios in all color variations
+
+### Filter Button System
+
+The Oceanic theme includes a standardized filter button system for category filtering, content organization, and selection interfaces. These buttons have a distinct pill-shaped design optimized for filtering use cases.
+
+**Styles Location:** [_sass/oceanic/_posts.scss:144-276](_sass/oceanic/_posts.scss#L144-L276)
+
+#### Filter Button Classes
+
+**Base Classes:**
+- `.filter-buttons` - Container for filter button groups
+- `.filter-btn` - Base filter button class (required on all filter buttons)
+- `.active` - Active/selected state
+
+**Color Modifiers:**
+- `.filter-cyan` - Cyan/primary brand color (default)
+- `.filter-emerald` - Emerald green for success states
+- `.filter-amber` - Amber for warning/in-progress states
+- `.filter-orange` - Orange for priority/urgent filters
+- `.filter-red` - Red for error/deprecated items
+
+**Additional Components:**
+- `.filter-count` - Badge showing item count
+- `.filter-dropdown` - Dropdown container for overflow categories
+- `.filter-dropdown-btn` - Dropdown trigger button
+- `.filter-dropdown-menu` - Dropdown menu container
+
+#### Usage Examples
+
+```html
+<!-- Standard filter buttons -->
+<div class="filter-buttons">
+    <button class="filter-btn active">All</button>
+    <button class="filter-btn">Category <span class="filter-count">5</span></button>
+</div>
+
+<!-- Color variations -->
+<button class="filter-btn filter-cyan active">Cyan</button>
+<button class="filter-btn filter-emerald">Emerald</button>
+<button class="filter-btn filter-amber">Amber</button>
+<button class="filter-btn filter-orange">Orange</button>
+<button class="filter-btn filter-red">Red</button>
+
+<!-- With dropdown for overflow -->
+<div class="filter-buttons">
+    <button class="filter-btn active">All</button>
+    <button class="filter-btn">Category 1</button>
+    <div class="filter-dropdown">
+        <button class="filter-btn filter-dropdown-btn">
+            More <i class="fas fa-chevron-down"></i>
+        </button>
+        <div class="filter-dropdown-menu">
+            <button class="filter-btn filter-dropdown-item">Hidden Category</button>
+        </div>
+    </div>
+</div>
+```
+
+#### Filter Button Color Guide
+
+All filter button colors use CSS variables from the Oceanic palette defined in [_sass/oceanic/_variables.scss](_sass/oceanic/_variables.scss).
+
+**Cyan (Default):**
+- **Color:** #06b6d4 (--primary-color)
+- **Use for:** Primary filtering, blog categories, main content filters
+- **Example:** Blog post category filters
+
+**Emerald Green (.filter-emerald):**
+- **Color:** #10b981 (--button-color)
+- **Use for:** Success states, positive filters, active selections
+- **Example:** "Active Projects", "Published", "Available"
+
+**Amber (.filter-amber):**
+- **Color:** #f59e0b (--secondary-color)
+- **Use for:** Warning states, in-progress filters, pending items
+- **Example:** "In Progress", "Review Needed", "Beta"
+
+**Red (.filter-red):**
+- **Color:** #dc2626 (--accent-rust)
+- **Use for:** Error states, blocked items, deprecated content
+- **Example:** "Issues", "Deprecated", "Failed"
+
+#### Filter Button States
+
+Filter buttons support three interactive states:
+- **Default:** Dark background with subtle border
+- **Hover:** Color-matched background with lift animation
+- **Active:** Solid color background with glow effect
+
+**Key Features:**
+- Smaller padding (`0.5rem 1rem`) compared to action buttons
+- Pill-shaped design for visual distinction from action buttons
+- Active state persists to show current selection
+- Optional count badges for displaying item quantities
+- Dropdown support for handling many categories
+
+#### Differences from Action Buttons
+
+**Filter Buttons vs. Action Buttons:**
+
+| Feature | Filter Buttons | Action Buttons |
+|---------|---------------|----------------|
+| **Purpose** | Selection/filtering | Navigation/actions |
+| **Size** | Smaller (0.5rem padding) | Larger (0.875rem padding) |
+| **States** | Default, hover, active | Default, hover |
+| **Default Color** | Cyan | Emerald green |
+| **Visual Style** | Pill-shaped, subtle | Prominent, bold |
+| **Count Badges** | Yes | No |
+| **Dropdown Support** | Yes | No |
+
+**Example:** View live filter button examples at `/categories.html` (category filter sample page)
+
+#### Best Practices
+
+1. **Use appropriate colors:** Match filter color to semantic meaning (green=good, red=bad, amber=caution)
+2. **Keep labels concise:** Filter button labels should be 1-2 words
+3. **Show counts:** Include count badges when displaying item quantities
+4. **Active state:** Always indicate which filter is currently selected
+5. **Overflow handling:** Use dropdown menu when there are 10+ categories
+6. **Consistent grouping:** Keep filter buttons in `.filter-buttons` containers
+
+### Category Badge System
+
+The Oceanic theme includes a standardized badge system for labeling content, displaying categories, and organizing information with visual tags. These badges are non-interactive with colorful gradient backgrounds.
+
+**Styles Location:** [_sass/oceanic/_posts.scss:379-435](_sass/oceanic/_posts.scss#L379-L435)
+
+#### Badge Classes
+
+**Base Classes:**
+- `.post-card-categories` - Container for badge groups
+- `.category-badge` - Base badge class (required on all badges)
+
+**Color Modifiers:**
+- `.badge-cyan` - Cyan/primary brand color (default)
+- `.badge-emerald` - Emerald green for success/stable
+- `.badge-amber` - Amber for in-progress/beta
+- `.badge-red` - Red for deprecated/critical
+- `.badge-purple` - Purple for new/experimental/AI
+
+#### Usage Examples
+
+```html
+<!-- Standard category badges -->
+<span class="category-badge">PowerShell</span>
+<span class="category-badge">Automation</span>
+
+<!-- Color variations -->
+<span class="category-badge badge-cyan">Tutorial</span>
+<span class="category-badge badge-emerald">Stable</span>
+<span class="category-badge badge-amber">Beta</span>
+<span class="category-badge badge-red">Deprecated</span>
+<span class="category-badge badge-purple">New</span>
+
+<!-- In post card header -->
+<div class="post-card-categories">
+    <span class="category-badge">Category 1</span>
+    <span class="category-badge badge-emerald">Category 2</span>
+</div>
+```
+
+#### Badge Color Guide
+
+All badge gradients align with the Oceanic color palette defined in [_sass/oceanic/_variables.scss](_sass/oceanic/_variables.scss).
+
+**Cyan (Default):**
+- **Gradient:** #0284c7 → #06b6d4 → #38bdf8
+- **Palette:** primary-dark → primary → primary-light
+- **Use for:** General categories, primary content labels, default tags
+- **Example:** "PowerShell", "Automation", "Tutorial"
+
+**Emerald Green (.badge-emerald):**
+- **Gradient:** #059669 → #10b981 → #34d399
+- **Palette:** button-dark → button → button-light
+- **Use for:** Success states, completed items, stable releases
+- **Example:** "Stable", "Production", "Released", "Verified"
+
+**Amber (.badge-amber):**
+- **Gradient:** #d97706 → #f59e0b → #fbbf24
+- **Palette:** Based on secondary-color
+- **Use for:** In-progress content, beta features, pending updates
+- **Example:** "Beta", "In Progress", "Draft", "Review"
+
+**Red (.badge-red):**
+- **Gradient:** #b91c1c → #dc2626 → #f87171
+- **Palette:** Based on accent-rust
+- **Use for:** Deprecated content, breaking changes, critical issues
+- **Example:** "Deprecated", "Breaking", "Critical", "Alert"
+
+**Purple (.badge-purple):**
+- **Gradient:** #7e22ce → #a855f7 → #d8b4fe
+- **Palette:** Independent purple scale
+- **Use for:** Special content, new features, experimental, AI-related
+- **Example:** "New", "Experimental", "Preview", "AI"
+
+#### Badge Characteristics
+
+**Visual Properties:**
+- **Non-interactive:** Visual labels only, no hover or click states
+- **Gradient backgrounds:** Three-color gradients for depth and visual interest
+- **Pill shape:** 1rem border-radius for friendly appearance
+- **Small size:** 0.875rem font with 0.25rem × 0.75rem padding
+- **Capitalized text:** Automatic text-transform for consistency
+- **White text:** High contrast on all colored backgrounds
+
+#### Badge vs. Filter Button Comparison
+
+| Feature | Category Badges | Filter Buttons |
+|---------|----------------|----------------|
+| **Purpose** | Visual labels | Interactive selection |
+| **States** | None (static) | Default, hover, active |
+| **Background** | Gradient | Solid color |
+| **Size** | Smaller (0.25rem padding) | Medium (0.5rem padding) |
+| **Border** | None | 1px solid border |
+| **Interactive** | No | Yes |
+| **Use Case** | Content categorization | Content filtering |
+
+**Example:** View live badge examples at `/badges.html` (category badge sample page)
+
+#### Best Practices
+
+1. **Semantic colors:** Use colors that match the content meaning (green=good, red=warning, etc.)
+2. **Keep labels short:** Badge text should be 1-3 words maximum
+3. **Multiple badges:** Combine badges with different colors to show various aspects
+4. **Consistent placement:** Display badges above post titles or project descriptions
+5. **Don't overuse:** Limit to 2-4 badges per item to avoid visual clutter
+6. **Primary color default:** Use default cyan for most content categories
+
 ## Layouts and Components
 
 ### Default Layout (`_layouts/default.html`)
@@ -582,6 +920,102 @@ Features:
 - Intersection observer for animations
 - Form handling placeholder
 
+## Local Development & Testing
+
+### Quick Start
+
+Use the provided PowerShell build script for streamlined local development:
+
+```powershell
+# Serve with live reload (default)
+.\build.ps1
+
+# Build only
+.\build.ps1 -Mode build
+
+# Clean build artifacts
+.\build.ps1 -Mode clean
+```
+
+Visit: **http://localhost:4000**
+
+### Manual Commands
+
+If not using the build script:
+
+```bash
+# First time setup
+bundle install
+
+# Serve with live reload (recommended)
+bundle exec jekyll serve --livereload
+
+# Build only
+bundle exec jekyll build
+
+# Clean and rebuild
+rm -rf _site .jekyll-cache && bundle exec jekyll build
+```
+
+### Essential Testing Checklist
+
+Before committing changes, verify:
+
+**Build Success:**
+- [ ] Jekyll build completes without errors
+- [ ] `_site/assets/css/styles.css` exists (~30-40KB)
+- [ ] No console errors in browser DevTools (F12)
+
+**Visual Verification:**
+- [ ] Homepage loads with correct styling (Electric Blue accents)
+- [ ] Navigation works (desktop bar, mobile hamburger menu)
+- [ ] Hover effects work (cards lift with cyan glow)
+- [ ] Blog posts display with syntax highlighting
+- [ ] Responsive design works at 768px and 480px breakpoints
+
+**Page-Specific Checks:**
+- [ ] All navigation links work
+- [ ] Blog post content is readable
+- [ ] Code blocks have proper syntax highlighting
+- [ ] Images display correctly
+- [ ] Footer and social links render
+
+### Common Issues
+
+**Styles don't load (blank page):**
+- Check browser console for 404 on styles.css
+- Verify `assets/css/styles.scss` has front matter (`---` dashes)
+- Rebuild: `.\build.ps1 -Mode clean` then `.\build.ps1 -Mode build`
+
+**SCSS compilation error:**
+- Check terminal for specific file/line number
+- Verify all `@import` paths in `_sass/oceanic.scss`
+- Clear cache: `.\build.ps1 -Mode clean`
+
+**Hover effects missing:**
+- Check if CSS loaded completely
+- Verify browser supports transitions (not IE)
+- Test in different browser
+
+**Port 4000 already in use:**
+```bash
+bundle exec jekyll serve --port 4001
+```
+
+### Build Script Details
+
+The `build.ps1` script automatically:
+- Verifies Ruby and Bundler installation
+- Checks for and installs dependencies
+- Provides colored status output
+- Reports compiled CSS size
+- Handles errors gracefully
+
+**Script Parameters:**
+- `serve` (default): Build + serve with live reload
+- `build`: Build only, output to `_site/`
+- `clean`: Remove all build artifacts
+
 ## Deployment
 
 ### GitHub Pages Setup
@@ -595,9 +1029,9 @@ Features:
 
 ```bash
 # 1. Make changes locally
-# 2. Test locally (optional):
-bundle install
-bundle exec jekyll serve
+
+# 2. Test locally (recommended - see Local Development & Testing section)
+.\build.ps1
 
 # 3. Commit changes
 git add .

@@ -2,13 +2,12 @@
 title: christaylor.codes
 email: ctaylor@christaylor.codes
 description: >-
-  Personal website showcasing my work, projects, and professional experience.
-  Welcome to my corner of the internet!
+  vCTO, automation engineer, and PowerShell developer helping MSPs scale smarter.
 baseurl: "" # the subpath of your site, e.g. /blog
 url: "https://christaylor.codes" # the base hostname & protocol for your site
 github_username: christaylorcodes
 linkedin_username: christaylorcodes
-#twitter_username: yourtwitter
+twitter_username: christaylorAI
 
 # Social media defaults for Open Graph and Twitter Cards
 # These settings work with jekyll-seo-tag plugin
@@ -17,6 +16,7 @@ social:
   links:
     - https://github.com/christaylorcodes
     - https://www.linkedin.com/in/christaylorcodes
+    - https://x.com/christaylorAI
     - https://christaylor.codes
 
 # Default social sharing image (used when page doesn't specify one)
@@ -32,7 +32,7 @@ author:
 # Twitter card settings
 twitter:
   card: summary_large_image
-  # username: christaylorcodes  # Uncomment and update when Twitter account is active
+  username: christaylorAI
 
 # Build settings
 markdown: kramdown
@@ -59,7 +59,8 @@ paginate_path: "/blog/page:num/"
 # Collections
 collections:
   projects:
-    output: false
+    output: true
+    permalink: /projects/:title/
     sort_by: order
 
 # Exclude from processing

@@ -4,39 +4,80 @@ title: Projects
 permalink: /projects/
 ---
 
-<section>
+<section class="projects-header">
     <div class="container">
         <h1 class="section-title">My Projects</h1>
-
-        {% assign sorted_projects = site.projects | sort: 'order' %}
-        <div class="projects-grid">
-            {% for project in sorted_projects %}
-            <div class="project-card">
-                <div class="project-image">
-                    <i class="fas {{ project.icon }}"></i>
-                </div>
-                <div class="project-content">
-                    <h3>{{ project.title }}</h3>
-                    <p>{{ project.description }}</p>
-
-                    {% if project.tags %}
-                    <div class="project-tags">
-                        {% for tag in project.tags %}
-                        <span class="tag">{{ tag }}</span>
-                        {% endfor %}
-                    </div>
-                    {% endif %}
-
-                    <div class="project-links">
-                        {% if project.github_url %}
-                        <a href="{{ project.github_url }}" class="project-link" {% if project.github_url != '#' %}target="_blank" rel="noopener noreferrer"{% endif %}>
-                            <i class="fab fa-github"></i> View on GitHub
-                        </a>
-                        {% endif %}
-                    </div>
-                </div>
-            </div>
-            {% endfor %}
-        </div>
     </div>
 </section>
+
+{% assign sorted_projects = site.projects | sort: 'order' %}
+{% assign projects_per_row = 3 %}
+{% assign total_projects = sorted_projects | size %}
+{% assign num_rows = total_projects | divided_by: projects_per_row %}
+{% assign remainder = total_projects | modulo: projects_per_row %}
+{% if remainder != 0 %}
+    {% assign num_rows = num_rows | plus: 1 %}
+{% endif %}
+
+{% for row_num in (0..num_rows) %}
+    {% assign start_index = row_num | times: projects_per_row %}
+    {% assign end_index = start_index | plus: projects_per_row | minus: 1 %}
+    {% assign row_projects = "" | split: "" %}
+
+    {% for project in sorted_projects %}
+        {% if forloop.index0 >= start_index and forloop.index0 <= end_index %}
+            {% assign row_projects = row_projects | push: project %}
+        {% endif %}
+    {% endfor %}
+
+    {% if row_projects.size > 0 %}
+        {% assign row_mod = row_num | modulo: 2 %}
+        {% assign section_class = "" %}
+        {% if row_mod == 0 %}
+            {% assign section_class = "projects-row-dark" %}
+        {% else %}
+            {% assign section_class = "projects-row-light" %}
+        {% endif %}
+
+        <section class="projects-row {{ section_class }}">
+            <div class="container">
+                <div class="projects-grid">
+                    {% for project in row_projects %}
+                    {% assign color_index = forloop.index0 | plus: start_index | modulo: 4 %}
+                    {% if color_index == 0 %}{% assign icon_color = 'icon-cyan' %}
+                    {% elsif color_index == 1 %}{% assign icon_color = 'icon-amber' %}
+                    {% elsif color_index == 2 %}{% assign icon_color = 'icon-sky' %}
+                    {% else %}{% assign icon_color = 'icon-orange' %}{% endif %}
+                    <a href="{{ project.url | relative_url }}" class="project-card-link">
+                        <div class="project-card">
+                            <div class="project-image {{ icon_color }}">
+                                <i class="fas {{ project.icon }}"></i>
+                            </div>
+                            <div class="project-content">
+                                <h3>{{ project.title }}</h3>
+                                <p>{{ project.short_description }}</p>
+
+                                {% if project.tags %}
+                                <div class="project-tags">
+                                    {% assign tag_count = 0 %}
+                                    {% for tag in project.tags %}
+                                        {% if tag_count < 2 %}
+                                            <span class="tag">{{ tag }}</span>
+                                            {% assign tag_count = tag_count | plus: 1 %}
+                                        {% endif %}
+                                    {% endfor %}
+                                </div>
+                                {% endif %}
+
+                                <div class="project-cta">
+                                    <span class="view-details">View Details <i class="fas fa-arrow-right"></i></span>
+                                </div>
+                            </div>
+                        </div>
+                    </a>
+                    {% endfor %}
+                </div>
+            </div>
+        </section>
+    {% endif %}
+{% endfor %}

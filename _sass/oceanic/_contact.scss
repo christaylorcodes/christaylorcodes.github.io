@@ -51,7 +51,10 @@
     border-color: var(--primary-color);
 }
 
-.contact-method-icon {
+/* DEPRECATED: Replaced with feature-icon classes from _features.scss
+   Contact page now uses feature-icon with color variants for consistency
+   Keeping for reference - can be removed in future cleanup */
+/* .contact-method-icon {
     width: 5rem;
     height: 5rem;
     background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
@@ -62,7 +65,7 @@
     margin: 0 auto 1.5rem;
     font-size: 2.5rem;
     color: white;
-}
+} */
 
 .contact-method-card h3 {
     font-size: 1.5rem;

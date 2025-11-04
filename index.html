@@ -4,21 +4,26 @@ title: Home
 ---
 
 <section class="hero">
+    <!-- Background slideshow layers -->
+    <div class="hero-background active" style="background-image: url('{{ '/assets/images/hero-background.jpg' | relative_url }}');"></div>
+    <div class="hero-background" style="background-image: url('{{ '/assets/images/hero-background-2.jpg' | relative_url }}');"></div>
+    <div class="hero-background" style="background-image: url('{{ '/assets/images/hero-background-3.jpg' | relative_url }}');"></div>
+
     <div class="container">
         <div class="hero-content">
             <h1 class="hero-title">
                 Hi, I'm <span class="highlight-primary">Chris</span> <span class="highlight-secondary">Taylor</span>
             </h1>
             <p class="hero-subtitle">
-                Network Operations Chief | Automation Expert | Problem Solver
+                Network Operations Chief | vCTO | Automation Engineer
             </p>
             <p class="hero-description">
-                With 30 years of experience, I specialize in automation, network operations, and
-                creating innovative solutions to complex technical challenges.
+                With 20+ years of experience in MSP operations, I specialize in infrastructure automation,
+                AI integration, and building scalable solutions for complex multi-tenant environments.
             </p>
             <div class="hero-buttons">
-                <a href="{{ '/projects' | relative_url }}" class="btn btn-primary">View My Work</a>
-                <a href="{{ '/contact' | relative_url }}" class="btn btn-secondary">Get In Touch</a>
+                <a href="{{ '/projects' | relative_url }}" class="btn btn-primary btn-orange">View My Work</a>
+                <a href="{{ '/contact' | relative_url }}" class="btn btn-secondary btn-cyan">Get In Touch</a>
             </div>
         </div>
     </div>
@@ -29,7 +34,7 @@ title: Home
         <h2 class="section-title">What I Do</h2>
         <div class="features-grid">
             <div class="feature-card">
-                <div class="feature-icon">
+                <div class="feature-icon icon-cyan">
                     <i class="fas fa-cogs"></i>
                 </div>
                 <h3>Automation & Scripting</h3>
@@ -37,7 +42,7 @@ title: Home
             </div>
 
             <div class="feature-card">
-                <div class="feature-icon">
+                <div class="feature-icon icon-amber">
                     <i class="fas fa-network-wired"></i>
                 </div>
                 <h3>Network Operations</h3>
@@ -45,19 +50,19 @@ title: Home
             </div>
 
             <div class="feature-card">
-                <div class="feature-icon">
+                <div class="feature-icon icon-sky">
                     <i class="fas fa-project-diagram"></i>
                 </div>
-                <h3>Business Process Automation</h3>
-                <p>Optimizing workflows and integrating systems through APIs to create efficient, automated business processes.</p>
+                <h3>MSP Operations</h3>
+                <p>Architecting and managing multi-tenant infrastructure with focus on scalability, security, and SLA compliance for managed service providers.</p>
             </div>
 
             <div class="feature-card">
-                <div class="feature-icon">
-                    <i class="fas fa-lightbulb"></i>
+                <div class="feature-icon icon-orange">
+                    <i class="fas fa-robot"></i>
                 </div>
-                <h3>Problem Solving</h3>
-                <p>Creating innovative solutions to complex technical challenges through systems administration and infrastructure design.</p>
+                <h3>AI Integration</h3>
+                <p>Integrating AI technologies into MSP operations and automation workflows to enhance efficiency and enable predictive capabilities.</p>
             </div>
         </div>
     </div>
@@ -68,8 +73,13 @@ title: Home
         <h2 class="section-title">Recent Blog Posts</h2>
         <div class="features-grid">
             {% for post in site.posts limit:3 %}
+            {% assign color_index = forloop.index0 | modulo: 4 %}
+            {% if color_index == 0 %}{% assign icon_color = 'icon-cyan' %}
+            {% elsif color_index == 1 %}{% assign icon_color = 'icon-amber' %}
+            {% elsif color_index == 2 %}{% assign icon_color = 'icon-sky' %}
+            {% else %}{% assign icon_color = 'icon-orange' %}{% endif %}
             <div class="feature-card">
-                <div class="feature-icon">
+                <div class="feature-icon {{ icon_color }}">
                     <i class="fas fa-file-alt"></i>
                 </div>
                 <h3><a href="{{ post.url | relative_url }}" class="post-title-link">{{ post.title }}</a></h3>
@@ -95,8 +105,13 @@ title: Home
         <div class="features-grid">
             {% assign sorted_projects = site.projects | sort: 'order' %}
             {% for project in sorted_projects limit:4 %}
+            {% assign color_index = forloop.index0 | modulo: 4 %}
+            {% if color_index == 0 %}{% assign icon_color = 'icon-cyan' %}
+            {% elsif color_index == 1 %}{% assign icon_color = 'icon-amber' %}
+            {% elsif color_index == 2 %}{% assign icon_color = 'icon-sky' %}
+            {% else %}{% assign icon_color = 'icon-orange' %}{% endif %}
             <div class="feature-card">
-                <div class="feature-icon">
+                <div class="feature-icon {{ icon_color }}">
                     <i class="fas {{ project.icon }}"></i>
                 </div>
                 <h3>{{ project.title }}</h3>
@@ -119,8 +134,8 @@ title: Home
 
 <section class="cta">
     <div class="container">
-        <h2>Ready to optimize your operations?</h2>
-        <p>Let's work together to automate processes and solve complex technical challenges.</p>
-        <a href="{{ '/contact' | relative_url }}" class="btn btn-primary">Contact Me</a>
+        <h2>Interested in MSP automation or AI integration?</h2>
+        <p>Check out my open source PowerShell modules and automation tools for MSP operations.</p>
+        <a href="{{ '/projects' | relative_url }}" class="btn btn-primary">Explore Projects</a>
     </div>
 </section>

@@ -1,0 +1,29 @@
+---
+layout: null
+---
+[
+  {% for post in site.posts %}
+    {
+      "title": {{ post.title | jsonify }},
+      "excerpt": {{ post.excerpt | strip_html | strip_newlines | jsonify }},
+      "content": {{ post.content | strip_html | strip_newlines | jsonify }},
+      "url": {{ post.url | relative_url | jsonify }},
+      "date": {{ post.date | date: "%B %d, %Y" | jsonify }},
+      "categories": {{ post.categories | jsonify }},
+      "tags": {{ post.tags | jsonify }},
+      "type": "post"
+    }{% unless forloop.last %},{% endunless %}
+  {% endfor %}
+  {% if site.projects.size > 0 %},
+  {% for project in site.projects %}
+    {
+      "title": {{ project.title | jsonify }},
+      "excerpt": {{ project.description | jsonify }},
+      "content": {{ project.content | strip_html | strip_newlines | jsonify }},
+      "url": "/projects/#{{ project.title | slugify }}",
+      "tags": {{ project.tags | jsonify }},
+      "type": "project"
+    }{% unless forloop.last %},{% endunless %}
+  {% endfor %}
+  {% endif %}
+]

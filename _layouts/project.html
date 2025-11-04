@@ -1,0 +1,146 @@
+---
+layout: default
+---
+
+<article class="project-detail">
+    <div class="container">
+        <div class="project-detail-header">
+            <div class="project-icon-large">
+                <i class="fas {{ page.icon }}"></i>
+            </div>
+            <h1 class="project-title">{{ page.title }}</h1>
+
+            {% if page.tags %}
+            <div class="project-tags">
+                {% for tag in page.tags %}
+                <span class="tag">{{ tag }}</span>
+                {% endfor %}
+            </div>
+            {% endif %}
+        </div>
+
+        <div class="project-detail-content">
+            <div class="project-main-grid">
+                <section class="project-overview">
+                    <h2>Overview</h2>
+                    <div class="project-description">{{ page.description | markdownify }}</div>
+
+                    {% if content != "" %}
+                    <div class="project-extended-content">
+                        {{ content }}
+                    </div>
+                    {% endif %}
+                </section>
+
+                <aside class="project-links-section">
+                    <h2>Links & Resources</h2>
+                    <div class="project-links-list">
+                        {% if page.github_url and page.github_url != '#' %}
+                        <a href="{{ page.github_url }}" class="project-link-card" target="_blank" rel="noopener noreferrer">
+                            <i class="fab fa-github"></i>
+                            <div>
+                                <h3>GitHub Repository</h3>
+                                <p>View source code and documentation</p>
+                            </div>
+                        </a>
+                        {% endif %}
+
+                        {% if page.powershell_gallery_url %}
+                        <a href="{{ page.powershell_gallery_url }}" class="project-link-card" target="_blank" rel="noopener noreferrer">
+                            <i class="fas fa-terminal"></i>
+                            <div>
+                                <h3>PowerShell Gallery</h3>
+                                <p>Install via PowerShell Gallery</p>
+                            </div>
+                        </a>
+                        {% endif %}
+
+                        {% if page.demo_url and page.demo_url != '#' %}
+                        <a href="{{ page.demo_url }}" class="project-link-card" target="_blank" rel="noopener noreferrer">
+                            <i class="fas fa-external-link-alt"></i>
+                            <div>
+                                <h3>Live Demo</h3>
+                                <p>Try it out online</p>
+                            </div>
+                        </a>
+                        {% endif %}
+
+                        {% if page.docs_url %}
+                        <a href="{{ page.docs_url }}" class="project-link-card" target="_blank" rel="noopener noreferrer">
+                            <i class="fas fa-book"></i>
+                            <div>
+                                <h3>Documentation</h3>
+                                <p>Read the full documentation</p>
+                            </div>
+                        </a>
+                        {% endif %}
+                    </div>
+                </aside>
+            </div>
+
+            {% if page.category %}
+            <section class="project-related-posts">
+                <h2>Related Blog Posts</h2>
+                {% assign related_posts = site.posts | where_exp: "post", "post.categories contains page.category" %}
+
+                {% if related_posts.size > 0 %}
+                <div class="related-posts-grid">
+                    {% for post in related_posts limit:6 %}
+                    <article class="post-card">
+                        <div class="post-card-content">
+                            <h3>
+                                <a href="{{ post.url | relative_url }}">{{ post.title }}</a>
+                            </h3>
+
+                            <div class="post-card-meta">
+                                <span class="post-date">
+                                    <i class="far fa-calendar"></i>
+                                    {{ post.date | date: "%b %d, %Y" }}
+                                </span>
+                                <span class="post-reading-time">
+                                    <i class="far fa-clock"></i>
+                                    {% assign words = post.content | number_of_words %}
+                                    {% assign reading_time = words | divided_by: 200 %}
+                                    {% if reading_time == 0 %}
+                                        1 min read
+                                    {% else %}
+                                        {{ reading_time }} min read
+                                    {% endif %}
+                                </span>
+                            </div>
+
+                            {% if post.categories %}
+                            <div class="post-card-categories">
+                                {% for category in post.categories %}
+                                    {% if category != page.category %}
+                                        <span class="category-badge">{{ category }}</span>
+                                    {% endif %}
+                                {% endfor %}
+                            </div>
+                            {% endif %}
+
+                            {% if post.excerpt %}
+                            <p class="post-card-excerpt">{{ post.excerpt | strip_html | truncatewords: 30 }}</p>
+                            {% endif %}
+
+                            <a href="{{ post.url | relative_url }}" class="read-more">
+                                Read More <i class="fas fa-arrow-right"></i>
+                            </a>
+                        </div>
+                    </article>
+                    {% endfor %}
+                </div>
+                {% else %}
+                <p class="no-posts-message">No blog posts yet for this project. Check back soon!</p>
+                {% endif %}
+            </section>
+            {% endif %}
+        </div>
+
+        <div class="back-to-projects">
+            <a href="{{ '/projects' | relative_url }}" class="btn btn-secondary">
+                <i class="fas fa-arrow-left"></i> Back to Projects
+            </a>
+        </div>
+    </div>
+</article>

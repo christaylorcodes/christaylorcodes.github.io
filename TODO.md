@@ -24,17 +24,18 @@ This document tracks improvements and enhancements for christaylor.codes. Tasks 
 - [x] Update the Featured Projects section of the homepage with concise short descriptions (Completed 2025-11-04)
 - [x] Add reading time estimates to blog posts (Completed 2025-11-04)
 - [x] Implement pagination for blog posts (Completed 2025-11-04)
-- [ ] Add category/tag filtering functionality on blog index page
-- [ ] Add search functionality for blog posts
+- [x] Add category/tag filtering functionality on blog index page (Completed 2025-11-04)
+- [x] Add copy button to code blocks in blog posts (Completed 2025-11-04)
+- [x] Add search functionality for blog posts (Completed 2025-11-04)
 - [ ] Add "Related Posts" section to blog post layout
 - [ ] Add comments system (consider utterances for GitHub-based comments)
 - [ ] Add RSS feed icon/link in navigation or footer
 
 ### Project Enhancements
-- [ ] Add project detail pages (set `output: true` in _config.yml for projects collection)
+- [x] Add project detail pages (set `output: true` in _config.yml for projects collection) (Completed 2025-11-04)
+- [x] Add "View Project Details" functionality (Completed 2025-11-04)
+- [x] Create project categories for filtering (Completed 2025-11-04)
 - [ ] Add project screenshots/images
-- [ ] Add "View Project Details" functionality
-- [ ] Create project categories for filtering (Automation, PowerShell, Web, etc.)
 
 ### Contact Enhancements
 - [x] Add LinkedIn profile link (uncomment in [_config.yml:10](_config.yml#L10)) (Completed 2025-11-04)
@@ -201,3 +202,47 @@ These tasks can be completed quickly and provide immediate value:
   - Page info display (Page X of Y with total posts)
   - Responsive design for mobile and tablet
   - Uses jekyll-paginate plugin (GitHub Pages compatible)
+- [x] Add ConnectWise Manage API blog post series (2025-11-04)
+  - Introduction to ConnectWiseManageAPI module
+  - Getting started guide with authentication and basic operations
+  - Advanced automation scenarios and real-world use cases
+  - Best practices for production deployments
+- [x] Add category filtering with dynamic buttons and responsive dropdown (2025-11-04)
+  - Category filter buttons with post counts
+  - Active state highlighting
+  - Responsive dropdown for overflow categories
+  - Color-coded category badges with gradient backgrounds
+  - Filter buttons system with cyan/emerald/amber/red variations
+- [x] Add client-side search functionality (2025-11-04)
+  - Real-time search with instant results
+  - Searches across titles, content, categories, and tags
+  - JSON-based search index
+  - Highlighted search terms in results
+  - Responsive search interface
+- [x] Enhance JavaScript functionality (2025-11-04)
+  - Refactored and expanded main.js
+  - Category filtering logic
+  - Search functionality
+  - Copy-to-clipboard for code blocks
+  - Improved mobile navigation
+  - Intersection observer for animations
+- [x] Create component sample pages for design system (2025-11-04)
+  - buttons.html - Button system demonstration
+  - badges.html - Category badge variations
+  - categories.html - Filter button examples
+  - highlights.html - Hero highlight components
+- [x] Add PowerShell build script for local development (2025-11-04)
+  - build.ps1 with serve/build/clean modes
+  - Automatic dependency checking
+  - Colored status output
+  - Error handling and reporting
+- [x] Expand CLAUDE.md with comprehensive design system documentation (2025-11-04)
+  - Button system documentation with color guide
+  - Filter button system documentation
+  - Category badge system documentation
+  - Width strategy documentation
+  - Component usage examples and best practices
+- [x] Clean up temporary documentation files (2025-11-04)
+  - Removed _BUILD-AND-TEST.md
+  - Removed _REFACTORING-COMPLETE.md
+  - Removed _theme-refactoring-plan.md
