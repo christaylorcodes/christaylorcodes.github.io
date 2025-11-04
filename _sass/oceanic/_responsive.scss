@@ -83,6 +83,28 @@
         padding: 2rem 1.5rem;
     }
 
+    /* Pagination Responsive */
+    .pagination {
+        gap: 0.5rem;
+        margin: 2rem auto 1rem;
+    }
+
+    .pagination-btn {
+        padding: 0.6rem 1rem;
+        font-size: 0.9rem;
+    }
+
+    .pagination-pages {
+        gap: 0.25rem;
+    }
+
+    .pagination-page {
+        min-width: 2rem;
+        height: 2rem;
+        padding: 0.25rem;
+        font-size: 0.875rem;
+    }
+
     /* Reset code block positioning on mobile to prevent overflow */
     .post-content .highlight,
     .post-content pre {

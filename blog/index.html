@@ -1,7 +1,6 @@
 ---
 layout: default
 title: Blog
-permalink: /blog/
 ---
 
 <section class="blog-section">
@@ -11,9 +10,9 @@ permalink: /blog/
             Thoughts, tutorials, and insights on web development, programming, and technology.
         </p>
 
-        {% if site.posts.size > 0 %}
+        {% if paginator.posts.size > 0 %}
         <div class="blog-posts">
-            {% for post in site.posts %}
+            {% for post in paginator.posts %}
             <article class="blog-post-card">
                 <div class="post-card-header">
                     {% if post.categories %}
@@ -65,6 +64,54 @@ permalink: /blog/
             </article>
             {% endfor %}
         </div>
+
+        <!-- Pagination Controls -->
+        {% if paginator.total_pages > 1 %}
+        <div class="pagination">
+            {% if paginator.previous_page %}
+            <a href="{{ paginator.previous_page_path | relative_url }}" class="pagination-btn">
+                <i class="fas fa-chevron-left"></i> Previous
+            </a>
+            {% else %}
+            <span class="pagination-btn disabled">
+                <i class="fas fa-chevron-left"></i> Previous
+            </span>
+            {% endif %}
+
+            <div class="pagination-pages">
+                {% if paginator.page == 1 %}
+                <span class="pagination-page active">1</span>
+                {% else %}
+                <a href="{{ '/blog/' | relative_url }}" class="pagination-page">1</a>
+                {% endif %}
+
+                {% for page in (2..paginator.total_pages) %}
+                    {% if page == paginator.page %}
+                    <span class="pagination-page active">{{ page }}</span>
+                    {% elsif page == 2 %}
+                    <a href="{{ '/blog/page2/' | relative_url }}" class="pagination-page">{{ page }}</a>
+                    {% else %}
+                    <a href="{{ site.paginate_path | replace: ':num', page | relative_url }}" class="pagination-page">{{ page }}</a>
+                    {% endif %}
+                {% endfor %}
+            </div>
+
+            {% if paginator.next_page %}
+            <a href="{{ paginator.next_page_path | relative_url }}" class="pagination-btn">
+                Next <i class="fas fa-chevron-right"></i>
+            </a>
+            {% else %}
+            <span class="pagination-btn disabled">
+                Next <i class="fas fa-chevron-right"></i>
+            </span>
+            {% endif %}
+        </div>
+
+        <div class="pagination-info">
+            <p>Page {{ paginator.page }} of {{ paginator.total_pages }} ({{ paginator.total_posts }} total posts)</p>
+        </div>
+        {% endif %}
+
         {% else %}
         <div class="no-posts">
             <i class="fas fa-inbox"></i>

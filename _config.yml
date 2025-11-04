@@ -50,6 +50,11 @@ plugins:
   - jekyll-feed
   - jekyll-seo-tag
   - jekyll-sitemap
+  - jekyll-paginate
+
+# Pagination settings
+paginate: 6  # Number of posts per page
+paginate_path: "/blog/page:num/"
 
 # Collections
 collections:

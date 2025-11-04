@@ -20,6 +20,17 @@ layout: default
                 </span>
                 {% endif %}
 
+                <span class="post-reading-time">
+                    <i class="far fa-clock"></i>
+                    {% assign words = content | number_of_words %}
+                    {% assign reading_time = words | divided_by: 200 %}
+                    {% if reading_time == 0 %}
+                        1 min read
+                    {% else %}
+                        {{ reading_time }} min read
+                    {% endif %}
+                </span>
+
                 {% if page.categories %}
                 <span class="post-categories">
                     <i class="far fa-folder"></i>

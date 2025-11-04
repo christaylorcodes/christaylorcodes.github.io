@@ -22,8 +22,8 @@ This document tracks improvements and enhancements for christaylor.codes. Tasks 
 
 ### Blog Enhancements
 - [x] Update the Featured Projects section of the homepage with concise short descriptions (Completed 2025-11-04)
-- [ ] Add reading time estimates to blog posts
-- [ ] Implement pagination for blog posts (currently shows all posts on one page)
+- [x] Add reading time estimates to blog posts (Completed 2025-11-04)
+- [x] Implement pagination for blog posts (Completed 2025-11-04)
 - [ ] Add category/tag filtering functionality on blog index page
 - [ ] Add search functionality for blog posts
 - [ ] Add "Related Posts" section to blog post layout
@@ -189,3 +189,15 @@ These tasks can be completed quickly and provide immediate value:
   - Mass agent deployment guide with parallel execution
   - Troubleshooting techniques and diagnostics
   - 10 real-world use cases for MSP automation
+- [x] Add reading time estimates to blog posts (2025-11-04)
+  - Calculated at ~200 words per minute
+  - Displays with clock icon in post metadata
+  - Shows minimum 1 minute for short posts
+- [x] Implement pagination for blog posts (2025-11-04)
+  - 6 posts per page with configurable setting in _config.yml
+  - Moved blog.html to blog/index.html (required for Jekyll pagination)
+  - Previous/Next buttons with disabled state
+  - Numbered page links with active state highlighting
+  - Page info display (Page X of Y with total posts)
+  - Responsive design for mobile and tablet
+  - Uses jekyll-paginate plugin (GitHub Pages compatible)
