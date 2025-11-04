@@ -146,24 +146,96 @@ Optional longer description...
 
 ## Styling and Design
 
-### CSS Variables (assets/css/main.css)
+### Theme Color Palette
+
+The site uses a **dark theme** with **turquoise accent** colors. All colors are defined as CSS custom properties (variables) for easy theming.
+
+#### Color Reference
+
+**Primary Colors (Turquoise Accents)**
+```
+--primary-color:     #06b6d4    ████ Cyan/Turquoise    - Main accent, buttons, links, hover states
+--primary-dark:      #0891b2    ████ Dark Turquoise    - Button hover, active states
+--primary-light:     #22d3ee    ████ Light Turquoise   - Highlights, glows
+--secondary-color:   #14b8a6    ████ Teal             - Secondary accent, variations
+```
+
+**Background Colors (Dark Slate)**
+```
+--bg-darker:         #020617    ████ Almost Black      - Hero, CTA, navbar (darkest backgrounds)
+--bg-dark:           #0f172a    ████ Dark Slate        - Main body background
+--bg-light:          #1e293b    ████ Slate            - Cards, content sections
+--bg-white:          #334155    ████ Light Slate       - Elevated elements, form inputs
+```
+
+**Text Colors**
+```
+--text-dark:         #f1f5f9    ████ Off White        - Main text, headings
+--text-light:        #cbd5e1    ████ Light Gray       - Secondary text, descriptions
+```
+
+**Border & UI**
+```
+--border-color:      #475569    ████ Slate Gray       - Borders, dividers
+```
+
+#### CSS Variables Location
+
+All variables are defined in `assets/css/main.css` at lines 8-19:
 
 ```css
 :root {
-    --primary-color: #6366f1;     /* Main brand color */
-    --primary-dark: #4f46e5;      /* Darker shade */
-    --secondary-color: #ec4899;   /* Accent color */
-    --text-dark: #1f2937;         /* Dark text */
-    --text-light: #6b7280;        /* Light text */
-    --bg-light: #f9fafb;          /* Light background */
-    --bg-white: #ffffff;          /* White background */
-    --border-color: #e5e7eb;      /* Border color */
+    --primary-color: #06b6d4;
+    --primary-dark: #0891b2;
+    --primary-light: #22d3ee;
+    --secondary-color: #14b8a6;
+    --text-dark: #f1f5f9;
+    --text-light: #cbd5e1;
+    --bg-dark: #0f172a;
+    --bg-darker: #020617;
+    --bg-light: #1e293b;
+    --bg-white: #334155;
+    --border-color: #475569;
 }
 ```
 
-**To Change Colors:**
-1. Edit variables in `assets/css/main.css` (lines 8-18)
-2. Commit and push changes
+#### Color Usage Guidelines
+
+**Primary Turquoise (`--primary-color`)** - Use for:
+- Primary buttons (background)
+- Hover states on cards and links
+- Active navigation states
+- Icon accents
+- Call-to-action elements
+
+**Dark Backgrounds** - Layer hierarchy:
+1. `--bg-darker` (#020617) - Hero, CTA, navbar (top layer)
+2. `--bg-dark` (#0f172a) - Body background (base layer)
+3. `--bg-light` (#1e293b) - Content cards, sections (elevated)
+4. `--bg-white` (#334155) - Form inputs, modals (most elevated)
+
+**Text Colors** - Hierarchy:
+- `--text-dark` (#f1f5f9) - Headings, primary content (high contrast)
+- `--text-light` (#cbd5e1) - Descriptions, metadata (medium contrast)
+
+**Special Effects:**
+- Glow effects use `rgba(6, 182, 212, 0.3)` for turquoise glow
+- Hover states often add `0 0 20px rgba(6, 182, 212, 0.5)` box-shadow
+
+#### Changing the Color Scheme
+
+**To update colors:**
+1. Edit the `:root` variables in `assets/css/main.css` (lines 8-19)
+2. Maintain contrast ratios for accessibility (WCAG AA: 4.5:1 for text)
+3. Test hover states and interactive elements
+4. Commit and push changes
+
+**Example - Change accent to purple:**
+```css
+--primary-color: #a855f7;
+--primary-dark: #9333ea;
+--primary-light: #c084fc;
+```
 
 ### Design System
 
