@@ -1,7 +1,7 @@
 ---
-title: Initialize-PSGallery
+title: PSGallery Initializer
 icon: fa-box-open
-description: PowerShell utility that automatically diagnoses and fixes common connectivity issues preventing PowerShell Gallery access, removing barriers before module installation.
+description: Intelligent PowerShell utility that automatically diagnoses and resolves common connectivity issues preventing PowerShell Gallery access. Detects and configures TLS 1.2 support, validates NuGet provider installation, sets trusted repositories, and tests connectivity to gallery endpoints. Essential for RMM deployments and automation scripts that require reliable module installation across diverse environments with varying security configurations and legacy PowerShell versions.
 tags:
   - PowerShell
   - Automation

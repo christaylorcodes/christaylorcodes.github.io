@@ -72,13 +72,24 @@ body {
 .logo {
     font-size: 1.5rem;
     font-weight: 700;
-    color: var(--primary-color);
     text-decoration: none;
     transition: color 0.3s ease;
 }
 
-.logo:hover {
+.logo-primary {
+    color: var(--primary-color);
+}
+
+.logo-secondary {
+    color: var(--secondary-color);
+}
+
+.logo:hover .logo-primary {
     color: var(--primary-dark);
+}
+
+.logo:hover .logo-secondary {
+    color: var(--accent-orange);
 }
 
 .nav-menu {
@@ -177,6 +188,18 @@ body {
     color: var(--primary-color);
     position: relative;
     text-shadow: 0 0 20px rgba(6, 182, 212, 0.5);
+}
+
+.highlight-primary {
+    color: var(--primary-color);
+    position: relative;
+    text-shadow: 0 0 20px rgba(6, 182, 212, 0.5);
+}
+
+.highlight-secondary {
+    color: var(--secondary-color);
+    position: relative;
+    text-shadow: 0 0 20px rgba(245, 158, 11, 0.5);
 }
 
 .hero-subtitle {

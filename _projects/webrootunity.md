@@ -1,7 +1,7 @@
 ---
 title: WebrootUnity
 icon: fa-shield-virus
-description: PowerShell module that provides programmatic access to Webroot Unity REST API, enabling automated security reporting and management without manual API construction.
+description: Enterprise-focused PowerShell module providing programmatic access to the Webroot Unity REST API for endpoint security management. Automates threat detection retrieval, policy management, deployment status monitoring, and security reporting across multi-tenant MSP environments. Enables integration of Webroot security data into PSA ticketing, dashboard visualization, and compliance reporting systems, eliminating manual API construction and providing consistent error handling for production automation.
 tags:
   - PowerShell
   - Webroot
