@@ -5,20 +5,38 @@
     box-sizing: border-box;
 }
 
+/* ===== FONT OPTIMIZATION ===== */
+/* Ensure all fonts use swap display for better performance */
+@font-face {
+    font-display: swap;
+}
+
 :root {
-    --primary-color: #06b6d4;
-    --primary-dark: #0891b2;
-    --primary-light: #22d3ee;
-    --secondary-color: #14b8a6;
-    --text-dark: #f1f5f9;
-    --text-light: #cbd5e1;
-    --bg-dark: #0f172a;
-    --bg-darker: #020617;
-    --bg-light: #1e293b;
-    --bg-white: #334155;
-    --border-color: #475569;
-    --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.3), 0 2px 4px -1px rgba(0, 0, 0, 0.2);
-    --shadow-lg: 0 20px 25px -5px rgba(0, 0, 0, 0.4), 0 10px 10px -5px rgba(0, 0, 0, 0.3);
+    /* Primary Colors - Oceanic Theme */
+    --primary-color: #0a9396;        /* Dark Cyan - main accent */
+    --primary-dark: #005f73;         /* Midnight Green - darker accent */
+    --primary-light: #94d2bd;        /* Tiffany Blue - lighter accent */
+    --secondary-color: #ee9b00;      /* Gamboge - warm accent */
+
+    /* Background Colors - Deep Ocean */
+    --bg-darker: #001219;            /* Rich Black - darkest backgrounds */
+    --bg-dark: #003844;              /* Deep Ocean - main background */
+    --bg-light: #005f73;             /* Midnight Green - elevated sections */
+    --bg-white: #0a9396;             /* Dark Cyan - highest elevation */
+
+    /* Text Colors */
+    --text-dark: #e9d8a6;            /* Vanilla - primary text */
+    --text-light: #94d2bd;           /* Tiffany Blue - secondary text */
+
+    /* Utility Colors */
+    --border-color: #005f73;         /* Midnight Green - borders */
+    --accent-warm: #ee9b00;          /* Gamboge - warm highlights */
+    --accent-orange: #ca6702;        /* Alloy Orange - call-to-action */
+    --accent-rust: #bb3e03;          /* Rust - warnings */
+
+    /* Shadows */
+    --shadow: 0 4px 6px -1px rgba(0, 18, 25, 0.5), 0 2px 4px -1px rgba(0, 18, 25, 0.3);
+    --shadow-lg: 0 20px 25px -5px rgba(0, 18, 25, 0.6), 0 10px 10px -5px rgba(0, 18, 25, 0.4);
 }
 
 body {
@@ -158,7 +176,7 @@ body {
 .highlight {
     color: var(--primary-color);
     position: relative;
-    text-shadow: 0 0 20px rgba(6, 182, 212, 0.5);
+    text-shadow: 0 0 20px rgba(10, 147, 150, 0.5);
 }
 
 .hero-subtitle {
@@ -201,7 +219,7 @@ body {
 
 .btn-primary:hover {
     transform: translateY(-2px);
-    box-shadow: 0 0 20px rgba(6, 182, 212, 0.5);
+    box-shadow: 0 0 20px rgba(10, 147, 150, 0.5);
     background-color: var(--primary-light);
 }
 
@@ -214,7 +232,7 @@ body {
 .btn-secondary:hover {
     background-color: var(--primary-color);
     color: var(--bg-darker);
-    box-shadow: 0 0 20px rgba(6, 182, 212, 0.5);
+    box-shadow: 0 0 20px rgba(10, 147, 150, 0.5);
 }
 
 /* ===== SECTIONS ===== */
@@ -253,7 +271,7 @@ section {
 
 .feature-card:hover {
     transform: translateY(-5px);
-    box-shadow: var(--shadow-lg), 0 0 20px rgba(6, 182, 212, 0.3);
+    box-shadow: var(--shadow-lg), 0 0 20px rgba(10, 147, 150, 0.3);
     border-color: var(--primary-color);
 }
 
@@ -375,7 +393,7 @@ section {
 
 .about-photo-header img:hover {
     transform: scale(1.05);
-    box-shadow: var(--shadow-lg), 0 0 30px rgba(6, 182, 212, 0.5);
+    box-shadow: var(--shadow-lg), 0 0 30px rgba(10, 147, 150, 0.5);
 }
 
 .about-content {
@@ -419,7 +437,7 @@ section {
 .skill-tag:hover {
     background-color: var(--primary-color);
     color: var(--bg-darker);
-    box-shadow: 0 0 15px rgba(6, 182, 212, 0.5);
+    box-shadow: 0 0 15px rgba(10, 147, 150, 0.5);
 }
 
 /* ===== PROJECTS PAGE ===== */
@@ -440,7 +458,7 @@ section {
 
 .project-card:hover {
     transform: translateY(-10px);
-    box-shadow: var(--shadow-lg), 0 0 20px rgba(6, 182, 212, 0.3);
+    box-shadow: var(--shadow-lg), 0 0 20px rgba(10, 147, 150, 0.3);
     border-color: var(--primary-color);
 }
 
@@ -544,7 +562,7 @@ section {
 
 .contact-method-card:hover {
     transform: translateY(-5px);
-    box-shadow: var(--shadow-lg), 0 0 20px rgba(6, 182, 212, 0.3);
+    box-shadow: var(--shadow-lg), 0 0 20px rgba(10, 147, 150, 0.3);
     border-color: var(--primary-color);
 }
 
@@ -636,7 +654,7 @@ section {
     background-color: var(--primary-color);
     color: var(--bg-darker);
     transform: translateY(-3px);
-    box-shadow: 0 0 15px rgba(6, 182, 212, 0.5);
+    box-shadow: 0 0 15px rgba(10, 147, 150, 0.5);
     border-color: var(--primary-color);
 }
 
@@ -781,7 +799,7 @@ section {
 
 .blog-post-card:hover {
     transform: translateY(-5px);
-    box-shadow: var(--shadow-lg), 0 0 20px rgba(6, 182, 212, 0.3);
+    box-shadow: var(--shadow-lg), 0 0 20px rgba(10, 147, 150, 0.3);
     border-color: var(--primary-color);
 }
 
@@ -913,7 +931,7 @@ section {
     background-color: var(--primary-color);
     color: var(--bg-darker);
     border-color: var(--primary-color);
-    box-shadow: 0 0 15px rgba(6, 182, 212, 0.5);
+    box-shadow: 0 0 15px rgba(10, 147, 150, 0.5);
 }
 
 .category-count {
@@ -1156,7 +1174,7 @@ section {
     color: var(--bg-darker);
     border-color: var(--primary-color);
     transform: translateX(5px);
-    box-shadow: 0 0 15px rgba(6, 182, 212, 0.5);
+    box-shadow: 0 0 15px rgba(10, 147, 150, 0.5);
 }
 
 .post-nav-link.prev:hover {
