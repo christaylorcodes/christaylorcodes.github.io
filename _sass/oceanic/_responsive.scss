@@ -83,10 +83,15 @@
         padding: 2rem 1.5rem;
     }
 
-    /* Reset code block negative margins on mobile to prevent overflow */
+    /* Reset code block positioning on mobile to prevent overflow */
+    .post-content .highlight,
     .post-content pre {
+        position: static;
+        left: auto;
+        right: auto;
         margin-left: 0;
         margin-right: 0;
+        width: 100%;
         max-width: 100%;
     }
 

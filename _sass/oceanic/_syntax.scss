@@ -17,11 +17,29 @@
     margin-bottom: 1.5rem;
 }
 
+/* Ensure .highlight wrapper expands with code blocks to prevent background mismatch */
+.post-content .highlight {
+    position: relative;
+    left: 50%;
+    right: 50%;
+    margin-left: -550px;  /* Half of 1100px to center */
+    margin-right: -550px;
+    width: 1100px;
+    max-width: calc(100vw - 40px);  /* Constrain to viewport minus container padding */
+}
+
 /* Ensure pre elements within .highlight inherit the expansion styles */
 .post-content .highlight pre {
     margin-bottom: 0;
+    margin-left: 0;
+    margin-right: 0;
     background-color: transparent;
     border: none;
+    position: static;
+    left: auto;
+    right: auto;
+    width: 100%;
+    max-width: none;
 }
 
 /* Generic code text */

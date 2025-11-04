@@ -362,11 +362,16 @@
     overflow-x: auto;
     margin-bottom: 1.5rem;
     border: 1px solid var(--border-color);
-    /* Code blocks break out of the 800px content width to support 120+ character lines
-       Uses negative margins to expand into available container space (1200px total) */
-    max-width: 1100px;
-    margin-left: calc((800px - 1100px) / 2);
-    margin-right: calc((800px - 1100px) / 2);
+    /* Code blocks expand to support 120+ character lines without horizontal scrolling
+       On wide screens: expands to 1100px centered within available space
+       On narrow screens: uses full available width with max constraint */
+    position: relative;
+    left: 50%;
+    right: 50%;
+    margin-left: -550px;  /* Half of 1100px to center */
+    margin-right: -550px;
+    width: 1100px;
+    max-width: calc(100vw - 40px);  /* Constrain to viewport minus container padding */
 }
 
 .post-content pre code {
