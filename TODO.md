@@ -27,9 +27,9 @@ This document tracks improvements and enhancements for christaylor.codes. Tasks 
 - [x] Add category/tag filtering functionality on blog index page (Completed 2025-11-04)
 - [x] Add copy button to code blocks in blog posts (Completed 2025-11-04)
 - [x] Add search functionality for blog posts (Completed 2025-11-04)
-- [ ] Add "Related Posts" section to blog post layout
-- [ ] Add comments system (consider utterances for GitHub-based comments)
-- [ ] Add RSS feed icon/link in navigation or footer
+- [x] Add "Related Posts" section to blog post layout (Completed 2025-11-04)
+- [x] Add comments system using utterances for GitHub-based comments (Completed 2025-11-04 - requires utterances app installation, see UTTERANCES-SETUP.md)
+- [x] Add RSS feed icon/link in navigation or footer (Completed 2025-11-04)
 
 ### Project Enhancements
 - [x] Add project detail pages (set `output: true` in _config.yml for projects collection) (Completed 2025-11-04)
@@ -44,7 +44,7 @@ This document tracks improvements and enhancements for christaylor.codes. Tasks 
 
 ### Navigation
 - [ ] Add breadcrumb navigation for better UX
-- [ ] Add "Back to Top" button for long pages
+- [x] Add "Back to Top" button for long pages (Completed 2025-11-04)
 - [ ] Implement active navigation state for all pages
 
 ## Priority 3: SEO & Performance

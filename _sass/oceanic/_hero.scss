@@ -29,7 +29,7 @@
         background-repeat: no-repeat;
         background-attachment: fixed; /* Creates parallax effect */
         opacity: 0;
-        transition: opacity 2s ease-in-out; /* Smooth blend transition */
+        transition: opacity 4s ease-in-out; /* Smooth blend transition */
         z-index: 0;
 
         &.active {

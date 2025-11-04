@@ -6,72 +6,130 @@ permalink: /about/
 
 <section class="about-section">
     <div class="container">
-        <h1 class="section-title">About Me</h1>
+        <h1 class="section-title fade-in-up">About Me</h1>
 
-        <div class="about-photo-header">
-            <img src="{{ '/assets/images/profile-photo.png' | relative_url }}" alt="Chris Taylor - Network Operations Chief">
+        <!-- Stats/Highlights Section -->
+        <div class="about-highlights fade-in-up">
+            <div class="highlight-stat">
+                <i class="fas fa-calendar-alt"></i>
+                <div class="stat-number">20+</div>
+                <div class="stat-label">Years Experience</div>
+            </div>
+            <div class="highlight-stat">
+                <i class="fas fa-code"></i>
+                <div class="stat-number">6</div>
+                <div class="stat-label">Open Source Projects</div>
+            </div>
+            <div class="highlight-stat">
+                <i class="fas fa-blog"></i>
+                <div class="stat-number">12+</div>
+                <div class="stat-label">Blog Posts</div>
+            </div>
+            <div class="highlight-stat">
+                <i class="fas fa-infinity"></i>
+                <div class="stat-number">∞</div>
+                <div class="stat-label">Lines of PowerShell</div>
+            </div>
         </div>
 
-        <div class="about-content">
-            <h2>Hello! I'm Chris Taylor</h2>
+        <!-- Two-Column Layout -->
+        <div class="about-layout">
+            <!-- Sidebar -->
+            <aside class="about-sidebar fade-in-up">
+                <div class="about-photo-card">
+                    <img src="{{ '/assets/images/profile-photo.png' | relative_url }}" alt="Chris Taylor - Network Operations Chief">
+                </div>
+                <div class="about-quick-facts">
+                    <h3><i class="fas fa-info-circle"></i> Quick Facts</h3>
+                    <div class="fact-item">
+                        <i class="fas fa-briefcase"></i>
+                        <div>
+                            <strong>Role</strong>
+                            <p>Network Operations Chief</p>
+                        </div>
+                    </div>
+                    <div class="fact-item">
+                        <i class="fas fa-building"></i>
+                        <div>
+                            <strong>Company</strong>
+                            <p>i.t.NOW</p>
+                        </div>
+                    </div>
+                    <div class="fact-item">
+                        <i class="fas fa-map-marker-alt"></i>
+                        <div>
+                            <strong>Location</strong>
+                            <p>United States</p>
+                        </div>
+                    </div>
+                    <div class="fact-item">
+                        <i class="fas fa-mountain"></i>
+                        <div>
+                            <strong>Passion</strong>
+                            <p>Mountain Biking</p>
+                        </div>
+                    </div>
+                </div>
+            </aside>
 
-            <p>
-                I'm a Network Operations Chief, vCTO, and Automation Engineer at i.t.NOW, a global
-                managed services provider. With 20+ years of professional experience (since 2002),
-                I specialize in infrastructure automation, AI integration, and building scalable
-                multi-tenant solutions that power MSP operations across diverse industries.
-            </p>
+            <!-- Main Content -->
+            <div class="about-main-content fade-in-up">
+                <div class="about-content">
+                    <h2><i class="fas fa-user"></i> Hello! I'm Chris Taylor</h2>
 
-            <p>
-                My journey in technology began in elementary school, where I spent my time
-                helping the school librarian troubleshoot and fix computer issues. That early
-                spark of curiosity grew into a lifelong passion for understanding how systems
-                work and finding better ways to make them run. I started my professional career
-                in 2002 with EchoStar doing satellite communications, and over the past two decades,
-                I've evolved into a leader who specializes in MSP operations, infrastructure
-                automation, and AI-driven solutions.
-            </p>
-
-            <p>
-                What drives me is the challenge of creating creative solutions to resolve complex
-                problems. Whether it's automating repetitive tasks with PowerShell, designing
-                efficient network architectures, or integrating disparate systems through APIs,
-                I thrive on finding elegant solutions that make a real impact. I believe in the
-                power of automation to free people from mundane tasks and enable them to focus
-                on more meaningful work.
-            </p>
-
-            <p>
-                When I'm not architecting solutions or optimizing workflows, you'll find me out
-                on the trails mountain biking. There's something about the combination of
-                technical skill, physical challenge, and connection with nature that keeps me
-                balanced and recharged. Just like in technology, mountain biking requires
-                problem-solving, adaptability, and the willingness to tackle tough terrain.
-            </p>
-
-            <a href="/ai/commentary/2025/11/03/calculating-ai-doom-odds-formula.html" class="quote-link">
-                <blockquote class="about-quote">
-                    <p class="quote-text">
-                        "The formula gives us 90:10 odds of AI going badly. This is significantly worse than Russian roulette with 5 bullets in the chamber."
+                    <p>
+                        I'm a Network Operations Chief, vCTO, and Automation Engineer at i.t.NOW, a global
+                        managed services provider. With 20+ years of professional experience (since 2002),
+                        I specialize in infrastructure automation, AI integration, and building scalable
+                        multi-tenant solutions that power MSP operations across diverse industries.
                     </p>
-                </blockquote>
-            </a>
 
-            <h2>Skills & Technologies</h2>
+                    <p>
+                        My journey in technology began in elementary school, where I spent my time
+                        helping the school librarian troubleshoot and fix computer issues. That early
+                        spark of curiosity grew into a lifelong passion for understanding how systems
+                        work and finding better ways to make them run. I started my professional career
+                        in 2002 with EchoStar doing satellite communications, and over the past two decades,
+                        I've evolved into a leader who specializes in MSP operations, infrastructure
+                        automation, and AI-driven solutions.
+                    </p>
 
-            <div class="skills-grid">
-                <div class="skill-tag">PowerShell (Expert)</div>
-                <div class="skill-tag">Infrastructure Automation</div>
-                <div class="skill-tag">MSP Operations</div>
-                <div class="skill-tag">Network Architecture</div>
-                <div class="skill-tag">Systems Integration</div>
-                <div class="skill-tag">AI/ML Integration</div>
-                <div class="skill-tag">Multi-Tenant Solutions</div>
-                <div class="skill-tag">ConnectWise Platform</div>
-                <div class="skill-tag">Azure & AWS</div>
-                <div class="skill-tag">TypeScript</div>
-                <div class="skill-tag">API Development</div>
-                <div class="skill-tag">Open Source Contributor</div>
+                    <p>
+                        What drives me is the challenge of creating creative solutions to resolve complex
+                        problems. Whether it's automating repetitive tasks with PowerShell, designing
+                        efficient network architectures, or integrating disparate systems through APIs,
+                        I thrive on finding elegant solutions that make a real impact. I believe in the
+                        power of automation to free people from mundane tasks and enable them to focus
+                        on more meaningful work.
+                    </p>
+                    
+                    <a href="/ai/commentary/2025/11/03/calculating-ai-doom-odds-formula.html" class="quote-link">
+                        <blockquote class="about-quote">
+                            <p class="quote-text">
+                                9 to 1 odds AI wins
+                            </p>
+                        </blockquote>
+                    </a>
+
+                    <p>
+                        When I'm not architecting solutions or optimizing workflows, you'll find me out
+                        on the trails mountain biking. There's something about the combination of
+                        technical skill, physical challenge, and connection with nature that keeps me
+                        balanced and recharged. Just like in technology, mountain biking requires
+                        problem-solving, adaptability, and the willingness to tackle tough terrain.
+                    </p>
+
+                    <h2>
+                        <i class="fas fa-terminal"></i>
+                        <span class="ps-cmdlet">Get-Help</span>
+                        <span class="ps-topic">'Chris Taylor'</span>
+                        <span class="ps-parameter">-Full</span>
+                    </h2>
+
+                    <div class="help-file-display">
+                        <pre><code>{% include_relative assets/downloads/ChrisTaylor.help.txt %}</code></pre>
+                    </div>
+                </div>
             </div>
         </div>
     </div>

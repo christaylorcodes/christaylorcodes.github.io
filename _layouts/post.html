@@ -54,11 +54,14 @@ layout: default
             {% endif %}
         </div>
 
-        <div class="post-content">
-            {{ content }}
-        </div>
+        <!-- Main content wrapper with sidebar layout -->
+        <div class="post-main-wrapper">
+            <div class="post-content-main">
+                <div class="post-content">
+                    {{ content }}
+                </div>
 
-        <div class="post-footer">
+                <div class="post-footer">
             <div class="post-navigation">
                 {% if page.previous.url %}
                 <a href="{{ page.previous.url | relative_url }}" class="post-nav-link prev">
@@ -107,6 +110,59 @@ layout: default
                     </a>
                 </div>
             </div>
+                </div>
+            </div>
+
+            <!-- Related Posts Sidebar (right on wide screens, bottom on narrow) -->
+            {% assign related_posts = site.related_posts | limit: 3 %}
+            {% if related_posts.size > 0 %}
+            <aside class="related-posts-sidebar">
+                <div class="related-posts">
+                    <h3>Related Posts</h3>
+                    <div class="related-posts-list">
+                        {% for post in related_posts %}
+                        <article class="related-post-card">
+                            {% if post.categories %}
+                            <div class="post-card-categories">
+                                {% for category in post.categories limit:2 %}
+                                <span class="category-badge">{{ category }}</span>
+                                {% endfor %}
+                            </div>
+                            {% endif %}
+                            <h4><a href="{{ post.url | relative_url }}">{{ post.title }}</a></h4>
+                            {% if post.excerpt %}
+                            <p>{{ post.excerpt | strip_html | truncatewords: 15 }}</p>
+                            {% endif %}
+                            <div class="related-post-meta">
+                                <span class="post-date">
+                                    <i class="far fa-calendar"></i>
+                                    {{ post.date | date: "%b %d, %Y" }}
+                                </span>
+                                <span class="post-reading-time">
+                                    <i class="far fa-clock"></i>
+                                    {% assign words = post.content | number_of_words %}
+                                    {% assign reading_time = words | divided_by: 200 %}
+                                    {% if reading_time == 0 %}1{% else %}{{ reading_time }}{% endif %} min
+                                </span>
+                            </div>
+                        </article>
+                        {% endfor %}
+                    </div>
+                </div>
+            </aside>
+            {% endif %}
+        </div>
+
+        <!-- Comments Section (Utterances - GitHub-based comments) -->
+        <div class="post-comments">
+            <h3>Comments</h3>
+            <script src="https://utteranc.es/client.js"
+                    repo="christaylorcodes/christaylorcodes.github.io"
+                    issue-term="pathname"
+                    theme="github-dark"
+                    crossorigin="anonymous"
+                    async>
+            </script>
         </div>
 
         <div class="back-to-blog">

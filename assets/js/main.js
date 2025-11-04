@@ -188,7 +188,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
 // Add copy button to code blocks
 document.addEventListener('DOMContentLoaded', function() {
-    const codeBlocks = document.querySelectorAll('.post-content pre');
+    const codeBlocks = document.querySelectorAll('.post-content pre, .help-file-display pre');
 
     codeBlocks.forEach(block => {
         // Create copy button
@@ -235,6 +235,38 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         });
     });
+});
+
+// Syntax highlighting for PowerShell help file
+document.addEventListener('DOMContentLoaded', function() {
+    const helpFileCode = document.querySelector('.help-file-display code');
+
+    if (helpFileCode) {
+        let content = helpFileCode.textContent;
+
+        // Highlight section headers (all caps words at start of line)
+        content = content.replace(/^([A-Z][A-Z\s&]+)$/gm, '<span class="help-header">$1</span>');
+
+        // Highlight URLs
+        content = content.replace(/(https?:\/\/[^\s]+)/g, '<span class="help-url">$1</span>');
+
+        // Highlight PowerShell cmdlets (Get-, Set-, etc.)
+        content = content.replace(/\b(Get|Set|New|Remove|Add|Update|Install|Import|Export|Invoke|Test|Start|Stop|Enable|Disable|Write|Read|Copy|Move)-[\w]+\b/g, '<span class="help-cmdlet">$1</span>');
+
+        // Highlight comments in code examples (lines starting with #)
+        content = content.replace(/^(\s*)(#.*)$/gm, '$1<span class="help-comment">$2</span>');
+
+        // Highlight strings in double quotes
+        content = content.replace(/"([^"]+)"/g, '<span class="help-string">"$1"</span>');
+
+        // Highlight variables (words starting with $)
+        content = content.replace(/(\$[\w]+)/g, '<span class="help-variable">$1</span>');
+
+        // Highlight operators
+        content = content.replace(/\s(-eq|-ne|-gt|-lt|-ge|-le|-like|-notlike|-match|-notmatch|-contains|-notcontains|-in|-notin|=|->)\s/g, ' <span class="help-operator">$1</span> ');
+
+        helpFileCode.innerHTML = content;
+    }
 });
 
 // Search functionality
@@ -552,8 +584,18 @@ document.addEventListener('DOMContentLoaded', function() {
         return; // No background layers found
     }
 
-    let currentBackgroundIndex = 0;
+    // Start with a random background image
+    let currentBackgroundIndex = Math.floor(Math.random() * backgroundLayers.length);
     let ticking = false;
+
+    // Set the initial random background as active
+    backgroundLayers.forEach((layer, index) => {
+        if (index === currentBackgroundIndex) {
+            layer.classList.add('active');
+        } else {
+            layer.classList.remove('active');
+        }
+    });
 
     // Background slideshow with blend transitions
     function rotateBackground() {
@@ -567,8 +609,8 @@ document.addEventListener('DOMContentLoaded', function() {
         backgroundLayers[currentBackgroundIndex].classList.add('active');
     }
 
-    // Start slideshow - change background every 8 seconds
-    const slideshowInterval = setInterval(rotateBackground, 8000);
+    // Start slideshow - change background every 16 seconds
+    const slideshowInterval = setInterval(rotateBackground, 16000);
 
     // Enhanced parallax scrolling effect for all background layers
     // Adjusts background position based on scroll for smoother parallax
@@ -610,4 +652,43 @@ document.addEventListener('DOMContentLoaded', function() {
             clearInterval(slideshowInterval);
         }
     });
+});
+
+// Back to Top button functionality
+document.addEventListener('DOMContentLoaded', function() {
+    const backToTopButton = document.getElementById('backToTopButton');
+
+    if (!backToTopButton) {
+        return; // Back to top button not found
+    }
+
+    // Show button when user scrolls down 300px from the top
+    function checkScrollPosition() {
+        if (window.pageYOffset > 300) {
+            backToTopButton.classList.add('visible');
+        } else {
+            backToTopButton.classList.remove('visible');
+        }
+    }
+
+    // Scroll to top smoothly when button is clicked
+    backToTopButton.addEventListener('click', function() {
+        window.scrollTo({
+            top: 0,
+            behavior: 'smooth'
+        });
+    });
+
+    // Check scroll position on scroll event
+    let scrollTimeout;
+    window.addEventListener('scroll', function() {
+        // Debounce scroll events for better performance
+        if (scrollTimeout) {
+            clearTimeout(scrollTimeout);
+        }
+        scrollTimeout = setTimeout(checkScrollPosition, 50);
+    });
+
+    // Initial check
+    checkScrollPosition();
 });
