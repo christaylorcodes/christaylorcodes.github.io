@@ -5,7 +5,7 @@ This document tracks improvements and enhancements for christaylor.codes. Tasks 
 ## Priority 1: Maintenance & Project Management
 
 ### Content Management
-- [ ] Replace placeholder blog posts with real content about automation, PowerShell, and network operations
+- [x] Replace placeholder blog posts with real content about automation, PowerShell, and network operations (Completed 2025-11-04)
 - [x] Standardize blog post filenames to use simpler titles (e.g., `YYYY-MM-DD-title.md` instead of `YYYY-MM-DD-long-descriptive-title.md`)
 - [x] Rename existing blog posts to follow simplified naming convention
 - [x] Update project entries in `_projects/` with actual projects from your portfolio (Completed 2025-11-04)
@@ -113,7 +113,7 @@ This document tracks improvements and enhancements for christaylor.codes. Tasks 
 These tasks can be completed quickly and provide immediate value:
 
 1. [x] Add LinkedIn profile link to config and footer (Completed 2025-11-04)
-2. [ ] Create first real blog post about PowerShell automation
+2. [x] Create first real blog post about PowerShell automation (Completed 2025-11-04 - Added 4-post series on ConnectWiseAutomateAgent)
 3. [x] Add at least one real project from your portfolio (Completed 2025-11-04)
 4. [x] Add Open Graph and Twitter Card meta tags for better social sharing (Completed 2025-11-03)
 5. [ ] Add structured data (JSON-LD) for improved search results
@@ -182,3 +182,10 @@ These tasks can be completed quickly and provide immediate value:
 - [x] Add short_description field to all project files for concise homepage summaries (2025-11-04)
 - [x] Update index.html Featured Projects section to use short_description (2025-11-04)
 - [x] Update project-template.md with dual description field guidance (2025-11-04)
+
+### Blog Content (November 2025)
+- [x] Add ConnectWiseAutomateAgent blog post series (2025-11-04)
+  - Introduction to the module and key features
+  - Mass agent deployment guide with parallel execution
+  - Troubleshooting techniques and diagnostics
+  - 10 real-world use cases for MSP automation
