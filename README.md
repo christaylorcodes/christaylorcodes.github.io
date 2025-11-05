@@ -22,7 +22,34 @@ Before you begin, ensure you have the following installed:
 
 ## Local Development
 
-### 1. Install Dependencies
+### Quick Start (Recommended)
+
+Use the PowerShell build script for streamlined development:
+
+```powershell
+# Serve with live reload (default)
+.\build.ps1
+
+# Build only (output to _site/)
+.\build.ps1 -Mode build
+
+# Clean build artifacts
+.\build.ps1 -Mode clean
+```
+
+The site will be available at `http://localhost:4000`
+
+The build script automatically:
+- Verifies Ruby and Bundler installation
+- Installs dependencies if needed
+- Provides colored status output
+- Reports compiled CSS size
+
+### Manual Setup
+
+If you prefer to run commands manually:
+
+#### 1. Install Dependencies
 
 ```bash
 # Install Bundler if you haven't already
@@ -32,18 +59,20 @@ gem install bundler
 bundle install
 ```
 
-### 2. Run the Development Server
+#### 2. Run the Development Server
 
 ```bash
-bundle exec jekyll serve
+# Serve with live reload (recommended)
+bundle exec jekyll serve --livereload
+
+# Build only
+bundle exec jekyll build
+
+# Clean and rebuild
+bundle exec jekyll clean && bundle exec jekyll build
 ```
 
 The site will be available at `http://localhost:4000`
-
-For live reload during development:
-```bash
-bundle exec jekyll serve --livereload
-```
 
 ## Customization
 
@@ -93,7 +122,66 @@ The contact form uses Formspree. To enable it:
 <form action="https://formspree.io/f/YOUR_FORM_ID" method="POST">
 ```
 
-## Deployment to GitHub Pages
+## Deploying Changes
+
+### Quick Deploy (Recommended)
+
+Use the PowerShell deployment script to commit and push changes:
+
+```powershell
+# Interactive mode (auto-generates commit message from changes)
+.\deploy.ps1
+
+# With custom commit message
+.\deploy.ps1 -Message "Update README with build documentation"
+
+# Skip git status display
+.\deploy.ps1 -Message "Fix navigation styles" -SkipStatus
+```
+
+The script automatically:
+- Analyzes your changes and generates an intelligent commit message
+- Shows current git status
+- Stages all changes
+- Commits with your message (or generated message)
+- Pushes to the main branch
+- Displays GitHub Actions URL for monitoring
+
+**Auto-Generated Commit Messages:**
+
+When you run `.\deploy.ps1` without a message, it will analyze your changes and suggest a commit message like:
+- "Add deployment script and update documentation"
+- "Update styles and configuration"
+- "Add 3 new blog posts"
+
+You can then:
+- Press Enter to accept the generated message
+- Type `n` to write your own
+- Type `edit` to modify the generated message
+
+GitHub Pages will automatically rebuild your site in 2-5 minutes.
+
+### Manual Deployment
+
+If you prefer to run git commands manually:
+
+```powershell
+# Stage all changes
+git add .
+
+# Commit with a message
+git commit -m "Your commit message"
+
+# Push to main
+git push origin main
+```
+
+Or as a one-liner:
+```powershell
+git add . && git commit -m "Your message" && git push origin main
+```
+
+## Initial Deployment to GitHub Pages
 
 ### Option 1: Deploy to your username.github.io
 
@@ -206,11 +294,25 @@ Edit the `about.html` file and modify the skills grid:
 
 ### Local development issues?
 
+**Using the build script (recommended):**
+```powershell
+# Clean and rebuild
+.\build.ps1 -Mode clean
+.\build.ps1
+```
+
+**Using manual commands:**
 ```bash
 # Clean and rebuild
 bundle exec jekyll clean
 bundle exec jekyll build
-bundle exec jekyll serve
+bundle exec jekyll serve --livereload
+```
+
+### Port 4000 already in use?
+
+```bash
+bundle exec jekyll serve --port 4001
 ```
 
 ### Ruby version issues?

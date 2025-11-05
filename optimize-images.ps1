@@ -1,4 +1,4 @@
-<![CDATA[#Requires -Version 5.1
+#Requires -Version 5.1
 <#
 .SYNOPSIS
     Optimizes website images by converting to WebP format and comparing sizes.
@@ -171,4 +171,3 @@ if ($results.Count -gt 0) {
 }
 
 Write-ColorOutput "`n=== Complete ===" 'Cyan'
-]]>
