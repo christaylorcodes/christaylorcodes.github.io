@@ -8,6 +8,11 @@ tags:
   - Automation
   - API
 github_url: "https://github.com/christaylorcodes/project-name"
+image: /assets/images/projects/project-name-hero.png
+screenshots:
+  - /assets/images/projects/project-name-screenshot-1.png
+  - /assets/images/projects/project-name-screenshot-2.png
+  - /assets/images/projects/project-name-screenshot-3.png
 order: 10
 ---
 
@@ -47,6 +52,21 @@ order: 10
 - **github_url**: Link to GitHub repository (optional)
   - Use `"#"` if no public repository
   - Format: `"https://github.com/christaylorcodes/repo-name"`
+- **image**: Hero image for the project detail page (optional)
+  - Single main image shown prominently at top of project page
+  - Recommended size: 1200x630px (16:9 aspect ratio)
+  - Format: PNG or JPG, optimized for web (under 500KB)
+  - Location: `/assets/images/projects/project-name-hero.png`
+  - Use case: Architecture diagram, main interface screenshot, or branded hero image
+  - Omit this field if you don't have a hero image yet
+- **screenshots**: Array of screenshot images (optional)
+  - Multiple images displayed in a gallery grid
+  - Recommended size: 800x600px or 1920x1080px (maintain 4:3 or 16:9 aspect ratio)
+  - Format: PNG or JPG, optimized for web (under 300KB each)
+  - Location: `/assets/images/projects/project-name-screenshot-N.png`
+  - Use case: Feature demonstrations, UI examples, code samples, terminal output
+  - Maximum 6 screenshots recommended for page performance
+  - Omit this field if you don't have screenshots yet
 - **order**: Display order on projects page (required)
   - Lower numbers appear first
   - Use increments of 10 to allow for easy reordering (10, 20, 30, etc.)
@@ -88,6 +108,11 @@ tags:
   - REST API
   - MSP Tools
 github_url: "https://github.com/christaylorcodes/ConnectWiseManageAPI"
+image: /assets/images/projects/connectwisemanageapi-hero.png
+screenshots:
+  - /assets/images/projects/connectwisemanageapi-terminal.png
+  - /assets/images/projects/connectwisemanageapi-intellisense.png
+  - /assets/images/projects/connectwisemanageapi-example.png
 order: 10
 ```
 

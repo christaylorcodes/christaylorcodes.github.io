@@ -1,0 +1,94 @@
+<svg width="1920" height="1080" xmlns="http://www.w3.org/2000/svg">
+  <!-- VS Code-style background -->
+  <rect width="1920" height="1080" fill="#1e1e1e"/>
+
+  <!-- Editor window -->
+  <rect x="60" y="60" width="1800" height="960" rx="8" fill="#252526" stroke="#3c3c3c" stroke-width="2"/>
+
+  <!-- Title bar -->
+  <rect x="60" y="60" width="1800" height="40" rx="8" fill="#2d2d30"/>
+  <text x="960" y="86" font-family="'Segoe UI', Arial, sans-serif" font-size="14" fill="#cccccc" text-anchor="middle">Visual Studio Code - Example.ps1</text>
+
+  <!-- Line numbers -->
+  <rect x="60" y="100" width="60" height="920" fill="#1e1e1e"/>
+  <text x="85" y="160" font-family="'Courier New', monospace" font-size="14" fill="#858585" text-anchor="middle">1</text>
+  <text x="85" y="200" font-family="'Courier New', monospace" font-size="14" fill="#858585" text-anchor="middle">2</text>
+  <text x="85" y="240" font-family="'Courier New', monospace" font-size="14" fill="#858585" text-anchor="middle">3</text>
+  <text x="85" y="280" font-family="'Courier New', monospace" font-size="14" fill="#858585" text-anchor="middle">4</text>
+  <text x="85" y="320" font-family="'Courier New', monospace" font-size="14" fill="#858585" text-anchor="middle">5</text>
+  <text x="85" y="360" font-family="'Courier New', monospace" font-size="14" fill="#858585" text-anchor="middle">6</text>
+
+  <!-- Code content -->
+  <text x="140" y="160" font-family="'Courier New', monospace" font-size="16" fill="#6a9955"># Import the ConnectWise Manage API module</text>
+  <text x="140" y="200" font-family="'Courier New', monospace" font-size="16" fill="#dcdcaa">Import-Module</text>
+  <text x="310" y="200" font-family="'Courier New', monospace" font-size="16" fill="#ce9178"> ConnectWiseManageAPI</text>
+
+  <text x="140" y="280" font-family="'Courier New', monospace" font-size="16" fill="#6a9955"># Get tickets with IntelliSense parameter completion</text>
+  <text x="140" y="320" font-family="'Courier New', monospace" font-size="16" fill="#dcdcaa">Get-CWMTicket</text>
+  <text x="320" y="320" font-family="'Courier New', monospace" font-size="16" fill="#9cdcfe"> -</text>
+
+  <!-- IntelliSense popup -->
+  <rect x="320" y="340" width="550" height="450" rx="4" fill="#2b2b2b" stroke="#454545" stroke-width="2"/>
+
+  <!-- IntelliSense header -->
+  <rect x="320" y="340" width="550" height="35" fill="#2d2d30"/>
+  <text x="335" y="362" font-family="'Segoe UI', Arial, sans-serif" font-size="13" fill="#cccccc">Parameters</text>
+
+  <!-- Selected parameter highlight -->
+  <rect x="325" y="380" width="540" height="28" fill="#094771"/>
+
+  <!-- IntelliSense items -->
+  <text x="335" y="398" font-family="'Courier New', monospace" font-size="14" fill="#9cdcfe" font-weight="bold">▶ -BoardName</text>
+  <text x="570" y="398" font-family="'Courier New', monospace" font-size="12" fill="#808080">[string]</text>
+
+  <text x="335" y="428" font-family="'Courier New', monospace" font-size="14" fill="#9cdcfe">  -CompanyName</text>
+  <text x="570" y="428" font-family="'Courier New', monospace" font-size="12" fill="#808080">[string]</text>
+
+  <text x="335" y="458" font-family="'Courier New', monospace" font-size="14" fill="#9cdcfe">  -Priority</text>
+  <text x="570" y="458" font-family="'Courier New', monospace" font-size="12" fill="#808080">[string]</text>
+
+  <text x="335" y="488" font-family="'Courier New', monospace" font-size="14" fill="#9cdcfe">  -Status</text>
+  <text x="570" y="488" font-family="'Courier New', monospace" font-size="12" fill="#808080">[string]</text>
+
+  <text x="335" y="518" font-family="'Courier New', monospace" font-size="14" fill="#9cdcfe">  -TicketId</text>
+  <text x="570" y="518" font-family="'Courier New', monospace" font-size="12" fill="#808080">[int]</text>
+
+  <text x="335" y="548" font-family="'Courier New', monospace" font-size="14" fill="#9cdcfe">  -Type</text>
+  <text x="570" y="548" font-family="'Courier New', monospace" font-size="12" fill="#808080">[string]</text>
+
+  <text x="335" y="578" font-family="'Courier New', monospace" font-size="14" fill="#9cdcfe">  -PageSize</text>
+  <text x="570" y="578" font-family="'Courier New', monospace" font-size="12" fill="#808080">[int]</text>
+
+  <text x="335" y="608" font-family="'Courier New', monospace" font-size="14" fill="#9cdcfe">  -Condition</text>
+  <text x="570" y="608" font-family="'Courier New', monospace" font-size="12" fill="#808080">[string]</text>
+
+  <!-- Parameter description box -->
+  <rect x="320" y="810" width="550" height="120" rx="4" fill="#1e1e1e" stroke="#454545" stroke-width="2"/>
+  <text x="335" y="835" font-family="'Segoe UI', Arial, sans-serif" font-size="13" fill="#cccccc" font-weight="bold">-BoardName [string]</text>
+  <text x="335" y="860" font-family="'Segoe UI', Arial, sans-serif" font-size="12" fill="#d4d4d4">Filter tickets by board name. Supports wildcards.</text>
+  <text x="335" y="885" font-family="'Segoe UI', Arial, sans-serif" font-size="12" fill="#6a9955">Example: -BoardName "Service Board"</text>
+  <text x="335" y="910" font-family="'Segoe UI', Arial, sans-serif" font-size="11" fill="#808080">Dynamic validation ensures only valid board names are accepted.</text>
+
+  <!-- Feature callout -->
+  <rect x="950" y="380" width="800" height="400" rx="8" fill="#1a1a1a" stroke="#06b6d4" stroke-width="2"/>
+  <text x="1350" y="430" font-family="'Segoe UI', Arial, sans-serif" font-size="28" fill="#06b6d4" text-anchor="middle" font-weight="bold">IntelliSense Features</text>
+
+  <text x="980" y="490" font-family="'Segoe UI', Arial, sans-serif" font-size="18" fill="#4ec9b0">✓</text>
+  <text x="1010" y="490" font-family="'Segoe UI', Arial, sans-serif" font-size="18" fill="#dcdcaa">Tab Completion</text>
+  <text x="980" y="525" font-family="'Segoe UI', Arial, sans-serif" font-size="14" fill="#d4d4d4">  Autocomplete parameters and values</text>
+
+  <text x="980" y="570" font-family="'Segoe UI', Arial, sans-serif" font-size="18" fill="#4ec9b0">✓</text>
+  <text x="1010" y="570" font-family="'Segoe UI', Arial, sans-serif" font-size="18" fill="#dcdcaa">Parameter Validation</text>
+  <text x="980" y="605" font-family="'Segoe UI', Arial, sans-serif" font-size="14" fill="#d4d4d4">  Dynamic validation from API schema</text>
+
+  <text x="980" y="650" font-family="'Segoe UI', Arial, sans-serif" font-size="18" fill="#4ec9b0">✓</text>
+  <text x="1010" y="650" font-family="'Segoe UI', Arial, sans-serif" font-size="18" fill="#dcdcaa">Type Safety</text>
+  <text x="980" y="685" font-family="'Segoe UI', Arial, sans-serif" font-size="14" fill="#d4d4d4">  Strongly-typed PowerShell objects</text>
+
+  <text x="980" y="730" font-family="'Segoe UI', Arial, sans-serif" font-size="18" fill="#4ec9b0">✓</text>
+  <text x="1010" y="730" font-family="'Segoe UI', Arial, sans-serif" font-size="18" fill="#dcdcaa">Inline Documentation</text>
+  <text x="980" y="765" font-family="'Segoe UI', Arial, sans-serif" font-size="14" fill="#d4d4d4">  Comprehensive help for every cmdlet</text>
+
+  <!-- Bottom watermark -->
+  <text x="140" y="990" font-family="'Courier New', monospace" font-size="14" fill="#6a9955"># ConnectWiseManageAPI - Development Experience Optimized</text>
+</svg>

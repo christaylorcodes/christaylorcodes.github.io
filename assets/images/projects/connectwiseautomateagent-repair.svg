@@ -1,0 +1,140 @@
+<svg width="1920" height="1080" xmlns="http://www.w3.org/2000/svg">
+  <!-- Background -->
+  <rect width="1920" height="1080" fill="#1e1e1e"/>
+
+  <!-- Title -->
+  <text x="960" y="100" font-family="Arial, sans-serif" font-size="48" fill="#f59e0b" text-anchor="middle" font-weight="bold">
+    Automated Agent Repair & Recovery
+  </text>
+
+  <!-- Main Grid -->
+  <!-- Problem Detection -->
+  <rect x="100" y="180" width="500" height="400" rx="12" fill="#1e293b" stroke="#dc2626" stroke-width="3"/>
+  <text x="350" y="230" font-family="Arial, sans-serif" font-size="28" fill="#dc2626" text-anchor="middle" font-weight="bold">
+    ⚠ Problems Detected
+  </text>
+
+  <rect x="130" y="270" width="440" height="80" rx="6" fill="#252526"/>
+  <text x="160" y="302" font-family="Arial, sans-serif" font-size="18" fill="#f87171">✗ Service Offline</text>
+  <text x="160" y="330" font-family="Arial, sans-serif" font-size="14" fill="#cbd5e1">LTService not responding</text>
+
+  <rect x="130" y="370" width="440" height="80" rx="6" fill="#252526"/>
+  <text x="160" y="402" font-family="Arial, sans-serif" font-size="18" fill="#f87171">✗ Database Corrupt</text>
+  <text x="160" y="430" font-family="Arial, sans-serif" font-size="14" fill="#cbd5e1">Agent DB integrity failed</text>
+
+  <rect x="130" y="470" width="440" height="80" rx="6" fill="#252526"/>
+  <text x="160" y="502" font-family="Arial, sans-serif" font-size="18" fill="#f87171">✗ Connection Lost</text>
+  <text x="160" y="530" font-family="Arial, sans-serif" font-size="14" fill="#cbd5e1">Server unreachable (7 days)</text>
+
+  <!-- Repair Actions Arrow -->
+  <polygon points="620,380 720,380 720,365 760,395 720,425 720,410 620,410" fill="#f59e0b"/>
+  <text x="690" y="355" font-family="Arial, sans-serif" font-size="16" fill="#f59e0b" text-anchor="middle" font-weight="bold">AUTO</text>
+  <text x="690" y="448" font-family="Arial, sans-serif" font-size="16" fill="#f59e0b" text-anchor="middle" font-weight="bold">REPAIR</text>
+
+  <!-- Repair Actions -->
+  <rect x="780" y="180" width="540" height="400" rx="12" fill="#1e293b" stroke="#f59e0b" stroke-width="3"/>
+  <text x="1050" y="230" font-family="Arial, sans-serif" font-size="28" fill="#f59e0b" text-anchor="middle" font-weight="bold">
+    🔧 Repair Actions
+  </text>
+
+  <rect x="810" y="270" width="480" height="70" rx="6" fill="#334155"/>
+  <text x="840" y="298" font-family="'Courier New', monospace" font-size="16" fill="#06b6d4" font-weight="bold">1. Restart-CWAService</text>
+  <text x="840" y="325" font-family="Arial, sans-serif" font-size="13" fill="#cbd5e1">Service recovery with retry logic</text>
+
+  <rect x="810" y="360" width="480" height="70" rx="6" fill="#334155"/>
+  <text x="840" y="388" font-family="'Courier New', monospace" font-size="16" fill="#06b6d4" font-weight="bold">2. Repair-CWADatabase</text>
+  <text x="840" y="415" font-family="Arial, sans-serif" font-size="13" fill="#cbd5e1">Rebuild agent database</text>
+
+  <rect x="810" y="450" width="480" height="70" rx="6" fill="#334155"/>
+  <text x="840" y="478" font-family="'Courier New', monospace" font-size="16" fill="#06b6d4" font-weight="bold">3. Set-CWAServer -Force</text>
+  <text x="840" y="505" font-family="Arial, sans-serif" font-size="13" fill="#cbd5e1">Reconnect to server</text>
+
+  <!-- Results Arrow -->
+  <polygon points="1050,600 1065,600 1065,660 1080,660 1050,700 1020,660 1035,660 1035,600" fill="#10b981"/>
+
+  <!-- Results -->
+  <rect x="780" y="720" width="540" height="140" rx="12" fill="#1e293b" stroke="#10b981" stroke-width="3"/>
+  <text x="1050" y="765" font-family="Arial, sans-serif" font-size="28" fill="#10b981" text-anchor="middle" font-weight="bold">
+    ✓ Recovery Complete
+  </text>
+  <text x="1050" y="805" font-family="Arial, sans-serif" font-size="18" fill="#cbd5e1" text-anchor="middle">
+    Agent online and reporting
+  </text>
+  <text x="1050" y="835" font-family="Arial, sans-serif" font-size="14" fill="#6a9955" text-anchor="middle">
+    Completed in 32 seconds | No endpoint visit required
+  </text>
+
+  <!-- PowerShell Code Section -->
+  <rect x="100" y="620" width="620" height="400" rx="10" fill="#252526" stroke="#3c3c3c" stroke-width="2"/>
+  <rect x="100" y="620" width="620" height="35" fill="#2d2d30"/>
+  <text x="410" y="644" font-family="'Courier New', monospace" font-size="13" fill="#cccccc" text-anchor="middle">
+    PowerShell - Automated Recovery Script
+  </text>
+
+  <text x="130" y="690" font-family="'Courier New', monospace" font-size="15" fill="#6a9955"># Check and repair all offline agents</text>
+  <text x="130" y="720" font-family="'Courier New', monospace" font-size="15" fill="#9cdcfe">$offlineAgents</text>
+  <text x="280" y="720" font-family="'Courier New', monospace" font-size="15" fill="#d4d4d4"> =</text>
+  <text x="320" y="720" font-family="'Courier New', monospace" font-size="15" fill="#dcdcaa"> Get-CWAAgent</text>
+  <text x="490" y="720" font-family="'Courier New', monospace" font-size="15" fill="#9cdcfe"> -Status</text>
+  <text x="590" y="720" font-family="'Courier New', monospace" font-size="15" fill="#ce9178"> Offline</text>
+
+  <text x="130" y="760" font-family="'Courier New', monospace" font-size="15" fill="#c586c0">foreach</text>
+  <text x="240" y="760" font-family="'Courier New', monospace" font-size="15" fill="#d4d4d4"> (</text>
+  <text x="260" y="760" font-family="'Courier New', monospace" font-size="15" fill="#9cdcfe">$agent</text>
+  <text x="360" y="760" font-family="'Courier New', monospace" font-size="15" fill="#c586c0"> in</text>
+  <text x="400" y="760" font-family="'Courier New', monospace" font-size="15" fill="#9cdcfe"> $offlineAgents</text>
+  <text x="560" y="760" font-family="'Courier New', monospace" font-size="15" fill="#d4d4d4">) {</text>
+
+  <text x="180" y="800" font-family="'Courier New', monospace" font-size="15" fill="#6a9955"># Attempt automated recovery</text>
+  <text x="180" y="830" font-family="'Courier New', monospace" font-size="15" fill="#dcdcaa">Repair-CWAAgent</text>
+  <text x="360" y="830" font-family="'Courier New', monospace" font-size="15" fill="#9cdcfe"> -ComputerName</text>
+  <text x="550" y="830" font-family="'Courier New', monospace" font-size="15" fill="#9cdcfe"> $agent</text>
+  <text x="640" y="830" font-family="'Courier New', monospace" font-size="15" fill="#d4d4d4">.Name `</text>
+
+  <text x="230" y="860" font-family="'Courier New', monospace" font-size="15" fill="#9cdcfe">-FixService</text>
+  <text x="420" y="860" font-family="'Courier New', monospace" font-size="15" fill="#9cdcfe"> -FixDatabase</text>
+  <text x="630" y="860" font-family="'Courier New', monospace" font-size="15" fill="#9cdcfe"> `</text>
+
+  <text x="230" y="890" font-family="'Courier New', monospace" font-size="15" fill="#9cdcfe">-FixConnection</text>
+  <text x="450" y="890" font-family="'Courier New', monospace" font-size="15" fill="#9cdcfe"> -Verbose</text>
+
+  <text x="180" y="930" font-family="'Courier New', monospace" font-size="15" fill="#dcdcaa">Write-Host</text>
+  <text x="310" y="930" font-family="'Courier New', monospace" font-size="15" fill="#ce9178"> "Repaired: $($agent.Name)"</text>
+  <text x="130" y="960" font-family="'Courier New', monospace" font-size="15" fill="#d4d4d4">}</text>
+
+  <text x="130" y="1000" font-family="'Courier New', monospace" font-size="13" fill="#10b981">
+    # Result: 47 of 50 agents recovered automatically
+  </text>
+
+  <!-- Stats Panel -->
+  <rect x="1380" y="180" width="460" height="680" rx="12" fill="#1e293b" stroke="#06b6d4" stroke-width="2"/>
+  <text x="1610" y="235" font-family="Arial, sans-serif" font-size="26" fill="#06b6d4" text-anchor="middle" font-weight="bold">
+    Recovery Statistics
+  </text>
+
+  <text x="1610" y="310" font-family="Arial, sans-serif" font-size="60" fill="#10b981" text-anchor="middle" font-weight="bold">94%</text>
+  <text x="1610" y="345" font-family="Arial, sans-serif" font-size="16" fill="#cbd5e1" text-anchor="middle">Success Rate</text>
+
+  <line x1="1420" y1="380" x2="1800" y2="380" stroke="#475569" stroke-width="1"/>
+
+  <text x="1610" y="430" font-family="Arial, sans-serif" font-size="18" fill="#f1f5f9" font-weight="bold" text-anchor="middle">Common Fixes</text>
+  <text x="1440" y="470" font-family="Arial, sans-serif" font-size="16" fill="#cbd5e1">Service restart</text>
+  <text x="1750" y="470" font-family="Arial, sans-serif" font-size="18" fill="#06b6d4" text-anchor="end">62%</text>
+
+  <text x="1440" y="510" font-family="Arial, sans-serif" font-size="16" fill="#cbd5e1">DB rebuild</text>
+  <text x="1750" y="510" font-family="Arial, sans-serif" font-size="18" fill="#06b6d4" text-anchor="end">21%</text>
+
+  <text x="1440" y="550" font-family="Arial, sans-serif" font-size="16" fill="#cbd5e1">Server reconnect</text>
+  <text x="1750" y="550" font-family="Arial, sans-serif" font-size="18" fill="#06b6d4" text-anchor="end">11%</text>
+
+  <text x="1440" y="590" font-family="Arial, sans-serif" font-size="16" fill="#cbd5e1">Full reinstall</text>
+  <text x="1750" y="590" font-family="Arial, sans-serif" font-size="18" fill="#f59e0b" text-anchor="end">6%</text>
+
+  <line x1="1420" y1="620" x2="1800" y2="620" stroke="#475569" stroke-width="1"/>
+
+  <text x="1610" y="670" font-family="Arial, sans-serif" font-size="18" fill="#f1f5f9" font-weight="bold" text-anchor="middle">Time Savings</text>
+  <text x="1610" y="720" font-family="Arial, sans-serif" font-size="48" fill="#f59e0b" text-anchor="middle" font-weight="bold">32 sec</text>
+  <text x="1610" y="750" font-family="Arial, sans-serif" font-size="16" fill="#cbd5e1" text-anchor="middle">Average repair time</text>
+  <text x="1610" y="790" font-family="Arial, sans-serif" font-size="14" fill="#6a9955" text-anchor="middle">vs 45+ min site visit</text>
+  <text x="1610" y="830" font-family="Arial, sans-serif" font-size="16" fill="#10b981" text-anchor="middle" font-weight="bold">$2,100 saved per repair</text>
+</svg>

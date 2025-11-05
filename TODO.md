@@ -35,7 +35,16 @@ This document tracks improvements and enhancements for christaylor.codes. Tasks 
 - [x] Add project detail pages (set `output: true` in _config.yml for projects collection) (Completed 2025-11-04)
 - [x] Add "View Project Details" functionality (Completed 2025-11-04)
 - [x] Create project categories for filtering (Completed 2025-11-04)
-- [ ] Add project screenshots/images
+- [x] Add project screenshots/images functionality (Completed 2025-11-04)
+  - Created assets/images/projects directory
+  - Updated project template with image field documentation
+  - Enhanced project layout to display hero images and screenshot galleries
+  - Added comprehensive CSS styling with hover effects
+  - Updated sample projects with placeholder image paths
+  - Documented image specifications and optimization guidelines in CLAUDE.md
+  Create a process to properly process image files.
+  Conver images to webp format and optimize them with WebP Express.
+  - Create a process to properly process image
 
 ### Contact Enhancements
 - [x] Add LinkedIn profile link (uncomment in [_config.yml:10](_config.yml#L10)) (Completed 2025-11-04)
@@ -53,9 +62,12 @@ This document tracks improvements and enhancements for christaylor.codes. Tasks 
 - [ ] Add custom meta descriptions to all pages using front matter
 - [x] Add Open Graph tags for better social media sharing (Completed 2025-11-03)
 - [x] Add Twitter Card meta tags (Completed 2025-11-03)
-- [ ] Add structured data (JSON-LD) for better search results (partially complete - jekyll-seo-tag provides basic JSON-LD)
+- [x] Add structured data (JSON-LD) for better search results (Completed 2025-11-04 - Enhanced schema for all page types)
 
 ### Performance
+Work to correct pagespeed errors
+https://pagespeed.web.dev/analysis/https-christaylor-codes/xd0l97cc3z?form_factor=mobile
+Ignore anything related to cloudflare
 - [ ] Implement image optimization workflow
 - [ ] Add lazy loading for images
 - [ ] Minify CSS for production
@@ -117,7 +129,7 @@ These tasks can be completed quickly and provide immediate value:
 2. [x] Create first real blog post about PowerShell automation (Completed 2025-11-04 - Added 4-post series on ConnectWiseAutomateAgent)
 3. [x] Add at least one real project from your portfolio (Completed 2025-11-04)
 4. [x] Add Open Graph and Twitter Card meta tags for better social sharing (Completed 2025-11-03)
-5. [ ] Add structured data (JSON-LD) for improved search results
+5. [x] Add structured data (JSON-LD) for improved search results (Completed 2025-11-04 - See STRUCTURED-DATA-SUMMARY.md)
 
 ## Notes
 

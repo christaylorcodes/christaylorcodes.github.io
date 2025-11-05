@@ -24,6 +24,216 @@
     margin-top: 2rem;
 }
 
+/* ========================================
+   PODIUM LAYOUT (Homepage Projects)
+   ======================================== */
+
+.podium-container {
+    display: grid;
+    grid-template-columns: 1fr 1.2fr 1fr;
+    gap: 2rem;
+    align-items: center;
+    margin-bottom: 3rem;
+    max-width: 1200px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.podium-card {
+    background-color: var(--bg-light);
+    border-radius: 1rem;
+    overflow: hidden;
+    box-shadow: var(--shadow);
+    transition: all 0.3s ease;
+    border: 2px solid var(--border-color);
+    display: flex;
+    flex-direction: column;
+    position: relative;
+}
+
+.podium-card:hover {
+    transform: translateY(-10px);
+    box-shadow: var(--shadow-lg), 0 0 30px rgba(6, 182, 212, 0.4);
+}
+
+/* Ensure podium card is clickable when using feature-card-clickable class */
+.podium-card.feature-card-clickable {
+    cursor: pointer;
+}
+
+/* Ensure podium content doesn't block the clickable overlay */
+.podium-card.feature-card-clickable .podium-rank,
+.podium-card.feature-card-clickable .podium-content {
+    position: relative;
+    z-index: 0;
+}
+
+/* Podium card read-more links need higher z-index */
+.podium-card.feature-card-clickable .read-more {
+    position: relative;
+    z-index: 2;
+}
+
+/* Ensure icons don't block clicks */
+.podium-card.feature-card-clickable .feature-icon {
+    position: relative;
+    z-index: 0;
+}
+
+/* Podium Heights - Creates podium effect */
+.podium-first {
+    min-height: 520px;  /* 1st place - tallest podium */
+    border-color: var(--primary-color);
+}
+
+.podium-second {
+    min-height: 420px;  /* 2nd place - medium height */
+    border-color: var(--secondary-color);
+}
+
+.podium-third {
+    min-height: 360px;  /* 3rd place - shortest podium */
+    border-color: var(--accent-orange);
+}
+
+/* Ranking Badges */
+.podium-rank {
+    padding: 1rem;
+    text-align: center;
+    font-weight: 700;
+    font-size: 1.125rem;
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+}
+
+.rank-first {
+    background: linear-gradient(135deg, var(--primary-dark) 0%, var(--primary-color) 50%, var(--primary-light) 100%);
+}
+
+.rank-first i {
+    font-size: 1.5rem;
+    color: #ffd700; /* Gold trophy */
+}
+
+.rank-second {
+    background: linear-gradient(135deg, #d97706 0%, var(--secondary-color) 50%, #fbbf24 100%);
+}
+
+.rank-second i {
+    font-size: 1.25rem;
+    color: #c0c0c0; /* Silver medal */
+}
+
+.rank-third {
+    background: linear-gradient(135deg, #c2410c 0%, var(--accent-orange) 50%, #fb923c 100%);
+}
+
+.rank-third i {
+    font-size: 1.25rem;
+    color: #cd7f32; /* Bronze medal */
+}
+
+/* Podium Content */
+.podium-content {
+    padding: 2rem;
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.podium-content h3 {
+    font-size: 1.5rem;
+    margin: 0;
+    color: var(--text-dark);
+}
+
+.podium-content h3 a {
+    color: var(--text-dark);
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+.podium-content h3 a:hover {
+    color: var(--primary-color);
+}
+
+.podium-content p {
+    color: var(--text-light);
+    margin: 0;
+    flex-grow: 1;
+    line-height: 1.6;
+}
+
+/* Stats Display - Podium */
+.podium-stats {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    align-items: center;
+    margin: 1rem 0;
+}
+
+.podium-stars,
+.podium-downloads {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-weight: 700;
+    font-size: 1rem;
+    color: var(--primary-color);
+    padding: 0.5rem 1rem;
+    background-color: var(--bg-darker);
+    border-radius: 0.5rem;
+    width: fit-content;
+}
+
+.podium-stars {
+    font-size: 1.125rem;
+}
+
+.podium-stars i {
+    color: #fbbf24; /* Gold star */
+    font-size: 1.25rem;
+}
+
+.podium-downloads i {
+    color: var(--primary-color);
+    font-size: 1rem;
+}
+
+/* Responsive Podium Layout */
+@media (max-width: 768px) {
+    .podium-container {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+        align-items: stretch;
+    }
+
+    /* Reset heights for mobile */
+    .podium-first,
+    .podium-second,
+    .podium-third {
+        min-height: auto;
+    }
+
+    /* Reorder for mobile: 1st, 2nd, 3rd */
+    .podium-first {
+        order: 1;
+    }
+
+    .podium-second {
+        order: 2;
+    }
+
+    .podium-third {
+        order: 3;
+    }
+}
+
 /* CTA Section */
 .cta {
     background: linear-gradient(135deg, var(--bg-light) 0%, var(--bg-darker) 100%);
@@ -143,6 +353,27 @@
     color: var(--text-light);
     margin-bottom: 1.5rem;
     flex-grow: 1;
+}
+
+/* Project Card Stats */
+.project-card-stats {
+    display: flex;
+    gap: 1rem;
+    margin-bottom: 1rem;
+    font-size: 0.875rem;
+}
+
+.project-card-stats .stat-item {
+    display: flex;
+    align-items: center;
+    gap: 0.375rem;
+    color: var(--text-light);
+    font-weight: 600;
+}
+
+.project-card-stats .stat-item i {
+    color: var(--primary-color);
+    font-size: 1rem;
 }
 
 .project-cta {
@@ -343,6 +574,27 @@
     margin: 0;
 }
 
+/* Project Detail Link Card Stats */
+.project-stats {
+    display: flex;
+    gap: 1rem;
+    margin-top: 0.75rem;
+}
+
+.project-stats .stat-item {
+    display: flex;
+    align-items: center;
+    gap: 0.375rem;
+    color: var(--text-light);
+    font-size: 0.875rem;
+    font-weight: 600;
+}
+
+.project-stats .stat-item i {
+    color: var(--primary-color);
+    font-size: 1rem;
+}
+
 .related-posts-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
@@ -431,6 +683,76 @@
 }
 
 /* ========================================
+   PROJECT IMAGES & SCREENSHOTS
+   ======================================== */
+
+/* Hero Image */
+.project-hero-image {
+    margin: 0 0 3rem 0;
+    border-radius: 1rem;
+    overflow: hidden;
+    box-shadow: var(--shadow-lg);
+    border: 1px solid var(--border-color);
+}
+
+.project-hero-image img {
+    width: 100%;
+    height: auto;
+    display: block;
+    transition: transform 0.3s ease;
+}
+
+.project-hero-image:hover img {
+    transform: scale(1.02);
+}
+
+/* Screenshot Gallery */
+.project-screenshots {
+    margin-bottom: 4rem;
+}
+
+.project-screenshots h2 {
+    font-size: 2rem;
+    margin-bottom: 1.5rem;
+    color: var(--text-dark);
+    border-bottom: 2px solid var(--primary-color);
+    padding-bottom: 0.5rem;
+}
+
+.screenshots-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+    gap: 2rem;
+}
+
+.screenshot-item {
+    border-radius: 0.5rem;
+    overflow: hidden;
+    box-shadow: var(--shadow);
+    border: 1px solid var(--border-color);
+    transition: all 0.3s ease;
+    cursor: pointer;
+    background-color: var(--bg-light);
+}
+
+.screenshot-item:hover {
+    transform: translateY(-5px);
+    box-shadow: var(--shadow-lg), 0 0 20px rgba(6, 182, 212, 0.3);
+    border-color: var(--primary-color);
+}
+
+.screenshot-item img {
+    width: 100%;
+    height: auto;
+    display: block;
+    transition: transform 0.3s ease;
+}
+
+.screenshot-item:hover img {
+    transform: scale(1.05);
+}
+
+/* ========================================
    PROJECT DETAIL RESPONSIVE
    ======================================== */
 
@@ -450,5 +772,10 @@
 
     .project-title {
         font-size: 2rem;
+    }
+
+    .screenshots-grid {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
     }
 }

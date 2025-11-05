@@ -1,0 +1,67 @@
+<svg width="1920" height="1080" xmlns="http://www.w3.org/2000/svg">
+  <!-- Terminal-style background -->
+  <rect width="1920" height="1080" fill="#1e1e1e"/>
+
+  <!-- Terminal window chrome -->
+  <rect x="60" y="60" width="1800" height="960" rx="8" fill="#252526" stroke="#3c3c3c" stroke-width="2"/>
+
+  <!-- Window title bar -->
+  <rect x="60" y="60" width="1800" height="40" rx="8" fill="#2d2d30"/>
+  <circle cx="90" cy="80" r="6" fill="#f44747"/>
+  <circle cx="110" cy="80" r="6" fill="#ff9800"/>
+  <circle cx="130" cy="80" r="6" fill="#4caf50"/>
+  <text x="960" y="86" font-family="'Courier New', monospace" font-size="14" fill="#cccccc" text-anchor="middle">PowerShell - ConnectWiseManageAPI Example</text>
+
+  <!-- PowerShell prompt and commands -->
+  <text x="100" y="150" font-family="'Courier New', monospace" font-size="18" fill="#4ec9b0">PS C:\&gt;</text>
+  <text x="190" y="150" font-family="'Courier New', monospace" font-size="18" fill="#dcdcaa">Import-Module</text>
+  <text x="390" y="150" font-family="'Courier New', monospace" font-size="18" fill="#ce9178"> ConnectWiseManageAPI</text>
+
+  <text x="100" y="190" font-family="'Courier New', monospace" font-size="18" fill="#4ec9b0">PS C:\&gt;</text>
+  <text x="190" y="190" font-family="'Courier New', monospace" font-size="18" fill="#dcdcaa">Connect-CWM</text>
+  <text x="350" y="190" font-family="'Courier New', monospace" font-size="18" fill="#9cdcfe"> -Server</text>
+  <text x="470" y="190" font-family="'Courier New', monospace" font-size="18" fill="#ce9178"> "api.connectwise.com"</text>
+  <text x="800" y="190" font-family="'Courier New', monospace" font-size="18" fill="#9cdcfe"> -Company</text>
+  <text x="950" y="190" font-family="'Courier New', monospace" font-size="18" fill="#ce9178"> "YourCompany"</text>
+
+  <text x="100" y="230" font-family="'Courier New', monospace" font-size="16" fill="#6a9955">Connected to ConnectWise Manage</text>
+
+  <text x="100" y="290" font-family="'Courier New', monospace" font-size="18" fill="#4ec9b0">PS C:\&gt;</text>
+  <text x="190" y="290" font-family="'Courier New', monospace" font-size="18" fill="#dcdcaa">Get-CWMTicket</text>
+  <text x="380" y="290" font-family="'Courier New', monospace" font-size="18" fill="#9cdcfe"> -Status</text>
+  <text x="500" y="290" font-family="'Courier New', monospace" font-size="18" fill="#ce9178"> Open</text>
+  <text x="600" y="290" font-family="'Courier New', monospace" font-size="18" fill="#d4d4d4"> |</text>
+  <text x="620" y="290" font-family="'Courier New', monospace" font-size="18" fill="#dcdcaa"> Where-Object</text>
+  <text x="830" y="290" font-family="'Courier New', monospace" font-size="18" fill="#9cdcfe"> Priority</text>
+  <text x="970" y="290" font-family="'Courier New', monospace" font-size="18" fill="#d4d4d4"> -eq</text>
+  <text x="1050" y="290" font-family="'Courier New', monospace" font-size="18" fill="#ce9178"> "Critical"</text>
+
+  <!-- Table header -->
+  <rect x="100" y="350" width="1700" height="30" fill="#264f78"/>
+  <text x="120" y="372" font-family="'Courier New', monospace" font-size="16" fill="#ffffff" font-weight="bold">Subject</text>
+  <text x="600" y="372" font-family="'Courier New', monospace" font-size="16" fill="#ffffff" font-weight="bold">Board</text>
+  <text x="950" y="372" font-family="'Courier New', monospace" font-size="16" fill="#ffffff" font-weight="bold">Owner</text>
+  <text x="1350" y="372" font-family="'Courier New', monospace" font-size="16" fill="#ffffff" font-weight="bold">Status</text>
+
+  <!-- Table rows -->
+  <text x="120" y="412" font-family="'Courier New', monospace" font-size="15" fill="#dcdcaa">Server Down - Production</text>
+  <text x="600" y="412" font-family="'Courier New', monospace" font-size="15" fill="#d4d4d4">IT Operations</text>
+  <text x="950" y="412" font-family="'Courier New', monospace" font-size="15" fill="#d4d4d4">John Smith</text>
+  <text x="1350" y="412" font-family="'Courier New', monospace" font-size="15" fill="#4ec9b0">Open</text>
+
+  <text x="120" y="452" font-family="'Courier New', monospace" font-size="15" fill="#dcdcaa">Network Outage - Branch Office</text>
+  <text x="600" y="452" font-family="'Courier New', monospace" font-size="15" fill="#d4d4d4">Network Support</text>
+  <text x="950" y="452" font-family="'Courier New', monospace" font-size="15" fill="#d4d4d4">Jane Doe</text>
+  <text x="1350" y="452" font-family="'Courier New', monospace" font-size="15" fill="#4ec9b0">Open</text>
+
+  <text x="120" y="492" font-family="'Courier New', monospace" font-size="15" fill="#dcdcaa">Email Service Unavailable</text>
+  <text x="600" y="492" font-family="'Courier New', monospace" font-size="15" fill="#d4d4d4">Help Desk</text>
+  <text x="950" y="492" font-family="'Courier New', monospace" font-size="15" fill="#d4d4d4">Mike Johnson</text>
+  <text x="1350" y="492" font-family="'Courier New', monospace" font-size="15" fill="#4ec9b0">Open</text>
+
+  <!-- Success message -->
+  <text x="100" y="560" font-family="'Courier New', monospace" font-size="16" fill="#6a9955">✓ Retrieved 3 critical tickets in 0.8 seconds</text>
+
+  <!-- Bottom watermark -->
+  <text x="100" y="950" font-family="'Courier New', monospace" font-size="14" fill="#6a9955"># ConnectWiseManageAPI - PowerShell Module by Chris Taylor</text>
+</svg>

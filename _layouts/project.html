@@ -2,6 +2,8 @@
 layout: default
 ---
 
+{% include structured-data-software.html %}
+
 <article class="project-detail">
     <div class="container">
         <div class="project-detail-header">
@@ -20,6 +22,12 @@ layout: default
         </div>
 
         <div class="project-detail-content">
+            {% if page.image %}
+            <section class="project-hero-image">
+                <img src="{{ page.image | relative_url }}" alt="{{ page.title }} - Main Screenshot" loading="lazy">
+            </section>
+            {% endif %}
+
             <div class="project-main-grid">
                 <section class="project-overview">
                     <h2>Overview</h2>
@@ -51,6 +59,14 @@ layout: default
                             <div>
                                 <h3>PowerShell Gallery</h3>
                                 <p>Install via PowerShell Gallery</p>
+                                {% if page.gallery_downloads %}
+                                <div class="project-stats">
+                                    <span class="stat-item">
+                                        <i class="fas fa-download"></i>
+                                        {{ page.gallery_downloads | divided_by: 1000.0 | round: 1 }}K downloads
+                                    </span>
+                                </div>
+                                {% endif %}
                             </div>
                         </a>
                         {% endif %}
@@ -133,6 +149,19 @@ layout: default
                 {% else %}
                 <p class="no-posts-message">No blog posts yet for this project. Check back soon!</p>
                 {% endif %}
+            </section>
+            {% endif %}
+
+            {% if page.screenshots and page.screenshots.size > 0 %}
+            <section class="project-screenshots">
+                <h2>Screenshots</h2>
+                <div class="screenshots-grid">
+                    {% for screenshot in page.screenshots %}
+                    <div class="screenshot-item">
+                        <img src="{{ screenshot | relative_url }}" alt="{{ page.title }} - Screenshot {{ forloop.index }}" loading="lazy">
+                    </div>
+                    {% endfor %}
+                </div>
             </section>
             {% endif %}
         </div>

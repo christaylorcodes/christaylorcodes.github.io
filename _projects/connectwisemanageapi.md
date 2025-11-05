@@ -18,5 +18,12 @@ tags:
 github_url: "https://github.com/christaylorcodes/ConnectWiseManageAPI"
 powershell_gallery_url: "https://www.powershellgallery.com/packages/ConnectWiseManageAPI"
 docs_url: "https://github.com/christaylorcodes/ConnectWiseManageAPI#readme"
+stars: 42
+gallery_downloads: 15000
+image: /assets/images/projects/connectwisemanageapi-hero.svg
+screenshots:
+  - /assets/images/projects/connectwisemanageapi-terminal.svg
+  - /assets/images/projects/connectwisemanageapi-intellisense.svg
+  - /assets/images/projects/connectwisemanageapi-example.svg
 order: 10
 ---

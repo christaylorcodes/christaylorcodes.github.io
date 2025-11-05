@@ -41,6 +41,39 @@
     border: 1px solid var(--border-color);
 }
 
+/* Clickable card - entire card area is clickable */
+.feature-card-clickable {
+    position: relative;
+    cursor: pointer;
+}
+
+/* Main link creates overlay covering entire card */
+.feature-card-clickable .card-main-link {
+    color: inherit;
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+.feature-card-clickable .card-main-link:hover {
+    color: var(--primary-color);
+}
+
+.feature-card-clickable .card-main-link::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 1;
+}
+
+/* Ensure other links (like "Learn More") are still clickable */
+.feature-card-clickable .read-more {
+    position: relative;
+    z-index: 2;
+}
+
 .feature-card:hover {
     transform: translateY(-5px);        /* Lifts card on hover */
     box-shadow: var(--shadow-lg), 0 0 20px rgba(6, 182, 212, 0.3);  /* Enhanced shadow + glow */

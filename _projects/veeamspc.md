@@ -18,5 +18,7 @@ tags:
   - Backup Management
 github_url: "https://github.com/christaylorcodes/VeeamSPC"
 powershell_gallery_url: "https://www.powershellgallery.com/packages/VeeamSPC"
+stars: 6
+gallery_downloads: 1600
 order: 70
 ---

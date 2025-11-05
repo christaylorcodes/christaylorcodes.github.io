@@ -3,6 +3,8 @@ layout: default
 title: Home
 ---
 
+{% include structured-data-website.html %}
+
 <section class="hero">
     <!-- Background slideshow layers -->
     <div class="hero-background" style="background-image: url('{{ '/assets/images/hero-background.jpg' | relative_url }}');"></div>
@@ -78,11 +80,11 @@ title: Home
             {% elsif color_index == 1 %}{% assign icon_color = 'icon-amber' %}
             {% elsif color_index == 2 %}{% assign icon_color = 'icon-sky' %}
             {% else %}{% assign icon_color = 'icon-orange' %}{% endif %}
-            <div class="feature-card">
+            <div class="feature-card feature-card-clickable">
                 <div class="feature-icon {{ icon_color }}">
                     <i class="fas fa-file-alt"></i>
                 </div>
-                <h3><a href="{{ post.url | relative_url }}" class="post-title-link">{{ post.title }}</a></h3>
+                <h3><a href="{{ post.url | relative_url }}" class="card-main-link">{{ post.title }}</a></h3>
                 <p class="post-date">
                     <i class="far fa-calendar"></i> {{ post.date | date: "%B %d, %Y" }}
                 </p>
@@ -101,31 +103,104 @@ title: Home
 
 <section class="featured-projects">
     <div class="container">
-        <h2 class="section-title">Featured Projects</h2>
-        <div class="features-grid">
-            {% assign sorted_projects = site.projects | sort: 'order' %}
-            {% for project in sorted_projects limit:4 %}
-            {% assign color_index = forloop.index0 | modulo: 4 %}
-            {% if color_index == 0 %}{% assign icon_color = 'icon-cyan' %}
-            {% elsif color_index == 1 %}{% assign icon_color = 'icon-amber' %}
-            {% elsif color_index == 2 %}{% assign icon_color = 'icon-sky' %}
-            {% else %}{% assign icon_color = 'icon-orange' %}{% endif %}
-            <div class="feature-card">
-                <div class="feature-icon {{ icon_color }}">
-                    <i class="fas {{ project.icon }}"></i>
+        <h2 class="section-title">🤩Seeing Stars✨</h2>
+
+        <!-- Sort projects by stars (descending) -->
+        {% assign sorted_projects = site.projects | sort: 'stars' | reverse %}
+
+        <!-- Top 3 Podium Display -->
+        <div class="podium-container">
+            <!-- 2nd Place (Left) -->
+            {% if sorted_projects[1] %}
+            {% assign project = sorted_projects[1] %}
+            <div class="podium-card podium-second feature-card-clickable">
+                <div class="podium-rank rank-second">
+                    <i class="fas fa-medal"></i> 2nd
                 </div>
-                <h3>{{ project.title }}</h3>
-                <p>{% if project.short_description %}{{ project.short_description }}{% else %}{{ project.description }}{% endif %}</p>
-                {% if project.tags %}
-                <div class="featured-project-tags">
-                    {% for tag in project.tags limit:3 %}
-                    <span class="tag">{{ tag }}</span>
-                    {% endfor %}
+                <div class="podium-content">
+                    <div class="feature-icon icon-amber">
+                        <i class="fas {{ project.icon }}"></i>
+                    </div>
+                    <h3><a href="{{ project.url | relative_url }}" class="card-main-link">{{ project.title }}</a></h3>
+                    <div class="podium-stats">
+                        <div class="podium-stars">
+                            <i class="fas fa-star"></i> {{ project.stars }} stars
+                        </div>
+                        {% if project.gallery_downloads %}
+                        <div class="podium-downloads">
+                            <i class="fas fa-download"></i> {{ project.gallery_downloads | divided_by: 1000.0 | round: 1 }}K downloads
+                        </div>
+                        {% endif %}
+                    </div>
+                    <p>{% if project.short_description %}{{ project.short_description | truncatewords: 15 }}{% else %}{{ project.description | truncatewords: 15 }}{% endif %}</p>
+                    <a href="{{ project.url | relative_url }}" class="read-more">
+                        Learn More <i class="fas fa-arrow-right"></i>
+                    </a>
                 </div>
-                {% endif %}
             </div>
-            {% endfor %}
+            {% endif %}
+
+            <!-- 1st Place (Center) -->
+            {% if sorted_projects[0] %}
+            {% assign project = sorted_projects[0] %}
+            <div class="podium-card podium-first feature-card-clickable">
+                <div class="podium-rank rank-first">
+                    <i class="fas fa-trophy"></i> 1st
+                </div>
+                <div class="podium-content">
+                    <div class="feature-icon icon-cyan">
+                        <i class="fas {{ project.icon }}"></i>
+                    </div>
+                    <h3><a href="{{ project.url | relative_url }}" class="card-main-link">{{ project.title }}</a></h3>
+                    <div class="podium-stats">
+                        <div class="podium-stars">
+                            <i class="fas fa-star"></i> {{ project.stars }} stars
+                        </div>
+                        {% if project.gallery_downloads %}
+                        <div class="podium-downloads">
+                            <i class="fas fa-download"></i> {{ project.gallery_downloads | divided_by: 1000.0 | round: 1 }}K downloads
+                        </div>
+                        {% endif %}
+                    </div>
+                    <p>{% if project.short_description %}{{ project.short_description | truncatewords: 15 }}{% else %}{{ project.description | truncatewords: 15 }}{% endif %}</p>
+                    <a href="{{ project.url | relative_url }}" class="read-more">
+                        Learn More <i class="fas fa-arrow-right"></i>
+                    </a>
+                </div>
+            </div>
+            {% endif %}
+
+            <!-- 3rd Place (Right) -->
+            {% if sorted_projects[2] %}
+            {% assign project = sorted_projects[2] %}
+            <div class="podium-card podium-third feature-card-clickable">
+                <div class="podium-rank rank-third">
+                    <i class="fas fa-medal"></i> 3rd
+                </div>
+                <div class="podium-content">
+                    <div class="feature-icon icon-orange">
+                        <i class="fas {{ project.icon }}"></i>
+                    </div>
+                    <h3><a href="{{ project.url | relative_url }}" class="card-main-link">{{ project.title }}</a></h3>
+                    <div class="podium-stats">
+                        <div class="podium-stars">
+                            <i class="fas fa-star"></i> {{ project.stars }} stars
+                        </div>
+                        {% if project.gallery_downloads %}
+                        <div class="podium-downloads">
+                            <i class="fas fa-download"></i> {{ project.gallery_downloads | divided_by: 1000.0 | round: 1 }}K downloads
+                        </div>
+                        {% endif %}
+                    </div>
+                    <p>{% if project.short_description %}{{ project.short_description | truncatewords: 15 }}{% else %}{{ project.description | truncatewords: 15 }}{% endif %}</p>
+                    <a href="{{ project.url | relative_url }}" class="read-more">
+                        Learn More <i class="fas fa-arrow-right"></i>
+                    </a>
+                </div>
+            </div>
+            {% endif %}
         </div>
+
         <div class="section-cta-wrapper">
             <a href="{{ '/projects' | relative_url }}" class="btn btn-secondary">View All Projects</a>
         </div>

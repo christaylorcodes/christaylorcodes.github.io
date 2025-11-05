@@ -1,0 +1,55 @@
+<!-- Enhanced SoftwareApplication Schema (JSON-LD) for Projects -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "SoftwareSourceCode",
+  "name": "{{ page.title | escape }}",
+  "description": "{{ page.short_description | default: page.description | strip_html | strip_newlines | escape }}",
+  "url": "{{ page.url | absolute_url }}",
+  {% if page.github_url and page.github_url != '#' %}
+  "codeRepository": "{{ page.github_url }}",
+  {% endif %}
+  "programmingLanguage": {
+    "@type": "ComputerLanguage",
+    "name": "PowerShell",
+    "url": "https://docs.microsoft.com/en-us/powershell/"
+  },
+  "runtimePlatform": [
+    "Windows",
+    "Linux",
+    "macOS"
+  ],
+  "author": {
+    "@type": "Person",
+    "name": "{{ site.author.name }}",
+    "url": "{{ site.url }}{{ '/about' | relative_url }}",
+    "email": "{{ site.author.email }}",
+    "jobTitle": "Network Operations Chief",
+    "sameAs": [
+      "https://github.com/{{ site.github_username }}",
+      "https://www.linkedin.com/in/{{ site.linkedin_username }}",
+      "https://x.com/{{ site.twitter_username }}"
+    ]
+  },
+  {% if page.powershell_gallery_url %}
+  "downloadUrl": "{{ page.powershell_gallery_url }}",
+  {% endif %}
+  {% if page.docs_url %}
+  "documentation": "{{ page.docs_url }}",
+  {% endif %}
+  "applicationCategory": "DeveloperApplication",
+  "applicationSubCategory": "{% if page.category %}{{ page.category }}{% else %}Automation Tool{% endif %}",
+  {% if page.tags %}
+  "keywords": "{{ page.tags | join: ', ' | escape }}",
+  {% endif %}
+  "operatingSystem": "Windows, Linux, macOS",
+  "softwareVersion": "Latest",
+  "license": "https://opensource.org/licenses/MIT",
+  "isAccessibleForFree": true,
+  "offers": {
+    "@type": "Offer",
+    "price": "0",
+    "priceCurrency": "USD"
+  }
+}
+</script>

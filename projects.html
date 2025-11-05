@@ -69,6 +69,15 @@ permalink: /projects/
                                 </div>
                                 {% endif %}
 
+                                {% if project.gallery_downloads %}
+                                <div class="project-card-stats">
+                                    <span class="stat-item">
+                                        <i class="fas fa-download"></i>
+                                        {{ project.gallery_downloads | divided_by: 1000.0 | round: 1 }}K downloads
+                                    </span>
+                                </div>
+                                {% endif %}
+
                                 <div class="project-cta">
                                     <span class="view-details">View Details <i class="fas fa-arrow-right"></i></span>
                                 </div>

@@ -218,6 +218,8 @@ tags:
 demo_url: "https://demo.com"
 github_url: "https://github.com/user/repo"
 powershell_gallery_url: "https://www.powershellgallery.com/packages/PackageName"
+stars: 42
+gallery_downloads: 15000
 order: 1
 ---
 ```
@@ -235,6 +237,8 @@ order: 1
 - `demo_url`: Link to live demo (optional)
 - `github_url`: Link to repository
 - `powershell_gallery_url`: PowerShell Gallery link (if applicable)
+- `stars`: GitHub repository star count (used for homepage podium ranking)
+- `gallery_downloads`: PowerShell Gallery total download count (optional, displays on project cards and detail pages)
 - `order`: Display order (lower numbers appear first)
 
 **Short Description Guidelines:**
@@ -245,6 +249,126 @@ order: 1
 - **Examples**:
   - "Simplifies Azure Key Vault integration with automatic serialization, PSCredential management, and secure string operations for PowerShell." (140 chars)
   - "Automate remote support operations and integrate ConnectWise Control into ticketing workflows and monitoring systems with clean PowerShell cmdlets." (141 chars)
+
+### Adding Project Images
+
+Projects can include a hero image and screenshot gallery to visually showcase functionality. Both fields are optional.
+
+**Adding Images to Projects:**
+
+1. **Prepare your images** (see specifications below)
+2. **Add images** to `assets/images/projects/` directory
+3. **Update project front matter** with image paths:
+
+```yaml
+---
+layout: project
+title: Project Name
+# ... other fields ...
+image: /assets/images/projects/project-name-hero.png
+screenshots:
+  - /assets/images/projects/project-name-screenshot-1.png
+  - /assets/images/projects/project-name-screenshot-2.png
+  - /assets/images/projects/project-name-screenshot-3.png
+---
+```
+
+**Image Field Definitions:**
+
+- `image`: Hero image displayed prominently at top of project detail page (optional)
+  - Single main image that represents the project
+  - Use for architecture diagrams, main interface screenshots, or branded hero images
+  - Recommended size: 1200x630px (16:9 aspect ratio)
+  - Maximum file size: 500KB (optimize for web)
+  - Omit field if no hero image available
+
+- `screenshots`: Array of screenshot images in gallery grid (optional)
+  - Multiple images showcasing different features or aspects
+  - Use for feature demonstrations, UI examples, code samples, terminal output
+  - Recommended size: 800x600px or 1920x1080px (maintain 4:3 or 16:9 aspect ratio)
+  - Maximum file size: 300KB each (optimize for web)
+  - Maximum 6 screenshots recommended for performance
+  - Omit field if no screenshots available
+
+**Image Specifications:**
+
+**Hero Images:**
+- **Dimensions**: 1200x630px (16:9 aspect ratio for consistency)
+- **Format**: PNG (for screenshots/diagrams) or JPG (for photos)
+- **Color**: Should work well on dark background (site uses dark theme)
+- **Content**: Clean, professional, readable at thumbnail size
+- **File naming**: `project-name-hero.png` (lowercase, hyphenated)
+
+**Screenshots:**
+- **Dimensions**:
+  - 800x600px for UI screenshots (4:3 ratio)
+  - 1920x1080px for full desktop screenshots (16:9 ratio)
+  - Maintain consistent aspect ratio for visual uniformity
+- **Format**: PNG for sharp text/code, JPG for photos
+- **Content**: Focus on key features, one concept per screenshot
+- **File naming**: `project-name-description-N.png` (e.g., `connectwisemanageapi-terminal-1.png`)
+
+**Creating PowerShell Terminal Screenshots:**
+
+For PowerShell modules, terminal screenshots are highly effective:
+
+1. **Use Windows Terminal or VS Code integrated terminal** for modern appearance
+2. **Set appropriate font size** (14-16pt for readability in screenshots)
+3. **Use syntax highlighting** (ensure colors show correctly)
+4. **Include context**:
+   - Module import command
+   - Example usage showing key cmdlets
+   - Output demonstrating value/results
+5. **Keep it concise**: 10-20 lines maximum for readability
+6. **Crop tightly**: Remove unnecessary borders/whitespace
+
+**Example Terminal Screenshot Content:**
+```powershell
+PS C:\> Import-Module ConnectWiseManageAPI
+PS C:\> Connect-CWM -Server "https://api.connectwise.com" -Company "YourCompany"
+Connected to ConnectWise Manage
+
+PS C:\> Get-CWMTicket -Status Open | Where-Object Priority -eq "Critical" | Select Subject, Board, Owner
+Shows results demonstrating the module in action
+```
+
+**Creating Architecture/Diagram Images:**
+
+For modules without visual UI, create diagrams:
+
+1. **Show data flow**: How the module interacts with APIs/systems
+2. **Highlight key features**: What problems it solves
+3. **Use brand colors**: Incorporate oceanic theme colors (cyan #06b6d4, amber #f59e0b)
+4. **Keep it simple**: Clear, uncluttered diagrams
+5. **Tools**: PowerPoint, Figma, draw.io, or similar
+
+**Optimizing Images for Web:**
+
+Before adding images to the site:
+
+1. **Resize**: Use exact recommended dimensions (no larger)
+2. **Compress**:
+   - PNG: Use TinyPNG.com or similar (lossless compression)
+   - JPG: Save at 80-85% quality
+3. **Verify file size**: Must be under specified limits
+4. **Test on dark background**: Ensure images look good on site's dark theme
+
+**Image Best Practices:**
+
+- Use consistent dimensions across all projects for visual uniformity
+- Include descriptive alt text (handled automatically by layout)
+- Images load lazily for performance
+- Screenshots have hover effects (lift and glow)
+- Hero images are full-width, screenshots are in responsive grid
+- Test responsive behavior on mobile devices
+
+**Tools for Creating Project Images:**
+
+- **Screenshots**: Windows Snipping Tool, ShareX, Greenshot
+- **Optimization**: TinyPNG, Squoosh.app, ImageOptim
+- **Editing**: GIMP, Paint.NET, Photoshop
+- **Diagrams**: Draw.io, Lucidchart, Figma, PowerPoint
+- **Terminal**: Windows Terminal, VS Code, ConEmu
 
 ### Updating Pages
 

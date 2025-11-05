@@ -1,0 +1,57 @@
+<!-- Enhanced Person Schema (JSON-LD) for About Page -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Person",
+  "name": "{{ site.author.name }}",
+  "url": "{{ site.url }}",
+  "email": "{{ site.author.email }}",
+  "image": "{{ site.logo | absolute_url }}",
+  "jobTitle": "Network Operations Chief",
+  "description": "Network Operations Chief, vCTO, and Automation Engineer with 20+ years of experience specializing in infrastructure automation, AI integration, and building scalable multi-tenant solutions for MSP operations.",
+  "worksFor": {
+    "@type": "Organization",
+    "name": "i.t.NOW",
+    "description": "Global managed services provider"
+  },
+  "knowsAbout": [
+    "PowerShell",
+    "Infrastructure Automation",
+    "Network Operations",
+    "MSP Operations",
+    "AI Integration",
+    "System Integration",
+    "ConnectWise",
+    "Azure",
+    "API Development",
+    "Multi-tenant Architecture"
+  ],
+  "sameAs": [
+    "https://github.com/{{ site.github_username }}",
+    "https://www.linkedin.com/in/{{ site.linkedin_username }}",
+    "https://x.com/{{ site.twitter_username }}",
+    "{{ site.url }}"
+  ],
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "{{ site.url }}{{ '/about' | relative_url }}"
+  },
+  "alumniOf": {
+    "@type": "Organization",
+    "name": "EchoStar"
+  },
+  "hasOccupation": {
+    "@type": "Occupation",
+    "name": "Network Operations Chief",
+    "occupationLocation": {
+      "@type": "Country",
+      "name": "United States"
+    },
+    "skills": "PowerShell, Infrastructure Automation, Network Architecture, AI Integration, MSP Operations, System Integration, API Development"
+  },
+  "seeks": {
+    "@type": "JobPosting",
+    "description": "Open to consulting opportunities in MSP automation, AI integration, and infrastructure architecture"
+  }
+}
+</script>

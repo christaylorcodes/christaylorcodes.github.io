@@ -17,5 +17,12 @@ tags:
   - MSP Tools
 github_url: "https://github.com/christaylorcodes/ConnectWiseAutomateAgent"
 powershell_gallery_url: "https://www.powershellgallery.com/packages/ConnectWiseAutomateAgent"
+stars: 12
+gallery_downloads: 3800
+image: /assets/images/projects/connectwiseautomateagent-hero.svg
+screenshots:
+  - /assets/images/projects/connectwiseautomateagent-install.svg
+  - /assets/images/projects/connectwiseautomateagent-repair.svg
+  - /assets/images/projects/connectwiseautomateagent-config.svg
 order: 50
 ---

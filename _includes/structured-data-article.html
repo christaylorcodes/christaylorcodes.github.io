@@ -1,0 +1,62 @@
+<!-- Enhanced Article Schema (JSON-LD) for Blog Posts -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "{{ page.title | escape }}",
+  "description": "{{ page.excerpt | default: page.description | strip_html | strip_newlines | escape }}",
+  "image": {
+    "@type": "ImageObject",
+    "url": "{{ page.image | default: site.logo | absolute_url }}",
+    "width": 1200,
+    "height": 630
+  },
+  "datePublished": "{{ page.date | date_to_xmlschema }}",
+  "dateModified": "{{ page.last_modified_at | default: page.date | date_to_xmlschema }}",
+  "author": {
+    "@type": "Person",
+    "name": "{{ page.author | default: site.author.name }}",
+    "url": "{{ site.url }}{{ '/about' | relative_url }}",
+    "email": "{{ site.author.email }}",
+    "jobTitle": "Network Operations Chief",
+    "worksFor": {
+      "@type": "Organization",
+      "name": "i.t.NOW"
+    },
+    "sameAs": [
+      "https://github.com/{{ site.github_username }}",
+      "https://www.linkedin.com/in/{{ site.linkedin_username }}",
+      "https://x.com/{{ site.twitter_username }}"
+    ]
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "{{ site.title }}",
+    "url": "{{ site.url }}",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "{{ site.logo | absolute_url }}",
+      "width": 180,
+      "height": 180
+    }
+  },
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "{{ page.url | absolute_url }}"
+  },
+  "url": "{{ page.url | absolute_url }}",
+  {% if page.tags %}
+  "keywords": "{{ page.tags | join: ', ' | escape }}",
+  {% endif %}
+  {% if page.categories %}
+  "articleSection": "{{ page.categories | join: ', ' | escape }}",
+  {% endif %}
+  "wordCount": {{ content | number_of_words }},
+  "inLanguage": "en-US",
+  "copyrightYear": {{ page.date | date: "%Y" }},
+  "copyrightHolder": {
+    "@type": "Person",
+    "name": "{{ site.author.name }}"
+  }
+}
+</script>

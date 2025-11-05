@@ -35,7 +35,15 @@
       "Bash(powershell.exe -Command \"Select-String -Path ''c:\\_Code\\Website\\_site\\assets\\css\\styles.css'' -Pattern ''button-color'' -Context 0,2 | Select-Object -First 3\")",
       "Bash(powershell.exe -Command \"Get-ChildItem ''c:\\_Code\\Website\\_includes'' | Select-Object Name\")",
       "Bash(powershell.exe -Command \"Select-String -Path ''c:\\_Code\\Website\\_site\\contact\\index.html'' -Pattern ''feature-icon'' -Context 0,1\")",
-      "Bash(powershell.exe -Command:*)"
+      "Bash(powershell.exe -Command:*)",
+      "Bash(timeout /t 3 /nobreak)",
+      "Bash(gh repo list:*)",
+      "Bash(repos-summary.json)",
+      "Bash(powershell.exe -ExecutionPolicy Bypass -File extract-repos.ps1)",
+      "Bash(powershell.exe:*)",
+      "Bash(git log:*)",
+      "Bash(test:*)",
+      "Bash(mkdir:*)"
     ],
     "deny": [],
     "ask": []
