@@ -6,10 +6,16 @@ title: Home
 {% include structured-data-website.html %}
 
 <section class="hero">
-    <!-- Background slideshow layers -->
-    <div class="hero-background" style="background-image: url('{{ '/assets/images/hero-background.jpg' | relative_url }}');"></div>
-    <div class="hero-background" style="background-image: url('{{ '/assets/images/hero-background-2.jpg' | relative_url }}');"></div>
-    <div class="hero-background" style="background-image: url('{{ '/assets/images/hero-background-3.jpg' | relative_url }}');"></div>
+    <!-- Background slideshow layers with WebP support -->
+    <div class="hero-background"
+         data-webp="{{ '/assets/images/hero-background.webp' | relative_url }}"
+         data-fallback="{{ '/assets/images/hero-background.jpg' | relative_url }}"></div>
+    <div class="hero-background"
+         data-webp="{{ '/assets/images/hero-background-2.webp' | relative_url }}"
+         data-fallback="{{ '/assets/images/hero-background-2.jpg' | relative_url }}"></div>
+    <div class="hero-background"
+         data-webp="{{ '/assets/images/hero-background-3.webp' | relative_url }}"
+         data-fallback="{{ '/assets/images/hero-background-3.jpg' | relative_url }}"></div>
 
     <div class="container">
         <div class="hero-content">

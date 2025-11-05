@@ -39,7 +39,15 @@ permalink: /about/
             <!-- Sidebar -->
             <aside class="about-sidebar fade-in-up">
                 <div class="about-photo-card">
-                    <img src="{{ '/assets/images/profile-photo.png' | relative_url }}" alt="Chris Taylor - Network Operations Chief">
+                    <picture>
+                        <source srcset="{{ '/assets/images/profile-photo.webp' | relative_url }}" type="image/webp">
+                        <source srcset="{{ '/assets/images/profile-photo.png' | relative_url }}" type="image/png">
+                        <img src="{{ '/assets/images/profile-photo.png' | relative_url }}"
+                             alt="Chris Taylor - Network Operations Chief"
+                             loading="lazy"
+                             width="400"
+                             height="400">
+                    </picture>
                 </div>
                 <div class="about-quick-facts">
                     <h3><i class="fas fa-info-circle"></i> Quick Facts</h3>

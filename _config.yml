@@ -46,6 +46,11 @@ kramdown:
     block:
       line_numbers: false
 
+# Sass/SCSS settings (minification for production)
+sass:
+  style: compressed  # Options: nested, expanded, compact, compressed
+  sourcemap: never   # Don't generate source maps in production
+
 plugins:
   - jekyll-feed
   - jekyll-seo-tag

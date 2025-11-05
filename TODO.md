@@ -2,6 +2,124 @@
 
 This document tracks improvements and enhancements for christaylor.codes. Tasks are organized by priority to help maintain and enhance the website.
 
+## Sprint Planning
+
+Tasks below have been organized into 8 focused sprints that group similar work and optimize for efficiency. Each sprint is designed to minimize context switching and token usage.
+
+### Sprint 1: Performance & Image Optimization ✅ COMPLETE
+**Priority:** HIGH | **Token Usage:** MEDIUM (~75K tokens) | **Completed:** 2025-11-04
+
+Foundation sprint establishing performance baselines and asset optimization workflows.
+
+**Completed Tasks:**
+- [x] Analyze PageSpeed insights and implement fixes (excluding Cloudflare items)
+- [x] Create image optimization workflow (WebP conversion process)
+- [x] Implement lazy loading for images
+- [x] Optimize Font Awesome usage (documentation created - implementation pending)
+- [x] Minify CSS for production
+
+**Deliverables:**
+- Created `optimize-images.ps1` - Automated WebP conversion script
+- Created `docs/IMAGE-OPTIMIZATION-GUIDE.md` - Complete image optimization guide
+- Created `docs/FONT-AWESOME-OPTIMIZATION.md` - Font Awesome optimization strategy
+- Created `docs/PERFORMANCE-TESTING-GUIDE.md` - Testing and validation procedures
+- Created `docs/SPRINT-1-SUMMARY.md` - Comprehensive sprint summary
+- Updated `about.html` - WebP picture element + lazy loading
+- Updated `index.html` - Hero backgrounds with WebP support
+- Updated `assets/js/main.js` - WebP detection + lazy loading fallback
+- Updated `_config.yml` - Enabled Sass compression
+
+**Performance Impact (Projected):**
+- File size reduction: 73% (~2,060 KB savings)
+- PageSpeed improvement: +20-25 points
+- LCP improvement: -1.0s to -1.5s
+
+**Next Steps:**
+1. Generate WebP images (run script or use Squoosh.app)
+2. Create Font Awesome Kit (5-10 minutes)
+3. Test and deploy changes
+4. Measure actual performance improvements
+
+### Sprint 2: SEO & Accessibility
+**Priority:** HIGH | **Token Usage:** MEDIUM-HIGH | **Duration:** 2 sessions
+
+Critical improvements for discoverability and inclusivity.
+
+**Session A - SEO:**
+- [ ] Add custom meta descriptions to all pages
+- [ ] Review and enhance existing structured data
+
+**Session B - Accessibility:**
+- [ ] Add ARIA labels to navigation and interactive elements
+- [ ] Ensure all images have descriptive alt text
+- [ ] Add skip navigation link for keyboard users
+- [ ] Test color contrast ratios for WCAG compliance
+- [ ] Test with screen readers
+
+### Sprint 3: Navigation & UX Enhancements
+**Priority:** MEDIUM | **Token Usage:** LOW-MEDIUM | **Duration:** 1 session
+
+**Tasks:**
+- [ ] Implement active navigation state for all pages
+- [ ] Add breadcrumb navigation for better UX
+
+### Sprint 4: Analytics & Monitoring
+**Priority:** MEDIUM | **Token Usage:** LOW | **Duration:** 1 session
+
+**Tasks:**
+- [ ] Add privacy-focused analytics (Plausible or Fathom)
+- [ ] Add performance monitoring
+- [ ] Implement error tracking
+
+### Sprint 5: Contact & Social Enhancements
+**Priority:** LOW-MEDIUM | **Token Usage:** LOW | **Duration:** 1 session
+
+**Tasks:**
+- [ ] Add professional social media links (Twitter, etc.)
+- [ ] Consider adding Calendly/scheduling link for consultations
+
+### Sprint 6: Advanced Interactive Features
+**Priority:** MEDIUM | **Token Usage:** HIGH | **Duration:** 2-3 sessions
+
+**Session A - Theme Toggle:**
+- [ ] Add dark/light mode toggle (currently dark only)
+
+**Session B - Print & Export:**
+- [ ] Add print stylesheet
+- [ ] Create PDF export functionality for blog posts
+
+**Session C - Gallery:**
+- [ ] Add image galleries/lightbox for projects
+
+### Sprint 7: Content Types Expansion
+**Priority:** LOW-MEDIUM | **Token Usage:** HIGH | **Duration:** 2-3 sessions
+
+**Tasks:**
+- [ ] Create "Case Studies" section for detailed project write-ups
+- [ ] Add "Talks" or "Presentations" section
+- [ ] Add "Tools" or "Resources" page for useful automation tools
+- [ ] Create newsletter signup functionality
+
+### Sprint 8: Development Workflow & Testing
+**Priority:** MEDIUM | **Token Usage:** MEDIUM | **Duration:** 1-2 sessions
+
+**Session A - Testing & Automation:**
+- [ ] Set up automated testing for HTML validation
+- [ ] Add link checker to prevent broken links
+- [ ] Create CI/CD pipeline for automated deployments
+- [ ] Add accessibility testing in build process
+
+**Session B - Git & Tooling:**
+- [ ] Add `.gitattributes` for consistent line endings
+- [ ] Create git tags for major releases
+- [ ] Add GitHub issue templates and PR template
+- [ ] Add npm scripts for common tasks
+- [ ] Consider adding Webpack/Gulp for asset pipeline
+- [ ] Add CSS linting (stylelint)
+- [ ] Add HTML validation in development
+
+---
+
 ## Priority 1: Maintenance & Project Management
 
 ### Content Management

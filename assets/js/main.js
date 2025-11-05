@@ -1,3 +1,78 @@
+// WebP Support Detection
+// Adds 'webp' class to HTML element if browser supports WebP images
+// This allows CSS to use WebP images with automatic fallback to JPG/PNG
+(function() {
+    var webpImage = new Image();
+    webpImage.onload = webpImage.onerror = function() {
+        // If WebP image loads successfully, height will be 2px
+        if (webpImage.height === 2) {
+            document.documentElement.classList.add('webp');
+        } else {
+            document.documentElement.classList.add('no-webp');
+        }
+    };
+    // Test WebP image (1x1 transparent pixel)
+    webpImage.src = 'data:image/webp;base64,UklGRjoAAABXRUJQVlA4IC4AAACyAgCdASoCAAIALmk0mk0iIiIiIgBoSygABc6WWgAA/veff/0PP8bA//LwYAAA';
+})();
+
+// Lazy Loading Fallback for Older Browsers
+// Modern browsers support native lazy loading (loading="lazy" attribute)
+// This provides fallback for browsers without native support using Intersection Observer
+document.addEventListener('DOMContentLoaded', function() {
+    // Check if browser supports native lazy loading
+    if ('loading' in HTMLImageElement.prototype) {
+        // Native lazy loading is supported, no need for polyfill
+        return;
+    }
+
+    // Fallback for older browsers using Intersection Observer
+    const lazyImages = document.querySelectorAll('img[loading="lazy"]');
+
+    if ('IntersectionObserver' in window) {
+        const imageObserver = new IntersectionObserver(function(entries, observer) {
+            entries.forEach(function(entry) {
+                if (entry.isIntersecting) {
+                    const img = entry.target;
+                    const picture = img.parentElement;
+
+                    // Handle picture element with multiple sources
+                    if (picture && picture.tagName === 'PICTURE') {
+                        const sources = picture.querySelectorAll('source');
+                        sources.forEach(function(source) {
+                            if (source.dataset.srcset) {
+                                source.srcset = source.dataset.srcset;
+                            }
+                        });
+                    }
+
+                    // Load the image
+                    if (img.dataset.src) {
+                        img.src = img.dataset.src;
+                    }
+
+                    // Remove loading attribute and stop observing
+                    img.removeAttribute('loading');
+                    imageObserver.unobserve(img);
+                }
+            });
+        }, {
+            rootMargin: '50px 0px', // Start loading 50px before image enters viewport
+            threshold: 0.01
+        });
+
+        lazyImages.forEach(function(img) {
+            imageObserver.observe(img);
+        });
+    } else {
+        // No Intersection Observer support - load all images immediately
+        lazyImages.forEach(function(img) {
+            if (img.dataset.src) {
+                img.src = img.dataset.src;
+            }
+        });
+    }
+});
+
 // Mobile navigation toggle
 document.addEventListener('DOMContentLoaded', function() {
     const navToggle = document.querySelector('.nav-toggle');
@@ -583,6 +658,16 @@ document.addEventListener('DOMContentLoaded', function() {
     if (backgroundLayers.length === 0) {
         return; // No background layers found
     }
+
+    // Load background images with WebP support
+    const supportsWebP = document.documentElement.classList.contains('webp');
+
+    backgroundLayers.forEach(function(layer) {
+        const imageSrc = supportsWebP ? layer.dataset.webp : layer.dataset.fallback;
+        if (imageSrc) {
+            layer.style.backgroundImage = 'url(' + imageSrc + ')';
+        }
+    });
 
     // Start with a random background image
     let currentBackgroundIndex = Math.floor(Math.random() * backgroundLayers.length);
