@@ -1,11 +1,12 @@
 ---
 layout: post
 title: "Mass Agent Deployment: From 500 Machines to Done in Under an Hour"
+short_title: "Mass Agent Deployment with PowerShell"
 date: 2024-11-08 09:00:00 -0500
 categories: [PowerShell, Deployment]
 tags: [PowerShell, ConnectWise, Automate, RMM, Deployment, Automation, MSP]
 author: Chris Taylor
-excerpt: "Deploy ConnectWise Automate agents to hundreds of machines in under an hour with PowerShell. Real-world deployment script with parallel execution, error handling, and automated verification for new client onboarding at scale."
+excerpt: "Deploy Automate agents to 500 computers in under an hour. This PowerShell script runs parallel deployments with error handling and verification. Complete code included for production use."
 ---
 
 ## The Challenge

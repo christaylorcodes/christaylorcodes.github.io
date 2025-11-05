@@ -8,7 +8,11 @@
 
 /* Featured Projects (Homepage) */
 .featured-projects {
-    background-color: var(--bg-dark);
+    background-color: var(--bg-light);
+}
+
+.featured-projects .section-title {
+    margin-bottom: 0.5rem; /* Minimal space between title and podium */
 }
 
 .featured-project-tags {
@@ -30,9 +34,9 @@
 
 .podium-container {
     display: grid;
-    grid-template-columns: 1fr 1.2fr 1fr;
+    grid-template-columns: repeat(3, 1fr);
     gap: 2rem;
-    align-items: center;
+    align-items: end; /* Align cards to bottom like a podium */
     margin-bottom: 3rem;
     max-width: 1200px;
     margin-left: auto;
@@ -80,20 +84,22 @@
     z-index: 0;
 }
 
-/* Podium Heights - Creates podium effect */
+/* Podium Cards - Staggered heights with colored borders */
 .podium-first {
-    min-height: 520px;  /* 1st place - tallest podium */
     border-color: var(--primary-color);
+    /* 1st place: tallest (no offset) */
 }
 
 .podium-second {
-    min-height: 420px;  /* 2nd place - medium height */
     border-color: var(--secondary-color);
+    /* 2nd place: medium height */
+    margin-top: 4.5rem;
 }
 
 .podium-third {
-    min-height: 360px;  /* 3rd place - shortest podium */
     border-color: var(--accent-orange);
+    /* 3rd place: shortest */
+    margin-top: 9rem;
 }
 
 /* Ranking Badges */
@@ -213,11 +219,12 @@
         align-items: stretch;
     }
 
-    /* Reset heights for mobile */
+    /* Reset heights and offsets for mobile */
     .podium-first,
     .podium-second,
     .podium-third {
         min-height: auto;
+        margin-top: 0; /* Remove podium stagger on mobile */
     }
 
     /* Reorder for mobile: 1st, 2nd, 3rd */

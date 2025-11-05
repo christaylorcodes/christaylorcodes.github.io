@@ -1,11 +1,12 @@
 ---
 layout: post
 title: "Troubleshooting ConnectWise Automate Agents Like a Pro with PowerShell"
+short_title: "Troubleshooting Automate Agents with PowerShell"
 date: 2024-11-15 09:00:00 -0500
 categories: [PowerShell, Troubleshooting]
 tags: [PowerShell, ConnectWise, Automate, RMM, Troubleshooting, Diagnostics, MSP]
 author: Chris Taylor
-excerpt: "PowerShell-powered diagnostics for ConnectWise Automate agents. Quick diagnostics, automated health checks, and proactive monitoring to fix agent issues in seconds instead of hours."
+excerpt: "47 agents offline at 2 AM? PowerShell diagnostics fix agent problems in seconds instead of hours. Learn quick diagnostic commands, automated health checks, and monitoring that fixes issues automatically."
 ---
 
 ## The Midnight Alert

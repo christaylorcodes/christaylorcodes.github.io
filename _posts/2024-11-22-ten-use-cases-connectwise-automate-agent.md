@@ -5,7 +5,7 @@ date: 2024-11-22 09:00:00 -0500
 categories: [PowerShell, Automation]
 tags: [PowerShell, ConnectWise, Automate, RMM, Use Cases, Automation, MSP]
 author: Chris Taylor
-excerpt: "Beyond basic installation: 10 real-world use cases that solve everyday MSP challenges. From automated provisioning to compliance reporting, disaster recovery to multi-tenant management."
+excerpt: "10 real ways IT teams use ConnectWiseAutomateAgent: automated new hire setup, compliance reporting, disaster recovery prep, multi-location deployment, health checks, version management, and emergency response. Each includes production code."
 ---
 
 ## Beyond Basic Installation

@@ -69,49 +69,30 @@ Get-ChildItem assets\images -Filter *.jpg | ForEach-Object {
 }
 ```
 
-## WebP Implementation with Fallbacks
+## WebP Implementation (WebP-Only)
 
-### HTML Picture Element
+This site serves only WebP images for optimal performance. Modern browser support for WebP is 96%+, making fallbacks unnecessary for this use case.
 
-Use `<picture>` element for WebP with fallbacks:
+### HTML Images
+
+Use standard `<img>` tags with WebP sources:
 
 ```html
-<picture>
-    <source srcset="/assets/images/hero-background.webp" type="image/webp">
-    <source srcset="/assets/images/hero-background.jpg" type="image/jpeg">
-    <img src="/assets/images/hero-background.jpg" alt="Description" loading="lazy">
-</picture>
+<img src="/assets/images/profile-photo.webp"
+     alt="Description"
+     loading="lazy"
+     width="400"
+     height="400">
 ```
 
 ### CSS Background Images
 
-For CSS background images, use feature detection:
+For CSS background images, reference WebP directly:
 
 ```css
-/* Default JPG */
 .hero-background {
-    background-image: url('/assets/images/hero-background.jpg');
-}
-
-/* WebP for supporting browsers */
-.webp .hero-background {
     background-image: url('/assets/images/hero-background.webp');
 }
-```
-
-Add WebP detection script to `<head>`:
-
-```javascript
-// Detect WebP support
-(function() {
-    var webp = new Image();
-    webp.onload = webp.onerror = function() {
-        if (webp.height === 2) {
-            document.documentElement.classList.add('webp');
-        }
-    };
-    webp.src = 'data:image/webp;base64,UklGRjoAAABXRUJQVlA4IC4AAACyAgCdASoCAAIALmk0mk0iIiIiIgBoSygABc6WWgAA/veff/0PP8bA//LwYAAA';
-})();
 ```
 
 ## Lazy Loading Implementation
@@ -124,26 +105,21 @@ Add `loading="lazy"` to images (browser support: 90%+):
 <img src="/assets/images/profile-photo.webp" alt="Chris Taylor" loading="lazy">
 ```
 
-### Update Profile Photo (about.html)
+### Profile Photo (about.html)
 
 ```html
-<picture>
-    <source srcset="{{ '/assets/images/profile-photo.webp' | relative_url }}" type="image/webp">
-    <source srcset="{{ '/assets/images/profile-photo.png' | relative_url }}" type="image/png">
-    <img src="{{ '/assets/images/profile-photo.png' | relative_url }}"
-         alt="Chris Taylor - Network Operations Chief"
-         loading="lazy"
-         width="400"
-         height="400">
-</picture>
+<img src="{{ '/assets/images/profile-photo.webp' | relative_url }}"
+     alt="Chris Taylor - Network Operations Chief"
+     loading="lazy"
+     width="400"
+     height="400">
 ```
 
-### Update Hero Backgrounds (index.html)
+### Hero Backgrounds (index.html)
 
 ```html
-<div class="hero-background webp-bg"
-     data-webp="{{ '/assets/images/hero-background.webp' | relative_url }}"
-     data-fallback="{{ '/assets/images/hero-background.jpg' | relative_url }}">
+<div class="hero-background"
+     data-bg="{{ '/assets/images/hero-background.webp' | relative_url }}">
 </div>
 ```
 
@@ -151,13 +127,13 @@ JavaScript to apply backgrounds:
 
 ```javascript
 document.addEventListener('DOMContentLoaded', function() {
-    // Check WebP support
-    var supportsWebP = document.documentElement.classList.contains('webp');
+    const backgroundLayers = document.querySelectorAll('.hero-background');
 
-    // Apply background images
-    document.querySelectorAll('.webp-bg').forEach(function(el) {
-        var src = supportsWebP ? el.dataset.webp : el.dataset.fallback;
-        el.style.backgroundImage = 'url(' + src + ')';
+    backgroundLayers.forEach(function(layer) {
+        const imageSrc = layer.dataset.bg;
+        if (imageSrc) {
+            layer.style.backgroundImage = 'url(' + imageSrc + ')';
+        }
     });
 });
 ```
@@ -168,7 +144,7 @@ document.addEventListener('DOMContentLoaded', function() {
 1. Convert `hero-background-3.jpg` to WebP (763 KB → ~270 KB = 65% reduction)
 2. Convert `profile-photo.png` to WebP (174 KB → ~60 KB = 65% reduction)
 3. Implement lazy loading on all images
-4. Add WebP detection and fallback support
+4. Remove JPG/PNG originals after WebP conversion confirmed working
 
 ### Short-term
 5. Convert remaining hero backgrounds
@@ -189,11 +165,11 @@ document.addEventListener('DOMContentLoaded', function() {
 
 ## Browser Support
 
-**WebP Support:** 96%+ of browsers
-- Chrome/Edge: Full support
-- Firefox: Full support
-- Safari: iOS 14+, macOS Big Sur+
-- Fallback: JPG/PNG for older browsers
+**WebP Support:** 96%+ of browsers (WebP-only, no fallbacks)
+- Chrome/Edge: Full support (2010+)
+- Firefox: Full support (2019+)
+- Safari: iOS 14+, macOS Big Sur+ (2020+)
+- Note: This site serves only WebP images for optimal performance
 
 **Lazy Loading Support:** 90%+ of browsers
 - Chrome: 77+
@@ -212,14 +188,14 @@ document.addEventListener('DOMContentLoaded', function() {
 ## Testing Checklist
 
 - [ ] WebP images created for all large files
-- [ ] Picture elements implemented with fallbacks
+- [ ] WebP images loading correctly in all pages
 - [ ] Lazy loading added to all images
 - [ ] Width/height attributes added to prevent CLS
 - [ ] Tested in Chrome (WebP support)
 - [ ] Tested in Safari (WebP support)
 - [ ] Tested in Firefox (WebP support)
 - [ ] Tested with DevTools throttling (3G speed)
-- [ ] Verified fallback works (disable WebP)
+- [ ] Original JPG/PNG files removed (WebP-only)
 - [ ] LCP improved (target: <2.5s)
 - [ ] CLS minimized (target: <0.1)
 
@@ -227,11 +203,12 @@ document.addEventListener('DOMContentLoaded', function() {
 
 **When Adding New Images:**
 1. Optimize before upload (use Squoosh or script)
-2. Create WebP version
-3. Use picture element with fallback
-4. Add loading="lazy"
-5. Include width/height attributes
+2. Convert to WebP format (quality: 85)
+3. Use standard `<img>` or CSS background reference
+4. Add loading="lazy" for img tags
+5. Include width/height attributes to prevent CLS
 6. Test on mobile and desktop
+7. Do not upload JPG/PNG originals (WebP-only)
 
 ## Resources
 

@@ -1,11 +1,12 @@
 ---
 layout: post
 title: "Getting Started with ConnectWiseManageAPI: Your First Steps"
+short_title: "Getting Started with ConnectWiseManageAPI"
 date: 2024-12-02 09:00:00 -0500
 categories: [PowerShell, PSA, ConnectWiseManageAPI]
 tags: [PowerShell, ConnectWise, Manage, PSA, Tutorial, Getting-Started, MSP, API]
 author: Chris Taylor
-excerpt: "A step-by-step guide to installing, configuring, and using ConnectWiseManageAPI. Learn how to obtain API credentials, connect to your Manage instance, and execute your first automation tasks."
+excerpt: "Step-by-step guide to start automating ConnectWise Manage. Learn how to get API credentials, install the module, connect to your server, and run your first automation tasks with troubleshooting help."
 ---
 
 In this guide, we'll walk through everything you need to know to start using ConnectWiseManageAPI in your environment. By the end, you'll have the module installed, configured, and you'll have executed your first automation tasks.

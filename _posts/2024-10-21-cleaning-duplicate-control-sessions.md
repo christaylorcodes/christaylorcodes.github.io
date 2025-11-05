@@ -1,11 +1,12 @@
 ---
 layout: post
 title: "Cleaning Up Duplicate Control Sessions: A Real-World Automation Story"
+short_title: "Cleaning Up Duplicate Control Sessions"
 date: 2024-10-21 10:00:00 -0000
 categories: [PowerShell, MSP, ConnectWiseControlAPI]
 tags: [PowerShell, ConnectWise, Control, MSP, Automation, Cleanup, Session Management]
 author: Chris Taylor
-excerpt: "Learn how to identify and automatically remove duplicate ConnectWise Control sessions using PowerShell. This real-world automation story shows how to go from manual cleanup taking hours to automated scripts completing in minutes."
+excerpt: "Automatically find and remove duplicate ConnectWise Control sessions with PowerShell. Real-world story shows how to clean up hundreds of duplicate sessions in minutes instead of hours. Includes working code."
 ---
 
 ## The Problem: Hundreds of Duplicate Sessions

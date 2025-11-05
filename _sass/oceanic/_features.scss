@@ -111,6 +111,18 @@
     background: var(--accent-orange);      /* Orange #ea580c - Warm */
 }
 
+.feature-icon.icon-emerald {
+    background: var(--button-color);       /* Emerald #10b981 - Cool */
+}
+
+.feature-icon.icon-purple {
+    background: var(--accent-purple);      /* Purple #a855f7 - Cool */
+}
+
+.feature-icon.icon-blue {
+    background: var(--primary-light);      /* Light Blue #38bdf8 - Cool */
+}
+
 .feature-card h3 {
     font-size: 1.5rem;
     margin-bottom: 1rem;
@@ -120,4 +132,109 @@
 .feature-card p {
     color: var(--text-light);
     line-height: 1.6;
+}
+
+/* ========================================
+   FEATURES CAROUSEL
+   ======================================== */
+
+.features-carousel {
+    position: relative;
+    overflow: hidden;
+    width: 100%;
+    padding-bottom: 3rem; /* Space for indicators */
+    margin: 0 auto;
+}
+
+.features-carousel-track {
+    display: flex;
+    gap: 2rem;
+    transition: transform 1.2s cubic-bezier(0.4, 0, 0.2, 1);
+    will-change: transform;
+}
+
+/* Cards in carousel - always show exactly 4 cards at a time on desktop */
+.features-carousel .feature-card {
+    flex-shrink: 0;
+    flex-grow: 0;
+    /* Calculate width to fit exactly 4 cards: (container - gaps) / 4 */
+    /* Container max is 1200px, with 20px padding on each side = 1160px */
+    /* 3 gaps of 2rem (32px) = 96px total */
+    /* Card width = (1160px - 96px) / 4 = 266px */
+    width: calc((100% - 6rem) / 4); /* 6rem = 3 gaps of 2rem */
+    min-width: 240px; /* Prevent cards from getting too small */
+    opacity: 1;
+    transition: opacity 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+/* Blog posts carousel - show exactly 3 cards at a time on desktop */
+.recent-posts .features-carousel .feature-card {
+    /* Calculate width to fit exactly 3 cards: (container - gaps) / 3 */
+    /* 2 gaps of 2rem (32px) = 64px total */
+    /* Card width = (1160px - 64px) / 3 = 365px */
+    width: calc((100% - 4rem) / 3); /* 4rem = 2 gaps of 2rem */
+    min-width: 280px;
+}
+
+/* On tablet screens, show 2 cards */
+@media (max-width: 900px) {
+    .features-carousel .feature-card {
+        width: calc((100% - 2rem) / 2); /* Show 2 cards */
+        min-width: 280px;
+    }
+}
+
+/* On mobile screens, show 1 card */
+@media (max-width: 600px) {
+    .features-carousel .feature-card {
+        width: 100%; /* Show 1 card */
+        min-width: auto;
+        padding: 1.5rem;
+    }
+
+    .features-carousel-track {
+        gap: 1.5rem; /* Smaller gap on mobile */
+    }
+
+    .features-carousel .feature-card h3 {
+        font-size: 1.3rem;
+    }
+
+    .features-carousel .feature-card p {
+        font-size: 0.9rem;
+    }
+}
+
+/* Carousel indicators (dots) */
+.carousel-indicators {
+    display: flex;
+    justify-content: center;
+    gap: 0.75rem;
+    margin-top: 2rem;
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.carousel-indicator {
+    width: 0.75rem;
+    height: 0.75rem;
+    border-radius: 50%;
+    background: var(--border-color);
+    border: none;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    padding: 0;
+}
+
+.carousel-indicator:hover {
+    background: var(--primary-light);
+    transform: scale(1.2);
+}
+
+.carousel-indicator.active {
+    background: var(--primary-color);
+    width: 2rem;
+    border-radius: 0.375rem;
 }

@@ -1,11 +1,12 @@
 ---
 layout: post
 title: "Introducing ConnectWiseAutomateAgent: PowerShell Automation for Your RMM"
+short_title: "ConnectWiseAutomateAgent: PowerShell for RMM"
 date: 2024-11-01 09:00:00 -0500
 categories: [PowerShell, RMM]
 tags: [PowerShell, ConnectWise, Automate, RMM, Automation, MSP]
 author: Chris Taylor
-excerpt: "A comprehensive PowerShell module for managing ConnectWise Automate agents at scale. Deploy, configure, troubleshoot, and maintain RMM agents programmatically with 24 functions designed for MSPs."
+excerpt: "PowerShell module with 24 functions for managing ConnectWise Automate agents at scale. Deploy, troubleshoot, and maintain agents automatically. Works with both Heartbeat and Control Center."
 ---
 
 ## The Problem Every MSP Faces

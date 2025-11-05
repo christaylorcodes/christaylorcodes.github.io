@@ -1,11 +1,12 @@
 ---
 layout: post
 title: "Introducing ConnectWiseManageAPI: PowerShell Automation for MSPs"
+short_title: "ConnectWiseManageAPI: PowerShell for MSPs"
 date: 2024-11-25 09:00:00 -0500
 categories: [PowerShell, PSA, ConnectWiseManageAPI]
 tags: [PowerShell, ConnectWise, Manage, PSA, Automation, MSP, API]
 author: Chris Taylor
-excerpt: "A comprehensive PowerShell module providing 180+ cmdlets for automating ConnectWise Manage. Eliminate manual clicking and integrate your PSA with your entire technology stack."
+excerpt: "Stop clicking through ConnectWise Manage for every task. This PowerShell module provides 180+ commands to automate tickets, time entries, reports, and integrations. Eliminate repetitive work with simple scripts."
 ---
 
 ## The Challenge of Manual PSA Management

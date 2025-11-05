@@ -8,7 +8,47 @@
 
 /* Recent Posts Section (Homepage) */
 .recent-posts {
-    background-color: var(--bg-light);
+    background-color: var(--bg-dark);
+    position: relative;
+    overflow: hidden; /* Contain background layers */
+
+    /* Background image layers for slideshow with blend transitions */
+    .hero-background {
+        position: absolute;
+        top: -20%; /* Larger offset for taller section */
+        left: -20%;
+        right: -20%;
+        bottom: -20%;
+        background-size: 140%; /* More zoom than hero for taller section with more parallax space */
+        background-position: center bottom; /* Start at bottom of image for parallax scroll */
+        background-repeat: no-repeat;
+        background-attachment: fixed; /* Creates parallax effect */
+        opacity: 0;
+        transition: opacity 4s ease-in-out; /* Smooth blend transition */
+        z-index: 0;
+
+        &.active {
+            opacity: 1;
+        }
+    }
+
+    /* Dark overlay to ensure text readability */
+    &::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: linear-gradient(135deg, rgba(2, 6, 23, 0.85) 0%, rgba(15, 23, 42, 0.75) 100%);
+        z-index: 1;
+    }
+
+    /* Ensure content appears above background and overlay */
+    .container {
+        position: relative;
+        z-index: 2;
+    }
 }
 
 .post-title-link {
@@ -341,6 +381,9 @@
     box-shadow: var(--shadow);
     transition: transform 0.3s ease, box-shadow 0.3s ease;
     border: 1px solid var(--border-color);
+    display: flex;
+    flex-direction: column;
+    height: 100%;
 }
 
 .blog-post-card:hover {
@@ -447,19 +490,24 @@
 }
 
 .post-card-content {
-    margin-bottom: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
 }
 
 .post-card-excerpt {
     color: var(--text-light);
     line-height: 1.7;
     margin-bottom: 1rem;
+    flex-grow: 0;
 }
 
 .post-card-tags {
     display: flex;
     gap: 0.5rem;
     flex-wrap: wrap;
+    margin-top: auto;
+    padding-top: 1rem;
 }
 
 .post-card-footer {

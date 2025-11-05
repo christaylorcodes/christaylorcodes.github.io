@@ -1,19 +1,5 @@
-// WebP Support Detection
-// Adds 'webp' class to HTML element if browser supports WebP images
-// This allows CSS to use WebP images with automatic fallback to JPG/PNG
-(function() {
-    var webpImage = new Image();
-    webpImage.onload = webpImage.onerror = function() {
-        // If WebP image loads successfully, height will be 2px
-        if (webpImage.height === 2) {
-            document.documentElement.classList.add('webp');
-        } else {
-            document.documentElement.classList.add('no-webp');
-        }
-    };
-    // Test WebP image (1x1 transparent pixel)
-    webpImage.src = 'data:image/webp;base64,UklGRjoAAABXRUJQVlA4IC4AAACyAgCdASoCAAIALmk0mk0iIiIiIgBoSygABc6WWgAA/veff/0PP8bA//LwYAAA';
-})();
+// Modern browsers support WebP natively
+// This site serves only WebP images for optimal performance
 
 // Lazy Loading Fallback for Older Browsers
 // Modern browsers support native lazy loading (loading="lazy" attribute)
@@ -647,72 +633,84 @@ document.addEventListener('DOMContentLoaded', function() {
 
 // Hero background slideshow with parallax effect
 document.addEventListener('DOMContentLoaded', function() {
-    const heroSection = document.querySelector('.hero');
+    // Find all sections with hero backgrounds
+    const sectionsWithBackgrounds = document.querySelectorAll('.hero, .recent-posts');
 
-    if (!heroSection) {
-        return; // Not on a page with a hero section
+    if (sectionsWithBackgrounds.length === 0) {
+        return; // No sections with backgrounds found
     }
 
-    const backgroundLayers = heroSection.querySelectorAll('.hero-background');
+    const slideshowIntervals = [];
 
-    if (backgroundLayers.length === 0) {
-        return; // No background layers found
-    }
+    // Initialize backgrounds for each section
+    sectionsWithBackgrounds.forEach(function(section) {
+        const backgroundLayers = section.querySelectorAll('.hero-background');
 
-    // Load background images with WebP support
-    const supportsWebP = document.documentElement.classList.contains('webp');
-
-    backgroundLayers.forEach(function(layer) {
-        const imageSrc = supportsWebP ? layer.dataset.webp : layer.dataset.fallback;
-        if (imageSrc) {
-            layer.style.backgroundImage = 'url(' + imageSrc + ')';
+        if (backgroundLayers.length === 0) {
+            return; // No background layers in this section
         }
-    });
 
-    // Start with a random background image
-    let currentBackgroundIndex = Math.floor(Math.random() * backgroundLayers.length);
-    let ticking = false;
+        // Load background images
+        backgroundLayers.forEach(function(layer) {
+            const imageSrc = layer.dataset.bg;
+            if (imageSrc) {
+                layer.style.backgroundImage = 'url(' + imageSrc + ')';
+            }
+        });
 
-    // Set the initial random background as active
-    backgroundLayers.forEach((layer, index) => {
-        if (index === currentBackgroundIndex) {
-            layer.classList.add('active');
-        } else {
-            layer.classList.remove('active');
+        // Start with a random background image
+        let currentBackgroundIndex = Math.floor(Math.random() * backgroundLayers.length);
+
+        // Set the initial random background as active
+        backgroundLayers.forEach((layer, index) => {
+            if (index === currentBackgroundIndex) {
+                layer.classList.add('active');
+            } else {
+                layer.classList.remove('active');
+            }
+        });
+
+        // Background slideshow with blend transitions
+        function rotateBackground() {
+            // Remove active class from current background
+            backgroundLayers[currentBackgroundIndex].classList.remove('active');
+
+            // Move to next background (loop back to start if at end)
+            currentBackgroundIndex = (currentBackgroundIndex + 1) % backgroundLayers.length;
+
+            // Add active class to new background (triggers fade in via CSS transition)
+            backgroundLayers[currentBackgroundIndex].classList.add('active');
         }
+
+        // Start slideshow - change background every 16 seconds
+        const slideshowInterval = setInterval(rotateBackground, 16000);
+        slideshowIntervals.push(slideshowInterval);
     });
-
-    // Background slideshow with blend transitions
-    function rotateBackground() {
-        // Remove active class from current background
-        backgroundLayers[currentBackgroundIndex].classList.remove('active');
-
-        // Move to next background (loop back to start if at end)
-        currentBackgroundIndex = (currentBackgroundIndex + 1) % backgroundLayers.length;
-
-        // Add active class to new background (triggers fade in via CSS transition)
-        backgroundLayers[currentBackgroundIndex].classList.add('active');
-    }
-
-    // Start slideshow - change background every 16 seconds
-    const slideshowInterval = setInterval(rotateBackground, 16000);
 
     // Enhanced parallax scrolling effect for all background layers
-    // Adjusts background position based on scroll for smoother parallax
+    let ticking = false;
+
     function updateParallax() {
         const scrollPosition = window.pageYOffset;
-        const heroHeight = heroSection.offsetHeight;
 
-        // Only apply parallax while hero is visible
-        if (scrollPosition <= heroHeight) {
-            // Move background at 50% of scroll speed for parallax effect
-            const yPos = scrollPosition * 0.5;
+        sectionsWithBackgrounds.forEach(function(section) {
+            const backgroundLayers = section.querySelectorAll('.hero-background');
+            const sectionTop = section.offsetTop;
+            const sectionHeight = section.offsetHeight;
 
-            // Apply parallax to all background layers
-            backgroundLayers.forEach(layer => {
-                layer.style.backgroundPosition = `center ${yPos}px`;
-            });
-        }
+            // Only apply parallax while section is in viewport
+            if (scrollPosition + window.innerHeight > sectionTop && scrollPosition < sectionTop + sectionHeight) {
+                // Move background upward at 50% of scroll speed for parallax effect
+                // Negative values move background up, revealing top of zoomed image as user scrolls down
+                const sectionScrollPosition = scrollPosition - sectionTop;
+                const yPos = -(sectionScrollPosition * 0.5);
+
+                // Apply parallax to all background layers in this section
+                backgroundLayers.forEach(layer => {
+                    layer.style.backgroundPosition = `center calc(100% + ${yPos}px)`;
+                });
+            }
+        });
 
         ticking = false;
     }
@@ -731,10 +729,10 @@ document.addEventListener('DOMContentLoaded', function() {
     // Initial parallax call
     updateParallax();
 
-    // Cleanup: Stop slideshow when page is hidden (performance optimization)
+    // Cleanup: Stop slideshows when page is hidden (performance optimization)
     document.addEventListener('visibilitychange', function() {
         if (document.hidden) {
-            clearInterval(slideshowInterval);
+            slideshowIntervals.forEach(interval => clearInterval(interval));
         }
     });
 });
@@ -776,4 +774,213 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Initial check
     checkScrollPosition();
+});
+
+// Features Carousel - Shows 3-4 cards with infinite loop (no cloning)
+document.addEventListener('DOMContentLoaded', function() {
+    const carouselContainers = document.querySelectorAll('.features-carousel');
+
+    if (carouselContainers.length === 0) {
+        return; // Not on a page with carousel
+    }
+
+    // Initialize each carousel independently
+    carouselContainers.forEach(function(carouselContainer) {
+        const track = carouselContainer.querySelector('.features-carousel-track');
+        const cards = Array.from(track.querySelectorAll('.feature-card'));
+        const indicatorsContainer = carouselContainer.querySelector('.carousel-indicators');
+
+        if (cards.length === 0) {
+            return;
+        }
+
+        const totalCards = cards.length;
+        let currentIndex = 0;
+        let direction = 1; // 1 for forward, -1 for backward
+        let pausedAtBoundary = false; // Track if we just paused at a boundary
+        let autoPlayInterval;
+        const transitionDuration = 1200; // 1.2 seconds for smoother animation
+        const autoPlayDelay = 12000; // 12 seconds between slides
+
+        // Get number of cards visible at current viewport size
+        function getVisibleCardCount() {
+            const containerWidth = carouselContainer.offsetWidth;
+            const isBlogPostsCarousel = carouselContainer.closest('.recent-posts') !== null;
+
+            // Blog posts carousel: 3 cards on desktop
+            // Features carousel: 4 cards on desktop
+            // Both: 2 cards on tablet, 1 card on mobile
+            if (containerWidth > 900) {
+                return isBlogPostsCarousel ? 3 : 4;
+            }
+            if (containerWidth > 600) return 2;
+            return 1;
+        }
+
+    // Create indicator dots
+    function createIndicators() {
+        indicatorsContainer.innerHTML = '';
+
+        for (let i = 0; i < totalCards; i++) {
+            const indicator = document.createElement('button');
+            indicator.classList.add('carousel-indicator');
+            indicator.setAttribute('aria-label', `Go to slide ${i + 1}`);
+
+            indicator.addEventListener('click', function() {
+                goToSlide(i);
+                resetAutoPlay();
+            });
+
+            indicatorsContainer.appendChild(indicator);
+        }
+
+        updateIndicators();
+    }
+
+    // Update indicator active state
+    function updateIndicators() {
+        const indicators = indicatorsContainer.querySelectorAll('.carousel-indicator');
+
+        indicators.forEach((indicator, index) => {
+            indicator.classList.toggle('active', index === currentIndex);
+        });
+    }
+
+    // Update carousel position
+    function updateCarouselPosition(animated = true) {
+        const firstCard = cards[0];
+        if (!firstCard) return;
+
+        const cardWidth = firstCard.offsetWidth;
+        const gap = parseInt(getComputedStyle(track).gap) || 32;
+        const cardStep = cardWidth + gap;
+        const offset = -(currentIndex * cardStep);
+
+        if (!animated) {
+            track.style.transition = 'none';
+        } else {
+            track.style.transition = '';
+        }
+
+        track.style.transform = `translateX(${offset}px)`;
+
+        if (!animated) {
+            track.offsetHeight; // Force reflow
+        }
+
+        updateIndicators();
+    }
+
+    // Go to specific slide
+    function goToSlide(index) {
+        const visibleCards = getVisibleCardCount();
+        const maxIndex = totalCards - visibleCards;
+
+        // Don't go past the point where we can't fill the viewport
+        currentIndex = Math.min(index, maxIndex);
+        updateCarouselPosition(true);
+    }
+
+    // Advance to next slide (respects direction)
+    function nextSlide() {
+        const visibleCards = getVisibleCardCount();
+        const maxIndex = totalCards - visibleCards;
+
+        // If we're at a boundary and already paused, reverse direction
+        if (pausedAtBoundary) {
+            if (currentIndex >= maxIndex) {
+                direction = -1; // Reverse to backward
+            } else if (currentIndex <= 0) {
+                direction = 1; // Reverse to forward
+            }
+            pausedAtBoundary = false;
+        }
+
+        // Move in current direction
+        currentIndex += direction;
+
+        // Check if we hit a boundary and need to pause
+        if (currentIndex >= maxIndex) {
+            currentIndex = maxIndex;
+            pausedAtBoundary = true; // Pause here for one cycle
+        } else if (currentIndex <= 0) {
+            currentIndex = 0;
+            pausedAtBoundary = true; // Pause here for one cycle
+        }
+
+        updateCarouselPosition(true);
+    }
+
+    // Go to previous slide
+    function previousSlide() {
+        const visibleCards = getVisibleCardCount();
+        const maxIndex = totalCards - visibleCards;
+
+        if (currentIndex <= 0) {
+            // At the beginning, jump to end
+            currentIndex = maxIndex;
+        } else {
+            currentIndex--;
+        }
+
+        updateCarouselPosition(true);
+    }
+
+    // Start auto-play
+    function startAutoPlay() {
+        autoPlayInterval = setInterval(nextSlide, autoPlayDelay);
+    }
+
+    // Stop auto-play
+    function stopAutoPlay() {
+        clearInterval(autoPlayInterval);
+    }
+
+    // Reset auto-play
+    function resetAutoPlay() {
+        stopAutoPlay();
+        startAutoPlay();
+    }
+
+    // Handle window resize
+    let resizeTimeout;
+    function handleResize() {
+        clearTimeout(resizeTimeout);
+        resizeTimeout = setTimeout(() => {
+            // Adjust position if needed after resize
+            const visibleCards = getVisibleCardCount();
+            const maxIndex = totalCards - visibleCards;
+            if (currentIndex > maxIndex) {
+                currentIndex = maxIndex;
+            }
+            updateCarouselPosition(false);
+        }, 250);
+    }
+
+    // Initialize carousel
+    function initCarousel() {
+        createIndicators();
+        updateCarouselPosition(false);
+        startAutoPlay();
+
+        // Pause on hover
+        carouselContainer.addEventListener('mouseenter', stopAutoPlay);
+        carouselContainer.addEventListener('mouseleave', startAutoPlay);
+
+        // Handle window resize
+        window.addEventListener('resize', handleResize);
+
+        // Pause when page is not visible
+        document.addEventListener('visibilitychange', function() {
+            if (document.hidden) {
+                stopAutoPlay();
+            } else {
+                startAutoPlay();
+            }
+        });
+    }
+
+        // Start the carousel
+        initCarousel();
+    }); // End forEach carousel
 });

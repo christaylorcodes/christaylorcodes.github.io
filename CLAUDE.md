@@ -162,6 +162,7 @@ The order in `_sass/oceanic.scss` matters:
 ---
 layout: post
 title: "Your Post Title"
+short_title: "Short Title"  # Optional: Shorter version for blog cards
 date: 2024-02-20 10:00:00 -0000
 categories: [category1, category2]
 tags: [tag1, tag2, tag3]
@@ -174,6 +175,30 @@ Your content here in Markdown...
 
 3. Write content using Markdown
 4. Commit and push to deploy
+
+**Post Field Definitions:**
+- `layout`: Always use `post` layout
+- `title`: Full title of the post (appears in post header, browser tab, and social media)
+- `short_title` (Optional): Shorter version for blog cards (recommended: 3-7 words, ~50 characters max)
+  - Use when the full title is too long for card layouts
+  - If not provided, the full `title` will be used in cards
+  - Example: Full title "Introducing ConnectWiseAutomateAgent: PowerShell Automation for Your RMM" → Short title "ConnectWiseAutomateAgent"
+- `date`: Publication date and time
+- `categories`: 1-2 broad categories
+- `tags`: 3-6 specific topics
+- `author`: Post author name
+- `excerpt`: Brief summary for post previews and search results (standardized at 50 words, 8th grade reading level)
+  - **Length**: Target 50 words (acceptable range: 45-55 words)
+  - **Reading Level**: 8th grade (clear, accessible language that anyone can understand)
+  - **Purpose**: Appears on blog cards, search results, and social media previews
+  - **Style**: Concise, direct, and engaging using simple vocabulary
+  - **Content**: Should answer "What problem does this solve?" and "What will I learn?"
+  - **Guidelines**:
+    - Use active voice and simple words
+    - Keep sentences short and punchy
+    - Focus on one main benefit or outcome
+    - Be specific, not abstract
+  - **Examples**: See existing posts for reference patterns
 
 **Post Features:**
 - Automatic post navigation (previous/next)

@@ -1,11 +1,12 @@
 ---
 layout: post
 title: "Calculating AI Doom: A Statistical Approach to Existential Dread"
+short_title: "The AI Doom Coefficient"
 date: 2025-11-03 10:00:00 -0000
 categories: [ai, commentary]
 tags: [ai, artificial-intelligence, humor, risk-assessment, ai-safety]
 author: Chris Taylor
-excerpt: "Let's build a formula to calculate the betting odds of AI drastically impacting humanity in a deeply negative way. Spoiler: The math is not comforting."
+excerpt: "We're terrible at judging risk. This post builds a formula to calculate AI's actual danger to humanity using real data from researchers and experts. Spoiler: The math isn't comforting, but at least we'll have numbers instead of vague worry."
 image: /assets/images/profile-photo.png
 description: "A lighthearted but fact-based statistical formula for calculating the odds of AI causing catastrophic harm to humanity, with real-world data and sarcastic commentary."
 ---

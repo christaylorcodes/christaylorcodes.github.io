@@ -1,11 +1,12 @@
 ---
 layout: post
 title: "Building PowerShell API Wrappers: Lessons from ConnectWiseControlAPI"
+short_title: "Building PowerShell API Wrappers"
 date: 2024-10-28 10:00:00 -0000
 categories: [PowerShell, Development, ConnectWiseControlAPI]
 tags: [PowerShell, API, Module Development, Best Practices, Lessons Learned, Software Engineering]
 author: Chris Taylor
-excerpt: "Architectural decisions, mistakes, and best practices learned from building and maintaining ConnectWiseControlAPI. A comprehensive guide to wrapping REST APIs in PowerShell for operations teams."
+excerpt: "Lessons from building a PowerShell API wrapper with 81+ GitHub stars. Learn design decisions, code organization, error handling, and common mistakes. Practical advice from maintaining production modules that IT professionals actually use."
 ---
 
 ## Why Build API Wrappers?

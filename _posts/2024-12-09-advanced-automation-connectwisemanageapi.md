@@ -1,11 +1,12 @@
 ---
 layout: post
 title: "Advanced Automation Scenarios with ConnectWiseManageAPI"
+short_title: "Advanced ConnectWiseManageAPI Automation"
 date: 2024-12-09 09:00:00 -0500
 categories: [PowerShell, PSA, ConnectWiseManageAPI]
 tags: [PowerShell, ConnectWise, Manage, PSA, Automation, Advanced, Integration, MSP]
 author: Chris Taylor
-excerpt: "Real-world automation scenarios that transform MSP operations. Learn how to build automated ticket enrichment, bulk time entries, data quality monitoring, custom reporting, and system integrations with ConnectWiseManageAPI."
+excerpt: "Beyond the basics: real automation examples IT teams use daily. Learn automated ticket enrichment, bulk time entries, data quality monitoring, custom reporting, and system integrations with production-ready code."
 ---
 
 Now that you're comfortable with the basics, let's explore some advanced automation scenarios that can transform your MSP operations. These examples demonstrate real-world use cases that save hours of manual work and improve service delivery.

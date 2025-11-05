@@ -6,16 +6,13 @@ title: Home
 {% include structured-data-website.html %}
 
 <section class="hero">
-    <!-- Background slideshow layers with WebP support -->
+    <!-- Background slideshow layers -->
     <div class="hero-background"
-         data-webp="{{ '/assets/images/hero-background.webp' | relative_url }}"
-         data-fallback="{{ '/assets/images/hero-background.jpg' | relative_url }}"></div>
+         data-bg="{{ '/assets/images/hero-background.webp' | relative_url }}"></div>
     <div class="hero-background"
-         data-webp="{{ '/assets/images/hero-background-2.webp' | relative_url }}"
-         data-fallback="{{ '/assets/images/hero-background-2.jpg' | relative_url }}"></div>
+         data-bg="{{ '/assets/images/hero-background-2.webp' | relative_url }}"></div>
     <div class="hero-background"
-         data-webp="{{ '/assets/images/hero-background-3.webp' | relative_url }}"
-         data-fallback="{{ '/assets/images/hero-background-3.jpg' | relative_url }}"></div>
+         data-bg="{{ '/assets/images/hero-background-3.webp' | relative_url }}"></div>
 
     <div class="container">
         <div class="hero-content">
@@ -40,7 +37,8 @@ title: Home
 <section class="features">
     <div class="container">
         <h2 class="section-title">What I Do</h2>
-        <div class="features-grid">
+        <div class="features-carousel">
+            <div class="features-carousel-track">
             <div class="feature-card">
                 <div class="feature-icon icon-cyan">
                     <i class="fas fa-cogs"></i>
@@ -72,37 +70,40 @@ title: Home
                 <h3>AI Integration</h3>
                 <p>Integrating AI technologies into MSP operations and automation workflows to enhance efficiency and enable predictive capabilities.</p>
             </div>
-        </div>
-    </div>
-</section>
 
-<section class="recent-posts">
-    <div class="container">
-        <h2 class="section-title">Recent Blog Posts</h2>
-        <div class="features-grid">
-            {% for post in site.posts limit:3 %}
-            {% assign color_index = forloop.index0 | modulo: 4 %}
-            {% if color_index == 0 %}{% assign icon_color = 'icon-cyan' %}
-            {% elsif color_index == 1 %}{% assign icon_color = 'icon-amber' %}
-            {% elsif color_index == 2 %}{% assign icon_color = 'icon-sky' %}
-            {% else %}{% assign icon_color = 'icon-orange' %}{% endif %}
-            <div class="feature-card feature-card-clickable">
-                <div class="feature-icon {{ icon_color }}">
-                    <i class="fas fa-file-alt"></i>
+            <div class="feature-card">
+                <div class="feature-icon icon-emerald">
+                    <i class="fas fa-plug"></i>
                 </div>
-                <h3><a href="{{ post.url | relative_url }}" class="card-main-link">{{ post.title }}</a></h3>
-                <p class="post-date">
-                    <i class="far fa-calendar"></i> {{ post.date | date: "%B %d, %Y" }}
-                </p>
-                <p>{{ post.excerpt | strip_html | truncatewords: 20 }}</p>
-                <a href="{{ post.url | relative_url }}" class="read-more">
-                    Read More <i class="fas fa-arrow-right"></i>
-                </a>
+                <h3>API Development</h3>
+                <p>Creating robust PowerShell modules that wrap REST APIs, enabling seamless integration between business systems and automation workflows.</p>
             </div>
-            {% endfor %}
-        </div>
-        <div class="section-cta-wrapper">
-            <a href="{{ '/blog' | relative_url }}" class="btn btn-secondary">View All Posts</a>
+
+            <div class="feature-card">
+                <div class="feature-icon icon-purple">
+                    <i class="fas fa-cloud"></i>
+                </div>
+                <h3>Cloud Infrastructure</h3>
+                <p>Managing Azure services, implementing secure cloud solutions with Key Vault integration, and designing multi-tenant cloud architectures.</p>
+            </div>
+
+            <div class="feature-card">
+                <div class="feature-icon icon-blue">
+                    <i class="fas fa-puzzle-piece"></i>
+                </div>
+                <h3>ConnectWise Integration</h3>
+                <p>Deep expertise in ConnectWise Manage, Automate, and Control with custom PowerShell modules for PSA and RMM automation.</p>
+            </div>
+
+            <div class="feature-card">
+                <div class="feature-icon icon-amber">
+                    <i class="fas fa-broom"></i>
+                </div>
+                <h3>Tech Janitor</h3>
+                <p>Cleaning up technical debt, refactoring legacy code, and fixing the messes others left behind. Someone's gotta do it.</p>
+            </div>
+            </div>
+            <div class="carousel-indicators"></div>
         </div>
     </div>
 </section>
@@ -209,6 +210,55 @@ title: Home
 
         <div class="section-cta-wrapper">
             <a href="{{ '/projects' | relative_url }}" class="btn btn-secondary">View All Projects</a>
+        </div>
+    </div>
+</section>
+
+<section class="recent-posts">
+    <!-- Background slideshow layers -->
+    <div class="hero-background"
+         data-bg="{{ '/assets/images/hero-background.webp' | relative_url }}"></div>
+    <div class="hero-background"
+         data-bg="{{ '/assets/images/hero-background-2.webp' | relative_url }}"></div>
+    <div class="hero-background"
+         data-bg="{{ '/assets/images/hero-background-3.webp' | relative_url }}"></div>
+
+    <div class="container">
+        <h2 class="section-title">Recent Blog Posts</h2>
+        <div class="features-carousel">
+            <div class="features-carousel-track">
+            {% for post in site.posts limit:10 %}
+            {% assign color_index = forloop.index0 | modulo: 7 %}
+            {% if color_index == 0 %}{% assign icon_color = 'icon-cyan' %}
+            {% elsif color_index == 1 %}{% assign icon_color = 'icon-amber' %}
+            {% elsif color_index == 2 %}{% assign icon_color = 'icon-sky' %}
+            {% elsif color_index == 3 %}{% assign icon_color = 'icon-orange' %}
+            {% elsif color_index == 4 %}{% assign icon_color = 'icon-emerald' %}
+            {% elsif color_index == 5 %}{% assign icon_color = 'icon-purple' %}
+            {% else %}{% assign icon_color = 'icon-blue' %}{% endif %}
+            <div class="feature-card feature-card-clickable">
+                <div class="feature-icon {{ icon_color }}">
+                    <i class="fas fa-file-alt"></i>
+                </div>
+                <h3><a href="{{ post.url | relative_url }}" class="card-main-link">{% if post.short_title %}{{ post.short_title }}{% else %}{{ post.title }}{% endif %}</a></h3>
+                <p class="post-date">
+                    <i class="far fa-calendar"></i> {{ post.date | date: "%B %d, %Y" }}
+                </p>
+                <p>{{ post.excerpt | strip_html }}</p>
+                {% if post.categories %}
+                <div class="post-card-categories">
+                    {% for category in post.categories limit:2 %}
+                    <span class="category-badge">{{ category }}</span>
+                    {% endfor %}
+                </div>
+                {% endif %}
+            </div>
+            {% endfor %}
+            </div>
+            <div class="carousel-indicators"></div>
+        </div>
+        <div class="section-cta-wrapper">
+            <a href="{{ '/blog' | relative_url }}" class="btn btn-secondary">View All Posts</a>
         </div>
     </div>
 </section>

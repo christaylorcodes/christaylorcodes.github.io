@@ -1,11 +1,12 @@
 ---
 layout: post
 title: "Automating ConnectWise Automate Agent Management Through Control"
+short_title: "Agent Management Through Control"
 date: 2024-11-04 10:00:00 -0000
 categories: [PowerShell, MSP, ConnectWiseControlAPI]
 tags: [PowerShell, ConnectWise, Control, Automate, MSP, Integration, Agent Management, Automation]
 author: Chris Taylor
-excerpt: "Learn how to combine ConnectWiseControlAPI with remote command execution to automate Automate agent maintenance at scale. See how to turn hours of manual agent reinstallation into minutes of automated remediation."
+excerpt: "When Automate agents fail, use Control to reach machines and fix them remotely. This post shows how to connect both tools and automate agent maintenance that used to take hours."
 ---
 
 ## The MSP Tech Stack Integration Challenge

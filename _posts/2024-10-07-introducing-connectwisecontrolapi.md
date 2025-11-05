@@ -1,11 +1,12 @@
 ---
 layout: post
 title: "Automating ConnectWise Control: A PowerShell Module for MSPs"
+short_title: "ConnectWiseControlAPI: PowerShell for MSPs"
 date: 2024-10-07 10:00:00 -0000
 categories: [PowerShell, MSP, ConnectWiseControlAPI]
 tags: [PowerShell, ConnectWise, Control, ScreenConnect, MSP, Automation, API]
 author: Chris Taylor
-excerpt: "Introducing ConnectWiseControlAPI, a PowerShell module that wraps the Control REST API and makes automation accessible to anyone comfortable with PowerShell. Learn how to automate session management, user administration, and command execution across your Control environment."
+excerpt: "Automate ConnectWise Control with PowerShell instead of clicking through web interfaces. This module handles session management, user administration, and remote commands. Turn hours of manual work into seconds of scripted automation."
 ---
 
 ## The Problem with Manual Remote Management

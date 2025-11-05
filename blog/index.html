@@ -61,16 +61,8 @@ title: Blog
             {% for post in site.posts %}
             <article class="blog-post-card" data-categories="{% for category in post.categories %}{{ category | slugify }} {% endfor %}">
                 <div class="post-card-header">
-                    {% if post.categories %}
-                    <div class="post-card-categories">
-                        {% for category in post.categories %}
-                        <span class="category-badge">{{ category }}</span>
-                        {% endfor %}
-                    </div>
-                    {% endif %}
-
                     <h2 class="post-card-title">
-                        <a href="{{ post.url | relative_url }}">{{ post.title }}</a>
+                        <a href="{{ post.url | relative_url }}">{% if post.short_title %}{{ post.short_title }}{% else %}{{ post.title }}{% endif %}</a>
                     </h2>
 
                     <div class="post-card-meta">
@@ -90,7 +82,7 @@ title: Blog
 
                 <div class="post-card-content">
                     {% if post.excerpt %}
-                    <p class="post-card-excerpt">{{ post.excerpt | strip_html | truncatewords: 30 }}</p>
+                    <p class="post-card-excerpt">{{ post.excerpt | strip_html }}</p>
                     {% endif %}
 
                     {% if post.tags %}
@@ -103,9 +95,13 @@ title: Blog
                 </div>
 
                 <div class="post-card-footer">
-                    <a href="{{ post.url | relative_url }}" class="read-more">
-                        Read More <i class="fas fa-arrow-right"></i>
-                    </a>
+                    {% if post.categories %}
+                    <div class="post-card-categories">
+                        {% for category in post.categories %}
+                        <span class="category-badge">{{ category }}</span>
+                        {% endfor %}
+                    </div>
+                    {% endif %}
                 </div>
             </article>
             {% endfor %}
@@ -117,16 +113,8 @@ title: Blog
             {% for post in paginator.posts %}
             <article class="blog-post-card" data-categories="{% for category in post.categories %}{{ category | slugify }} {% endfor %}">
                 <div class="post-card-header">
-                    {% if post.categories %}
-                    <div class="post-card-categories">
-                        {% for category in post.categories %}
-                        <span class="category-badge">{{ category }}</span>
-                        {% endfor %}
-                    </div>
-                    {% endif %}
-
                     <h2 class="post-card-title">
-                        <a href="{{ post.url | relative_url }}">{{ post.title }}</a>
+                        <a href="{{ post.url | relative_url }}">{% if post.short_title %}{{ post.short_title }}{% else %}{{ post.title }}{% endif %}</a>
                     </h2>
 
                     <div class="post-card-meta">
@@ -146,7 +134,7 @@ title: Blog
 
                 <div class="post-card-content">
                     {% if post.excerpt %}
-                    <p class="post-card-excerpt">{{ post.excerpt | strip_html | truncatewords: 30 }}</p>
+                    <p class="post-card-excerpt">{{ post.excerpt | strip_html }}</p>
                     {% endif %}
 
                     {% if post.tags %}
@@ -159,9 +147,13 @@ title: Blog
                 </div>
 
                 <div class="post-card-footer">
-                    <a href="{{ post.url | relative_url }}" class="read-more">
-                        Read More <i class="fas fa-arrow-right"></i>
-                    </a>
+                    {% if post.categories %}
+                    <div class="post-card-categories">
+                        {% for category in post.categories %}
+                        <span class="category-badge">{{ category }}</span>
+                        {% endfor %}
+                    </div>
+                    {% endif %}
                 </div>
             </article>
             {% endfor %}
