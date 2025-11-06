@@ -611,8 +611,8 @@ What use case will you automate next?
 - **Install Module**: `Install-Module ConnectWiseAutomateAgent`
 - **GitHub**: [https://github.com/christaylorcodes/ConnectWiseAutomateAgent](https://github.com/christaylorcodes/ConnectWiseAutomateAgent)
 - **Series Posts**:
-  - [Introducing ConnectWiseAutomateAgent]({% post_url 2024-11-01-introducing-connectwise-automate-agent %})
-  - [Mass Agent Deployment]({% post_url 2024-11-08-mass-agent-deployment-connectwise-automate %})
-  - [Troubleshooting Guide]({% post_url 2024-11-15-troubleshooting-connectwise-automate-agents-powershell %})
+  - [Introducing ConnectWiseAutomateAgent]({% post_url 2024-02-12-introducing-connectwise-automate-agent %})
+  - [Mass Agent Deployment]({% post_url 2024-02-26-mass-agent-deployment-connectwise-automate %})
+  - [Troubleshooting Guide]({% post_url 2024-03-04-troubleshooting-connectwise-automate-agents-powershell %})
 
 **Share your use case**: If you've built something cool with this module, submit it as a GitHub issue tagged "Community Use Case" and we'll feature it!

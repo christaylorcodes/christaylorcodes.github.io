@@ -448,7 +448,7 @@ The next time you get that 2 AM alert, you'll have PowerShell on your side.
 - **Module**: `Install-Module ConnectWiseAutomateAgent`
 - **GitHub**: [https://github.com/christaylorcodes/ConnectWiseAutomateAgent](https://github.com/christaylorcodes/ConnectWiseAutomateAgent)
 - **Previous Posts**:
-  - [Introducing ConnectWiseAutomateAgent]({% post_url 2024-11-01-introducing-connectwise-automate-agent %})
-  - [Mass Agent Deployment]({% post_url 2024-11-08-mass-agent-deployment-connectwise-automate %})
+  - [Introducing ConnectWiseAutomateAgent]({% post_url 2024-02-12-introducing-connectwise-automate-agent %})
+  - [Mass Agent Deployment]({% post_url 2024-02-26-mass-agent-deployment-connectwise-automate %})
 
 **Next in series**: 10 real-world use cases for ConnectWiseAutomateAgent beyond deployment and troubleshooting.

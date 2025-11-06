@@ -550,6 +550,6 @@ The next time you onboard a large client, you'll be ready to deploy at scale.
 
 - **Install Module**: `Install-Module ConnectWiseAutomateAgent`
 - **GitHub**: [https://github.com/christaylorcodes/ConnectWiseAutomateAgent](https://github.com/christaylorcodes/ConnectWiseAutomateAgent)
-- **Previous Post**: [Introducing ConnectWiseAutomateAgent]({% post_url 2024-11-01-introducing-connectwise-automate-agent %})
+- **Previous Post**: [Introducing ConnectWiseAutomateAgent]({% post_url 2024-02-12-introducing-connectwise-automate-agent %})
 
 **Next in series**: Troubleshooting ConnectWise Automate agents like a pro with PowerShell diagnostics.
