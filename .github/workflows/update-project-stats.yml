@@ -1,0 +1,180 @@
+name: Update Project Stats
+
+on:
+  schedule:
+    # Run weekly on Mondays at 9 AM UTC (1 AM PST / 2 AM PDT)
+    - cron: '0 9 * * 1'
+  workflow_dispatch:  # Allow manual trigger
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  update-stats:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup PowerShell
+        shell: pwsh
+        run: |
+          Write-Host "PowerShell version: $($PSVersionTable.PSVersion)"
+          Write-Host "Platform: $($PSVersionTable.Platform)"
+
+      - name: Update GitHub star counts
+        shell: pwsh
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          Write-Host "=====================================" -ForegroundColor Cyan
+          Write-Host "  Updating GitHub Star Counts" -ForegroundColor Cyan
+          Write-Host "=====================================" -ForegroundColor Cyan
+          Write-Host ""
+
+          # Read current stats file
+          $statsFile = "_data/project-stats.yml"
+          $stats = @{}
+          $currentProject = $null
+
+          Get-Content $statsFile | ForEach-Object {
+              if ($_ -match '^([a-z-]+):$') {
+                  $currentProject = $matches[1]
+                  $stats[$currentProject] = @{}
+              }
+              elseif ($_ -match '^\s+stars:\s+(\d+)') {
+                  $stats[$currentProject].stars = [int]$matches[1]
+              }
+              elseif ($_ -match '^\s+gallery_downloads:\s+(\d+)') {
+                  $stats[$currentProject].gallery_downloads = [int]$matches[1]
+              }
+          }
+
+          # Get GitHub repos from project files
+          $projectFiles = Get-ChildItem "_projects/*.md"
+          $repoMapping = @{}
+
+          foreach ($file in $projectFiles) {
+              $projectId = [System.IO.Path]::GetFileNameWithoutExtension($file.Name)
+              $content = Get-Content $file.FullName -Raw
+
+              if ($content -match 'github_url:\s*"https://github\.com/([^"]+)"') {
+                  $repoMapping[$projectId] = $matches[1]
+              }
+          }
+
+          Write-Host "Found $($repoMapping.Count) GitHub repositories" -ForegroundColor Green
+          Write-Host ""
+
+          # Fetch star counts from GitHub API
+          foreach ($projectId in $repoMapping.Keys) {
+              $repo = $repoMapping[$projectId]
+
+              Write-Host "  [FETCH] $repo..." -NoNewline
+
+              try {
+                  $apiUrl = "https://api.github.com/repos/$repo"
+                  $headers = @{
+                      'Authorization' = "Bearer $env:GH_TOKEN"
+                      'Accept' = 'application/vnd.github.v3+json'
+                  }
+
+                  $response = Invoke-RestMethod -Uri $apiUrl -Headers $headers -ErrorAction Stop
+                  $stars = $response.stargazers_count
+
+                  if ($stats.ContainsKey($projectId)) {
+                      $stats[$projectId].stars = $stars
+                      Write-Host " $stars stars" -ForegroundColor Green
+                  }
+              }
+              catch {
+                  Write-Host " Failed: $_" -ForegroundColor Yellow
+              }
+          }
+
+          Write-Host ""
+          Write-Host "[UPDATE] Rebuilding project-stats.yml with updated star counts..." -ForegroundColor Yellow
+
+          # Rebuild YAML file with updated star counts
+          $yamlContent = @"
+          # Project Statistics - GitHub Stars and PowerShell Gallery Downloads
+          # Last Updated: $(Get-Date -Format 'yyyy-MM-dd HH:mm:ss UTC')
+          #
+          # This file centralizes all project statistics to enable easy updates
+          # without modifying individual project files. Stats are automatically
+          # updated weekly via GitHub Actions.
+          #
+          # To manually update:
+          # 1. Run .\sync-project-stats.ps1 -FetchGalleryStats locally
+          # 2. Commit and push changes
+          # 3. Or trigger the "Update Project Stats" workflow manually
+
+          "@
+
+          foreach ($projectId in ($stats.Keys | Sort-Object)) {
+              $projectStats = $stats[$projectId]
+              $displayName = $projectId -replace '-', ' ' | ForEach-Object { $_.Substring(0,1).ToUpper() + $_.Substring(1) }
+
+              $yamlContent += @"
+
+          # $displayName
+          $projectId`:
+            stars: $($projectStats.stars)
+            gallery_downloads: $($projectStats.gallery_downloads)
+          "@
+          }
+
+          Set-Content -Path $statsFile -Value $yamlContent
+          Write-Host "  [SAVED] _data/project-stats.yml updated with GitHub stars" -ForegroundColor Green
+          Write-Host ""
+
+      - name: Update PowerShell Gallery download counts
+        shell: pwsh
+        run: |
+          Write-Host "=====================================" -ForegroundColor Cyan
+          Write-Host "  Updating Gallery Download Counts" -ForegroundColor Cyan
+          Write-Host "=====================================" -ForegroundColor Cyan
+          Write-Host ""
+
+          # Run the sync script with -FetchGalleryStats to update download counts
+          ./sync-project-stats.ps1 -FetchGalleryStats
+
+      - name: Check for changes
+        id: check_changes
+        run: |
+          git diff --quiet _data/project-stats.yml _projects/*.md || echo "has_changes=true" >> $GITHUB_OUTPUT
+
+      - name: Commit and push changes
+        if: steps.check_changes.outputs.has_changes == 'true'
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+
+          git add _data/project-stats.yml _projects/*.md
+
+          git commit -m "Update project statistics
+
+          Automated update of GitHub star counts and PowerShell Gallery download counts.
+
+          - GitHub stars fetched via GitHub API
+          - Gallery downloads fetched via PowerShell Gallery API
+          - Updated project front matter and centralized stats file
+
+          🤖 Generated by GitHub Actions"
+
+          git push
+
+      - name: Summary
+        if: steps.check_changes.outputs.has_changes == 'true'
+        run: |
+          echo "✅ Project statistics updated successfully" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "Updated files:" >> $GITHUB_STEP_SUMMARY
+          echo "- \`_data/project-stats.yml\`" >> $GITHUB_STEP_SUMMARY
+          echo "- Project front matter files" >> $GITHUB_STEP_SUMMARY
+
+      - name: No changes summary
+        if: steps.check_changes.outputs.has_changes != 'true'
+        run: |
+          echo "ℹ️ No changes detected - statistics are up to date" >> $GITHUB_STEP_SUMMARY
