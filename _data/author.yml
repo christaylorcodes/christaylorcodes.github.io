@@ -1,0 +1,111 @@
+# Author/Professional Identity Data
+# Last Updated: 2025-11-05
+#
+# This file centralizes all professional identity and biographical information
+# used throughout the site. Update these values once to affect all pages.
+
+# Basic Identity
+name: Chris Taylor
+first_name: Chris
+last_name: Taylor
+
+# Professional Titles
+title: Network Operations Chief
+roles_short: "Network Operations Chief | vCTO | Automation Engineer"
+roles_list:
+  - Network Operations Chief
+  - vCTO
+  - Automation Engineer
+
+# Experience
+experience_years: "20+"
+experience_since: 2002
+experience_description: "With 20+ years of experience in MSP operations, I specialize in infrastructure automation, AI integration, and building scalable solutions for complex multi-tenant environments."
+
+# Employment
+company: i.t.NOW
+company_description: "Global managed services provider"
+location: United States
+
+# Personal
+passion: Mountain Biking
+bio_tagline: "vCTO, automation engineer, and PowerShell developer helping MSPs scale smarter."
+
+# About Page Statistics/Highlights
+about_highlights:
+  - icon: fa-calendar-alt
+    number: "20+"
+    label: "Years Experience"
+  - icon: fa-code
+    number: "6"
+    label: "Open Source Projects"
+  - icon: fa-blog
+    number: "12+"
+    label: "Blog Posts"
+  - icon: fa-infinity
+    number: "∞"
+    label: "Lines of PowerShell"
+
+# Quick Facts Sidebar
+quick_facts:
+  - icon: fa-briefcase
+    label: "Role"
+    value: "Network Operations Chief"
+  - icon: fa-building
+    label: "Company"
+    value: "i.t.NOW"
+  - icon: fa-map-marker-alt
+    label: "Location"
+    value: "United States"
+  - icon: fa-mountain
+    label: "Passion"
+    value: "Mountain Biking"
+
+# Expertise & Skills
+expertise:
+  core_services:
+    - "Infrastructure Automation"
+    - "PowerShell Development"
+    - "MSP Operations Consulting"
+    - "AI Integration"
+    - "Network Architecture"
+
+  knows_about:
+    - "PowerShell"
+    - "Infrastructure Automation"
+    - "Network Operations"
+    - "MSP Operations"
+    - "AI Integration"
+    - "System Integration"
+    - "ConnectWise"
+    - "Azure"
+    - "API Development"
+    - "Multi-tenant Architecture"
+
+# Education/Background
+alumni_of: EchoStar
+career_start_description: "Started professional career in 2002 with EchoStar doing satellite communications"
+
+# Bio Paragraphs (for About page)
+bio:
+  introduction: |
+    I'm a Network Operations Chief, vCTO, and Automation Engineer at i.t.NOW, a global
+    managed services provider. With 20+ years of professional experience (since 2002),
+    I specialize in infrastructure automation, AI integration, and building scalable
+    multi-tenant solutions that power MSP operations across diverse industries.
+
+  background: |
+    My journey in technology began in elementary school, where I spent my time
+    helping the school librarian troubleshoot and fix computer issues. That early
+    spark of curiosity grew into a lifelong passion for understanding how systems
+    work and finding better ways to make them run. I started my professional career
+    in 2002 with EchoStar doing satellite communications, and over the past two decades,
+    I've evolved into a leader who specializes in MSP operations, infrastructure
+    automation, and AI-driven solutions.
+
+# Structured Data
+structured_data:
+  job_title: "Network Operations Chief"
+  description: "Network Operations Chief, vCTO, and Automation Engineer with 20+ years of experience specializing in infrastructure automation, AI integration, and building scalable multi-tenant solutions for MSP operations."
+  occupation_skills: "PowerShell, Infrastructure Automation, Network Architecture, AI Integration, MSP Operations, System Integration, API Development"
+  seeking: "Open to consulting opportunities in MSP automation, AI integration, and infrastructure architecture"

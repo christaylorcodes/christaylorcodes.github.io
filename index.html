@@ -17,14 +17,13 @@ title: Home
     <div class="container">
         <div class="hero-content">
             <h1 class="hero-title">
-                Hi, I'm <span class="highlight-primary">Chris</span> <span class="highlight-secondary">Taylor</span>
+                Hi, I'm <span class="highlight-primary">{{ site.data.author.first_name }}</span> <span class="highlight-secondary">{{ site.data.author.last_name }}</span>
             </h1>
             <p class="hero-subtitle">
-                Network Operations Chief | vCTO | Automation Engineer
+                {{ site.data.author.roles_short }}
             </p>
             <p class="hero-description">
-                With 20+ years of experience in MSP operations, I specialize in infrastructure automation,
-                AI integration, and building scalable solutions for complex multi-tenant environments.
+                {{ site.data.author.experience_description }}
             </p>
             <div class="hero-buttons">
                 <a href="{{ '/projects' | relative_url }}" class="btn btn-primary btn-orange">View My Work</a>
@@ -135,7 +134,11 @@ title: Home
                         </div>
                         {% if project.gallery_downloads %}
                         <div class="podium-downloads">
+                            {% if project.title == "PSGallery Initializer" %}
+                            🐔🥚
+                            {% else %}
                             <i class="fas fa-download"></i> {{ project.gallery_downloads | divided_by: 1000.0 | round: 1 }}K downloads
+                            {% endif %}
                         </div>
                         {% endif %}
                     </div>
@@ -165,7 +168,11 @@ title: Home
                         </div>
                         {% if project.gallery_downloads %}
                         <div class="podium-downloads">
+                            {% if project.title == "PSGallery Initializer" %}
+                            🐔🥚
+                            {% else %}
                             <i class="fas fa-download"></i> {{ project.gallery_downloads | divided_by: 1000.0 | round: 1 }}K downloads
+                            {% endif %}
                         </div>
                         {% endif %}
                     </div>
@@ -195,7 +202,11 @@ title: Home
                         </div>
                         {% if project.gallery_downloads %}
                         <div class="podium-downloads">
+                            {% if project.title == "PSGallery Initializer" %}
+                            🐔🥚
+                            {% else %}
                             <i class="fas fa-download"></i> {{ project.gallery_downloads | divided_by: 1000.0 | round: 1 }}K downloads
+                            {% endif %}
                         </div>
                         {% endif %}
                     </div>

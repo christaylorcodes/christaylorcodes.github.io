@@ -9,10 +9,10 @@
   "inLanguage": "en-US",
   "author": {
     "@type": "Person",
-    "name": "{{ site.author.name }}",
+    "name": "{{ site.data.author.name }}",
     "url": "{{ site.url }}{{ '/about' | relative_url }}",
-    "email": "{{ site.author.email }}",
-    "jobTitle": "Network Operations Chief"
+    "email": "{{ site.data.contact.email }}",
+    "jobTitle": "{{ site.data.author.structured_data.job_title }}"
   },
   "potentialAction": {
     "@type": "SearchAction",
@@ -24,7 +24,7 @@
   },
   "publisher": {
     "@type": "Person",
-    "name": "{{ site.author.name }}",
+    "name": "{{ site.data.author.name }}",
     "url": "{{ site.url }}"
   }
 }
@@ -40,26 +40,16 @@
   "description": "{{ site.description }}",
   "founder": {
     "@type": "Person",
-    "name": "{{ site.author.name }}",
-    "jobTitle": "Network Operations Chief",
-    "email": "{{ site.author.email }}"
+    "name": "{{ site.data.author.name }}",
+    "jobTitle": "{{ site.data.author.structured_data.job_title }}",
+    "email": "{{ site.data.contact.email }}"
   },
-  "sameAs": [
-    "https://github.com/{{ site.github_username }}",
-    "https://www.linkedin.com/in/{{ site.linkedin_username }}",
-    "https://x.com/{{ site.twitter_username }}"
-  ],
+  "sameAs": {{ site.data.contact.social_profiles | jsonify }},
   "areaServed": {
     "@type": "Country",
-    "name": "United States"
+    "name": "{{ site.data.author.location }}"
   },
-  "serviceType": [
-    "Infrastructure Automation",
-    "PowerShell Development",
-    "MSP Operations Consulting",
-    "AI Integration",
-    "Network Architecture"
-  ]
+  "serviceType": {{ site.data.author.expertise.core_services | jsonify }}
 }
 </script>
 

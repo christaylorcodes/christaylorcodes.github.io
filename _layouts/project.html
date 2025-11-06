@@ -60,8 +60,12 @@ layout: default
                                 {% if page.gallery_downloads %}
                                 <div class="project-stats">
                                     <span class="stat-item">
+                                        {% if page.title == "PSGallery Initializer" %}
+                                        🐔🥚
+                                        {% else %}
                                         <i class="fas fa-download"></i>
                                         {{ page.gallery_downloads | divided_by: 1000.0 | round: 1 }}K downloads
+                                        {% endif %}
                                     </span>
                                 </div>
                                 {% endif %}

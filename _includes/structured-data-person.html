@@ -3,55 +3,39 @@
 {
   "@context": "https://schema.org",
   "@type": "Person",
-  "name": "{{ site.author.name }}",
+  "name": "{{ site.data.author.name }}",
   "url": "{{ site.url }}",
-  "email": "{{ site.author.email }}",
+  "email": "{{ site.data.contact.email }}",
   "image": "{{ site.logo | absolute_url }}",
-  "jobTitle": "Network Operations Chief",
-  "description": "Network Operations Chief, vCTO, and Automation Engineer with 20+ years of experience specializing in infrastructure automation, AI integration, and building scalable multi-tenant solutions for MSP operations.",
+  "jobTitle": "{{ site.data.author.structured_data.job_title }}",
+  "description": "{{ site.data.author.structured_data.description }}",
   "worksFor": {
     "@type": "Organization",
-    "name": "i.t.NOW",
-    "description": "Global managed services provider"
+    "name": "{{ site.data.author.company }}",
+    "description": "{{ site.data.author.company_description }}"
   },
-  "knowsAbout": [
-    "PowerShell",
-    "Infrastructure Automation",
-    "Network Operations",
-    "MSP Operations",
-    "AI Integration",
-    "System Integration",
-    "ConnectWise",
-    "Azure",
-    "API Development",
-    "Multi-tenant Architecture"
-  ],
-  "sameAs": [
-    "https://github.com/{{ site.github_username }}",
-    "https://www.linkedin.com/in/{{ site.linkedin_username }}",
-    "https://x.com/{{ site.twitter_username }}",
-    "{{ site.url }}"
-  ],
+  "knowsAbout": {{ site.data.author.expertise.knows_about | jsonify }},
+  "sameAs": {{ site.data.contact.social_profiles | jsonify }},
   "mainEntityOfPage": {
     "@type": "WebPage",
     "@id": "{{ site.url }}{{ '/about' | relative_url }}"
   },
   "alumniOf": {
     "@type": "Organization",
-    "name": "EchoStar"
+    "name": "{{ site.data.author.alumni_of }}"
   },
   "hasOccupation": {
     "@type": "Occupation",
-    "name": "Network Operations Chief",
+    "name": "{{ site.data.author.structured_data.job_title }}",
     "occupationLocation": {
       "@type": "Country",
-      "name": "United States"
+      "name": "{{ site.data.author.location }}"
     },
-    "skills": "PowerShell, Infrastructure Automation, Network Architecture, AI Integration, MSP Operations, System Integration, API Development"
+    "skills": "{{ site.data.author.structured_data.occupation_skills }}"
   },
   "seeks": {
     "@type": "JobPosting",
-    "description": "Open to consulting opportunities in MSP automation, AI integration, and infrastructure architecture"
+    "description": "{{ site.data.author.structured_data.seeking }}"
   }
 }
 </script>

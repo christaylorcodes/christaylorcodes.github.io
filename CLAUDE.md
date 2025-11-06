@@ -19,6 +19,10 @@ This is a personal portfolio and blog website built with Jekyll and hosted on Gi
 ```
 Website/
 ├── _config.yml              # Jekyll configuration
+├── _data/                   # Centralized data files (YAML)
+│   ├── contact.yml         # Contact info and social media links
+│   ├── author.yml          # Professional identity and bio
+│   └── project-stats.yml   # GitHub stars and gallery downloads
 ├── _layouts/                # Page templates
 │   ├── default.html        # Main layout wrapper
 │   └── post.html           # Blog post layout
@@ -85,7 +89,185 @@ collections:
 - Theme follows Jekyll conventions with modular SCSS in `_sass/oceanic/`
 - Uses custom layouts in `_layouts/`
 - Collections are used for projects (data-driven)
+- **Data-driven architecture:** Content is centralized in `_data/` YAML files (see Data-Driven Architecture section)
 - No `.nojekyll` file should exist (Jekyll processing is required)
+
+## Data-Driven Architecture
+
+The site follows a **data-driven design principle** where content is separated from presentation. All frequently-updated or repeated information is centralized in YAML data files in the `_data/` directory.
+
+**For a complete quick reference guide, see:** [DATA-DRIVEN-ARCHITECTURE.md](DATA-DRIVEN-ARCHITECTURE.md)
+
+### Design Philosophy
+
+**Separation of Concerns:**
+- **Content** (what to display) lives in `_data/` YAML files
+- **Presentation** (how to display) lives in templates (`_layouts/`, `_includes/`)
+- **Styling** (visual appearance) lives in `_sass/` SCSS files
+
+**Benefits:**
+- **Single Source of Truth:** Update content once, affects all pages
+- **Maintainability:** No hunting through templates to update contact info or bio
+- **Consistency:** Guaranteed synchronization across all pages
+- **Scalability:** Easy to add new social platforms, update stats, or change roles
+- **Error Prevention:** No risk of forgetting to update one location
+
+### Centralized Data Files
+
+#### 1. Contact Information (`_data/contact.yml`)
+
+**Purpose:** Centralizes all contact information and social media profiles.
+
+**Contains:**
+- Primary email address and description
+- Social media links (GitHub, LinkedIn, Twitter/X)
+  - Username, URL, display name, icon, color style
+  - Descriptions for each platform
+  - Visibility flags (`show_in_footer`, `show_on_contact`)
+- Social profiles array for structured data (schema.org)
+
+**Used By:**
+- [_includes/footer.html](c:\_Code\Website\_includes\footer.html) - Social links in footer
+- [contact.html](c:\_Code\Website\contact.html) - Contact method cards
+- [_includes/structured-data-website.html](c:\_Code\Website\_includes\structured-data-website.html) - JSON-LD schema
+- [_includes/structured-data-person.html](c:\_Code\Website\_includes\structured-data-person.html) - JSON-LD schema
+
+**Example Usage:**
+```liquid
+{{ site.data.contact.email }}
+{{ site.data.contact.social_links.github.url }}
+```
+
+**To Add a New Social Platform:**
+Edit `_data/contact.yml` and add:
+```yaml
+mastodon:
+  username: christaylor
+  url: "https://mastodon.social/@christaylor"
+  display: "@christaylor"
+  icon: "fab fa-mastodon"
+  icon_style: "icon-purple"
+  description: "Updates and discussions"
+  show_in_footer: true
+  show_on_contact: true
+```
+Automatically appears in footer, contact page, and structured data.
+
+#### 2. Author/Professional Identity (`_data/author.yml`)
+
+**Purpose:** Centralizes all professional identity, biographical information, and expertise.
+
+**Contains:**
+- Basic identity (name, first/last name)
+- Professional titles and roles
+- Experience years and description
+- Company, location, personal interests
+- About page statistics (years, projects, posts, PowerShell lines)
+- Quick facts sidebar data
+- Biographical paragraphs
+- Expertise, skills, and services
+- Structured data fields for schema.org
+
+**Used By:**
+- [index.html](c:\_Code\Website\index.html) - Hero section (name, title, description)
+- [about.html](c:\_Code\Website\about.html) - Stats, quick facts, bio paragraphs
+- [_includes/structured-data-website.html](c:\_Code\Website\_includes\structured-data-website.html) - Author/founder info
+- [_includes/structured-data-person.html](c:\_Code\Website\_includes\structured-data-person.html) - Complete person schema
+
+**Example Usage:**
+```liquid
+{{ site.data.author.name }}
+{{ site.data.author.roles_short }}
+{{ site.data.author.experience_years }}
+```
+
+**To Update Annual Stats:**
+Edit `_data/author.yml`:
+```yaml
+experience_years: "21+"  # Update annually
+about_highlights:
+  - icon: fa-blog
+    number: "15+"  # Update quarterly
+    label: "Blog Posts"
+```
+
+#### 3. Project Statistics (`_data/project-stats.yml`)
+
+**Purpose:** Centralizes GitHub stars and PowerShell Gallery download counts for all projects.
+
+**Contains:**
+- GitHub star counts (per project)
+- PowerShell Gallery download counts (per project)
+- Last updated timestamp
+
+**Used By:**
+- [index.html](c:\_Code\Website\index.html) - Homepage podium (top 3 projects)
+- [projects.html](c:\_Code\Website\projects.html) - Project cards with stats
+- [_layouts/project.html](c:\_Code\Website\_layouts\project.html) - Individual project pages
+
+**Example Usage:**
+```liquid
+{% assign stats = site.data.project-stats[project_id] %}
+{{ stats.stars }} stars
+{{ stats.gallery_downloads }} downloads
+```
+
+**To Update Stats:**
+Run the sync script:
+```powershell
+.\sync-project-stats.ps1 -FetchGalleryStats
+```
+Or manually edit `_data/project-stats.yml`.
+
+### Data-Driven Updates: Common Scenarios
+
+**Change Email Address:**
+1. Edit `_data/contact.yml` → Change `email: ctaylor@christaylor.codes`
+2. Commit and push
+3. Affects: Footer, contact page, all structured data (5+ locations)
+
+**Update Job Title:**
+1. Edit `_data/author.yml` → Change `title:` and `structured_data.job_title:`
+2. Commit and push
+3. Affects: Homepage hero, about page, structured data (10+ locations)
+
+**Add New Social Platform:**
+1. Add platform to `_data/contact.yml` → `social_links:`
+2. Add URL to `social_profiles:` array
+3. Commit and push
+4. Automatically appears in footer, contact page, structured data
+
+**Update Blog Post Count:**
+1. Edit `_data/author.yml` → Find `about_highlights` → Update blog `number:`
+2. Commit and push
+3. Affects: About page statistics section
+
+**Change Company:**
+1. Edit `_data/author.yml` → Change `company:` and `company_description:`
+2. Commit and push
+3. Affects: About page quick facts, structured data
+
+### Best Practices
+
+**When to Use Data Files:**
+- Information appears in 2+ locations
+- Content updates frequently (stats, counts)
+- Adding/removing items from lists (social platforms, skills)
+- Professional information (name, title, company)
+- Contact information
+
+**When to Keep Content in Templates:**
+- Unique, page-specific content
+- Long-form prose (blog posts, project descriptions)
+- One-off sections with no reuse
+- Navigation structure (rarely changes)
+
+**Updating Guidelines:**
+1. **Always check data files first** before editing templates
+2. **Update once** in the data file, not in multiple templates
+3. **Verify changes** locally with `.\build.ps1` before committing
+4. **Document additions** with comments in YAML files
+5. **Test structured data** with Google's Rich Results Test after major changes
 
 ## Oceanic Theme Structure
 
@@ -266,6 +448,7 @@ order: 1
 - `powershell_gallery_url`: PowerShell Gallery link (if applicable)
 - `stars`: GitHub repository star count (used for homepage podium ranking)
 - `gallery_downloads`: PowerShell Gallery total download count (optional, displays on project cards and detail pages)
+  - **Special Case:** PSGallery Initializer displays 🐔🥚 (chicken and egg emojis) instead of download count as a playful reference to the circular dependency problem it solves
 - `order`: Display order (lower numbers appear first)
 
 **Short Description Guidelines:**

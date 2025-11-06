@@ -9,29 +9,19 @@
             <div class="footer-section">
                 <h3>Connect</h3>
                 <div class="social-links">
-                    {% if site.github_username %}
-                    <a href="https://github.com/{{ site.github_username }}" target="_blank" rel="noopener noreferrer" aria-label="GitHub">
-                        <i class="fab fa-github"></i>
-                    </a>
-                    {% endif %}
+                    {% for link_data in site.data.contact.social_links %}
+                        {% assign link_key = link_data[0] %}
+                        {% assign link = link_data[1] %}
+                        {% if link.show_in_footer %}
+                        <a href="{{ link.url }}" target="_blank" rel="noopener noreferrer" aria-label="{{ link_key | capitalize }}">
+                            <i class="{{ link.icon }}"></i>
+                        </a>
+                        {% endif %}
+                    {% endfor %}
 
-                    {% if site.linkedin_username %}
-                    <a href="https://linkedin.com/in/{{ site.linkedin_username }}" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">
-                        <i class="fab fa-linkedin"></i>
-                    </a>
-                    {% endif %}
-
-                    {% if site.twitter_username %}
-                    <a href="https://x.com/{{ site.twitter_username }}" target="_blank" rel="noopener noreferrer" aria-label="X (Twitter)">
-                        <i class="fab fa-x-twitter"></i>
-                    </a>
-                    {% endif %}
-
-                    {% if site.email %}
-                    <a href="mailto:{{ site.email }}" aria-label="Email">
+                    <a href="mailto:{{ site.data.contact.email }}" aria-label="Email">
                         <i class="fas fa-envelope"></i>
                     </a>
-                    {% endif %}
 
                     <a href="{{ '/feed.xml' | relative_url }}" target="_blank" rel="noopener noreferrer" aria-label="RSS Feed">
                         <i class="fas fa-rss"></i>

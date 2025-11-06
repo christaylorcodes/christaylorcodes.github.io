@@ -17,6 +17,6 @@ tags:
 github_url: "https://github.com/christaylorcodes/Initialize-PSGallery"
 powershell_gallery_url: "https://www.powershellgallery.com/packages/Initialize-PSGallery"
 stars: 21
-gallery_downloads: 0
+gallery_downloads: 1
 order: 30
 ---

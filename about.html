@@ -12,26 +12,13 @@ permalink: /about/
 
         <!-- Stats/Highlights Section -->
         <div class="about-highlights fade-in-up">
+            {% for highlight in site.data.author.about_highlights %}
             <div class="highlight-stat">
-                <i class="fas fa-calendar-alt"></i>
-                <div class="stat-number">20+</div>
-                <div class="stat-label">Years Experience</div>
+                <i class="fas {{ highlight.icon }}"></i>
+                <div class="stat-number">{{ highlight.number }}</div>
+                <div class="stat-label">{{ highlight.label }}</div>
             </div>
-            <div class="highlight-stat">
-                <i class="fas fa-code"></i>
-                <div class="stat-number">6</div>
-                <div class="stat-label">Open Source Projects</div>
-            </div>
-            <div class="highlight-stat">
-                <i class="fas fa-blog"></i>
-                <div class="stat-number">12+</div>
-                <div class="stat-label">Blog Posts</div>
-            </div>
-            <div class="highlight-stat">
-                <i class="fas fa-infinity"></i>
-                <div class="stat-number">∞</div>
-                <div class="stat-label">Lines of PowerShell</div>
-            </div>
+            {% endfor %}
         </div>
 
         <!-- Two-Column Layout -->
@@ -40,64 +27,36 @@ permalink: /about/
             <aside class="about-sidebar fade-in-up">
                 <div class="about-photo-card">
                     <img src="{{ '/assets/images/profile-photo.webp' | relative_url }}"
-                         alt="Chris Taylor - Network Operations Chief"
+                         alt="{{ site.data.author.name }} - {{ site.data.author.title }}"
                          loading="lazy"
                          width="400"
                          height="400">
                 </div>
                 <div class="about-quick-facts">
                     <h3><i class="fas fa-info-circle"></i> Quick Facts</h3>
+                    {% for fact in site.data.author.quick_facts %}
                     <div class="fact-item">
-                        <i class="fas fa-briefcase"></i>
+                        <i class="fas {{ fact.icon }}"></i>
                         <div>
-                            <strong>Role</strong>
-                            <p>Network Operations Chief</p>
+                            <strong>{{ fact.label }}</strong>
+                            <p>{{ fact.value }}</p>
                         </div>
                     </div>
-                    <div class="fact-item">
-                        <i class="fas fa-building"></i>
-                        <div>
-                            <strong>Company</strong>
-                            <p>i.t.NOW</p>
-                        </div>
-                    </div>
-                    <div class="fact-item">
-                        <i class="fas fa-map-marker-alt"></i>
-                        <div>
-                            <strong>Location</strong>
-                            <p>United States</p>
-                        </div>
-                    </div>
-                    <div class="fact-item">
-                        <i class="fas fa-mountain"></i>
-                        <div>
-                            <strong>Passion</strong>
-                            <p>Mountain Biking</p>
-                        </div>
-                    </div>
+                    {% endfor %}
                 </div>
             </aside>
 
             <!-- Main Content -->
             <div class="about-main-content fade-in-up">
                 <div class="about-content">
-                    <h2><i class="fas fa-user"></i> Hello! I'm Chris Taylor</h2>
+                    <h2><i class="fas fa-user"></i> Hello! I'm {{ site.data.author.name }}</h2>
 
                     <p>
-                        I'm a Network Operations Chief, vCTO, and Automation Engineer at i.t.NOW, a global
-                        managed services provider. With 20+ years of professional experience (since 2002),
-                        I specialize in infrastructure automation, AI integration, and building scalable
-                        multi-tenant solutions that power MSP operations across diverse industries.
+                        {{ site.data.author.bio.introduction }}
                     </p>
 
                     <p>
-                        My journey in technology began in elementary school, where I spent my time
-                        helping the school librarian troubleshoot and fix computer issues. That early
-                        spark of curiosity grew into a lifelong passion for understanding how systems
-                        work and finding better ways to make them run. I started my professional career
-                        in 2002 with EchoStar doing satellite communications, and over the past two decades,
-                        I've evolved into a leader who specializes in MSP operations, infrastructure
-                        automation, and AI-driven solutions.
+                        {{ site.data.author.bio.background }}
                     </p>
 
                     <p>

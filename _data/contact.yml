@@ -1,0 +1,50 @@
+# Contact Information and Social Media Links
+# Last Updated: 2025-11-05
+#
+# This file centralizes all contact information and social media profiles
+# used throughout the site. Update these values once to affect all pages.
+
+# Primary Email
+email: ctaylor@christaylor.codes
+email_description: "Best for technical discussions and collaboration inquiries"
+
+# Social Media Links
+# Each platform includes username, URL, display name, icon, color, and description
+social_links:
+  github:
+    username: christaylorcodes
+    url: "https://github.com/christaylorcodes"
+    display: "@christaylorcodes"
+    icon: "fab fa-github"
+    icon_style: "icon-amber"
+    description: "PowerShell modules for ConnectWise and MSP automation"
+    show_in_footer: true
+    show_on_contact: true
+
+  linkedin:
+    username: christaylorcodes
+    url: "https://linkedin.com/in/christaylorcodes"
+    display: "@christaylorcodes"
+    icon: "fab fa-linkedin"
+    icon_style: "icon-sky"
+    description: "Professional network and industry connections"
+    show_in_footer: true
+    show_on_contact: true
+
+  twitter:
+    username: christaylorAI
+    url: "https://x.com/christaylorAI"
+    display: "@christaylorAI"
+    icon: "fab fa-x-twitter"
+    icon_style: "icon-orange"
+    description: "AI integration insights and MSP automation updates"
+    show_in_footer: true
+    show_on_contact: true
+
+# Social profiles list for structured data (schema.org)
+# Used in JSON-LD structured data
+social_profiles:
+  - "https://github.com/christaylorcodes"
+  - "https://www.linkedin.com/in/christaylorcodes"
+  - "https://x.com/christaylorAI"
+  - "https://christaylor.codes"

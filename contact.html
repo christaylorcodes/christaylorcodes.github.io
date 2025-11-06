@@ -25,36 +25,24 @@ permalink: /contact/
                     <i class="fas fa-envelope"></i>
                 </div>
                 <h3>Email</h3>
-                <a href="mailto:ctaylor@christaylor.codes" class="contact-link">ctaylor@christaylor.codes</a>
-                <p class="contact-method-description">Best for technical discussions and collaboration inquiries</p>
+                <a href="mailto:{{ site.data.contact.email }}" class="contact-link">{{ site.data.contact.email }}</a>
+                <p class="contact-method-description">{{ site.data.contact.email_description }}</p>
             </div>
 
+            {% for link_data in site.data.contact.social_links %}
+                {% assign link_key = link_data[0] %}
+                {% assign link = link_data[1] %}
+                {% if link.show_on_contact %}
             <div class="contact-method-card">
-                <div class="feature-icon icon-amber">
-                    <i class="fab fa-github"></i>
+                <div class="feature-icon {{ link.icon_style }}">
+                    <i class="{{ link.icon }}"></i>
                 </div>
-                <h3>GitHub</h3>
-                <a href="https://github.com/christaylorcodes" target="_blank" rel="noopener noreferrer" class="contact-link">@christaylorcodes</a>
-                <p class="contact-method-description">PowerShell modules for ConnectWise and MSP automation</p>
+                <h3>{{ link_key | capitalize }}</h3>
+                <a href="{{ link.url }}" target="_blank" rel="noopener noreferrer" class="contact-link">{{ link.display }}</a>
+                <p class="contact-method-description">{{ link.description }}</p>
             </div>
-
-            <div class="contact-method-card">
-                <div class="feature-icon icon-sky">
-                    <i class="fab fa-linkedin"></i>
-                </div>
-                <h3>LinkedIn</h3>
-                <a href="https://linkedin.com/in/christaylorcodes" target="_blank" rel="noopener noreferrer" class="contact-link">@christaylorcodes</a>
-                <p class="contact-method-description">Professional network and industry connections</p>
-            </div>
-
-            <div class="contact-method-card">
-                <div class="feature-icon icon-orange">
-                    <i class="fab fa-x-twitter"></i>
-                </div>
-                <h3>X (Twitter)</h3>
-                <a href="https://x.com/christaylorAI" target="_blank" rel="noopener noreferrer" class="contact-link">@christaylorAI</a>
-                <p class="contact-method-description">AI integration insights and MSP automation updates</p>
-            </div>
+                {% endif %}
+            {% endfor %}
         </div>
     </div>
 </section>

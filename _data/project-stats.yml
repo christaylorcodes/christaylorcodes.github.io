@@ -29,7 +29,7 @@ connectwisemanageapi:
 # Initialize psgallery
 initialize-psgallery:
   stars: 21
-  gallery_downloads: 0
+  gallery_downloads: 1
 # Screeps kleaner bot
 screeps-kleaner-bot:
   stars: 13

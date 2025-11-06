@@ -50,7 +50,16 @@
       "Bash(rm:*)",
       "Bash(cat:*)",
       "Bash(git checkout:*)",
-      "Bash(rmdir:*)"
+      "Bash(rmdir:*)",
+      "Bash(git -C \"c:\\_Code\\Website\" status)",
+      "Bash(git -C \"c:\\_Code\\Website\" ls-tree -r HEAD --name-only)",
+      "Bash(git -C \"c:\\_Code\\Website\" pull)",
+      "Bash(git -C \"c:\\_Code\\Website\" add .github/workflows/deploy.yml .ruby-version)",
+      "Bash(git -C \"c:\\_Code\\Website\" commit -m \"Fix GitHub Actions build: add workflow with Ruby 3.3 and specify Ruby version\n\n- Create GitHub Actions workflow with Ruby 3.3 for compatibility with activesupport 8.1.1\n- Add .ruby-version file to ensure consistent Ruby version across environments\n- Include Jekyll build, GitHub Pages deployment, and Cloudflare cache purging\")",
+      "Bash(git -C \"c:\\_Code\\Website\" push origin main)",
+      "Bash(ls -la \"c:\\_Code\\Website\\_data\"\" 2>/dev/null || dir \"c:_CodeWebsite_data\"\")",
+      "Bash(git -C \"c:\\_Code\\Website\" diff --stat)",
+      "Bash(git -C \"c:\\_Code\\Website\" add DATA-DRIVEN-ARCHITECTURE.md _data/author.yml _data/contact.yml .claude/settings.local.json CLAUDE.md _data/project-stats.yml _includes/footer.html _includes/structured-data-person.html _includes/structured-data-website.html _layouts/project.html _projects/initialize-psgallery.md about.html contact.html index.html projects.html)"
     ],
     "deny": [],
     "ask": []
