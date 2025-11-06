@@ -12,46 +12,54 @@ title: Blog
 
         <!-- Filter Controls -->
         <div class="blog-filters">
-            <!-- Search Box -->
-            <div class="filter-group">
-                <label class="filter-label" for="blog-search-input">Search Posts:</label>
+            <!-- Search and Filter Toggle Row -->
+            <div class="filter-search-row">
                 <div class="blog-search-box">
+                    <i class="fas fa-search search-icon"></i>
                     <input
                         type="text"
                         id="blog-search-input"
-                        placeholder="Search by title, tags, or content..."
+                        placeholder="Search posts by title, tags, or content..."
                         aria-label="Search blog posts"
                     >
                     <button id="blog-search-clear" class="search-clear-btn" aria-label="Clear search" style="display: none;">
                         <i class="fas fa-times"></i>
                     </button>
                 </div>
+                <button id="advanced-filter-toggle" class="btn-advanced-toggle" aria-expanded="false">
+                    <i class="fas fa-sliders-h"></i>
+                    <span class="toggle-text">Filters</span>
+                    <i class="fas fa-chevron-down toggle-chevron"></i>
+                </button>
             </div>
 
-            <div class="filter-group">
-                <label class="filter-label">Filter by Category:</label>
-                <div class="filter-buttons">
-                    <button class="filter-btn active" data-filter="all">All</button>
-                    {% assign categories = site.categories | sort %}
-                    {% for category in categories limit:9 %}
-                    <button class="filter-btn" data-filter="{{ category[0] | slugify }}">
-                        {{ category[0] }} <span class="filter-count">{{ category[1].size }}</span>
-                    </button>
-                    {% endfor %}
-                    {% if categories.size > 9 %}
-                    <div class="filter-dropdown">
-                        <button class="filter-btn filter-dropdown-btn">
-                            More <i class="fas fa-chevron-down"></i>
+            <!-- Advanced Filters (Collapsible) -->
+            <div id="advanced-filters" class="filter-advanced-panel" style="display: none;">
+                <div class="filter-group">
+                    <label class="filter-label">Filter by Category:</label>
+                    <div class="filter-buttons">
+                        <button class="filter-btn active" data-filter="all">All</button>
+                        {% assign categories = site.categories | sort %}
+                        {% for category in categories limit:9 %}
+                        <button class="filter-btn" data-filter="{{ category[0] | slugify }}">
+                            {{ category[0] }} <span class="filter-count">{{ category[1].size }}</span>
                         </button>
-                        <div class="filter-dropdown-menu">
-                            {% for category in categories offset:9 %}
-                            <button class="filter-btn filter-dropdown-item" data-filter="{{ category[0] | slugify }}">
-                                {{ category[0] }} <span class="filter-count">{{ category[1].size }}</span>
+                        {% endfor %}
+                        {% if categories.size > 9 %}
+                        <div class="filter-dropdown">
+                            <button class="filter-btn filter-dropdown-btn">
+                                More <i class="fas fa-chevron-down"></i>
                             </button>
-                            {% endfor %}
+                            <div class="filter-dropdown-menu">
+                                {% for category in categories offset:9 %}
+                                <button class="filter-btn filter-dropdown-item" data-filter="{{ category[0] | slugify }}">
+                                    {{ category[0] }} <span class="filter-count">{{ category[1].size }}</span>
+                                </button>
+                                {% endfor %}
+                            </div>
                         </div>
+                        {% endif %}
                     </div>
-                    {% endif %}
                 </div>
             </div>
         </div>

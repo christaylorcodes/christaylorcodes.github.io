@@ -35,7 +35,11 @@ Use the PowerShell build script for streamlined development:
 
 # Clean build artifacts
 .\build.ps1 -Mode clean
-```
+`
+
+# Sync project stats (for GitHub Pages deployment)
+.\build.ps1 -Mode sync-stats
+`````
 
 The site will be available at `http://localhost:4000`
 
@@ -122,6 +126,30 @@ The contact form uses Formspree. To enable it:
 <form action="https://formspree.io/f/YOUR_FORM_ID" method="POST">
 ```
 
+
+## Managing Project Statistics
+
+This site uses a centralized system for managing GitHub stars and PowerShell Gallery download counts across all projects.
+
+### Updating Project Stats
+
+All project statistics are stored in `_data/project-stats.yml`. To update stats:
+
+```powershell
+# 1. Edit _data/project-stats.yml with new values
+
+# 2. Sync stats to project files for GitHub Pages
+.\build.ps1 -Mode sync-stats
+
+# 3. Commit and deploy
+git add .
+git commit -m "Update project stats"
+git push
+```
+
+**Why sync is needed:** GitHub Pages doesn't run custom Ruby plugins, so stats must be copied from the centralized YAML file to individual project front matter before deployment.
+
+**For more details:** See [PROJECT-STATS-README.md](PROJECT-STATS-README.md) for complete documentation.
 ## Deploying Changes
 
 ### Quick Deploy (Recommended)

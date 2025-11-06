@@ -5,7 +5,7 @@ layout: null
   {% for post in site.posts %}
     {
       "title": {{ post.title | jsonify }},
-      "excerpt": {{ post.excerpt | strip_html | strip_newlines | jsonify }},
+      "excerpt": {% if post.excerpt contains '<' %}{{ post.excerpt | jsonify }}{% else %}{{ post.excerpt | markdownify | jsonify }}{% endif %},
       "content": {{ post.content | strip_html | strip_newlines | jsonify }},
       "url": {{ post.url | relative_url | jsonify }},
       "date": {{ post.date | date: "%B %d, %Y" | jsonify }},
@@ -18,7 +18,7 @@ layout: null
   {% for project in site.projects %}
     {
       "title": {{ project.title | jsonify }},
-      "excerpt": {{ project.description | jsonify }},
+      "excerpt": {% if project.description contains '<' %}{{ project.description | jsonify }}{% else %}{{ project.description | markdownify | jsonify }}{% endif %},
       "content": {{ project.content | strip_html | strip_newlines | jsonify }},
       "url": "/projects/#{{ project.title | slugify }}",
       "tags": {{ project.tags | jsonify }},

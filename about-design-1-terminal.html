@@ -1,0 +1,476 @@
+---
+layout: default
+title: About - Design 1 (Terminal Resume)
+permalink: /about-design-1-terminal/
+---
+
+<!-- Design 1: Terminal Resume Layout
+     Concept: Modern resume-style layout with terminal code block breakout
+     Key Features:
+     - Single-column flow with side-anchored stats
+     - Terminal-style header with animated cursor
+     - Code block breaks out from right side of content card
+     - Quote callout with hover effect
+-->
+
+<style>
+/* Design 1: Terminal Resume Styles */
+.design1-about {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 3rem 1rem;
+}
+
+.design1-terminal-header {
+    background: linear-gradient(135deg, var(--bg-darker) 0%, var(--bg-light) 100%);
+    border-radius: 1rem;
+    padding: 3rem;
+    margin-bottom: 3rem;
+    border: 2px solid var(--primary-color);
+    box-shadow: var(--shadow-lg), 0 0 30px rgba(6, 182, 212, 0.2);
+    position: relative;
+    overflow: hidden;
+}
+
+.design1-terminal-header::before {
+    content: '>';
+    position: absolute;
+    top: 2rem;
+    left: 2rem;
+    font-size: 3rem;
+    color: var(--primary-color);
+    opacity: 0.3;
+    font-family: 'Courier New', monospace;
+}
+
+.design1-terminal-prompt {
+    font-family: 'Courier New', monospace;
+    color: var(--primary-light);
+    margin-bottom: 1rem;
+    font-size: 0.875rem;
+}
+
+.design1-name {
+    font-size: 3.5rem;
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+    color: var(--text-dark);
+    display: inline-block;
+}
+
+.design1-cursor {
+    display: inline-block;
+    width: 3px;
+    height: 3rem;
+    background-color: var(--primary-color);
+    animation: blink 1s infinite;
+    margin-left: 0.5rem;
+    vertical-align: middle;
+}
+
+@keyframes blink {
+    0%, 49% { opacity: 1; }
+    50%, 100% { opacity: 0; }
+}
+
+.design1-role {
+    font-size: 1.5rem;
+    color: var(--secondary-color);
+    margin-bottom: 1rem;
+}
+
+.design1-tagline {
+    color: var(--text-light);
+    font-size: 1.125rem;
+    max-width: 700px;
+}
+
+/* Stats Row */
+.design1-stats {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 1.5rem;
+    margin-bottom: 3rem;
+}
+
+.design1-stat-card {
+    background: var(--bg-light);
+    padding: 1.5rem;
+    border-radius: 0.75rem;
+    text-align: center;
+    border: 1px solid var(--border-color);
+    transition: all 0.3s ease;
+}
+
+.design1-stat-card:hover {
+    transform: translateY(-4px);
+    border-color: var(--primary-color);
+    box-shadow: 0 0 20px rgba(6, 182, 212, 0.3);
+}
+
+.design1-stat-number {
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: var(--primary-color);
+    display: block;
+    margin-bottom: 0.5rem;
+}
+
+.design1-stat-label {
+    font-size: 0.875rem;
+    color: var(--text-light);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+/* Main Content Area */
+.design1-content-wrapper {
+    display: grid;
+    grid-template-columns: 250px 1fr;
+    gap: 3rem;
+    align-items: start;
+}
+
+/* Photo Sidebar */
+.design1-photo-sidebar {
+    position: sticky;
+    top: 2rem;
+}
+
+.design1-photo-container {
+    background: var(--bg-light);
+    padding: 1.5rem;
+    border-radius: 1rem;
+    border: 2px solid var(--border-color);
+    margin-bottom: 1.5rem;
+}
+
+.design1-photo-container img {
+    width: 100%;
+    border-radius: 0.75rem;
+    display: block;
+    border: 3px solid var(--primary-color);
+}
+
+.design1-quick-links {
+    background: var(--bg-light);
+    padding: 1.5rem;
+    border-radius: 1rem;
+    border: 1px solid var(--border-color);
+}
+
+.design1-quick-links h3 {
+    font-size: 1rem;
+    color: var(--primary-color);
+    margin-bottom: 1rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+.design1-quick-links a {
+    display: block;
+    color: var(--text-light);
+    text-decoration: none;
+    padding: 0.5rem 0;
+    transition: all 0.2s ease;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.design1-quick-links a:last-child {
+    border-bottom: none;
+}
+
+.design1-quick-links a:hover {
+    color: var(--primary-color);
+    padding-left: 0.5rem;
+}
+
+/* Main Content Card - THIS IS WHERE BREAKOUT HAPPENS */
+.design1-main-content {
+    background: var(--bg-light);
+    padding: 3rem;
+    border-radius: 1rem;
+    border: 2px solid var(--border-color);
+    box-shadow: var(--shadow);
+    /* Important: This creates the boundary for breakout */
+    position: relative;
+    overflow: visible;
+}
+
+.design1-main-content h2 {
+    font-size: 2rem;
+    color: var(--primary-color);
+    margin-bottom: 1.5rem;
+    margin-top: 3rem;
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+}
+
+.design1-main-content h2:first-child {
+    margin-top: 0;
+}
+
+.design1-main-content h2 i {
+    font-size: 1.75rem;
+}
+
+.design1-main-content p {
+    color: var(--text-light);
+    line-height: 1.8;
+    margin-bottom: 1.5rem;
+}
+
+/* PowerShell syntax coloring in heading */
+.ps-cmdlet {
+    color: #06b6d4;
+    font-weight: 600;
+}
+
+.ps-topic {
+    color: #34d399;
+}
+
+.ps-parameter {
+    color: #f59e0b;
+}
+
+/* Quote Callout - Shifts right on hover */
+.design1-quote-link {
+    display: block;
+    text-decoration: none;
+    color: inherit;
+    margin: 3rem 0;
+    transition: transform 0.3s ease;
+}
+
+.design1-quote-link:hover {
+    transform: translateX(12px);
+}
+
+.design1-quote {
+    background: linear-gradient(90deg, rgba(6, 182, 212, 0.1) 0%, transparent 100%);
+    border-left: 4px solid var(--primary-color);
+    padding: 2rem 2rem 2rem 3rem;
+    margin: 0;
+    border-radius: 0 0.5rem 0.5rem 0;
+}
+
+.design1-quote-link:hover .design1-quote {
+    border-left-color: var(--primary-light);
+    background: linear-gradient(90deg, rgba(6, 182, 212, 0.2) 0%, transparent 100%);
+}
+
+.design1-quote-text {
+    font-size: 1.75rem;
+    font-style: italic;
+    font-weight: 300;
+    color: var(--text-dark);
+    margin: 0;
+    line-height: 1.6;
+}
+
+/* Code Block Breakout Effect - KEY FEATURE */
+.design1-help-file {
+    margin-top: 2rem;
+    background: var(--bg-darker);
+    border-radius: 1rem;
+    border: 2px solid var(--primary-color);
+    overflow: hidden;
+    box-shadow: var(--shadow-lg), 0 0 30px rgba(6, 182, 212, 0.2);
+
+    /* THIS IS THE BREAKOUT MAGIC */
+    /* Extends 300px beyond the card's right edge */
+    width: calc(100% + 300px);
+    max-width: 1400px;
+}
+
+.design1-help-file pre {
+    margin: 0;
+    padding: 2rem;
+    max-height: 600px;
+    overflow-y: auto;
+    overflow-x: visible;
+}
+
+.design1-help-file code {
+    font-family: 'Consolas', 'Monaco', 'Courier New', monospace;
+    font-size: 0.875rem;
+    line-height: 1.6;
+    color: var(--text-light);
+    white-space: pre;
+}
+
+/* Scrollbar styling */
+.design1-help-file pre::-webkit-scrollbar {
+    width: 10px;
+}
+
+.design1-help-file pre::-webkit-scrollbar-track {
+    background: var(--bg-light);
+    border-radius: 0.5rem;
+}
+
+.design1-help-file pre::-webkit-scrollbar-thumb {
+    background: var(--primary-color);
+    border-radius: 0.5rem;
+}
+
+/* Responsive */
+@media (max-width: 1024px) {
+    .design1-content-wrapper {
+        grid-template-columns: 1fr;
+    }
+
+    .design1-photo-sidebar {
+        position: relative;
+        top: 0;
+        display: grid;
+        grid-template-columns: 250px 1fr;
+        gap: 2rem;
+    }
+
+    .design1-help-file {
+        width: 100%;
+    }
+}
+
+@media (max-width: 768px) {
+    .design1-terminal-header {
+        padding: 2rem;
+    }
+
+    .design1-name {
+        font-size: 2.5rem;
+    }
+
+    .design1-cursor {
+        height: 2rem;
+    }
+
+    .design1-photo-sidebar {
+        grid-template-columns: 1fr;
+    }
+
+    .design1-main-content {
+        padding: 2rem;
+    }
+
+    .design1-stats {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+</style>
+
+<section class="design1-about">
+    <!-- Terminal-Style Header -->
+    <div class="design1-terminal-header">
+        <div class="design1-terminal-prompt">C:\Users\ChrisTaylor></div>
+        <h1 class="design1-name">Chris Taylor<span class="design1-cursor"></span></h1>
+        <div class="design1-role">Network Operations Chief | vCTO | Automation Engineer</div>
+        <p class="design1-tagline">
+            Building scalable multi-tenant solutions and AI-driven automation for MSP operations
+        </p>
+    </div>
+
+    <!-- Stats Row -->
+    <div class="design1-stats">
+        <div class="design1-stat-card">
+            <span class="design1-stat-number">20+</span>
+            <span class="design1-stat-label">Years Experience</span>
+        </div>
+        <div class="design1-stat-card">
+            <span class="design1-stat-number">6</span>
+            <span class="design1-stat-label">Open Source Projects</span>
+        </div>
+        <div class="design1-stat-card">
+            <span class="design1-stat-number">12+</span>
+            <span class="design1-stat-label">Blog Posts</span>
+        </div>
+        <div class="design1-stat-card">
+            <span class="design1-stat-number">∞</span>
+            <span class="design1-stat-label">Lines of PowerShell</span>
+        </div>
+    </div>
+
+    <!-- Main Content Area -->
+    <div class="design1-content-wrapper">
+        <!-- Photo Sidebar -->
+        <aside class="design1-photo-sidebar">
+            <div class="design1-photo-container">
+                <img src="https://ui-avatars.com/api/?name=Chris+Taylor&size=250&background=06b6d4&color=fff&bold=true&font-size=0.4"
+                     alt="Chris Taylor - Placeholder"
+                     width="250"
+                     height="250">
+            </div>
+            <div class="design1-quick-links">
+                <h3>Quick Links</h3>
+                <a href="/projects/"><i class="fas fa-code"></i> Projects</a>
+                <a href="/blog/"><i class="fas fa-blog"></i> Blog</a>
+                <a href="/contact/"><i class="fas fa-envelope"></i> Contact</a>
+                <a href="https://github.com/christaylorcodes"><i class="fab fa-github"></i> GitHub</a>
+            </div>
+        </aside>
+
+        <!-- Main Content Card - Contains breakout element -->
+        <div class="design1-main-content">
+            <h2><i class="fas fa-user"></i> About Me</h2>
+
+            <p>
+                I'm a Network Operations Chief, vCTO, and Automation Engineer at i.t.NOW, a global
+                managed services provider. With 20+ years of professional experience (since 2002),
+                I specialize in infrastructure automation, AI integration, and building scalable
+                multi-tenant solutions that power MSP operations across diverse industries.
+            </p>
+
+            <p>
+                My journey in technology began in elementary school, where I spent my time
+                helping the school librarian troubleshoot and fix computer issues. That early
+                spark of curiosity grew into a lifelong passion for understanding how systems
+                work and finding better ways to make them run. I started my professional career
+                in 2002 with EchoStar doing satellite communications, and over the past two decades,
+                I've evolved into a leader who specializes in MSP operations, infrastructure
+                automation, and AI-driven solutions.
+            </p>
+
+            <p>
+                What drives me is the challenge of creating creative solutions to resolve complex
+                problems. Whether it's automating repetitive tasks with PowerShell, designing
+                efficient network architectures, or integrating disparate systems through APIs,
+                I thrive on finding elegant solutions that make a real impact. I believe in the
+                power of automation to free people from mundane tasks and enable them to focus
+                on more meaningful work.
+            </p>
+
+            <!-- Quote Callout -->
+            <a href="/ai/commentary/2025/11/03/calculating-ai-doom-odds-formula.html" class="design1-quote-link">
+                <blockquote class="design1-quote">
+                    <p class="design1-quote-text">
+                        9 to 1 odds AI wins
+                    </p>
+                </blockquote>
+            </a>
+
+            <p>
+                When I'm not architecting solutions or optimizing workflows, you'll find me out
+                on the trails mountain biking. There's something about the combination of
+                technical skill, physical challenge, and connection with nature that keeps me
+                balanced and recharged. Just like in technology, mountain biking requires
+                problem-solving, adaptability, and the willingness to tackle tough terrain.
+            </p>
+
+            <!-- PowerShell Help File Section -->
+            <h2>
+                <i class="fas fa-terminal"></i>
+                <span class="ps-cmdlet">Get-Help</span>
+                <span class="ps-topic">'Chris Taylor'</span>
+                <span class="ps-parameter">-Full</span>
+            </h2>
+
+            <!-- Code Block with Breakout Effect -->
+            <div class="design1-help-file">
+                <pre><code>{% include_relative assets/downloads/ChrisTaylor.help.txt %}</code></pre>
+            </div>
+        </div>
+    </div>
+</section>

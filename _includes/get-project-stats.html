@@ -1,0 +1,32 @@
+{% comment %}
+  Get Project Stats
+
+  Retrieves stars and downloads for a project from _data/project-stats.yml
+
+  Usage:
+    {% assign project_id = "connectwisemanageapi" %}
+    {% include get-project-stats.html %}
+    Now use: {{ project_stars }} and {{ project_downloads }}
+
+  Or with auto-detection from page:
+    {% include get-project-stats.html %}
+    Uses page.id to determine project_id automatically
+
+{% endcomment %}
+
+{% comment %} Extract project ID from page if not provided {% endcomment %}
+{% unless project_id %}
+  {% assign project_id = page.id | remove: '/projects/' | remove: '.md' %}
+{% endunless %}
+
+{% comment %} Look up stats {% endcomment %}
+{% assign stats = site.data.project-stats[project_id] %}
+
+{% comment %} Set variables with defaults {% endcomment %}
+{% if stats %}
+  {% assign project_stars = stats.stars %}
+  {% assign project_downloads = stats.gallery_downloads %}
+{% else %}
+  {% assign project_stars = 0 %}
+  {% assign project_downloads = 0 %}
+{% endif %}

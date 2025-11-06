@@ -16,7 +16,7 @@ tags:
   - DevOps
 github_url: "https://github.com/christaylorcodes/Initialize-PSGallery"
 powershell_gallery_url: "https://www.powershellgallery.com/packages/Initialize-PSGallery"
-stars: 18
-gallery_downloads: 5200
+stars: 21
+gallery_downloads: 0
 order: 30
 ---

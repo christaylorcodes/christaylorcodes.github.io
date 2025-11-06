@@ -1,0 +1,529 @@
+---
+layout: default
+title: About - Design 4 (Dashboard Style)
+permalink: /about-design-4-split/
+---
+
+<!-- Design 4: Dashboard/Panel Style
+     Concept: Organized panel layout with sectioned information
+     Key Features:
+     - Horizontal stats cards
+     - Main content in central panel with side information
+     - Code block breaks out from panel boundary
+     - Quote with accent bar and hover animation
+-->
+
+<style>
+/* Design 4: Dashboard Style */
+.design4-about {
+    max-width: 1600px;
+    margin: 0 auto;
+    padding: 2rem 1rem;
+}
+
+/* Header Bar */
+.design4-header {
+    background: linear-gradient(90deg, var(--bg-darker) 0%, var(--bg-light) 100%);
+    padding: 2.5rem 3rem;
+    border-radius: 1rem;
+    margin-bottom: 2rem;
+    border: 2px solid var(--primary-color);
+    box-shadow: var(--shadow-lg);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 3rem;
+}
+
+.design4-header-info {
+    flex: 1;
+}
+
+.design4-header-name {
+    font-size: 3rem;
+    font-weight: 700;
+    color: var(--text-dark);
+    margin-bottom: 0.5rem;
+}
+
+.design4-header-role {
+    font-size: 1.25rem;
+    color: var(--primary-color);
+    margin-bottom: 1rem;
+    font-weight: 600;
+}
+
+.design4-header-tagline {
+    font-size: 1rem;
+    color: var(--text-light);
+    max-width: 600px;
+    line-height: 1.6;
+}
+
+.design4-header-photo {
+    width: 150px;
+    height: 150px;
+    border-radius: 1rem;
+    border: 3px solid var(--primary-color);
+    object-fit: cover;
+    box-shadow: 0 0 20px rgba(6, 182, 212, 0.4);
+}
+
+/* Stats Grid */
+.design4-stats-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1.5rem;
+    margin-bottom: 2rem;
+}
+
+.design4-stat-panel {
+    background: var(--bg-light);
+    padding: 2rem;
+    border-radius: 0.75rem;
+    border: 2px solid var(--border-color);
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+    transition: all 0.3s ease;
+}
+
+.design4-stat-panel::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 4px;
+    background: linear-gradient(90deg, var(--primary-color), var(--primary-light));
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.3s ease;
+}
+
+.design4-stat-panel:hover::before {
+    transform: scaleX(1);
+}
+
+.design4-stat-panel:hover {
+    transform: translateY(-4px);
+    border-color: var(--primary-color);
+    box-shadow: 0 8px 20px rgba(6, 182, 212, 0.2);
+}
+
+.design4-stat-icon {
+    font-size: 2rem;
+    color: var(--primary-color);
+    margin-bottom: 1rem;
+}
+
+.design4-stat-value {
+    display: block;
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: var(--text-dark);
+    margin-bottom: 0.5rem;
+}
+
+.design4-stat-text {
+    font-size: 0.875rem;
+    color: var(--text-light);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+/* Main Layout */
+.design4-main-layout {
+    display: grid;
+    grid-template-columns: 250px 1fr 250px;
+    gap: 2rem;
+    align-items: start;
+}
+
+/* Side Panels */
+.design4-side-panel {
+    background: var(--bg-light);
+    padding: 2rem 1.5rem;
+    border-radius: 1rem;
+    border: 2px solid var(--border-color);
+    position: sticky;
+    top: 2rem;
+}
+
+.design4-side-panel h3 {
+    font-size: 1rem;
+    color: var(--primary-color);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin-bottom: 1.5rem;
+    padding-bottom: 0.75rem;
+    border-bottom: 2px solid var(--border-color);
+}
+
+.design4-nav-item {
+    display: block;
+    padding: 0.75rem 1rem;
+    margin-bottom: 0.5rem;
+    color: var(--text-light);
+    text-decoration: none;
+    border-radius: 0.5rem;
+    transition: all 0.2s ease;
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+}
+
+.design4-nav-item:hover {
+    background: rgba(6, 182, 212, 0.1);
+    color: var(--primary-color);
+    padding-left: 1.5rem;
+}
+
+.design4-info-item {
+    margin-bottom: 1.5rem;
+    padding-bottom: 1.5rem;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.design4-info-item:last-child {
+    margin-bottom: 0;
+    padding-bottom: 0;
+    border-bottom: none;
+}
+
+.design4-info-label {
+    font-size: 0.75rem;
+    color: var(--text-light);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin-bottom: 0.5rem;
+}
+
+.design4-info-value {
+    color: var(--text-dark);
+    font-weight: 600;
+    font-size: 0.9375rem;
+}
+
+/* Center Content Panel */
+.design4-content-panel {
+    background: var(--bg-light);
+    padding: 3rem;
+    border-radius: 1rem;
+    border: 2px solid var(--border-color);
+    box-shadow: var(--shadow);
+    position: relative;
+    overflow: visible;
+}
+
+.design4-content-panel h2 {
+    font-size: 2rem;
+    color: var(--primary-color);
+    margin: 2.5rem 0 1.5rem 0;
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+}
+
+.design4-content-panel h2:first-child {
+    margin-top: 0;
+}
+
+.design4-content-panel p {
+    color: var(--text-light);
+    line-height: 1.8;
+    margin-bottom: 1.5rem;
+}
+
+/* PowerShell syntax */
+.ps-cmdlet { color: #06b6d4; font-weight: 600; }
+.ps-topic { color: #34d399; }
+.ps-parameter { color: #f59e0b; }
+
+/* Quote Callout */
+.design4-quote-link {
+    display: block;
+    text-decoration: none;
+    margin: 3rem 0;
+    transition: transform 0.3s ease;
+}
+
+.design4-quote-link:hover {
+    transform: translateX(10px);
+}
+
+.design4-quote {
+    background: var(--bg-darker);
+    border-left: 4px solid var(--primary-color);
+    padding: 2rem 2rem 2rem 2.5rem;
+    margin: 0;
+    border-radius: 0 0.75rem 0.75rem 0;
+    position: relative;
+    box-shadow: var(--shadow);
+}
+
+.design4-quote::after {
+    content: '';
+    position: absolute;
+    right: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 4px;
+    height: 60%;
+    background: var(--primary-color);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.design4-quote-link:hover .design4-quote::after {
+    opacity: 1;
+}
+
+.design4-quote-link:hover .design4-quote {
+    border-left-color: var(--primary-light);
+}
+
+.design4-quote-text {
+    font-size: 1.625rem;
+    font-style: italic;
+    font-weight: 300;
+    color: var(--text-dark);
+    margin: 0;
+    line-height: 1.6;
+}
+
+/* Code Block Breakout */
+.design4-help-file {
+    margin-top: 2rem;
+    background: var(--bg-darker);
+    border-radius: 1rem;
+    border: 2px solid var(--primary-color);
+    overflow: hidden;
+    box-shadow: var(--shadow-lg), 0 0 30px rgba(6, 182, 212, 0.25);
+
+    /* Breakout effect */
+    width: calc(100% + 300px);
+    max-width: 1200px;
+}
+
+.design4-help-file pre {
+    margin: 0;
+    padding: 2rem;
+    max-height: 600px;
+    overflow-y: auto;
+    overflow-x: visible;
+}
+
+.design4-help-file code {
+    font-family: 'Consolas', 'Monaco', 'Courier New', monospace;
+    font-size: 0.875rem;
+    line-height: 1.6;
+    color: var(--text-light);
+    white-space: pre;
+}
+
+/* Scrollbar */
+.design4-help-file pre::-webkit-scrollbar {
+    width: 10px;
+}
+
+.design4-help-file pre::-webkit-scrollbar-track {
+    background: var(--bg-light);
+    border-radius: 0.5rem;
+}
+
+.design4-help-file pre::-webkit-scrollbar-thumb {
+    background: var(--primary-color);
+    border-radius: 0.5rem;
+}
+
+/* Responsive */
+@media (max-width: 1200px) {
+    .design4-main-layout {
+        grid-template-columns: 1fr;
+    }
+
+    .design4-side-panel {
+        position: relative;
+        top: 0;
+    }
+
+    .design4-help-file {
+        width: 100%;
+    }
+}
+
+@media (max-width: 768px) {
+    .design4-header {
+        flex-direction: column;
+        text-align: center;
+        padding: 2rem;
+    }
+
+    .design4-header-tagline {
+        max-width: 100%;
+    }
+
+    .design4-stats-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .design4-content-panel {
+        padding: 2rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .design4-stats-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .design4-header-name {
+        font-size: 2rem;
+    }
+}
+</style>
+
+<section class="design4-about">
+    <!-- Header Bar -->
+    <div class="design4-header">
+        <div class="design4-header-info">
+            <h1 class="design4-header-name">Chris Taylor</h1>
+            <div class="design4-header-role">
+                Network Operations Chief | vCTO | Automation Engineer
+            </div>
+            <p class="design4-header-tagline">
+                Building scalable multi-tenant solutions and AI-driven automation
+                for MSP operations across diverse industries
+            </p>
+        </div>
+        <img src="https://ui-avatars.com/api/?name=Chris+Taylor&size=150&background=06b6d4&color=fff&bold=true&font-size=0.4"
+             alt="Chris Taylor - Placeholder"
+             class="design4-header-photo"
+             width="150"
+             height="150">
+    </div>
+
+    <!-- Stats Grid -->
+    <div class="design4-stats-grid">
+        <div class="design4-stat-panel">
+            <div class="design4-stat-icon"><i class="fas fa-calendar-alt"></i></div>
+            <span class="design4-stat-value">20+</span>
+            <span class="design4-stat-text">Years Experience</span>
+        </div>
+        <div class="design4-stat-panel">
+            <div class="design4-stat-icon"><i class="fas fa-code"></i></div>
+            <span class="design4-stat-value">6</span>
+            <span class="design4-stat-text">Open Source Projects</span>
+        </div>
+        <div class="design4-stat-panel">
+            <div class="design4-stat-icon"><i class="fas fa-blog"></i></div>
+            <span class="design4-stat-value">12+</span>
+            <span class="design4-stat-text">Blog Posts</span>
+        </div>
+        <div class="design4-stat-panel">
+            <div class="design4-stat-icon"><i class="fas fa-infinity"></i></div>
+            <span class="design4-stat-value">∞</span>
+            <span class="design4-stat-text">Lines of PowerShell</span>
+        </div>
+    </div>
+
+    <!-- Main Layout with Sidebars -->
+    <div class="design4-main-layout">
+        <!-- Left Sidebar -->
+        <aside class="design4-side-panel">
+            <h3>Navigation</h3>
+            <a href="/projects/" class="design4-nav-item">
+                <i class="fas fa-code"></i> Projects
+            </a>
+            <a href="/blog/" class="design4-nav-item">
+                <i class="fas fa-blog"></i> Blog
+            </a>
+            <a href="/contact/" class="design4-nav-item">
+                <i class="fas fa-envelope"></i> Contact
+            </a>
+            <a href="https://github.com/christaylorcodes" class="design4-nav-item">
+                <i class="fab fa-github"></i> GitHub
+            </a>
+        </aside>
+
+        <!-- Center Content Panel -->
+        <main class="design4-content-panel">
+            <h2><i class="fas fa-user"></i> About Me</h2>
+
+            <p>
+                I'm a Network Operations Chief, vCTO, and Automation Engineer at i.t.NOW, a global
+                managed services provider. With 20+ years of professional experience (since 2002),
+                I specialize in infrastructure automation, AI integration, and building scalable
+                multi-tenant solutions that power MSP operations across diverse industries.
+            </p>
+
+            <p>
+                My journey in technology began in elementary school, where I spent my time
+                helping the school librarian troubleshoot and fix computer issues. That early
+                spark of curiosity grew into a lifelong passion for understanding how systems
+                work and finding better ways to make them run. I started my professional career
+                in 2002 with EchoStar doing satellite communications, and over the past two decades,
+                I've evolved into a leader who specializes in MSP operations, infrastructure
+                automation, and AI-driven solutions.
+            </p>
+
+            <p>
+                What drives me is the challenge of creating creative solutions to resolve complex
+                problems. Whether it's automating repetitive tasks with PowerShell, designing
+                efficient network architectures, or integrating disparate systems through APIs,
+                I thrive on finding elegant solutions that make a real impact. I believe in the
+                power of automation to free people from mundane tasks and enable them to focus
+                on more meaningful work.
+            </p>
+
+            <a href="/ai/commentary/2025/11/03/calculating-ai-doom-odds-formula.html" class="design4-quote-link">
+                <blockquote class="design4-quote">
+                    <p class="design4-quote-text">
+                        9 to 1 odds AI wins
+                    </p>
+                </blockquote>
+            </a>
+
+            <p>
+                When I'm not architecting solutions or optimizing workflows, you'll find me out
+                on the trails mountain biking. There's something about the combination of
+                technical skill, physical challenge, and connection with nature that keeps me
+                balanced and recharged. Just like in technology, mountain biking requires
+                problem-solving, adaptability, and the willingness to tackle tough terrain.
+            </p>
+
+            <h2>
+                <i class="fas fa-terminal"></i>
+                <span class="ps-cmdlet">Get-Help</span>
+                <span class="ps-topic">'Chris Taylor'</span>
+                <span class="ps-parameter">-Full</span>
+            </h2>
+
+            <div class="design4-help-file">
+                <pre><code>{% include_relative assets/downloads/ChrisTaylor.help.txt %}</code></pre>
+            </div>
+        </main>
+
+        <!-- Right Sidebar -->
+        <aside class="design4-side-panel">
+            <h3>Quick Facts</h3>
+            <div class="design4-info-item">
+                <div class="design4-info-label">Role</div>
+                <div class="design4-info-value">Network Operations Chief</div>
+            </div>
+            <div class="design4-info-item">
+                <div class="design4-info-label">Company</div>
+                <div class="design4-info-value">i.t.NOW</div>
+            </div>
+            <div class="design4-info-item">
+                <div class="design4-info-label">Location</div>
+                <div class="design4-info-value">United States</div>
+            </div>
+            <div class="design4-info-item">
+                <div class="design4-info-label">Passion</div>
+                <div class="design4-info-value">Mountain Biking</div>
+            </div>
+        </aside>
+    </div>
+</section>

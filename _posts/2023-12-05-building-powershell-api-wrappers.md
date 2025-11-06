@@ -2,7 +2,7 @@
 layout: post
 title: "Building PowerShell API Wrappers: Lessons from ConnectWiseControlAPI"
 short_title: "Building PowerShell API Wrappers"
-date: 2024-10-28 10:00:00 -0000
+date: 2023-12-05 10:00:00 -0000
 categories: [PowerShell, Development, ConnectWiseControlAPI]
 tags: [PowerShell, API, Module Development, Best Practices, Lessons Learned, Software Engineering]
 author: Chris Taylor

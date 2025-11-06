@@ -1,0 +1,37 @@
+{% comment %}
+  Project Statistics Include
+
+  This include file retrieves centralized project statistics from _data/project-stats.yml
+  and makes them available as variables for use in templates.
+
+  Usage:
+    {% include project-stats.html project=project %}
+
+  After including, you can access:
+    {{ project_stars }}
+    {{ project_downloads }}
+
+  Parameters:
+    - project: The project object (required)
+{% endcomment %}
+
+{% comment %} Extract project ID from the project's file name or category {% endcomment %}
+{% assign project_id = include.project.id | remove: '/projects/' | remove: '.md' %}
+
+{% comment %} Try to find stats by matching the project filename {% endcomment %}
+{% assign project_stats = site.data.project-stats[project_id] %}
+
+{% comment %} If not found, try matching by title (lowercase, hyphenated) {% endcomment %}
+{% unless project_stats %}
+  {% assign normalized_title = include.project.title | downcase | replace: ' ', '-' | replace: '.', '' %}
+  {% assign project_stats = site.data.project-stats[normalized_title] %}
+{% endunless %}
+
+{% comment %} Set output variables {% endcomment %}
+{% if project_stats %}
+  {% assign project_stars = project_stats.stars %}
+  {% assign project_downloads = project_stats.gallery_downloads %}
+{% else %}
+  {% assign project_stars = 0 %}
+  {% assign project_downloads = 0 %}
+{% endif %}

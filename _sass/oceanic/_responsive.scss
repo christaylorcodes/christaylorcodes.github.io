@@ -133,6 +133,17 @@
         font-size: 1.5rem;
     }
 
+    /* Blog Filters Responsive */
+    .filter-search-row {
+        flex-direction: column;
+        gap: 0.75rem;
+    }
+
+    .btn-advanced-toggle {
+        width: 100%;
+        justify-content: center;
+    }
+
     /* About page responsive */
     .quote-text {
         font-size: 1.25rem;

@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "10 Real-World Use Cases for ConnectWiseAutomateAgent"
-date: 2024-11-22 09:00:00 -0500
+date: 2024-03-11 10:00:00 -0000
 categories: [PowerShell, Automation]
 tags: [PowerShell, ConnectWise, Automate, RMM, Use Cases, Automation, MSP]
 author: Chris Taylor

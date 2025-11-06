@@ -2,7 +2,7 @@
 layout: post
 title: "Getting Started with ConnectWiseControlAPI: A Step-by-Step Guide"
 short_title: "Getting Started with ConnectWiseControlAPI"
-date: 2024-10-14 10:00:00 -0000
+date: 2023-03-22 10:00:00 -0000
 categories: [PowerShell, MSP, ConnectWiseControlAPI]
 tags: [PowerShell, ConnectWise, Control, Tutorial, MSP, Automation, Getting Started]
 author: Chris Taylor

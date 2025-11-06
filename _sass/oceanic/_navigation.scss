@@ -128,3 +128,88 @@
 .hamburger::after {
     bottom: -8px;                   /* Bottom line of hamburger */
 }
+
+/* Navigation Search:
+   Search icon that expands into search field on hover
+   Uses smooth width transition for elegant reveal effect */
+.nav-search-container {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.nav-search-icon {
+    background: none;
+    border: none;
+    color: var(--text-dark);
+    font-size: 1.125rem;
+    cursor: pointer;
+    padding: 0.5rem;
+    transition: color 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.nav-search-icon:hover {
+    color: var(--primary-color);
+}
+
+.nav-search-field {
+    position: absolute;
+    right: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    display: flex;
+    align-items: center;
+    width: 0;
+    opacity: 0;
+    overflow: hidden;
+    transition: width 0.3s ease, opacity 0.3s ease;
+    background-color: var(--bg-light);
+    border-radius: 2rem;
+    border: 1px solid var(--border-color);
+}
+
+.nav-search-container:hover .nav-search-field,
+.nav-search-field:focus-within {
+    width: 250px;
+    opacity: 1;
+    padding-right: 0.5rem;
+}
+
+.nav-search-container:hover .nav-search-icon,
+.nav-search-field:focus-within ~ .nav-search-icon {
+    opacity: 0;
+    pointer-events: none;
+}
+
+#nav-search-input {
+    flex: 1;
+    background: transparent;
+    border: none;
+    color: var(--text-dark);
+    padding: 0.5rem 1rem;
+    outline: none;
+    font-size: 0.875rem;
+}
+
+#nav-search-input::placeholder {
+    color: var(--text-light);
+}
+
+.nav-search-submit {
+    background: none;
+    border: none;
+    color: var(--primary-color);
+    cursor: pointer;
+    padding: 0.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: color 0.3s ease;
+}
+
+.nav-search-submit:hover {
+    color: var(--primary-light);
+}

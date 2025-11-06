@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "Best Practices and Tips for ConnectWiseManageAPI"
-date: 2024-12-16 09:00:00 -0500
+date: 2024-10-07 10:00:00 -0000
 categories: [PowerShell, PSA, ConnectWiseManageAPI]
 tags: [PowerShell, ConnectWise, Manage, PSA, Best-Practices, Security, Performance, MSP]
 author: Chris Taylor

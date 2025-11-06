@@ -1,0 +1,62 @@
+{% comment %}
+  Enrich Projects with Stats
+
+  This include enriches all projects with their statistics from _data/project-stats.yml
+  and creates a sorted array of projects with stats included.
+
+  After including this file, you'll have access to:
+    - enriched_projects: Array of all projects with .stars and .gallery_downloads added
+    - sorted_projects: enriched_projects sorted by stars (descending)
+
+  The enriched project objects will have all original properties plus:
+    - stars: GitHub star count
+    - gallery_downloads: PowerShell Gallery download count
+{% endcomment %}
+
+{% comment %} Create array to hold enriched projects {% endcomment %}
+{% assign enriched_projects = "" | split: "" %}
+
+{% comment %} Loop through all projects and enrich them {% endcomment %}
+{% for project in site.projects %}
+  {% comment %} Extract project ID from the project filename {% endcomment %}
+  {% assign project_id = project.id | remove: '/projects/' | remove: '.md' %}
+
+  {% comment %} Look up stats from data file {% endcomment %}
+  {% assign project_stats = site.data.project-stats[project_id] %}
+
+  {% comment %} If stats found, add them to a temporary hash {% endcomment %}
+  {% if project_stats %}
+    {% assign stars = project_stats.stars %}
+    {% assign downloads = project_stats.gallery_downloads %}
+  {% else %}
+    {% assign stars = 0 %}
+    {% assign downloads = 0 %}
+  {% endif %}
+
+  {% comment %} Create enriched project object (Liquid limitation: can't modify existing objects) {% endcomment %}
+  {% comment %} Store in array with format: project object + "|" + stars + "|" + downloads {% endcomment %}
+  {% assign enriched_project = project | append: "|STATS|" | append: stars | append: "|" | append: downloads %}
+  {% assign enriched_projects = enriched_projects | push: enriched_project %}
+{% endfor %}
+
+{% comment %} For sorting, we need to create an array of [stars, project] pairs {% endcomment %}
+{% assign sortable_projects = "" | split: "" %}
+{% for item in enriched_projects %}
+  {% assign parts = item | split: "|STATS|" %}
+  {% assign stats_parts = parts[1] | split: "|" %}
+  {% assign stars = stats_parts[0] | plus: 0 %}
+  {% assign padded_stars = stars | prepend: "00000" | slice: -5, 5 %}
+  {% assign sortable_item = padded_stars | append: "|" | append: item %}
+  {% assign sortable_projects = sortable_projects | push: sortable_item %}
+{% endfor %}
+
+{% comment %} Sort by the padded stars (first part) {% endcomment %}
+{% assign sorted_items = sortable_projects | sort | reverse %}
+
+{% comment %} Extract just the project data (remove sorting prefix) {% endcomment %}
+{% assign sorted_enriched_projects = "" | split: "" %}
+{% for item in sorted_items %}
+  {% assign parts = item | split: "|" | shift %}
+  {% assign rejoined = parts | join: "|" %}
+  {% assign sorted_enriched_projects = sorted_enriched_projects | push: rejoined %}
+{% endfor %}

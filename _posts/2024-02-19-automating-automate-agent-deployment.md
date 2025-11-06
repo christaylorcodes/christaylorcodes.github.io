@@ -2,7 +2,7 @@
 layout: post
 title: "Automating ConnectWise Automate Agent Management Through Control"
 short_title: "Agent Management Through Control"
-date: 2024-11-04 10:00:00 -0000
+date: 2024-02-19 10:00:00 -0000
 categories: [PowerShell, MSP, ConnectWiseControlAPI]
 tags: [PowerShell, ConnectWise, Control, Automate, MSP, Integration, Agent Management, Automation]
 author: Chris Taylor

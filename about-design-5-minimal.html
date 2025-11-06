@@ -1,0 +1,600 @@
+---
+layout: default
+title: About - Design 5 (Minimal Flow)
+permalink: /about-design-5-minimal/
+---
+
+<!-- Design 5: Minimal Flow Layout
+     Concept: Clean, centered content with maximum readability and subtle accents
+     Key Features:
+     - Centered single-column layout for optimal reading
+     - Floating photo element
+     - Subtle stats integration
+     - Code block breaks from centered container
+     - Minimalist quote with animated border
+-->
+
+<style>
+/* Design 5: Minimal Flow Styles */
+.design5-about {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 4rem 2rem;
+    position: relative;
+}
+
+/* Intro Section */
+.design5-intro {
+    text-align: center;
+    margin-bottom: 4rem;
+    max-width: 800px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.design5-photo-wrapper {
+    position: relative;
+    display: inline-block;
+    margin-bottom: 2rem;
+}
+
+/* Animated rings around photo */
+.design5-photo-wrapper::before,
+.design5-photo-wrapper::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    border-radius: 50%;
+    border: 2px solid var(--primary-color);
+    opacity: 0;
+    animation: photoRing 3s ease-out infinite;
+}
+
+.design5-photo-wrapper::before {
+    width: 220px;
+    height: 220px;
+    animation-delay: 0s;
+}
+
+.design5-photo-wrapper::after {
+    width: 220px;
+    height: 220px;
+    animation-delay: 1.5s;
+}
+
+@keyframes photoRing {
+    0% {
+        width: 210px;
+        height: 210px;
+        opacity: 0.6;
+    }
+    100% {
+        width: 300px;
+        height: 300px;
+        opacity: 0;
+    }
+}
+
+.design5-photo {
+    width: 200px;
+    height: 200px;
+    border-radius: 50%;
+    border: 4px solid var(--primary-color);
+    object-fit: cover;
+    box-shadow: 0 10px 30px rgba(6, 182, 212, 0.3);
+    transition: all 0.4s ease;
+    position: relative;
+    z-index: 1;
+}
+
+.design5-photo:hover {
+    transform: scale(1.05) rotate(2deg);
+    box-shadow: 0 15px 40px rgba(6, 182, 212, 0.5);
+}
+
+.design5-intro-name {
+    font-size: 3.5rem;
+    font-weight: 700;
+    color: var(--text-dark);
+    margin-bottom: 1rem;
+    letter-spacing: -0.02em;
+}
+
+.design5-intro-role {
+    font-size: 1.375rem;
+    color: var(--primary-color);
+    margin-bottom: 1.5rem;
+    font-weight: 500;
+}
+
+.design5-intro-tagline {
+    font-size: 1.125rem;
+    color: var(--text-light);
+    line-height: 1.7;
+}
+
+/* Section Divider */
+.design5-section-divider {
+    max-width: 600px;
+    margin: 4rem auto;
+    text-align: center;
+    position: relative;
+}
+
+.design5-section-divider::before,
+.design5-section-divider::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    width: 40%;
+    height: 2px;
+    background: linear-gradient(to right, transparent, var(--primary-color), transparent);
+}
+
+.design5-section-divider::before {
+    left: 0;
+}
+
+.design5-section-divider::after {
+    right: 0;
+}
+
+.design5-divider-icon {
+    display: inline-block;
+    width: 40px;
+    height: 40px;
+    line-height: 40px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--primary-color), var(--primary-light));
+    color: white;
+    font-size: 1rem;
+}
+
+/* Inline Stats */
+.design5-inline-stats {
+    display: flex;
+    justify-content: center;
+    gap: 3rem;
+    margin: 4rem 0;
+    flex-wrap: wrap;
+}
+
+.design5-stat-inline {
+    text-align: center;
+    padding: 1.5rem 2rem;
+    background: linear-gradient(135deg, rgba(6, 182, 212, 0.05) 0%, transparent 100%);
+    border-radius: 0.75rem;
+    border: 1px solid var(--border-color);
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.design5-stat-inline::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 3px;
+    background: linear-gradient(90deg, var(--primary-color), var(--primary-light));
+    transform: scaleX(0);
+    transition: transform 0.3s ease;
+}
+
+.design5-stat-inline:hover::before {
+    transform: scaleX(1);
+}
+
+.design5-stat-inline:hover {
+    background: linear-gradient(135deg, rgba(6, 182, 212, 0.15) 0%, transparent 100%);
+    border-color: var(--primary-color);
+    transform: translateY(-3px);
+    box-shadow: 0 8px 20px rgba(6, 182, 212, 0.2);
+}
+
+.design5-stat-icon {
+    font-size: 1.75rem;
+    color: var(--primary-color);
+    margin-bottom: 0.75rem;
+    display: block;
+}
+
+.design5-stat-number {
+    font-size: 2.25rem;
+    font-weight: 700;
+    color: var(--primary-color);
+    display: block;
+    margin-bottom: 0.5rem;
+}
+
+.design5-stat-label {
+    font-size: 0.875rem;
+    color: var(--text-light);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+/* Content Container - Base for breakout */
+.design5-content {
+    background: var(--bg-light);
+    border-radius: 1.5rem;
+    padding: 4rem;
+    border: 2px solid var(--border-color);
+    box-shadow: var(--shadow);
+    max-width: 900px;
+    margin: 0 auto;
+    position: relative;
+    overflow: visible;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.design5-content:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-lg), 0 0 40px rgba(6, 182, 212, 0.1);
+}
+
+.design5-content h2 {
+    font-size: 2rem;
+    color: var(--primary-color);
+    margin: 3rem 0 1.5rem 0;
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    justify-content: center;
+}
+
+.design5-content h2:first-child {
+    margin-top: 0;
+}
+
+.design5-content p {
+    color: var(--text-light);
+    font-size: 1.0625rem;
+    line-height: 1.9;
+    margin-bottom: 1.75rem;
+}
+
+/* PowerShell syntax */
+.ps-cmdlet { color: #06b6d4; font-weight: 600; }
+.ps-topic { color: #34d399; }
+.ps-parameter { color: #f59e0b; }
+
+/* Minimalist Quote */
+.design5-quote-link {
+    display: block;
+    text-decoration: none;
+    margin: 4rem 0;
+    transition: transform 0.3s ease;
+}
+
+.design5-quote-link:hover {
+    transform: translateX(8px);
+}
+
+.design5-quote {
+    margin: 0;
+    padding: 0;
+    padding-left: 2rem;
+    border-left: 3px solid var(--primary-color);
+    position: relative;
+}
+
+.design5-quote::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 3px;
+    height: 0;
+    background: linear-gradient(180deg, var(--primary-light), var(--secondary-color));
+    transition: height 0.4s ease;
+}
+
+.design5-quote-link:hover .design5-quote::before {
+    height: 100%;
+}
+
+.design5-quote-text {
+    font-size: 1.875rem;
+    font-style: italic;
+    font-weight: 300;
+    color: var(--text-dark);
+    margin: 0;
+    line-height: 1.6;
+    letter-spacing: -0.01em;
+}
+
+/* Code Block Breakout */
+.design5-help-section {
+    margin-top: 4rem;
+}
+
+.design5-help-file {
+    margin-top: 2rem;
+    background: var(--bg-darker);
+    border-radius: 1.5rem;
+    border: 2px solid var(--primary-color);
+    overflow: hidden;
+    box-shadow: var(--shadow-lg), 0 0 35px rgba(6, 182, 212, 0.25);
+
+    /* Breakout - extends beyond centered container */
+    margin-left: -200px;
+    margin-right: -200px;
+    width: calc(100% + 400px);
+    max-width: 1300px;
+}
+
+.design5-help-file pre {
+    margin: 0;
+    padding: 2.5rem;
+    max-height: 650px;
+    overflow-y: auto;
+    overflow-x: visible;
+}
+
+.design5-help-file code {
+    font-family: 'Consolas', 'Monaco', 'Courier New', monospace;
+    font-size: 0.9375rem;
+    line-height: 1.7;
+    color: var(--text-light);
+    white-space: pre;
+}
+
+/* Scrollbar */
+.design5-help-file pre::-webkit-scrollbar {
+    width: 12px;
+}
+
+.design5-help-file pre::-webkit-scrollbar-track {
+    background: var(--bg-light);
+    border-radius: 0.5rem;
+}
+
+.design5-help-file pre::-webkit-scrollbar-thumb {
+    background: var(--primary-color);
+    border-radius: 0.5rem;
+}
+
+/* Skills Section */
+.design5-skills {
+    margin: 3rem 0;
+    text-align: center;
+}
+
+.design5-skills h3 {
+    font-size: 1.5rem;
+    color: var(--primary-color);
+    margin-bottom: 2rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.75rem;
+}
+
+.design5-skills-grid {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 0.75rem;
+    max-width: 700px;
+    margin: 0 auto;
+}
+
+.design5-skill-tag {
+    padding: 0.625rem 1.25rem;
+    background: rgba(6, 182, 212, 0.1);
+    border: 2px solid var(--primary-color);
+    border-radius: 2rem;
+    color: var(--primary-color);
+    font-size: 0.875rem;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    cursor: default;
+    position: relative;
+    overflow: hidden;
+}
+
+.design5-skill-tag::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+    transition: left 0.5s ease;
+}
+
+.design5-skill-tag:hover {
+    background: var(--primary-color);
+    color: white;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(6, 182, 212, 0.3);
+}
+
+.design5-skill-tag:hover::before {
+    left: 100%;
+}
+
+/* Responsive */
+@media (max-width: 1200px) {
+    .design5-help-file {
+        margin-left: 0;
+        margin-right: 0;
+        width: 100%;
+    }
+}
+
+@media (max-width: 768px) {
+    .design5-about {
+        padding: 3rem 1rem;
+    }
+
+    .design5-intro-name {
+        font-size: 2.5rem;
+    }
+
+    .design5-inline-stats {
+        gap: 1.5rem;
+    }
+
+    .design5-stat-inline {
+        padding: 1rem 1.5rem;
+    }
+
+    .design5-content {
+        padding: 2.5rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .design5-intro-name {
+        font-size: 2rem;
+    }
+
+    .design5-photo {
+        width: 150px;
+        height: 150px;
+    }
+
+    .design5-inline-stats {
+        flex-direction: column;
+        gap: 1rem;
+    }
+
+    .design5-content {
+        padding: 2rem;
+    }
+}
+</style>
+
+<section class="design5-about">
+    <!-- Intro Section -->
+    <div class="design5-intro">
+        <div class="design5-photo-wrapper">
+            <img src="https://ui-avatars.com/api/?name=Chris+Taylor&size=200&background=06b6d4&color=fff&bold=true&font-size=0.4"
+                 alt="Chris Taylor - Placeholder"
+                 class="design5-photo"
+                 width="200"
+                 height="200">
+        </div>
+        <h1 class="design5-intro-name">Chris Taylor</h1>
+        <div class="design5-intro-role">
+            Network Operations Chief | vCTO | Automation Engineer
+        </div>
+        <p class="design5-intro-tagline">
+            Building scalable multi-tenant solutions and AI-driven automation
+            for MSP operations across diverse industries
+        </p>
+    </div>
+
+    <!-- Section Divider -->
+    <div class="design5-section-divider">
+        <span class="design5-divider-icon"><i class="fas fa-star"></i></span>
+    </div>
+
+    <!-- Inline Stats -->
+    <div class="design5-inline-stats">
+        <div class="design5-stat-inline">
+            <i class="fas fa-calendar-alt design5-stat-icon"></i>
+            <span class="design5-stat-number">20+</span>
+            <span class="design5-stat-label">Years Experience</span>
+        </div>
+        <div class="design5-stat-inline">
+            <i class="fas fa-code design5-stat-icon"></i>
+            <span class="design5-stat-number">6</span>
+            <span class="design5-stat-label">Open Source</span>
+        </div>
+        <div class="design5-stat-inline">
+            <i class="fas fa-blog design5-stat-icon"></i>
+            <span class="design5-stat-number">12+</span>
+            <span class="design5-stat-label">Blog Posts</span>
+        </div>
+        <div class="design5-stat-inline">
+            <i class="fas fa-infinity design5-stat-icon"></i>
+            <span class="design5-stat-number">∞</span>
+            <span class="design5-stat-label">PowerShell Lines</span>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <div class="design5-content">
+        <h2><i class="fas fa-user"></i> About Me</h2>
+
+        <p>
+            I'm a Network Operations Chief, vCTO, and Automation Engineer at i.t.NOW, a global
+            managed services provider. With 20+ years of professional experience (since 2002),
+            I specialize in infrastructure automation, AI integration, and building scalable
+            multi-tenant solutions that power MSP operations across diverse industries.
+        </p>
+
+        <p>
+            My journey in technology began in elementary school, where I spent my time
+            helping the school librarian troubleshoot and fix computer issues. That early
+            spark of curiosity grew into a lifelong passion for understanding how systems
+            work and finding better ways to make them run. I started my professional career
+            in 2002 with EchoStar doing satellite communications, and over the past two decades,
+            I've evolved into a leader who specializes in MSP operations, infrastructure
+            automation, and AI-driven solutions.
+        </p>
+
+        <p>
+            What drives me is the challenge of creating creative solutions to resolve complex
+            problems. Whether it's automating repetitive tasks with PowerShell, designing
+            efficient network architectures, or integrating disparate systems through APIs,
+            I thrive on finding elegant solutions that make a real impact. I believe in the
+            power of automation to free people from mundane tasks and enable them to focus
+            on more meaningful work.
+        </p>
+
+        <a href="/ai/commentary/2025/11/03/calculating-ai-doom-odds-formula.html" class="design5-quote-link">
+            <blockquote class="design5-quote">
+                <p class="design5-quote-text">
+                    9 to 1 odds AI wins
+                </p>
+            </blockquote>
+        </a>
+
+        <p>
+            When I'm not architecting solutions or optimizing workflows, you'll find me out
+            on the trails mountain biking. There's something about the combination of
+            technical skill, physical challenge, and connection with nature that keeps me
+            balanced and recharged. Just like in technology, mountain biking requires
+            problem-solving, adaptability, and the willingness to tackle tough terrain.
+        </p>
+
+        <!-- Skills Section -->
+        <div class="design5-skills">
+            <h3><i class="fas fa-tools"></i> Core Technologies</h3>
+            <div class="design5-skills-grid">
+                <span class="design5-skill-tag">PowerShell</span>
+                <span class="design5-skill-tag">Azure</span>
+                <span class="design5-skill-tag">ConnectWise</span>
+                <span class="design5-skill-tag">API Integration</span>
+                <span class="design5-skill-tag">Automation</span>
+                <span class="design5-skill-tag">TypeScript</span>
+                <span class="design5-skill-tag">SQL</span>
+                <span class="design5-skill-tag">Jinja</span>
+                <span class="design5-skill-tag">MSP Operations</span>
+                <span class="design5-skill-tag">AI Integration</span>
+                <span class="design5-skill-tag">Multi-Tenant Systems</span>
+            </div>
+        </div>
+
+        <div class="design5-help-section">
+            <h2>
+                <i class="fas fa-terminal"></i>
+                <span class="ps-cmdlet">Get-Help</span>
+                <span class="ps-topic">'Chris Taylor'</span>
+                <span class="ps-parameter">-Full</span>
+            </h2>
+
+            <div class="design5-help-file">
+                <pre><code>{% include_relative assets/downloads/ChrisTaylor.help.txt %}</code></pre>
+            </div>
+        </div>
+    </div>
+</section>

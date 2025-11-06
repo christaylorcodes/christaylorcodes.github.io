@@ -1,9 +1,11 @@
-TOPIC
+ABOUT TOPIC
     about_ChrisTaylor
 
 SHORT DESCRIPTION
-    Network Operations Chief, vCTO, and Automation Engineer specializing in
-    infrastructure automation, AI integration, and MSP operations.
+    Network Operations Chief with 20+ years building infrastructure automation
+    that actually gets used - 327+ GitHub stars, 6+ PowerShell Gallery modules,
+    and active AI integration in production MSP environments. I turn complex
+    enterprise tools into practical solutions teams love to use.
 
 LONG DESCRIPTION
     Chris Taylor is a seasoned technology leader with 20+ years of professional
@@ -13,12 +15,13 @@ LONG DESCRIPTION
     solutions that power MSP operations across diverse industries.
 
     His journey in technology began in elementary school helping the school
-    librarian troubleshoot and fix computer issues. That early spark of
-    curiosity grew into a lifelong passion for understanding how systems work
-    and finding better ways to make them run. Starting his professional career
-    in 2002 with EchoStar doing satellite communications, Chris has evolved
-    into a leader who specializes in MSP operations, infrastructure automation,
-    and AI-driven solutions.
+    librarian troubleshoot and fix computer issues - the first of many times
+    he'd discover that most "computer problems" are really human problems in
+    disguise. That early spark of curiosity grew into a lifelong passion for
+    understanding how systems work and finding better ways to make them run.
+    Starting his professional career in 2002 with EchoStar doing satellite
+    communications, Chris has evolved into a leader who specializes in MSP
+    operations, infrastructure automation, and AI-driven solutions.
 
     What drives Chris is the challenge of creating creative solutions to
     resolve complex problems. Whether automating repetitive tasks with
@@ -26,13 +29,13 @@ LONG DESCRIPTION
     disparate systems through APIs, he thrives on finding elegant solutions
     that make a real impact.
 
-PROFESSIONAL ROLE
+  PROFESSIONAL ROLE
     Title       : Network Operations Chief, vCTO, Automation Engineer
     Company     : i.t.NOW (Global Managed Services Provider)
     Location    : United States
     Experience  : 20+ years (2002-Present)
 
-EXPERTISE AREAS
+  EXPERTISE AREAS
     PowerShell & Automation
         - Expert-level PowerShell development and automation
         - Infrastructure as Code (IaC)
@@ -68,7 +71,22 @@ EXPERTISE AREAS
         - AI-assisted operations
         - Intelligent process automation
 
-TECHNOLOGIES & PLATFORMS
+  REAL-WORLD IMPACT
+    What I Enable for Organizations:
+        - Reduce ticket resolution time through intelligent automation
+        - Eliminate manual client onboarding (hours → minutes)
+        - Unify disparate systems through API orchestration
+        - Scale MSP operations without linear headcount growth
+        - Bring AI/ML capabilities to traditional infrastructure teams
+
+    Problems I Solve:
+        - "We have 5 different systems that don't talk to each other"
+        - "This task takes 2 hours per client, and we have 200 clients"
+        - "Our team spends more time on tickets than strategic work"
+        - "We want to use AI but don't know where to start"
+        - "We need 24/7 coverage without burning out our team"
+
+  TECHNOLOGIES & PLATFORMS
     Languages & Scripting:
         - PowerShell (Expert)
         - TypeScript
@@ -93,7 +111,15 @@ TECHNOLOGIES & PLATFORMS
         - Jekyll (Static site generation)
         - GitHub Actions (CI/CD)
 
-OPEN SOURCE PROJECTS
+  OPEN SOURCE PROJECTS
+    Community Impact:
+        - 327+ GitHub stars across active projects
+        - 118 stars on ConnectWiseManageAPI (69 forks, actively maintained)
+        - 81 stars on ConnectWiseControlAPI (38 forks, production use)
+        - Published to PowerShell Gallery with active maintenance
+        - MIT licensed - commitment to open source community
+        - Responsive to issues and pull requests
+
     PowerShell Modules (Published to PowerShell Gallery):
 
     ConnectWiseControlAPI
@@ -126,23 +152,58 @@ OPEN SOURCE PROJECTS
         and release workflows.
         Gallery: https://www.powershellgallery.com/packages/Initialize-PSGallery
 
-CAREER HIGHLIGHTS
+  CAREER HIGHLIGHTS
     2002-2004   : EchoStar - Satellite Communications Technician
+                  Completed college degree while working full-time
     2004-2015   : Progressive roles in IT support and systems administration
+                  Built foundation in multi-vendor environments
     2015-2020   : Automation Engineer - Focus on PowerShell and API integration
+                  Published first PowerShell Gallery modules
+                  Built ConnectWise API wrapper ecosystem (now 327+ GitHub stars)
     2020-Present: Network Operations Chief at i.t.NOW
                   Leading infrastructure automation and AI integration initiatives
+                  Serves as vCTO for strategic technical decision-making
+                  Active open source maintainer with 6+ published modules
 
-COMMUNITY CONTRIBUTIONS
+  INNOVATION HIGHLIGHTS
+    Purview - AI Context Management System (2024-2025)
+        - Token-efficient repository system for AI agent workflows
+        - 85% reduction in session start tokens (2.7M → 420K)
+        - 45-74% reduction in full session token usage
+        - Powers CHRIS knowledge base and AI collaboration
+        - Demonstrates practical AI integration expertise
+
+    AI Integration in MSP Operations (2024-Present)
+        - Exploring AI-driven ticket analysis and routing
+        - Integration with ConnectWise Manage workflows
+        - Multi-tenant aware AI architectures
+        - Balancing automation with client-specific needs
+
+    Multi-Tenant Automation Architecture
+        - Security-first design for MSP environments
+        - Client data isolation patterns
+        - API rate limiting and retry strategies
+        - Cross-client workflow orchestration
+
+  COMMUNITY CONTRIBUTIONS
     - Active PowerShell Gallery contributor (6+ published modules)
     - Technical blog writer focusing on MSP automation
     - Open source maintainer and collaborator
     - GitHub: @christaylorcodes
     - Website: christaylor.codes
 
-PHILOSOPHY & APPROACH
+  PHILOSOPHY & APPROACH
     "I believe in the power of automation to free people from mundane tasks
-    and enable them to focus on more meaningful work."
+    and enable them to focus on more meaningful work. Technology should be a
+    force multiplier, not a burden. I build tools that teams actually want
+    to use - because what's the point of automation nobody trusts?"
+
+    How I Think About Problems:
+        - Automation-first mindset: If you do it twice, automate it
+        - Multi-tenant aware: Every solution must scale across many clients
+        - API as integration layer: Systems should talk to each other
+        - Security by default: Never trust, always validate (especially in MSP)
+        - Community over ego: Share knowledge, accept contributions, learn daily
 
     Core Principles:
         - Readability over cleverness in code
@@ -152,14 +213,37 @@ PHILOSOPHY & APPROACH
         - Thorough testing before deployment
         - Comprehensive documentation
 
-INTERESTS
-    When not architecting solutions or optimizing workflows, Chris can be
-    found on mountain biking trails. The combination of technical skill,
-    physical challenge, and connection with nature provides the perfect
-    balance and recharge. Just like in technology, mountain biking requires
-    problem-solving, adaptability, and the willingness to tackle tough terrain.
+  INTERESTS & CHARACTER
+    Mountain Biking & Problem Solving
+        When not architecting solutions or optimizing workflows, Chris can be
+        found on mountain biking trails. The combination of technical skill,
+        physical challenge, and connection with nature provides the perfect
+        balance and recharge. Just like in technology, mountain biking requires
+        problem-solving, adaptability, and the willingness to tackle tough
+        terrain - and the humility to know when to walk the bike.
 
-CONTACT INFORMATION
+    Work Style
+        - Deep focus in 90-minute Pomodoro blocks
+        - Collaborative pair-programming approach
+        - Explains the "why" not just the "what"
+        - Continuous learner: 20+ years experience but always growing
+        - Pragmatic perfectionist: "Done is better than perfect"
+
+    What Colleagues Say
+        "Chris bridges the gap between complex enterprise tools and practical
+        implementation. He makes the complicated simple without dumbing it down."
+
+  RANDOM BITS
+    - Started troubleshooting computers in elementary school library
+    - First professional role: Satellite communications at EchoStar (2002)
+    - Completed college degree while working full-time
+    - Believes in teaching through code quality, not just documentation
+    - Prefers full words over abbreviations: navigationMenu > navMenu
+    - Automation enthusiast: "If you do it twice, automate it"
+    - Coffee-fueled 90-minute deep work sessions
+    - Will debate tabs vs spaces (spaces, obviously)
+
+  CONTACT INFORMATION
     Email   : ctaylor@christaylor.codes
     Website : https://christaylor.codes
     GitHub  : https://github.com/christaylorcodes
@@ -198,6 +282,25 @@ EXAMPLES
         if ($currentTicket.owner.identifier -eq $currentUserIdentifier) {
             Update-CWMTicket -TicketID $currentTicket.id -Status 'Completed'
         }
+    }
+
+
+    Example 4: Debug like Chris - methodical and verbose
+    ----------------------------
+    # Chris's debugging philosophy: "If you can't explain it, you don't understand it"
+
+    # Step 1: Reproduce the problem with verbose output
+    $VerbosePreference = 'Continue'
+    Get-CWMTicket -TicketID 12345 -Verbose
+
+    # Step 2: Isolate variables (never trust assumptions)
+    $ticketId = 12345
+    $ticket = Get-CWMTicket -TicketID $ticketId
+    Write-Host "Retrieved ticket: $($ticket.summary)" -ForegroundColor Cyan
+
+    # Step 3: Test edge cases (because clients always find the edge cases)
+    if ($null -eq $ticket) {
+        Write-Warning "Ticket not found. Check permissions, rate limits, and API version."
     }
 
 SEE ALSO

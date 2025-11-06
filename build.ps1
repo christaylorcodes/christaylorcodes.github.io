@@ -8,10 +8,11 @@
     Handles dependency installation, building, and serving with live reload.
 
 .PARAMETER Mode
-    Build mode: 'serve' (default), 'build', or 'clean'
+    Build mode: 'serve' (default), 'build', 'clean', or 'sync-stats'
     - serve: Build and serve with live reload at http://localhost:4000
     - build: Build only (outputs to _site/)
     - clean: Clean build artifacts and cache
+    - sync-stats: Sync project stats from _data/project-stats.yml to project files
 
 .EXAMPLE
     .\build.ps1
@@ -24,11 +25,15 @@
 .EXAMPLE
     .\build.ps1 -Mode clean
     Cleans build artifacts
+
+.EXAMPLE
+    .\build.ps1 -Mode sync-stats
+    Syncs centralized stats to project files for GitHub Pages compatibility
 #>
 
 [CmdletBinding()]
 param(
-    [ValidateSet('serve', 'build', 'clean')]
+    [ValidateSet('serve', 'build', 'clean', 'sync-stats')]
     [string]$Mode = 'serve'
 )
 
@@ -45,6 +50,20 @@ Write-Host "==================================" -ForegroundColor Cyan
 if (-not (Test-Path "Gemfile")) {
     Write-Host "`n[ERROR] Gemfile not found. Are you in the Website directory?" -ForegroundColor Red
     exit 1
+}
+
+
+# Sync stats mode
+if ($Mode -eq 'sync-stats') {
+    $syncScript = Join-Path $PSScriptRoot "sync-project-stats.ps1"
+    if (-not (Test-Path $syncScript)) {
+        Write-Host "`n[ERROR] sync-project-stats.ps1 not found!" -ForegroundColor Red
+        exit 1
+    }
+
+    Write-Host ""
+    & $syncScript
+    exit $LASTEXITCODE
 }
 
 # Clean mode

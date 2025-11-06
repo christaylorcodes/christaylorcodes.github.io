@@ -2,7 +2,7 @@
 layout: post
 title: "Introducing ConnectWiseManageAPI: PowerShell Automation for MSPs"
 short_title: "ConnectWiseManageAPI: PowerShell for MSPs"
-date: 2024-11-25 09:00:00 -0500
+date: 2024-09-16 10:00:00 -0000
 categories: [PowerShell, PSA, ConnectWiseManageAPI]
 tags: [PowerShell, ConnectWise, Manage, PSA, Automation, MSP, API]
 author: Chris Taylor

@@ -2,7 +2,7 @@
 layout: post
 title: "Troubleshooting ConnectWise Automate Agents Like a Pro with PowerShell"
 short_title: "Troubleshooting Automate Agents with PowerShell"
-date: 2024-11-15 09:00:00 -0500
+date: 2024-03-04 10:00:00 -0000
 categories: [PowerShell, Troubleshooting]
 tags: [PowerShell, ConnectWise, Automate, RMM, Troubleshooting, Diagnostics, MSP]
 author: Chris Taylor

@@ -10,7 +10,7 @@ permalink: /projects/
     </div>
 </section>
 
-{% assign sorted_projects = site.projects | sort: 'order' %}
+{% assign sorted_projects = site.projects | sort: 'stars' | reverse %}
 {% assign projects_per_row = 3 %}
 {% assign total_projects = sorted_projects | size %}
 {% assign num_rows = total_projects | divided_by: projects_per_row %}
@@ -43,6 +43,15 @@ permalink: /projects/
             <div class="container">
                 <div class="projects-grid">
                     {% for project in row_projects %}
+                    {% assign project_id = project.id | remove: '/projects/' %}
+                    {% assign stats = site.data.project-stats[project_id] %}
+                    {% if stats %}
+                        {% assign project_stars = stats.stars %}
+                        {% assign project_downloads = stats.gallery_downloads %}
+                    {% else %}
+                        {% assign project_stars = 0 %}
+                        {% assign project_downloads = 0 %}
+                    {% endif %}
                     {% assign color_index = forloop.index0 | plus: start_index | modulo: 4 %}
                     {% if color_index == 0 %}{% assign icon_color = 'icon-cyan' %}
                     {% elsif color_index == 1 %}{% assign icon_color = 'icon-amber' %}
@@ -57,6 +66,21 @@ permalink: /projects/
                                 <h3>{{ project.title }}</h3>
                                 <p>{{ project.short_description }}</p>
 
+                                <div class="project-card-stats">
+                                    {% if project_stars %}
+                                    <span class="stat-item">
+                                        <i class="fas fa-star"></i>
+                                        {{ project_stars }} stars
+                                    </span>
+                                    {% endif %}
+                                    {% if project_downloads %}
+                                    <span class="stat-item">
+                                        <i class="fas fa-download"></i>
+                                        {{ project_downloads | divided_by: 1000.0 | round: 1 }}K downloads
+                                    </span>
+                                    {% endif %}
+                                </div>
+
                                 {% if project.tags %}
                                 <div class="project-tags">
                                     {% assign tag_count = 0 %}
@@ -68,19 +92,6 @@ permalink: /projects/
                                     {% endfor %}
                                 </div>
                                 {% endif %}
-
-                                {% if project.gallery_downloads %}
-                                <div class="project-card-stats">
-                                    <span class="stat-item">
-                                        <i class="fas fa-download"></i>
-                                        {{ project.gallery_downloads | divided_by: 1000.0 | round: 1 }}K downloads
-                                    </span>
-                                </div>
-                                {% endif %}
-
-                                <div class="project-cta">
-                                    <span class="view-details">View Details <i class="fas fa-arrow-right"></i></span>
-                                </div>
                             </div>
                         </div>
                     </a>

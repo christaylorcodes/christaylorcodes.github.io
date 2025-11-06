@@ -448,7 +448,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     <h3 class="result-title">
                         <a href="${result.url}">${escapeHtml(result.title)}</a>
                     </h3>
-                    <p class="result-excerpt">${escapeHtml(result.excerpt)}</p>
+                    <div class="result-excerpt">${sanitizeHtml(result.excerpt)}</div>
                     ${tagsDisplay}
                 </div>
             `;
@@ -463,6 +463,63 @@ document.addEventListener('DOMContentLoaded', function() {
         const div = document.createElement('div');
         div.textContent = text;
         return div.innerHTML;
+    }
+
+    // Sanitize HTML to allow safe formatting tags
+    function sanitizeHtml(html) {
+        if (!html) return '';
+
+        // Create a temporary div to parse HTML
+        const tempDiv = document.createElement('div');
+        tempDiv.innerHTML = html;
+
+        // Define allowed tags and their allowed attributes
+        const allowedTags = ['p', 'br', 'strong', 'b', 'em', 'i', 'u', 'ul', 'ol', 'li', 'span'];
+        const allowedAttributes = []; // No attributes allowed for security
+
+        // Recursive function to sanitize nodes
+        function sanitizeNode(node) {
+            // If it's a text node, return it as-is
+            if (node.nodeType === Node.TEXT_NODE) {
+                return document.createTextNode(node.textContent);
+            }
+
+            // If it's an element node
+            if (node.nodeType === Node.ELEMENT_NODE) {
+                const tagName = node.tagName.toLowerCase();
+
+                // If tag is not allowed, return its text content only
+                if (!allowedTags.includes(tagName)) {
+                    return document.createTextNode(node.textContent);
+                }
+
+                // Create a new clean element
+                const cleanElement = document.createElement(tagName);
+
+                // Recursively sanitize and append child nodes
+                Array.from(node.childNodes).forEach(child => {
+                    const sanitizedChild = sanitizeNode(child);
+                    if (sanitizedChild) {
+                        cleanElement.appendChild(sanitizedChild);
+                    }
+                });
+
+                return cleanElement;
+            }
+
+            return null;
+        }
+
+        // Create a new div for the sanitized content
+        const cleanDiv = document.createElement('div');
+        Array.from(tempDiv.childNodes).forEach(child => {
+            const sanitizedChild = sanitizeNode(child);
+            if (sanitizedChild) {
+                cleanDiv.appendChild(sanitizedChild);
+            }
+        });
+
+        return cleanDiv.innerHTML;
     }
 
     // Event listeners
@@ -494,14 +551,29 @@ document.addEventListener('DOMContentLoaded', function() {
         }, 500); // Wait 500ms after user stops typing
     });
 
-    // Load search index on page load for faster first search
-    loadSearchIndex();
+    // Check for query parameter in URL
+    const urlParams = new URLSearchParams(window.location.search);
+    const queryParam = urlParams.get('q');
+
+    if (queryParam && queryParam.trim().length > 0) {
+        searchInput.value = queryParam;
+        // Automatically perform search when page loads with query parameter
+        (async function() {
+            await loadSearchIndex();
+            performSearch(queryParam);
+        })();
+    } else {
+        // Load search index on page load for faster first search
+        loadSearchIndex();
+    }
 });
 
 // Blog page search functionality
 document.addEventListener('DOMContentLoaded', function() {
     const blogSearchInput = document.getElementById('blog-search-input');
     const blogSearchClear = document.getElementById('blog-search-clear');
+    const advancedFilterToggle = document.getElementById('advanced-filter-toggle');
+    const advancedFiltersPanel = document.getElementById('advanced-filters');
     const filterButtons = document.querySelectorAll('.filter-btn');
     const paginatedContainer = document.querySelector('.blog-posts-paginated');
     const allPostsContainer = document.querySelector('.blog-posts-all');
@@ -514,6 +586,25 @@ document.addEventListener('DOMContentLoaded', function() {
 
     let currentSearchQuery = '';
     let currentCategoryFilter = 'all';
+
+    // Advanced filters toggle
+    if (advancedFilterToggle && advancedFiltersPanel) {
+        advancedFilterToggle.addEventListener('click', function() {
+            const isExpanded = this.getAttribute('aria-expanded') === 'true';
+
+            if (isExpanded) {
+                // Collapse
+                advancedFiltersPanel.style.display = 'none';
+                this.setAttribute('aria-expanded', 'false');
+                this.querySelector('.toggle-text').textContent = 'Filters';
+            } else {
+                // Expand
+                advancedFiltersPanel.style.display = 'block';
+                this.setAttribute('aria-expanded', 'true');
+                this.querySelector('.toggle-text').textContent = 'Filters';
+            }
+        });
+    }
 
     // Function to filter posts by search and category
     function filterPosts() {
@@ -629,6 +720,50 @@ document.addEventListener('DOMContentLoaded', function() {
             filterPosts();
         });
     });
+
+    // Handle URL hash filter (e.g., /blog#filter=automation)
+    function applyHashFilter() {
+        const hash = window.location.hash;
+        if (hash && hash.startsWith('#filter=')) {
+            const filterValue = hash.replace('#filter=', '');
+
+            // Find and click the corresponding filter button
+            const matchingButton = Array.from(filterButtons).find(btn =>
+                btn.getAttribute('data-filter') === filterValue
+            );
+
+            if (matchingButton) {
+                // Update active button state
+                filterButtons.forEach(btn => btn.classList.remove('active'));
+                matchingButton.classList.add('active');
+
+                // Apply the filter
+                currentCategoryFilter = filterValue;
+                filterPosts();
+
+                // Scroll to blog content after a short delay
+                setTimeout(() => {
+                    const blogSection = document.querySelector('.blog-section');
+                    if (blogSection) {
+                        const offset = 100; // Offset for fixed header
+                        const elementPosition = blogSection.getBoundingClientRect().top;
+                        const offsetPosition = elementPosition + window.pageYOffset - offset;
+
+                        window.scrollTo({
+                            top: offsetPosition,
+                            behavior: 'smooth'
+                        });
+                    }
+                }, 100);
+            }
+        }
+    }
+
+    // Apply hash filter on page load
+    applyHashFilter();
+
+    // Apply hash filter when hash changes (for single-page navigation)
+    window.addEventListener('hashchange', applyHashFilter);
 });
 
 // Hero background slideshow with parallax effect
@@ -774,6 +909,42 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Initial check
     checkScrollPosition();
+});
+
+// Navigation search functionality
+document.addEventListener('DOMContentLoaded', function() {
+    const navSearchInput = document.getElementById('nav-search-input');
+    const navSearchSubmit = document.querySelector('.nav-search-submit');
+    const navSearchIcon = document.querySelector('.nav-search-icon');
+
+    if (navSearchInput && navSearchSubmit) {
+        // Handle search submission
+        function performNavSearch() {
+            const query = navSearchInput.value.trim();
+            if (query.length > 0) {
+                // Navigate to search page with query parameter
+                window.location.href = `/search?q=${encodeURIComponent(query)}`;
+            }
+        }
+
+        // Submit on button click
+        navSearchSubmit.addEventListener('click', performNavSearch);
+
+        // Submit on Enter key
+        navSearchInput.addEventListener('keypress', function(event) {
+            if (event.key === 'Enter') {
+                event.preventDefault();
+                performNavSearch();
+            }
+        });
+
+        // Focus input when icon is clicked
+        if (navSearchIcon) {
+            navSearchIcon.addEventListener('click', function() {
+                navSearchInput.focus();
+            });
+        }
+    }
 });
 
 // Features Carousel - Shows 3-4 cards with infinite loop (no cloning)

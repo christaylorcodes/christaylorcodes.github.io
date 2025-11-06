@@ -2,7 +2,7 @@
 layout: post
 title: "Advanced Automation Scenarios with ConnectWiseManageAPI"
 short_title: "Advanced ConnectWiseManageAPI Automation"
-date: 2024-12-09 09:00:00 -0500
+date: 2024-09-30 10:00:00 -0000
 categories: [PowerShell, PSA, ConnectWiseManageAPI]
 tags: [PowerShell, ConnectWise, Manage, PSA, Automation, Advanced, Integration, MSP]
 author: Chris Taylor

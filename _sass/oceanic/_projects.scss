@@ -383,6 +383,10 @@
     font-size: 1rem;
 }
 
+.project-card-stats .stat-item i.fa-star {
+    color: #fbbf24; /* Gold star color */
+}
+
 .project-cta {
     margin-top: auto;
     display: flex;
@@ -415,21 +419,12 @@
     font-size: 1rem;
 }
 
-.view-details {
-    color: var(--primary-color);
-    font-weight: 600;
-    transition: color 0.3s ease;
-}
-
-.project-card-link:hover .view-details {
-    color: var(--primary-light);
-}
-
 .project-tags {
     display: flex;
     gap: 0.5rem;
     flex-wrap: wrap;
-    margin-bottom: 0.75rem;
+    margin-top: auto;
+    padding-top: 1rem;
 }
 
 .tag {

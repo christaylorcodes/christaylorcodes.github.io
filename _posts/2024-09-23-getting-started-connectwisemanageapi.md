@@ -2,7 +2,7 @@
 layout: post
 title: "Getting Started with ConnectWiseManageAPI: Your First Steps"
 short_title: "Getting Started with ConnectWiseManageAPI"
-date: 2024-12-02 09:00:00 -0500
+date: 2024-09-23 10:00:00 -0000
 categories: [PowerShell, PSA, ConnectWiseManageAPI]
 tags: [PowerShell, ConnectWise, Manage, PSA, Tutorial, Getting-Started, MSP, API]
 author: Chris Taylor

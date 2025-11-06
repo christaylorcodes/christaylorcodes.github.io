@@ -43,7 +43,9 @@
       "Bash(powershell.exe:*)",
       "Bash(git log:*)",
       "Bash(test:*)",
-      "Bash(mkdir:*)"
+      "Bash(mkdir:*)",
+      "Bash(git -C \"c:\\_Code\\Website\" checkout build.ps1)",
+      "Bash(git mv:*)"
     ],
     "deny": [],
     "ask": []

@@ -2,7 +2,7 @@
 layout: post
 title: "Introducing ConnectWiseAutomateAgent: PowerShell Automation for Your RMM"
 short_title: "ConnectWiseAutomateAgent: PowerShell for RMM"
-date: 2024-11-01 09:00:00 -0500
+date: 2024-02-12 10:00:00 -0000
 categories: [PowerShell, RMM]
 tags: [PowerShell, ConnectWise, Automate, RMM, Automation, MSP]
 author: Chris Taylor

@@ -2,7 +2,7 @@
 layout: post
 title: "Mass Agent Deployment: From 500 Machines to Done in Under an Hour"
 short_title: "Mass Agent Deployment with PowerShell"
-date: 2024-11-08 09:00:00 -0500
+date: 2024-02-26 10:00:00 -0000
 categories: [PowerShell, Deployment]
 tags: [PowerShell, ConnectWise, Automate, RMM, Deployment, Automation, MSP]
 author: Chris Taylor

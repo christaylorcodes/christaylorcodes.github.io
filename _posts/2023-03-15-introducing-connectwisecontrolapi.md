@@ -2,7 +2,7 @@
 layout: post
 title: "Automating ConnectWise Control: A PowerShell Module for MSPs"
 short_title: "ConnectWiseControlAPI: PowerShell for MSPs"
-date: 2024-10-07 10:00:00 -0000
+date: 2023-03-15 10:00:00 -0000
 categories: [PowerShell, MSP, ConnectWiseControlAPI]
 tags: [PowerShell, ConnectWise, Control, ScreenConnect, MSP, Automation, API]
 author: Chris Taylor

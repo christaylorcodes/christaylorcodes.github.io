@@ -2,7 +2,7 @@
 layout: post
 title: "Cleaning Up Duplicate Control Sessions: A Real-World Automation Story"
 short_title: "Cleaning Up Duplicate Control Sessions"
-date: 2024-10-21 10:00:00 -0000
+date: 2023-03-29 10:00:00 -0000
 categories: [PowerShell, MSP, ConnectWiseControlAPI]
 tags: [PowerShell, ConnectWise, Control, MSP, Automation, Cleanup, Session Management]
 author: Chris Taylor
