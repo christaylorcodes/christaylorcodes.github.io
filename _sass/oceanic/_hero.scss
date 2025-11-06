@@ -20,12 +20,12 @@
     /* Background image layers for slideshow with blend transitions */
     .hero-background {
         position: absolute;
-        top: -15%; /* Offset for extra zoom space */
-        left: -15%;
-        right: -15%;
-        bottom: -15%;
-        background-size: 125%; /* Subtle zoom for parallax scrolling */
-        background-position: center bottom; /* Start at bottom of image for parallax scroll */
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background-size: cover; /* Use standardized 1920x1080 images at actual size */
+        background-position: center center; /* Center the image */
         background-repeat: no-repeat;
         background-attachment: fixed; /* Creates parallax effect */
         opacity: 0;
