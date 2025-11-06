@@ -6,10 +6,12 @@ This document contains all the information needed to understand and maintain thi
 
 This is a personal portfolio and blog website built with Jekyll and hosted on GitHub Pages. The site features a modern, responsive design with custom layouts and styles.
 
-**Live Site:** https://christaylorcodes.github.io
+**Live Site:** https://christaylor.codes (primary) / https://christaylorcodes.github.io (GitHub Pages URL)
 **Repository:** https://github.com/christaylorcodes/christaylorcodes.github.io
 **Static Site Generator:** Jekyll
 **Hosting:** GitHub Pages
+**CDN/Security:** Cloudflare (proxied, cache enabled)
+**DNS:** Cloudflare
 **Owner:** Chris Taylor (ctaylor@christaylor.codes)
 
 ## Site Structure
@@ -1167,12 +1169,72 @@ The `build.ps1` script automatically:
 
 ## Deployment
 
+### Infrastructure Overview
+
+The site uses a multi-layer infrastructure stack:
+
+**Hosting Stack:**
+- **GitHub Pages**: Static site hosting with automatic Jekyll builds
+- **Cloudflare CDN**: Content delivery network with caching and security
+- **Custom Domain**: christaylor.codes (primary)
+- **GitHub URL**: christaylorcodes.github.io (fallback)
+
+**Deployment Flow:**
+```
+Local Changes → GitHub → Jekyll Build → GitHub Pages → Cloudflare CDN → Users
+     ↓              ↓           ↓             ↓              ↓
+  git push    Actions Run   Build Site   Deploy Site   Purge Cache
+```
+
 ### GitHub Pages Setup
 
 1. Repository must be named: `christaylorcodes.github.io`
-2. GitHub Pages source: `main` branch
-3. No custom domain configured (using default GitHub Pages URL)
-4. Automatic builds on push to `main`
+2. GitHub Pages source: **GitHub Actions** (custom workflow)
+3. Custom domain: `christaylor.codes` (configured in repository settings)
+4. Automatic builds on push to `main` branch
+
+### Cloudflare Configuration
+
+**DNS Settings:**
+- Hosted at Cloudflare
+- Proxied (orange cloud) for CDN and security features
+- CNAME record: `christaylor.codes` → `christaylorcodes.github.io`
+
+**Caching:**
+- Cache level: Everything
+- Automatic cache purging via GitHub Actions
+- Brotli compression: Enabled
+- HTTP/2 and HTTP/3: Enabled
+
+**Security:**
+- SSL/TLS mode: Full (strict)
+- Always use HTTPS: Enabled
+- Cloudflare WAF: Default filtering
+- No custom firewall rules
+
+**Performance:**
+- Auto minify: Managed by Jekyll/Cloudflare
+- Browser cache TTL: Respect existing headers
+- Edge cache TTL: Default
+
+### Automated Cache Purging
+
+The site uses a GitHub Actions workflow that automatically purges Cloudflare cache after successful deployment.
+
+**Workflow:** `.github/workflows/deploy.yml`
+
+**Jobs:**
+1. **Build**: Compile Jekyll site with production settings
+2. **Deploy**: Publish to GitHub Pages
+3. **Purge Cache**: Clear Cloudflare cache for entire zone
+
+**Setup Required:**
+
+GitHub Secrets (already configured):
+- `CLOUDFLARE_API_TOKEN` - API token with cache purge permission
+- `CLOUDFLARE_ZONE_ID` - Zone ID for christaylor.codes
+
+**For detailed setup instructions**, see: [CLOUDFLARE-SETUP.md](CLOUDFLARE-SETUP.md)
 
 ### Deployment Workflow
 
@@ -1189,12 +1251,51 @@ git commit -m "Description of changes"
 # 4. Push to GitHub
 git push origin main
 
-# 5. Wait 2-5 minutes for GitHub Pages to rebuild
+# 5. Automated deployment process runs:
+#    - Jekyll builds the site (1-2 minutes)
+#    - Deploys to GitHub Pages (30 seconds)
+#    - Purges Cloudflare cache (5 seconds)
+#    - Total time: 2-3 minutes
 ```
 
-### Checking Build Status
+### Monitoring Deployment
 
-Visit: https://github.com/christaylorcodes/christaylorcodes.github.io/actions
+**GitHub Actions:**
+- View workflow runs: https://github.com/christaylorcodes/christaylorcodes.github.io/actions
+- Check deployment status and logs
+- Verify all three jobs completed successfully:
+  - ✅ build
+  - ✅ deploy
+  - ✅ purge-cloudflare-cache
+
+**Live Site:**
+- Visit https://christaylor.codes to verify changes
+- Changes should be visible immediately (no cache delay)
+- Hard refresh (Ctrl+F5) if browser cache is outdated
+
+**Cloudflare Dashboard:**
+- View cache purge events: Audit Log
+- Monitor analytics: Dashboard → Analytics
+
+### Troubleshooting Deployment
+
+**Changes not visible:**
+1. Check GitHub Actions for workflow failures
+2. Verify all three jobs completed successfully
+3. Wait 3-5 minutes for full deployment
+4. Hard refresh browser (Ctrl+F5 / Cmd+Shift+R)
+5. Check Cloudflare cache status
+
+**Cache purge fails:**
+- Deployment will still succeed (cache purge is non-blocking)
+- Manually purge via Cloudflare Dashboard if needed
+- Check GitHub Secrets are configured correctly
+- See [CLOUDFLARE-SETUP.md](CLOUDFLARE-SETUP.md) for troubleshooting
+
+**Build fails:**
+- Check Actions tab for error details
+- Common issues: YAML syntax, Liquid template errors, missing files
+- Test locally first with `.\build.ps1` to catch errors early
 
 ## Dependencies (Gemfile)
 
