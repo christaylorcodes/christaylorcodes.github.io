@@ -102,12 +102,17 @@ Website/
 ├── blog.html                # Blog index
 ├── projects.html            # Projects showcase
 ├── contact.html             # Contact page
+├── scripts/                 # Utility PowerShell scripts
+├── docs/                    # Documentation
+│   ├── archive/            # Historical documentation
+│   └── examples/           # Design system component examples
+├── prototypes/              # Design prototypes and exploration
 ├── oceanic.gemspec          # Gem specification for theme
 ├── build.ps1                # PowerShell build script
+├── promote-to-main.ps1      # Dev to main promotion script
 ├── LICENSE                  # MIT License
 ├── Gemfile                  # Ruby dependencies
 ├── README.md                # Project documentation
-├── THEME-README.md          # Theme-specific documentation
 └── CLAUDE.md                # This file
 ```
 
@@ -257,7 +262,7 @@ about_highlights:
 **To Update Stats:**
 Run the sync script:
 ```powershell
-.\sync-project-stats.ps1 -FetchGalleryStats
+.\scripts\sync-project-stats.ps1 -FetchGalleryStats
 ```
 Or manually edit `_data/project-stats.yml`.
 
@@ -364,7 +369,7 @@ Contains Jekyll front matter (the dashes) and imports `oceanic.scss`. Jekyll pro
 
 - **`oceanic.gemspec`** - Gem specification for RubyGems distribution
 - **`LICENSE`** - MIT License
-- **`THEME-README.md`** - Complete theme documentation for users
+- **[docs/archive/THEME-README.md](docs/archive/THEME-README.md)** - Complete theme documentation for users
 
 **Note**: The theme is not yet published to RubyGems. To use it, the files must be present in the site directory.
 
@@ -702,6 +707,7 @@ When creating blog posts, ensure they meet these standards:
 - [ ] Code examples tested and working
 - [ ] All links verified (no broken links)
 - [ ] Proper front matter with all required fields
+- [ ] Markdown linting passes (run `markdownlint _posts/YYYY-MM-DD-post.md`)
 - [ ] Preview rendered post in local Jekyll server
 - [ ] Proofread for grammar and clarity
 - [ ] Security review - no credentials or sensitive data
@@ -751,6 +757,137 @@ When creating blog posts, ensure they meet these standards:
 - Descriptive names: `project-dashboard-screenshot.png`
 - Include dimensions for social sharing images: `post-title-1200x630.png`
 - Optimize before uploading (compress, appropriate format)
+
+#### Markdown Formatting Standards
+
+All markdown content (blog posts, documentation) should follow these formatting standards enforced by markdownlint during CI/CD builds:
+
+**Configuration:** [.markdownlint.json](.markdownlint.json)
+
+**Required Standards (Enforced):**
+
+1. **Heading Hierarchy (MD001)**
+   - Heading levels must increment by one level at a time
+   - Don't skip from H1 to H3
+   - Example: H1 → H2 → H3 (correct), H1 → H3 (incorrect)
+
+2. **Heading Style (MD003)**
+   - Use ATX-style headings with `#` symbols
+   - Example: `## Heading` (correct), not underlined with `===` (incorrect)
+
+3. **List Style (MD004)**
+   - Use dashes `-` for unordered lists (not `*` or `+`)
+   - Be consistent throughout document
+
+4. **List Indentation (MD007)**
+   - Indent nested list items by 2 spaces
+   - Example:
+     ```markdown
+     - Parent item
+       - Child item (2 spaces)
+     ```
+
+5. **Heading Uniqueness (MD024)**
+   - No duplicate headings at the same level
+   - Siblings_only mode: duplicates allowed if not adjacent
+
+6. **Heading Punctuation (MD026)**
+   - No trailing punctuation in headings (`.`, `,`, `;`, `:`, `!`)
+   - Example: `## Overview` (correct), `## Overview.` (incorrect)
+
+7. **Code Block Style (MD046)**
+   - Use fenced code blocks with triple backticks
+   - Example: ` ```powershell ` (correct), not indented code blocks (incorrect)
+
+8. **Bold Style (MD050)**
+   - Use asterisks for bold: `**bold text**`
+   - Be consistent throughout document
+
+**Relaxed Standards (Best Practices, Not Enforced):**
+
+These are recommended but not enforced by CI/CD to accommodate existing content:
+
+1. **Blank Lines (MD022, MD031, MD032)**
+   - **Best Practice:** Add blank lines before/after headings, code blocks, and lists
+   - Improves readability and visual separation
+   - Example:
+     ```markdown
+     Paragraph text.
+
+     ## New Section
+
+     More paragraph text.
+     ```
+
+2. **Code Language Specification (MD040)**
+   - **Best Practice:** Always specify language for code blocks
+   - Enables syntax highlighting and improves clarity
+   - Example: ` ```powershell ` instead of just ` ``` `
+   - Supported languages: powershell, python, javascript, bash, yaml, json, etc.
+
+3. **Emphasis Style (MD049)**
+   - **Best Practice:** Use underscores for italics: `_italic text_`
+   - Be consistent within each document
+
+4. **Single H1 Heading (MD025)**
+   - **Best Practice:** Only one H1 (`#`) heading per document
+   - Typically the page/post title
+   - Use H2 (`##`) for main sections
+
+5. **HTML in Markdown (MD033)**
+   - HTML is allowed when markdown can't achieve desired formatting
+   - Use sparingly and prefer markdown when possible
+
+**Why These Standards Matter:**
+
+- **Consistency:** Uniform formatting across all content
+- **Readability:** Easier for humans to read and scan
+- **Accessibility:** Screen readers parse well-formatted markdown better
+- **Maintainability:** Easier to update and refactor content
+- **SEO:** Search engines favor well-structured content
+- **Quality Assurance:** Automated linting catches formatting issues early
+
+**Linting in CI/CD:**
+
+The dev branch workflow (`.github/workflows/dev-build.yml`) automatically runs markdown linting on all `_posts/*.md` files:
+
+```yaml
+- name: Lint markdown
+  uses: nosborn/github-action-markdown-cli@v3.3.0
+  with:
+    files: _posts/*.md
+    config_file: .markdownlint.json
+```
+
+**Local Linting:**
+
+Test your markdown before pushing:
+
+```bash
+# Install markdownlint-cli globally
+npm install -g markdownlint-cli
+
+# Lint all blog posts
+markdownlint _posts/*.md
+
+# Lint specific file
+markdownlint _posts/2024-01-01-my-post.md
+```
+
+**Quick Reference Checklist:**
+
+When creating new blog posts or documentation:
+
+- [ ] Use ATX-style headings (`#`, `##`, `###`)
+- [ ] Increment heading levels by one (no skipping)
+- [ ] Use dashes (`-`) for unordered lists
+- [ ] Indent nested lists by 2 spaces
+- [ ] No trailing punctuation in headings
+- [ ] Use fenced code blocks (` ``` `)
+- [ ] Specify language for all code blocks (recommended)
+- [ ] Add blank lines around headings, lists, code (recommended)
+- [ ] Use `**bold**` for bold, `_italic_` for italics (recommended)
+- [ ] One H1 heading per document (recommended)
 
 #### Testing Before Committing
 
@@ -1017,7 +1154,7 @@ All buttons include consistent hover effects:
 - **Color shift:** Slightly lighter shade on hover
 - **Smooth transition:** 0.3s ease for all properties
 
-**Example:** View live button examples at `/buttons.html` (button sample page)
+**Example:** View live button examples at [docs/examples/buttons.html](docs/examples/buttons.html)
 
 #### Best Practices
 
@@ -1136,7 +1273,7 @@ Filter buttons support three interactive states:
 | **Count Badges** | Yes | No |
 | **Dropdown Support** | Yes | No |
 
-**Example:** View live filter button examples at `/categories.html` (category filter sample page)
+**Example:** View live filter button examples at [docs/examples/categories.html](docs/examples/categories.html)
 
 #### Best Practices
 
@@ -1243,7 +1380,7 @@ All badge gradients align with the Oceanic color palette defined in [_sass/ocean
 | **Interactive** | No | Yes |
 | **Use Case** | Content categorization | Content filtering |
 
-**Example:** View live badge examples at `/badges.html` (category badge sample page)
+**Example:** View live badge examples at [docs/examples/badges.html](docs/examples/badges.html)
 
 #### Best Practices
 
@@ -1473,7 +1610,7 @@ The site uses a GitHub Actions workflow that automatically updates GitHub star c
 
 **Process:**
 1. **Fetch GitHub Stars**: Queries GitHub API for star counts from all project repositories
-2. **Fetch Gallery Downloads**: Runs `sync-project-stats.ps1` to get PowerShell Gallery download counts
+2. **Fetch Gallery Downloads**: Runs `scripts/sync-project-stats.ps1` to get PowerShell Gallery download counts
 3. **Update Files**: Updates both `_data/project-stats.yml` and individual project front matter
 4. **Commit Changes**: Automatically commits and pushes changes if statistics changed
 5. **Trigger Deployment**: Push triggers the main deployment workflow
@@ -1486,7 +1623,7 @@ The site uses a GitHub Actions workflow that automatically updates GitHub star c
 **Manual Updates:**
 ```powershell
 # Locally update all stats (including gallery downloads)
-.\sync-project-stats.ps1 -FetchGalleryStats
+.\scripts\sync-project-stats.ps1 -FetchGalleryStats
 
 # Commit and push
 git add _data/project-stats.yml _projects/*.md
@@ -2052,6 +2189,8 @@ Already configured in `.gitignore`:
 
 ## Troubleshooting
 
+**For known issues and ongoing investigations**, see: [KNOWN-ISSUES.md](KNOWN-ISSUES.md)
+
 ### Site Not Rendering Correctly
 
 **Issue:** Pages show raw HTML/Liquid tags
@@ -2090,6 +2229,13 @@ bundle exec jekyll serve --livereload
 ```bash
 bundle exec jekyll serve --port 4001
 ```
+
+**Issue:** Character encoding errors in terminal ("ERROR bad Request-Line" with garbled text)
+**Solution:**
+- These errors do not affect functionality and can be safely ignored
+- Likely caused by browser attempting HTTPS connection to HTTP server
+- See [KNOWN-ISSUES.md](KNOWN-ISSUES.md) for detailed analysis and workarounds
+- Workaround: Explicitly visit `http://localhost:4000` (not `https://`) or disable HTTPS Everywhere extension
 
 ## Design Guidelines
 

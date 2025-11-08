@@ -295,6 +295,73 @@ npx broken-link-checker https://christaylor.codes -ro --exclude linkedin.com
 - [ ] Review homepage content
 - [ ] Verify all social links are current
 
+### Markdown Quality Audit
+
+**Blog Post Markdown Linting:**
+- [ ] Run markdown linter on all blog posts: `markdownlint _posts/*.md`
+- [ ] Review markdown linting report for errors
+- [ ] Categorize errors by type (MD001, MD022, MD031, MD032, MD040, etc.)
+- [ ] Count total errors and errors per post
+- [ ] Identify most common violations
+
+**Markdown Standards Compliance:**
+- [ ] Verify heading hierarchy (no level skipping)
+- [ ] Check for blank lines around headings, lists, code blocks
+- [ ] Verify code blocks specify language (e.g., ` ```powershell `)
+- [ ] Check list style consistency (dashes vs asterisks)
+- [ ] Verify emphasis style consistency (underscores vs asterisks)
+- [ ] Check for trailing punctuation in headings
+
+**Configuration Review:**
+- [ ] Review [.markdownlint.json](.markdownlint.json) configuration
+- [ ] Verify enforced rules align with quality goals
+- [ ] Verify relaxed rules are documented as "best practices"
+- [ ] Check CI/CD workflow includes markdown linting step
+
+**Documentation Completeness:**
+- [ ] Verify [CLAUDE.md](CLAUDE.md) documents markdown standards
+- [ ] Verify [_templates/post-template.md](_templates/post-template.md) includes standards
+- [ ] Check pre-publication checklist includes linting verification
+- [ ] Verify blog guidelines reference markdown standards
+
+**Markdown Quality Results Template:**
+
+```markdown
+## Markdown Quality Audit Results - [Date]
+
+### Overall Linting Summary
+**Total Errors:** X errors across Y files
+**Average Errors per Post:** Z errors
+**Clean Posts (0 errors):** N posts
+
+### Errors by Type
+| Rule | Count | Description | Severity |
+|------|-------|-------------|----------|
+| MD032 | 45 | Lists need blank lines | Best Practice |
+| MD031 | 32 | Code blocks need blank lines | Best Practice |
+| MD040 | 28 | Code blocks missing language | Best Practice |
+| MD022 | 12 | Headings need blank lines | Best Practice |
+| MD025 | 1 | Multiple H1 headings | Warning |
+| MD049 | 8 | Inconsistent emphasis style | Best Practice |
+
+### Most Problematic Posts
+| Post | Total Errors | Primary Issues |
+|------|--------------|----------------|
+| 2023-03-22-getting-started-connectwisecontrolapi.md | 10 | MD032, MD031, MD040 |
+| 2025-11-03-ai-doom-coefficient.md | 25 | MD032, MD040, MD025, MD049 |
+
+### Configuration Assessment
+**Enforced Rules:** 8 rules (MD001, MD003, MD004, MD007, MD024, MD026, MD046, MD050)
+**Relaxed Rules:** 6 rules (MD022, MD025, MD031, MD032, MD040, MD049)
+**Documentation:** ✅ Complete in CLAUDE.md and post template
+
+### Recommendations
+1. **HIGH PRIORITY:** Fix MD025 violations (multiple H1 headings) - affects SEO
+2. **MEDIUM PRIORITY:** Add language specification to code blocks (MD040)
+3. **LOW PRIORITY:** Add blank lines for readability (MD022, MD031, MD032)
+4. **DOCUMENTATION:** Consider creating markdown linting guide for contributors
+```
+
 ### SEO Content Audit
 
 **Meta Descriptions:**

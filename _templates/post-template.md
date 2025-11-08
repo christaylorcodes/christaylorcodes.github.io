@@ -57,21 +57,64 @@ description: "Optional SEO meta description if different from excerpt. Used in s
 
 Write your post content here using Markdown syntax.
 
-### Formatting Tips
+### Markdown Formatting Standards
 
-- Use `#` for main headings, `##` for subheadings
-- Code blocks with syntax highlighting:
+**IMPORTANT**: All blog posts are linted for markdown quality during CI/CD builds. Follow these standards:
+
+**Required (Enforced by CI/CD):**
+
+- Use ATX-style headings with `#` symbols (not underlined)
+- Increment heading levels by one (H1 → H2 → H3, don't skip)
+- Use dashes `-` for unordered lists (not `*` or `+`)
+- Indent nested lists by 2 spaces
+- No trailing punctuation in headings (`.`, `,`, `;`, `:`, `!`)
+- Use fenced code blocks with triple backticks (not indented blocks)
+- Use `**bold**` for bold text (asterisks, not underscores)
+
+**Best Practices (Recommended):**
+
+- Add blank lines before/after headings, code blocks, and lists
+- Always specify language for code blocks (e.g., ` ```powershell `)
+- Use `_italic_` for italics (underscores preferred for consistency)
+- Only one H1 heading per document (typically the title in front matter)
+
+**See full documentation**: [CLAUDE.md - Markdown Formatting Standards](../CLAUDE.md#markdown-formatting-standards)
+
+### Formatting Examples
+
+**Headings:**
+
+```markdown
+## Main Section
+
+### Subsection
+
+#### Detail Section
+```
+
+**Code blocks with language specification:**
 
 ```powershell
 # Example PowerShell code
 Get-Process | Where-Object {$_.CPU -gt 100}
 ```
 
-- Inline code uses backticks: `Get-Process`
+**Lists (use dashes):**
+
+```markdown
+- First item
+- Second item
+  - Nested item (2 space indent)
+  - Another nested item
+- Third item
+```
+
+**Inline code and emphasis:**
+
+- Inline code: `Get-Process`
 - **Bold text** uses double asterisks
-- *Italic text* uses single asterisks
+- _Italic text_ uses underscores
 - Links: [Link Text](https://example.com)
-- Lists use `-` or `*` for bullets, `1.` for numbered
 
 ### Suggested Post Structure
 
