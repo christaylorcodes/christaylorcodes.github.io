@@ -85,3 +85,8 @@ section {
 .back-to-top:active {
     transform: translateY(-2px);
 }
+
+/* Utility class for hiding elements (controlled by JavaScript) */
+.hidden {
+    display: none !important;
+}

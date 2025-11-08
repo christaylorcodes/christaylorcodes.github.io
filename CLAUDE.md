@@ -35,6 +35,8 @@ This guide is part of a comprehensive documentation suite:
 - [DATA-DRIVEN-ARCHITECTURE.md](DATA-DRIVEN-ARCHITECTURE.md) - Quick reference for data-driven content management
 - [ANALYTICS-SETUP.md](ANALYTICS-SETUP.md) - Analytics configuration and monitoring guide
 - [CLOUDFLARE-SETUP.md](CLOUDFLARE-SETUP.md) - CDN and cache purging setup
+- [SECURITY.md](SECURITY.md) - Security measures, standards compliance, and vulnerability tracking
+- [SECURITY-HEADERS-SETUP.md](SECURITY-HEADERS-SETUP.md) - CSP and security headers (Cloudflare best practice)
 
 **Use the maturity framework** to track and plan improvements across Privacy, Accessibility, Analytics, Content Strategy, Design Systems, Content Governance, and Automation.
 

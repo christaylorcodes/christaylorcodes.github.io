@@ -44,3 +44,8 @@
 .hero-buttons {
     animation-delay: 0.4s;      /* Last to animate */
 }
+
+/* Utility class for JavaScript-triggered fade-in animations */
+.fade-in-up {
+    animation: fadeInUp 0.5s ease;
+}

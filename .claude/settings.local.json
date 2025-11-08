@@ -9,7 +9,14 @@
       "Bash(git -C \"c:\\_Code\\Website\" diff _includes/footer.html)",
       "Bash(git -C \"c:\\_Code\\Website\" diff _includes/navigation.html)",
       "Bash(git -C \"c:\\_Code\\Website\" diff assets/js/main.js)",
-      "Bash(git -C \"c:\\_Code\\Website\" add .)"
+      "Bash(git -C \"c:\\_Code\\Website\" add .)",
+      "Bash(git -C \"c:\\_Code\\Website\" commit -m \"$(cat <<''EOF''\nAdd website maturity framework, security audit badge, and logo animation\n\n- Add WEBSITE-MATURITY-FRAMEWORK.md with comprehensive 7-dimension maturity assessment\n- Add AUDIT-PLAN.md for security audit planning\n- Add Aikido Security audit badge to footer with link to public report\n- Implement logo TLD alternation between .codes and .rocks (5:1 display ratio)\n- Update CLAUDE.md with Key Documentation section for better navigation\n- Update TODO.md with related documentation links and PSWebsiteHealth context\n- Update logo capitalization to ChrisTaylor\n\n🤖 Generated with [Claude Code](https://claude.com/claude-code)\n\nCo-Authored-By: Claude <noreply@anthropic.com>\nEOF\n)\")",
+      "Bash(git -C \"c:\\_Code\\Website\" push origin main)",
+      "Bash(git -C \"c:\\_Code\\Website\" diff .github/workflows/update-project-stats.yml)",
+      "Bash(git -C \"c:\\_Code\\Website\" diff --staged)",
+      "Bash(pwsh:*)",
+      "Bash(git -C \"c:\\_Code\\Website\" diff blog/index.html)",
+      "Bash(git -C \"c:\\_Code\\Website\" diff _sass/oceanic/_base.scss _sass/oceanic/_footer.scss _sass/oceanic/_animations.scss)"
     ],
     "deny": [],
     "ask": []

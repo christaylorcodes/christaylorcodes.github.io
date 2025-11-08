@@ -22,7 +22,7 @@ title: Blog
                         placeholder="Search posts by title, tags, or content..."
                         aria-label="Search blog posts"
                     >
-                    <button id="blog-search-clear" class="search-clear-btn" aria-label="Clear search" style="display: none;">
+                    <button id="blog-search-clear" class="search-clear-btn hidden" aria-label="Clear search">
                         <i class="fas fa-times"></i>
                     </button>
                 </div>
@@ -34,7 +34,7 @@ title: Blog
             </div>
 
             <!-- Advanced Filters (Collapsible) -->
-            <div id="advanced-filters" class="filter-advanced-panel" style="display: none;">
+            <div id="advanced-filters" class="filter-advanced-panel hidden">
                 <div class="filter-group">
                     <label class="filter-label">Filter by Category:</label>
                     <div class="filter-buttons">
@@ -65,7 +65,7 @@ title: Blog
         </div>
 
         <!-- All posts for filtering (hidden when paginating) -->
-        <div class="blog-posts blog-posts-all" style="display: none;">
+        <div class="blog-posts blog-posts-all hidden">
             {% for post in site.posts %}
             <article class="blog-post-card" data-categories="{% for category in post.categories %}{{ category | slugify }} {% endfor %}">
                 <div class="post-card-header">

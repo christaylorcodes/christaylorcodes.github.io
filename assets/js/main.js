@@ -216,16 +216,16 @@ document.addEventListener('DOMContentLoaded', function() {
 
                 if (filterValue === 'all') {
                     // Show paginated posts, hide filtered posts
-                    if (paginatedContainer) paginatedContainer.style.display = 'grid';
-                    if (allPostsContainer) allPostsContainer.style.display = 'none';
-                    if (paginationControls) paginationControls.style.display = 'flex';
-                    if (paginationInfo) paginationInfo.style.display = 'block';
+                    if (paginatedContainer) paginatedContainer.classList.remove('hidden');
+                    if (allPostsContainer) allPostsContainer.classList.add('hidden');
+                    if (paginationControls) paginationControls.classList.remove('hidden');
+                    if (paginationInfo) paginationInfo.classList.remove('hidden');
                 } else {
                     // Show all posts container for filtering, hide pagination
-                    if (paginatedContainer) paginatedContainer.style.display = 'none';
-                    if (allPostsContainer) allPostsContainer.style.display = 'grid';
-                    if (paginationControls) paginationControls.style.display = 'none';
-                    if (paginationInfo) paginationInfo.style.display = 'none';
+                    if (paginatedContainer) paginatedContainer.classList.add('hidden');
+                    if (allPostsContainer) allPostsContainer.classList.remove('hidden');
+                    if (paginationControls) paginationControls.classList.add('hidden');
+                    if (paginationInfo) paginationInfo.classList.add('hidden');
 
                     // Filter posts in the all posts container
                     const allPosts = allPostsContainer.querySelectorAll('.blog-post-card');
@@ -234,11 +234,11 @@ document.addEventListener('DOMContentLoaded', function() {
                     allPosts.forEach(post => {
                         const postCategories = post.getAttribute('data-categories');
                         if (postCategories && postCategories.includes(filterValue)) {
-                            post.style.display = 'block';
-                            post.style.animation = 'fadeInUp 0.5s ease';
+                            post.classList.remove('hidden');
+                            post.classList.add('fade-in-up');
                             visibleCount++;
                         } else {
-                            post.style.display = 'none';
+                            post.classList.add('hidden');
                         }
                     });
 
@@ -630,12 +630,12 @@ document.addEventListener('DOMContentLoaded', function() {
 
             if (isExpanded) {
                 // Collapse
-                advancedFiltersPanel.style.display = 'none';
+                advancedFiltersPanel.classList.add('hidden');
                 this.setAttribute('aria-expanded', 'false');
                 this.querySelector('.toggle-text').textContent = 'Filters';
             } else {
                 // Expand
-                advancedFiltersPanel.style.display = 'block';
+                advancedFiltersPanel.classList.remove('hidden');
                 this.setAttribute('aria-expanded', 'true');
                 this.querySelector('.toggle-text').textContent = 'Filters';
             }
@@ -656,18 +656,18 @@ document.addEventListener('DOMContentLoaded', function() {
 
         // If no search query and showing all categories, return to pagination
         if (query === '' && category === 'all') {
-            if (paginatedContainer) paginatedContainer.style.display = 'grid';
-            if (allPostsContainer) allPostsContainer.style.display = 'none';
-            if (paginationControls) paginationControls.style.display = 'flex';
-            if (paginationInfo) paginationInfo.style.display = 'block';
+            if (paginatedContainer) paginatedContainer.classList.remove('hidden');
+            if (allPostsContainer) allPostsContainer.classList.add('hidden');
+            if (paginationControls) paginationControls.classList.remove('hidden');
+            if (paginationInfo) paginationInfo.classList.remove('hidden');
             return;
         }
 
         // Show all posts container for filtering
-        if (paginatedContainer) paginatedContainer.style.display = 'none';
-        if (allPostsContainer) allPostsContainer.style.display = 'grid';
-        if (paginationControls) paginationControls.style.display = 'none';
-        if (paginationInfo) paginationInfo.style.display = 'none';
+        if (paginatedContainer) paginatedContainer.classList.add('hidden');
+        if (allPostsContainer) allPostsContainer.classList.remove('hidden');
+        if (paginationControls) paginationControls.classList.add('hidden');
+        if (paginationInfo) paginationInfo.classList.add('hidden');
 
         // Filter posts
         const allPosts = allPostsContainer.querySelectorAll('.blog-post-card');
@@ -696,11 +696,11 @@ document.addEventListener('DOMContentLoaded', function() {
 
             // Show or hide post based on both filters
             if (matchesSearch && matchesCategory) {
-                post.style.display = 'block';
-                post.style.animation = 'fadeInUp 0.5s ease';
+                post.classList.remove('hidden');
+                post.classList.add('fade-in-up');
                 visibleCount++;
             } else {
-                post.style.display = 'none';
+                post.classList.add('hidden');
             }
         });
 
@@ -729,9 +729,9 @@ document.addEventListener('DOMContentLoaded', function() {
 
         // Show/hide clear button
         if (currentSearchQuery.trim().length > 0) {
-            blogSearchClear.style.display = 'flex';
+            blogSearchClear.classList.remove('hidden');
         } else {
-            blogSearchClear.style.display = 'none';
+            blogSearchClear.classList.add('hidden');
         }
 
         // Debounce search
@@ -744,7 +744,7 @@ document.addEventListener('DOMContentLoaded', function() {
     blogSearchClear.addEventListener('click', function() {
         blogSearchInput.value = '';
         currentSearchQuery = '';
-        this.style.display = 'none';
+        this.classList.add('hidden');
         blogSearchInput.focus();
         filterPosts();
     });
