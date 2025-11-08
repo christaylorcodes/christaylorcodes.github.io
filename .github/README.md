@@ -55,14 +55,14 @@ This directory contains automated workflows for the christaylor.codes website.
 **Local Alternative:**
 ```powershell
 # Update PowerShell Gallery stats only (manual GitHub stars update required)
-.\sync-project-stats.ps1 -FetchGalleryStats
+.\scripts\sync-project-stats.ps1 -FetchGalleryStats
 
 # Preview changes without committing
-.\sync-project-stats.ps1 -FetchGalleryStats -WhatIf
+.\scripts\sync-project-stats.ps1 -FetchGalleryStats -WhatIf
 ```
 
 **Dependencies:**
-- `sync-project-stats.ps1` - PowerShell script for updating project files
+- `scripts/sync-project-stats.ps1` - PowerShell script for updating project files
 - `_data/project-stats.yml` - Centralized stats file
 - GitHub API access via `GITHUB_TOKEN` (automatically provided)
 - PowerShell Gallery public API (no auth required)

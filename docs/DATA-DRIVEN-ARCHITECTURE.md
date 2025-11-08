@@ -89,7 +89,7 @@ project-id:
 
 **Update Method:**
 ```powershell
-.\sync-project-stats.ps1 -FetchGalleryStats
+.\scripts\sync-project-stats.ps1 -FetchGalleryStats
 ```
 
 ## Common Update Scenarios

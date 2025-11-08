@@ -1,9 +1,11 @@
-<!-- Enhanced Person Schema (JSON-LD) for About Page -->
+<!-- Enhanced Person Schema (JSON-LD) for About Page - Optimized for Recruiter Discovery -->
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
   "@type": "Person",
   "name": "{{ site.data.author.name }}",
+  "givenName": "{{ site.data.author.first_name }}",
+  "familyName": "{{ site.data.author.last_name }}",
   "url": "{{ site.url }}",
   "email": "{{ site.data.contact.email }}",
   "image": "{{ site.logo | absolute_url }}",
@@ -15,6 +17,10 @@
     "description": "{{ site.data.author.company_description }}"
   },
   "knowsAbout": {{ site.data.author.expertise.knows_about | jsonify }},
+  "knowsLanguage": {
+    "@type": "Language",
+    "name": "English"
+  },
   "sameAs": {{ site.data.contact.social_profiles | jsonify }},
   "mainEntityOfPage": {
     "@type": "WebPage",
@@ -31,11 +37,34 @@
       "@type": "Country",
       "name": "{{ site.data.author.location }}"
     },
-    "skills": "{{ site.data.author.structured_data.occupation_skills }}"
+    "skills": "{{ site.data.author.structured_data.occupation_skills }}",
+    "experienceRequirements": "{{ site.data.author.experience_years }} years of professional experience"
   },
-  "seeks": {
-    "@type": "JobPosting",
-    "description": "{{ site.data.author.structured_data.seeking }}"
-  }
+  {% if site.data.author.structured_data.credentials %}
+  "hasCredential": [
+    {% for credential in site.data.author.structured_data.credentials %}
+    {
+      "@type": "EducationalOccupationalCredential",
+      "name": "{{ credential.name }}",
+      "credentialCategory": "{{ credential.category }}"
+    }{% unless forloop.last %},{% endunless %}
+    {% endfor %}
+  ],
+  {% endif %}
+  "seeks": "{{ site.data.author.structured_data.seeking }}",
+  "interactionStatistic": [
+    {
+      "@type": "InteractionCounter",
+      "interactionType": "https://schema.org/WriteAction",
+      "name": "Blog posts written",
+      "userInteractionCount": {{ site.posts | size }}
+    },
+    {
+      "@type": "InteractionCounter",
+      "interactionType": "https://schema.org/CreateAction",
+      "name": "Open source projects",
+      "userInteractionCount": {{ site.projects | size }}
+    }
+  ]
 }
 </script>

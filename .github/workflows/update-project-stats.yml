@@ -106,7 +106,7 @@ jobs:
           # updated weekly via GitHub Actions.
           #
           # To manually update:
-          # 1. Run .\sync-project-stats.ps1 -FetchGalleryStats locally
+          # 1. Run .\scripts\sync-project-stats.ps1 -FetchGalleryStats locally
           # 2. Commit and push changes
           # 3. Or trigger the "Update Project Stats" workflow manually
 
@@ -138,7 +138,7 @@ jobs:
           Write-Host ""
 
           # Run the sync script with -FetchGalleryStats to update download counts
-          ./sync-project-stats.ps1 -FetchGalleryStats
+          ./scripts/sync-project-stats.ps1 -FetchGalleryStats
 
       - name: Check for changes
         id: check_changes

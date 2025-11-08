@@ -55,9 +55,9 @@ if (-not (Test-Path "Gemfile")) {
 
 # Sync stats mode
 if ($Mode -eq 'sync-stats') {
-    $syncScript = Join-Path $PSScriptRoot "sync-project-stats.ps1"
+    $syncScript = Join-Path $PSScriptRoot "scripts\sync-project-stats.ps1"
     if (-not (Test-Path $syncScript)) {
-        Write-Host "`n[ERROR] sync-project-stats.ps1 not found!" -ForegroundColor Red
+        Write-Host "`n[ERROR] scripts\sync-project-stats.ps1 not found!" -ForegroundColor Red
         exit 1
     }
 

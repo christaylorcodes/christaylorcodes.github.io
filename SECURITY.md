@@ -30,7 +30,7 @@ This document provides a complete overview of security measures, known issues, a
 
 ✅ **Content Security Policy (CSP)** (Implemented: 2025-11-08)
 - **Solution:** Configured via Cloudflare Transform Rules
-- **Documentation:** [SECURITY-HEADERS-SETUP.md](SECURITY-HEADERS-SETUP.md)
+- **Documentation:** [docs/SECURITY-HEADERS-SETUP.md](docs/SECURITY-HEADERS-SETUP.md)
 - **Impact:** Prevents XSS attacks, unauthorized code injection, and clickjacking
 - **Implemented Headers:**
   - `Content-Security-Policy` - Restrictive policy with strict source allowlists
@@ -52,7 +52,7 @@ This document provides a complete overview of security measures, known issues, a
   - `Referrer-Policy: strict-origin-when-cross-origin` - Controls referrer information
   - `Permissions-Policy` - Restricts unnecessary browser features
 - **Priority:** Medium
-- **Documentation:** See [SECURITY-HEADERS-SETUP.md](SECURITY-HEADERS-SETUP.md) for implementation guide
+- **Documentation:** See [docs/SECURITY-HEADERS-SETUP.md](docs/SECURITY-HEADERS-SETUP.md) for implementation guide
 
 ### False Positives
 
@@ -225,9 +225,9 @@ If you discover a security vulnerability in this project:
 
 ### Documentation
 
-- [SECURITY-HEADERS-SETUP.md](SECURITY-HEADERS-SETUP.md) - Cloudflare security headers configuration
-- [CLOUDFLARE-SETUP.md](CLOUDFLARE-SETUP.md) - CDN and cache purging setup
-- [ANALYTICS-SETUP.md](ANALYTICS-SETUP.md) - Privacy-compliant analytics configuration
+- [docs/SECURITY-HEADERS-SETUP.md](docs/SECURITY-HEADERS-SETUP.md) - Cloudflare security headers configuration
+- [docs/CLOUDFLARE-SETUP.md](docs/CLOUDFLARE-SETUP.md) - CDN and cache purging setup
+- [docs/ANALYTICS-SETUP.md](docs/ANALYTICS-SETUP.md) - Privacy-compliant analytics configuration
 - [CLAUDE.md](CLAUDE.md) - Complete project maintenance guide
 
 ### External Resources

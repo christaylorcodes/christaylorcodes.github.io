@@ -2,6 +2,9 @@
 
 A beautiful, responsive personal website built with Jekyll and hosted on GitHub Pages.
 
+**Live at:** https://christaylor.codes
+**Go-Live Date:** November 3, 2025
+
 ## Features
 
 - Modern, clean design with smooth animations
