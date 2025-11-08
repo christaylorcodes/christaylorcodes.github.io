@@ -27,6 +27,27 @@ jobs:
         with:
           node-version: '20'
 
+      - name: Install terser for JS minification
+        run: npm install -g terser
+
+      - name: Minify JavaScript
+        run: |
+          echo "🔨 Minifying JavaScript files..."
+          terser assets/js/main.js \
+            --compress \
+            --mangle \
+            --comments false \
+            --output assets/js/main.min.js
+
+          ORIGINAL_SIZE=$(stat -c%s assets/js/main.js)
+          MINIFIED_SIZE=$(stat -c%s assets/js/main.min.js)
+          REDUCTION=$((100 - (MINIFIED_SIZE * 100 / ORIGINAL_SIZE)))
+
+          echo "✅ JavaScript minified successfully"
+          echo "   Original: ${ORIGINAL_SIZE} bytes"
+          echo "   Minified: ${MINIFIED_SIZE} bytes"
+          echo "   Reduction: ${REDUCTION}%"
+
       - name: Build with Jekyll
         run: bundle exec jekyll build
         env:

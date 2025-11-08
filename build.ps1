@@ -102,6 +102,42 @@ if (-not (Test-Path "Gemfile.lock")) {
     Write-Host "  Dependencies installed" -ForegroundColor Gray
 }
 
+# Optional: Minify JavaScript if terser is available
+Write-Host "`n[MINIFY] Checking for JavaScript minifier..." -ForegroundColor Yellow
+try {
+    $terserVersion = npx --no-install terser --version 2>$null
+    if ($LASTEXITCODE -eq 0) {
+        Write-Host "  Terser found (version $terserVersion)" -ForegroundColor Gray
+        Write-Host "  Minifying JavaScript files..." -ForegroundColor Gray
+
+        $jsSource = "assets/js/main.js"
+        $jsOutput = "assets/js/main.min.js"
+
+        if (Test-Path $jsSource) {
+            npx --no-install terser $jsSource --compress --mangle --comments false --output $jsOutput
+
+            if ($LASTEXITCODE -eq 0) {
+                $originalSize = (Get-Item $jsSource).Length
+                $minifiedSize = (Get-Item $jsOutput).Length
+                $reduction = [math]::Round((1 - ($minifiedSize / $originalSize)) * 100, 1)
+
+                Write-Host "  JavaScript minified successfully" -ForegroundColor Green
+                Write-Host "    Original: $([math]::Round($originalSize / 1KB, 1)) KB" -ForegroundColor Gray
+                Write-Host "    Minified: $([math]::Round($minifiedSize / 1KB, 1)) KB" -ForegroundColor Gray
+                Write-Host "    Reduction: $reduction%" -ForegroundColor Gray
+            } else {
+                Write-Host "  Minification failed, continuing with original JS" -ForegroundColor Yellow
+            }
+        }
+    } else {
+        Write-Host "  Terser not installed (optional)" -ForegroundColor Gray
+        Write-Host "  Install with: npm install -g terser" -ForegroundColor Gray
+    }
+} catch {
+    Write-Host "  Node.js/npm not found (optional)" -ForegroundColor Gray
+    Write-Host "  Local development will use non-minified JavaScript" -ForegroundColor Gray
+}
+
 # Build or Serve
 if ($Mode -eq 'build') {
     Write-Host "`n[BUILD] Building site..." -ForegroundColor Yellow

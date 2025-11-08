@@ -30,3 +30,6 @@ Desktop.ini
 # Environment
 .env
 .env.local
+
+# Generated JavaScript (minified during build)
+assets/js/*.min.js

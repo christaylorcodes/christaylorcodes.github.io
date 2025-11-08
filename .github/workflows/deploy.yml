@@ -28,6 +28,32 @@ jobs:
           ruby-version: '3.3'
           bundler-cache: true
 
+      - name: Setup Node.js
+        uses: actions/setup-node@60edb5dd545a775178f52524783378180af0d1f8 # v4.0.2
+        with:
+          node-version: '20'
+
+      - name: Install terser for JS minification
+        run: npm install -g terser
+
+      - name: Minify JavaScript
+        run: |
+          echo "🔨 Minifying JavaScript files..."
+          terser assets/js/main.js \
+            --compress \
+            --mangle \
+            --comments false \
+            --output assets/js/main.min.js
+
+          ORIGINAL_SIZE=$(stat -c%s assets/js/main.js)
+          MINIFIED_SIZE=$(stat -c%s assets/js/main.min.js)
+          REDUCTION=$((100 - (MINIFIED_SIZE * 100 / ORIGINAL_SIZE)))
+
+          echo "✅ JavaScript minified successfully"
+          echo "   Original: ${ORIGINAL_SIZE} bytes"
+          echo "   Minified: ${MINIFIED_SIZE} bytes"
+          echo "   Reduction: ${REDUCTION}%"
+
       - name: Setup Pages
         uses: actions/configure-pages@1f0c5cde4bc74cd7e1254d0cb4de8d49e9068c7d # v4.0.0
 
