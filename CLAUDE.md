@@ -39,7 +39,7 @@ This guide is part of a comprehensive documentation suite:
 - [TODO.md](TODO.md) - Sprint planning and task tracking
 
 **Site Maturity & Growth:**
-- [WEBSITE-MATURITY-FRAMEWORK.md](WEBSITE-MATURITY-FRAMEWORK.md) - Comprehensive maturity assessment across 7 dimensions
+- [docs/WEBSITE-MATURITY-FRAMEWORK.md](docs/WEBSITE-MATURITY-FRAMEWORK.md) - Comprehensive maturity assessment across 7 dimensions
   - Current overall maturity: Level 2.5 (Developing → Defined) - 37%
   - Quarterly review schedule and scoring methodology
   - Phased improvement roadmaps with specific tasks and timelines
@@ -47,12 +47,12 @@ This guide is part of a comprehensive documentation suite:
   - **Next quarterly review:** 2026-02-07
 
 **Specialized Guides:**
-- [DATA-DRIVEN-ARCHITECTURE.md](DATA-DRIVEN-ARCHITECTURE.md) - Quick reference for data-driven content management
-- [ANALYTICS-SETUP.md](ANALYTICS-SETUP.md) - Analytics configuration and monitoring guide
-- [CLOUDFLARE-SETUP.md](CLOUDFLARE-SETUP.md) - CDN and cache purging setup
-- [BACKLINK-STRATEGY.md](BACKLINK-STRATEGY.md) - SEO backlink building and organic discovery strategy
+- [docs/DATA-DRIVEN-ARCHITECTURE.md](docs/DATA-DRIVEN-ARCHITECTURE.md) - Quick reference for data-driven content management
+- [docs/ANALYTICS-SETUP.md](docs/ANALYTICS-SETUP.md) - Analytics configuration and monitoring guide
+- [docs/CLOUDFLARE-SETUP.md](docs/CLOUDFLARE-SETUP.md) - CDN and cache purging setup
+- [docs/BACKLINK-STRATEGY.md](docs/BACKLINK-STRATEGY.md) - SEO backlink building and organic discovery strategy
 - [SECURITY.md](SECURITY.md) - Security measures, standards compliance, and vulnerability tracking
-- [SECURITY-HEADERS-SETUP.md](SECURITY-HEADERS-SETUP.md) - CSP and security headers (Cloudflare best practice)
+- [docs/SECURITY-HEADERS-SETUP.md](docs/SECURITY-HEADERS-SETUP.md) - CSP and security headers (Cloudflare best practice)
 
 **Use the maturity framework** to track and plan improvements across Privacy, Accessibility, Analytics, Content Strategy, Design Systems, Content Governance, and Automation.
 
@@ -143,7 +143,7 @@ collections:
 
 The site follows a **data-driven design principle** where content is separated from presentation. All frequently-updated or repeated information is centralized in YAML data files in the `_data/` directory.
 
-**For a complete quick reference guide, see:** [DATA-DRIVEN-ARCHITECTURE.md](DATA-DRIVEN-ARCHITECTURE.md)
+**For a complete quick reference guide, see:** [docs/DATA-DRIVEN-ARCHITECTURE.md](docs/DATA-DRIVEN-ARCHITECTURE.md)
 
 ### Design Philosophy
 
@@ -1596,7 +1596,7 @@ GitHub Secrets (already configured):
 - `CLOUDFLARE_API_TOKEN` - API token with cache purge permission
 - `CLOUDFLARE_ZONE_ID` - Zone ID for christaylor.codes
 
-**For detailed setup instructions**, see: [CLOUDFLARE-SETUP.md](CLOUDFLARE-SETUP.md)
+**For detailed setup instructions**, see: [docs/CLOUDFLARE-SETUP.md](docs/CLOUDFLARE-SETUP.md)
 
 ### Automated Project Statistics Updates
 
@@ -1695,7 +1695,7 @@ git push origin main
 - Deployment will still succeed (cache purge is non-blocking)
 - Manually purge via Cloudflare Dashboard if needed
 - Check GitHub Secrets are configured correctly
-- See [CLOUDFLARE-SETUP.md](CLOUDFLARE-SETUP.md) for troubleshooting
+- See [docs/CLOUDFLARE-SETUP.md](docs/CLOUDFLARE-SETUP.md) for troubleshooting
 
 **Build fails:**
 - Check Actions tab for error details
@@ -1889,7 +1889,7 @@ Comprehensive quality assurance pipeline that runs on every push to `dev` branch
 **HTML Validation (html-proofer):**
 - Internal link validation (broken links caught before deployment)
 - Image existence verification (missing images detected)
-- Script and favicon checks
+- Script validation (ensures JavaScript files exist)
 - Ignores external links (prevents false positives from third-party sites)
 
 **Lighthouse CI (`.lighthouserc.json`):**
@@ -2606,7 +2606,7 @@ The structured data includes these searchable elements:
 
 ## Analytics & Metrics Collection
 
-The site supports comprehensive analytics and metrics collection through multiple services. For detailed setup instructions, see: [ANALYTICS-SETUP.md](ANALYTICS-SETUP.md)
+The site supports comprehensive analytics and metrics collection through multiple services. For detailed setup instructions, see: [docs/ANALYTICS-SETUP.md](docs/ANALYTICS-SETUP.md)
 
 ### Available Analytics Tools
 
@@ -2676,7 +2676,7 @@ The GA4 implementation includes automatic tracking for:
 4. **Verify Search Console** ownership via DNS
 5. **Deploy changes** and verify tracking
 
-See [ANALYTICS-SETUP.md](ANALYTICS-SETUP.md) for:
+See [docs/ANALYTICS-SETUP.md](docs/ANALYTICS-SETUP.md) for:
 - Step-by-step setup instructions
 - What metrics each tool provides
 - Dashboard configuration recommendations

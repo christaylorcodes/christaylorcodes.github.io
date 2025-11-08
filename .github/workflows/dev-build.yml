@@ -68,7 +68,7 @@ jobs:
             --disable-external \
             --allow-hash-href \
             --ignore-urls "/localhost/,/christaylor.codes/,/christaylorcodes.github.io/" \
-            --checks Images,Scripts,Favicon \
+            --checks Images,Scripts \
             --ignore-files "/assets/,/feed.xml/" \
             --log-level :info
 
