@@ -22,7 +22,7 @@ Security headers are configured via Cloudflare Transform Rules since the site is
 
 **Implemented Policy:**
 ```
-Content-Security-Policy: default-src 'self'; script-src 'self' 'unsafe-inline' https://www.googletagmanager.com https://static.cloudflareinsights.com https://cdnjs.cloudflare.com https://cdn.jsdelivr.net; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://cdnjs.cloudflare.com https://cdn.jsdelivr.net; font-src 'self' https://fonts.gstatic.com https://cdnjs.cloudflare.com; img-src 'self' data: https:; connect-src 'self' https://www.google-analytics.com https://region1.google-analytics.com https://ipinfo.io; frame-ancestors 'none'; base-uri 'self'; form-action 'self' https://formspree.io
+Content-Security-Policy: default-src 'self'; script-src 'self' 'unsafe-inline' https://www.googletagmanager.com https://static.cloudflareinsights.com https://cdnjs.cloudflare.com https://cdn.jsdelivr.net; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://cdnjs.cloudflare.com https://cdn.jsdelivr.net; font-src 'self' https://fonts.gstatic.com https://cdnjs.cloudflare.com; img-src 'self' data: https:; connect-src 'self' https://www.google-analytics.com https://region1.google-analytics.com; frame-ancestors 'none'; base-uri 'self'; form-action 'self' https://formspree.io
 ```
 
 **Policy Breakdown:**
@@ -51,7 +51,6 @@ Content-Security-Policy: default-src 'self'; script-src 'self' 'unsafe-inline' h
 - `connect-src` - Allow AJAX/fetch requests to:
   - Same origin (`'self'`)
   - Google Analytics API endpoints (`www.google-analytics.com`, `region1.google-analytics.com`)
-  - Geolocation service for cookie consent (`ipinfo.io`)
 - `frame-ancestors 'none'` - Prevent embedding in iframes (**clickjacking protection**)
 - `base-uri 'self'` - Restrict `<base>` tag to same origin
 - `form-action 'self' https://formspree.io` - Allow form submissions to same origin and Formspree only
@@ -285,8 +284,8 @@ When adding new third-party services:
 
 **Primary Headers:**
 - ✅ Content Security Policy: **Enforced** (restrictive policy with strict source allowlists)
-  - Updated to include `cdn.jsdelivr.net` for cookie consent library (Osano Cookie Consent)
-  - Updated to include `ipinfo.io` for geolocation-based consent (GDPR/CCPA regional detection)
+  - Includes `cdn.jsdelivr.net` for cookie consent library (Osano Cookie Consent)
+  - Geolocation detection disabled to avoid mixed content warnings
 - ✅ HTTPS: **Enabled** via Cloudflare SSL/TLS Full (Strict)
 - ✅ HSTS: **Enabled** via Cloudflare (Automatic, 31536000 seconds, includeSubDomains)
 
@@ -316,5 +315,6 @@ When adding new third-party services:
 **Related Documentation:** [CLOUDFLARE-SETUP.md](CLOUDFLARE-SETUP.md), [ANALYTICS-SETUP.md](ANALYTICS-SETUP.md)
 
 **Changelog:**
-- **2025-01-08**: Added `cdn.jsdelivr.net` and `ipinfo.io` to CSP for cookie consent functionality
+- **2025-11-08**: Removed `ipinfo.io` from CSP and disabled geolocation in cookie consent (eliminates mixed content warning in Lighthouse)
+- **2025-01-08**: Added `cdn.jsdelivr.net` to CSP for cookie consent library
 - **2025-11-08**: Initial CSP implementation
