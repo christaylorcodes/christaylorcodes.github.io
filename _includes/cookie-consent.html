@@ -1,0 +1,132 @@
+<!-- Cookie Consent Banner - Osano Cookie Consent (Open Source) -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/cookieconsent@3/build/cookieconsent.min.css">
+<script src="https://cdn.jsdelivr.net/npm/cookieconsent@3/build/cookieconsent.min.js" data-cfasync="false"></script>
+<script>
+window.addEventListener('load', function() {
+    window.cookieconsent.initialise({
+        palette: {
+            popup: {
+                background: "#1e293b",
+                text: "#f1f5f9"
+            },
+            button: {
+                background: "#06b6d4",
+                text: "#020617"
+            }
+        },
+        theme: "classic",
+        type: "opt-in",
+        content: {
+            message: "This website uses cookies to analyze traffic and improve your experience. We respect your privacy and comply with GDPR/CCPA.",
+            dismiss: "Decline",
+            allow: "Accept Cookies",
+            link: "Learn more",
+            href: "{{ '/privacy' | relative_url }}",
+            policy: "Privacy Policy"
+        },
+        onStatusChange: function(status, chosenBefore) {
+            var type = this.options.type;
+            var didConsent = this.hasConsented();
+
+            if (didConsent) {
+                // User accepted cookies - load analytics
+                loadAnalytics();
+            } else {
+                // User declined - don't load analytics
+                console.log('Analytics cookies declined by user');
+            }
+        },
+        onInitialise: function(status) {
+            var type = this.options.type;
+            var didConsent = this.hasConsented();
+
+            if (didConsent) {
+                // User has previously consented - load analytics
+                loadAnalytics();
+            }
+        },
+        law: {
+            regionalLaw: true,
+        },
+        location: true,
+    });
+});
+
+// Function to load analytics scripts only after consent
+function loadAnalytics() {
+    // Only load if not already loaded
+    if (window.analyticsLoaded) {
+        return;
+    }
+
+    // Mark as loaded
+    window.analyticsLoaded = true;
+
+    // Load Google Analytics 4
+    var gaScript = document.createElement('script');
+    gaScript.async = true;
+    gaScript.src = 'https://www.googletagmanager.com/gtag/js?id={{ site.google_analytics }}';
+    document.head.appendChild(gaScript);
+
+    gaScript.onload = function() {
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', '{{ site.google_analytics }}', {
+            'anonymize_ip': true,
+            'cookie_flags': 'SameSite=None;Secure'
+        });
+
+        // Custom event tracking (from google-analytics.html)
+        document.addEventListener('click', function(event) {
+            var target = event.target.closest('a');
+            if (!target) return;
+
+            var href = target.getAttribute('href');
+            if (!href) return;
+
+            // Track GitHub repository clicks
+            if (href.includes('github.com/christaylorcodes')) {
+                gtag('event', 'click', {
+                    'event_category': 'external_link',
+                    'event_label': 'github_repo',
+                    'value': href
+                });
+            }
+
+            // Track PowerShell Gallery clicks
+            if (href.includes('powershellgallery.com')) {
+                gtag('event', 'click', {
+                    'event_category': 'external_link',
+                    'event_label': 'powershell_gallery',
+                    'value': href
+                });
+            }
+
+            // Track social media clicks
+            if (href.includes('linkedin.com') || href.includes('twitter.com') || href.includes('x.com')) {
+                var platform = href.includes('linkedin') ? 'linkedin' : 'twitter';
+                gtag('event', 'click', {
+                    'event_category': 'social_media',
+                    'event_label': platform,
+                    'value': href
+                });
+            }
+        });
+
+        // Track form submissions
+        var contactForms = document.querySelectorAll('form[action*="formspree"]');
+        contactForms.forEach(function(form) {
+            form.addEventListener('submit', function() {
+                gtag('event', 'form_submission', {
+                    'event_category': 'engagement',
+                    'event_label': 'contact_form'
+                });
+            });
+        });
+    };
+
+    // Cloudflare Web Analytics (cookieless, always loads)
+    // This is included separately in cloudflare-analytics.html
+}
+</script>

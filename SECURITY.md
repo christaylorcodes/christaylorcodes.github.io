@@ -194,6 +194,10 @@ If you discover a security vulnerability in this project:
    - Suggested fix (if known)
 4. **Response Time:** I will acknowledge within 48 hours and provide a fix timeline
 
+**security.txt**: This site implements RFC 9116 security.txt for standardized vulnerability reporting. See:
+- https://christaylor.codes/.well-known/security.txt
+- https://christaylor.codes/security.txt
+
 ## Security Roadmap
 
 ### Completed

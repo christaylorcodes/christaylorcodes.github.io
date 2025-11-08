@@ -16,7 +16,16 @@
       "Bash(git -C \"c:\\_Code\\Website\" diff --staged)",
       "Bash(pwsh:*)",
       "Bash(git -C \"c:\\_Code\\Website\" diff blog/index.html)",
-      "Bash(git -C \"c:\\_Code\\Website\" diff _sass/oceanic/_base.scss _sass/oceanic/_footer.scss _sass/oceanic/_animations.scss)"
+      "Bash(git -C \"c:\\_Code\\Website\" diff _sass/oceanic/_base.scss _sass/oceanic/_footer.scss _sass/oceanic/_animations.scss)",
+      "Bash(git -C \"c:\\_Code\\Website\" commit -m \"$(cat <<''EOF''\nAdd website maturity framework, security audit badge, and CSS refactoring\n\n- Add WEBSITE-MATURITY-FRAMEWORK.md with comprehensive 7-dimension maturity assessment\n  - Privacy & Compliance (15% - CRITICAL), Accessibility (30%), Analytics (50%)\n  - Design Systems (55%), Content Governance (25%), Automation (50%), Strategy (35%)\n  - Overall maturity: Level 2.5 (37% - Developing → Defined)\n  - Quarterly review schedule and phased improvement roadmaps\n  - Next review: 2026-02-07\n\n- Add AUDIT-PLAN.md for comprehensive website auditing across all maturity dimensions\n  - Accessibility (WAVE, axe, Lighthouse, manual testing)\n  - Analytics (event tracking, conversion goals, data quality)\n  - Content (link checking, freshness, SEO)\n  - Privacy & compliance (GDPR/CCPA checklist)\n  - Performance (PageSpeed Insights, Core Web Vitals)\n  - Design system (consistency, color usage, spacing)\n\n- Add SECURITY.md documenting resolved security issues and implementation status\n  - XSS prevention in search results (fixed)\n  - GitHub Actions pinned to commit SHAs (fixed)\n  - Content Security Policy implemented via Cloudflare (2025-11-08)\n  - Security audit badge added to footer\n\n- Add SECURITY-HEADERS-SETUP.md with Cloudflare CSP configuration guide\n  - Implemented restrictive CSP with strict source allowlists\n  - Documents industry-standard use of unsafe-inline for critical CSS\n  - Testing procedures and troubleshooting guidance\n\n- Refactor CSS to eliminate inline styles\n  - Add .hidden utility class in _base.scss for JavaScript-controlled visibility\n  - Add .fade-in-up animation class in _animations.scss\n  - Add .footer-badge-link and .footer-badge-img classes in _footer.scss\n  - Replace inline style manipulation with CSS class toggling in main.js\n  - Update blog/index.html to use .hidden class instead of inline styles\n  - Update footer.html to use CSS classes for Aikido security badge\n\n- Add calculate-css-hash.ps1 script for CSP hash generation\n\n- Update CLAUDE.md with Key Documentation section\n  - Links to maturity framework and audit plan\n  - Organizes documentation by purpose (maintenance, maturity, specialized)\n\n- Update TODO.md with Related Documentation section\n  - Links to maturity framework for tracking site growth\n  - Connects TODO tasks to broader maturity goals\n\n🤖 Generated with [Claude Code](https://claude.com/claude-code)\n\nCo-Authored-By: Claude <noreply@anthropic.com>\nEOF\n)\")",
+      "Bash(mkdir:*)",
+      "Bash(git add:*)",
+      "Bash(git commit:*)",
+      "Bash(bundle exec jekyll build:*)",
+      "Bash(Select-String -Pattern \"security.txt|well-known|error|Error\" -CaseSensitive)",
+      "Bash(Test-Path \"c:\\_Code\\Website\\_site\\.well-known\\security.txt\")",
+      "Bash(Test-Path \"c:\\_Code\\Website\\_site\\security.txt\")",
+      "Bash(git -C \"c:\\_Code\\Website\" status --short)"
     ],
     "deny": [],
     "ask": []

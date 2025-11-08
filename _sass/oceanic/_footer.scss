@@ -64,9 +64,29 @@
     opacity: 0.8;
 }
 
+.footer-bottom a {
+    color: var(--primary-color);
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+.footer-bottom a:hover {
+    color: var(--primary-light);
+    text-decoration: underline;
+}
+
+.footer-separator {
+    margin: 0 0.75rem;
+    opacity: 0.5;
+}
+
 .footer-badge-link {
     margin-left: 1rem;
     vertical-align: middle;
+}
+
+.footer-badge-link:hover {
+    text-decoration: none;
 }
 
 .footer-badge-img {

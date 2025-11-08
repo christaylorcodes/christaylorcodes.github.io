@@ -78,6 +78,10 @@ collections:
     permalink: /projects/:title/
     sort_by: order
 
+# Include files that would normally be excluded
+include:
+  - .well-known
+
 # Exclude from processing
 exclude:
   - Gemfile

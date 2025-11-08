@@ -33,6 +33,10 @@
         <div class="footer-bottom">
             <p>
                 &copy; {{ 'now' | date: "%Y" }} {{ site.title }}. All rights reserved.
+                <span class="footer-separator">|</span>
+                <a href="{{ '/privacy' | relative_url }}">Privacy Policy</a>
+                <span class="footer-separator">|</span>
+                <a href="{{ '/terms' | relative_url }}">Terms of Service</a>
                 <a href="https://app.aikido.dev/audit-report/external/WbAGYSkx7t09VOUAKIlmHeVh/request" target="_blank" rel="noopener noreferrer" class="footer-badge-link">
                     <img src="https://app.aikido.dev/assets/badges/label-only-dark-theme.svg" alt="Aikido Security Audit Report" height="24" class="footer-badge-img" />
                 </a>

@@ -1,0 +1,18 @@
+# Our security address
+# https://securitytxt.org/
+# This file is a standard defined in RFC 9116
+
+Contact: mailto:ctaylor@christaylor.codes
+Expires: 2026-11-08T00:00:00.000Z
+Preferred-Languages: en
+Canonical: https://christaylor.codes/.well-known/security.txt
+Policy: https://christaylor.codes/SECURITY.md
+
+# Vulnerability Disclosure Process:
+# 1. Do NOT create a public GitHub issue
+# 2. Email ctaylor@christaylor.codes with subject "SECURITY: [Brief Description]"
+# 3. Include: Description, steps to reproduce, potential impact, suggested fix
+# 4. Response time: Acknowledgment within 48 hours
+
+# Additional Information
+Hiring: https://christaylor.codes/about
