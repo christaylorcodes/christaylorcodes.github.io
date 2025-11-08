@@ -350,7 +350,7 @@ Strategic sprint to build domain authority and organic discovery through natural
 ---
 
 ### Sprint 10: Code Quality Standards Improvement 📅 PLANNED (Q2-Q3 2026)
-**Priority:** LOW | **Project Type:** [PERSONAL] | **Duration:** 8-12 hours total
+**Priority:** LOW | **Project Type:** [PERSONAL] | **Duration:** 18-28 hours total
 **Timeline:** Q2-Q3 2026 (after higher priority content and SEO work)
 
 This sprint restores stricter quality standards that were temporarily relaxed to get the CI/CD pipeline operational. While the site currently meets minimum quality thresholds, these improvements will bring it up to professional best-practice standards.
@@ -359,6 +359,7 @@ This sprint restores stricter quality standards that were temporarily relaxed to
 During CI/CD implementation (November 2025), we relaxed certain quality standards to accommodate existing content:
 - **Markdown linting**: Relaxed 6 cosmetic rules (MD022, MD025, MD031, MD032, MD040, MD049)
 - **Accessibility**: Lowered threshold from 90% to 85%, made color-contrast a warning
+- **Lighthouse preset**: Removed "lighthouse:recommended" preset to eliminate strict PWA and performance checks
 - **Current state**: Site passes all critical checks, but has improvement opportunities
 
 **Phase 1: Markdown Quality Restoration** (4-6 hours):
@@ -393,10 +394,41 @@ During CI/CD implementation (November 2025), we relaxed certain quality standard
   - Document any intentional exceptions
 - [ ] Update CLAUDE.md and workflow documentation [PERSONAL] [LOW] (30 min)
 
+**Phase 3: Lighthouse Recommended Preset Restoration** (6-10 hours):
+- [ ] Evaluate and fix Lighthouse recommended preset violations [PERSONAL] [LOW] (4-6 hours)
+  - Fix link-in-text-block issues (ensure links are visually distinct)
+  - Fix heading-order problems (ensure logical heading hierarchy)
+  - Fix label-content-name-mismatch (ensure labels match accessible names)
+  - Fix identical-links-same-purpose (ensure unique link text or context)
+  - Review and address performance recommendations:
+    - Offscreen images (implement lazy loading if not already done)
+    - Render-blocking resources (optimize CSS/JS loading)
+    - Unused CSS/JavaScript (consider code splitting)
+    - Text compression (verify Cloudflare gzip/brotli is working)
+  - Evaluate PWA requirements (installable-manifest, themed-omnibox)
+    - Decision needed: Does this portfolio site need PWA features?
+    - If yes: Add web app manifest and theme colors
+    - If no: Document decision to exclude PWA from preset
+- [ ] Re-enable "lighthouse:recommended" preset in `.lighthouserc.json` [PERSONAL] [LOW] (30 min)
+  - Add back: "preset": "lighthouse:recommended"
+  - May need to add exceptions for PWA requirements if not desired
+  - Update explicit assertions to complement preset
+- [ ] Verify all pages pass recommended preset checks [PERSONAL] [LOW] (2-3 hours)
+  - Run Lighthouse CI on all 5 key pages
+  - Review and address any remaining failures
+  - Test edge cases (blog posts, project pages)
+  - Document any intentional exceptions with rationale
+- [ ] Update documentation and CI/CD configuration [PERSONAL] [LOW] (1 hour)
+  - Update CLAUDE.md with restored preset documentation
+  - Update dev-build.yml if needed
+  - Document decision on PWA features
+
 **Success Criteria:**
 - [ ] All blog posts pass strict markdown linting (0 errors)
 - [ ] All pages achieve 90%+ accessibility score
 - [ ] Color contrast meets WCAG AA standards (4.5:1 for normal text, 3:1 for large)
+- [ ] All pages pass "lighthouse:recommended" preset checks
+- [ ] PWA features evaluated and decision documented
 - [ ] CI/CD enforces strict standards without false positives
 
 **Benefits:**
