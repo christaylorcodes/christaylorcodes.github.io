@@ -435,7 +435,7 @@ document.addEventListener('DOMContentLoaded', function() {
         results.forEach(result => {
             const typeIcon = result.type === 'post' ? 'fa-file-alt' : 'fa-folder';
             const typeLabel = result.type === 'post' ? 'Blog Post' : 'Project';
-            const dateDisplay = result.date ? `<span class="result-date"><i class="far fa-calendar"></i> ${result.date}</span>` : '';
+            const dateDisplay = result.date ? `<span class="result-date"><i class="far fa-calendar"></i> ${escapeHtml(result.date)}</span>` : '';
             const tagsDisplay = result.tags && result.tags.length > 0 ?
                 `<div class="result-tags">${result.tags.map(tag => `<span class="result-tag">${escapeHtml(tag)}</span>`).join('')}</div>` : '';
 
@@ -446,7 +446,7 @@ document.addEventListener('DOMContentLoaded', function() {
                         ${dateDisplay}
                     </div>
                     <h3 class="result-title">
-                        <a href="${result.url}">${escapeHtml(result.title)}</a>
+                        <a href="${escapeHtml(result.url)}">${escapeHtml(result.title)}</a>
                     </h3>
                     <div class="result-excerpt">${sanitizeHtml(result.excerpt)}</div>
                     ${tagsDisplay}
