@@ -1,6 +1,42 @@
 // Modern browsers support WebP natively
 // This site serves only WebP images for optimal performance
 
+// Logo TLD alternation between .codes and .rocks
+document.addEventListener('DOMContentLoaded', function() {
+    const logoTld = document.getElementById('logo-tld');
+
+    if (!logoTld) {
+        return; // Logo element not found
+    }
+
+    const domains = ['.codes', '.rocks'];
+    const domainDurations = [10000, 2000]; // .codes shows for 10s, .rocks shows for 2s (5:1 ratio)
+    let currentDomainIndex = 0;
+
+    function alternateDomain() {
+        // Fade out
+        logoTld.style.opacity = '0';
+
+        // Wait for fade out, then change text and fade in
+        setTimeout(function() {
+            currentDomainIndex = (currentDomainIndex + 1) % domains.length;
+            logoTld.textContent = domains[currentDomainIndex];
+
+            // Fade in
+            logoTld.style.opacity = '1';
+
+            // Schedule next alternation based on current domain duration
+            setTimeout(alternateDomain, domainDurations[currentDomainIndex]);
+        }, 300); // Match the CSS transition duration
+    }
+
+    // Add transition to logo TLD for smooth fade effect
+    logoTld.style.transition = 'opacity 0.3s ease-in-out';
+
+    // Start the alternation cycle with initial domain duration
+    setTimeout(alternateDomain, domainDurations[currentDomainIndex]);
+});
+
 // Lazy Loading Fallback for Older Browsers
 // Modern browsers support native lazy loading (loading="lazy" attribute)
 // This provides fallback for browsers without native support using Intersection Observer

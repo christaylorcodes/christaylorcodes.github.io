@@ -14,6 +14,30 @@ This is a personal portfolio and blog website built with Jekyll and hosted on Gi
 **DNS:** Cloudflare
 **Owner:** Chris Taylor (ctaylor@christaylor.codes)
 
+## Key Documentation
+
+This guide is part of a comprehensive documentation suite:
+
+**Project Maintenance:**
+- **CLAUDE.md** (this file) - Complete project maintenance guide and reference
+- [README.md](README.md) - Setup, deployment, and quick start instructions
+- [TODO.md](TODO.md) - Sprint planning and task tracking
+
+**Site Maturity & Growth:**
+- [WEBSITE-MATURITY-FRAMEWORK.md](WEBSITE-MATURITY-FRAMEWORK.md) - Comprehensive maturity assessment across 7 dimensions
+  - Current overall maturity: Level 2.5 (Developing → Defined) - 37%
+  - Quarterly review schedule and scoring methodology
+  - Phased improvement roadmaps with specific tasks and timelines
+  - Success metrics and tracking process
+  - **Next quarterly review:** 2026-02-07
+
+**Specialized Guides:**
+- [DATA-DRIVEN-ARCHITECTURE.md](DATA-DRIVEN-ARCHITECTURE.md) - Quick reference for data-driven content management
+- [ANALYTICS-SETUP.md](ANALYTICS-SETUP.md) - Analytics configuration and monitoring guide
+- [CLOUDFLARE-SETUP.md](CLOUDFLARE-SETUP.md) - CDN and cache purging setup
+
+**Use the maturity framework** to track and plan improvements across Privacy, Accessibility, Analytics, Content Strategy, Design Systems, Content Governance, and Automation.
+
 ## Site Structure
 
 ```

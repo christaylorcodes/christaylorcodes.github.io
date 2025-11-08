@@ -2,6 +2,17 @@
 
 This document tracks improvements and enhancements for christaylor.codes. Tasks are organized by priority to help maintain and enhance the website.
 
+## Related Documentation
+
+**Site Maturity Tracking:**
+- [WEBSITE-MATURITY-FRAMEWORK.md](WEBSITE-MATURITY-FRAMEWORK.md) - Comprehensive maturity assessment and growth roadmap
+- Review quarterly to track progress across 7 key dimensions
+- Next review: 2026-02-07
+
+**Project Documentation:**
+- [CLAUDE.md](CLAUDE.md) - Complete project maintenance guide
+- [README.md](README.md) - Setup and deployment instructions
+
 ## Sprint Planning
 
 Tasks below have been organized into 8 focused sprints that group similar work and optimize for efficiency. Each sprint is designed to minimize context switching and token usage.
@@ -66,10 +77,14 @@ Critical improvements for discoverability and inclusivity.
 ### Sprint 4: Analytics & Monitoring
 **Priority:** MEDIUM | **Token Usage:** LOW | **Duration:** 1 session
 
+**Context:** PSWebsiteHealth module suite in development to automate website monitoring. See [c:\_Code\CHRIS\projects\pswebsitehealth.md](c:\_Code\CHRIS\projects\pswebsitehealth.md)
+
 **Tasks:**
 - [ ] Add privacy-focused analytics (Plausible or Fathom)
-- [ ] Add performance monitoring
+- [ ] Add performance monitoring (automated via PSLighthouse when complete)
 - [ ] Implement error tracking
+- [ ] Set up automated weekly performance checks
+- [ ] Create monitoring dashboard for maturity framework metrics
 
 ### Sprint 5: Contact & Social Enhancements
 **Priority:** LOW-MEDIUM | **Token Usage:** LOW | **Duration:** 1 session
