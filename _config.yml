@@ -93,3 +93,6 @@ exclude:
   - vendor/ruby/
   - README.md
   - CLAUDE.md
+  - KNOWN-ISSUES.md
+  - prototypes/
+  - docs/
