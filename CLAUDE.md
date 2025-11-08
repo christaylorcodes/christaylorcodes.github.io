@@ -50,6 +50,7 @@ This guide is part of a comprehensive documentation suite:
 - [DATA-DRIVEN-ARCHITECTURE.md](DATA-DRIVEN-ARCHITECTURE.md) - Quick reference for data-driven content management
 - [ANALYTICS-SETUP.md](ANALYTICS-SETUP.md) - Analytics configuration and monitoring guide
 - [CLOUDFLARE-SETUP.md](CLOUDFLARE-SETUP.md) - CDN and cache purging setup
+- [BACKLINK-STRATEGY.md](BACKLINK-STRATEGY.md) - SEO backlink building and organic discovery strategy
 - [SECURITY.md](SECURITY.md) - Security measures, standards compliance, and vulnerability tracking
 - [SECURITY-HEADERS-SETUP.md](SECURITY-HEADERS-SETUP.md) - CSP and security headers (Cloudflare best practice)
 
@@ -1729,18 +1730,65 @@ Deployment status:
 ### GitHub Actions Workflows
 
 **Dev Branch Workflow (`.github/workflows/dev-build.yml`):**
-- Triggers on push to `dev` branch
-- Runs Jekyll build with development environment
-- Validates critical files exist (index.html, styles.css)
-- Provides build summary in GitHub Actions UI
-- Does NOT deploy to production
+Comprehensive quality assurance pipeline that runs on every push to `dev` branch.
+
+**Build Steps:**
+1. **Jekyll Build** - Compiles site with development environment
+2. **Critical File Verification** - Ensures index.html and styles.css exist
+3. **Markdown Linting** - Validates blog post formatting and consistency
+4. **HTML Validation** - Checks for broken internal links, missing images, and invalid HTML
+5. **Lighthouse CI** - Tests performance, accessibility, SEO, and best practices
+6. **Artifact Upload** - Saves Lighthouse results for 30 days
+
+**What Gets Checked:**
+
+**Markdown Linting (`.markdownlint.json`):**
+- Consistent heading hierarchy
+- Proper list formatting
+- Code fence style consistency
+- No trailing spaces
+- Configurable rules for technical content
+
+**HTML Validation (html-proofer):**
+- Internal link validation (broken links caught before deployment)
+- Image existence verification (missing images detected)
+- Script and favicon checks
+- Ignores external links (prevents false positives from third-party sites)
+
+**Lighthouse CI (`.lighthouserc.json`):**
+Tests 5 key pages: home, about, blog, projects, contact
+
+- **Performance**: Minimum score 85% (warns if below)
+- **Accessibility**: Minimum score 90% (fails if below - critical for professional site)
+- **Best Practices**: Minimum score 85% (warns if below)
+- **SEO**: Minimum score 90% (warns if below - critical for discoverability)
+
+**Key Accessibility Checks:**
+- ARIA required children
+- Color contrast ratios (WCAG compliance)
+- Document title presence
+- HTML lang attribute
+- Image alt attributes
+- Meta descriptions
+
+**Results:**
+- Lighthouse reports saved as artifacts (viewable in GitHub Actions)
+- Build summary shows pass/fail for all checks
+- Uploaded to temporary public storage for detailed review
+- 30-day retention for trend analysis
+
+**Does NOT deploy to production** - safe testing environment.
 
 **Main Branch Workflow (`.github/workflows/deploy.yml`):**
-- Triggers on push to `main` branch
-- Builds Jekyll site with production environment
-- Deploys to GitHub Pages
-- Purges Cloudflare cache
-- Takes 2-3 minutes end-to-end
+Production deployment pipeline triggered by promotion from dev.
+
+**Deployment Steps:**
+1. **Jekyll Build** - Compiles site with production environment
+2. **Deploy to GitHub Pages** - Publishes to christaylor.codes
+3. **Purge Cloudflare Cache** - Ensures fresh content delivery
+4. **Verification** - Confirms deployment success
+
+**Takes 2-3 minutes end-to-end** from push to live site.
 
 ### Best Practices
 
@@ -1867,6 +1915,41 @@ git push origin main
 # This creates a new commit that undoes the changes
 # Original commit history is preserved
 ```
+
+**Markdown linting fails:**
+- Check the error message for specific rule violations
+- Common issues: Inconsistent heading levels, trailing spaces, list formatting
+- Review `.markdownlint.json` for configured rules
+- Fix issues in affected markdown files and push again
+
+**HTML validation fails (html-proofer):**
+- **Broken internal link**: Fix the link in the source file
+- **Missing image**: Ensure image exists in `assets/images/` or correct the path
+- **Missing alt attribute**: Add `alt=""` to images for accessibility
+- Check Actions tab for specific file and line number
+
+**Lighthouse CI fails or scores below threshold:**
+- **Performance < 85%**:
+  - Check for large unoptimized images
+  - Review JavaScript bundle size
+  - Consider implementing lazy loading
+- **Accessibility < 90%** (critical - blocks promotion):
+  - Missing alt attributes on images
+  - Insufficient color contrast
+  - Missing ARIA labels
+  - Invalid heading hierarchy
+- **SEO < 90%**:
+  - Missing meta description
+  - Missing or duplicate page titles
+  - Missing structured data
+- View detailed Lighthouse report in GitHub Actions artifacts
+
+**Viewing Lighthouse Reports:**
+1. Go to GitHub Actions workflow run
+2. Scroll to "Artifacts" section at bottom
+3. Download `lighthouse-results` artifact
+4. Extract and open HTML reports in browser
+5. Review detailed recommendations and scores
 
 ### When to Skip the Dev Branch
 

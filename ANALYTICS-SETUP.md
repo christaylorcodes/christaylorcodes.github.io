@@ -674,6 +674,162 @@ Weekly check:
 
 ---
 
+## Troubleshooting
+
+### GA4 Not Receiving Data
+
+If Google Analytics shows "Data collection isn't active" or no real-time users:
+
+#### 1. Cookie Consent Blocking Analytics
+
+**Symptom:** GA4 never loads, no data in Real-Time reports
+
+**Cause:** The site uses opt-in cookie consent (GDPR/CCPA compliant). GA4 only loads after users click "Accept Cookies".
+
+**Solution:**
+- Visit the site in an incognito window
+- Look for cookie consent banner at bottom of page
+- Click "Accept Cookies"
+- GA4 should load and show data within 30 seconds
+
+**Testing Mode:** To temporarily bypass cookie consent for testing:
+1. Edit [_includes/cookie-consent.html](_includes/cookie-consent.html)
+2. Change `type: "opt-in"` to `type: "info"` (line 20)
+3. This loads GA4 by default (banner becomes informational only)
+4. **Important:** Change back to `"opt-in"` after testing for GDPR/CCPA compliance
+
+#### 2. Content Security Policy (CSP) Blocking Scripts
+
+**Symptom:** Browser console shows CSP violation errors for jsdelivr.net or googletagmanager.com
+
+**Cause:** Cloudflare CSP headers are blocking required scripts for cookie consent or Google Analytics.
+
+**Required CSP Domains:**
+- `https://cdn.jsdelivr.net` - Cookie consent library (script and style)
+- `https://www.googletagmanager.com` - Google Analytics script
+- `https://www.google-analytics.com` - GA4 API endpoint
+- `https://region1.google-analytics.com` - GA4 regional endpoint
+- `https://ipinfo.io` - Geolocation for regional consent
+
+**Solution:**
+1. Log in to [Cloudflare Dashboard](https://dash.cloudflare.com/)
+2. Select christaylor.codes zone
+3. Go to Rules → Transform Rules
+4. Edit your Content Security Policy rule
+5. Ensure CSP includes all required domains (see [SECURITY-HEADERS-SETUP.md](SECURITY-HEADERS-SETUP.md))
+6. Save and purge Cloudflare cache
+
+**Verify Fix:**
+- Open browser DevTools (F12) → Console tab
+- Should see NO red CSP violation errors
+- Cookie consent banner should appear
+- GA4 scripts should load successfully
+
+#### 3. Ad Blocker Interference
+
+**Symptom:** Analytics work in incognito but not in normal browsing
+
+**Cause:** Browser extensions (uBlock Origin, AdBlock Plus, Privacy Badger) block Google Analytics by default.
+
+**Solution:**
+- Disable ad blocker temporarily to test
+- Analytics will be blocked for users with ad blockers (expected behavior)
+- Consider Cloudflare Analytics as backup (cookieless, rarely blocked)
+
+#### 4. Environment Variable Not Set
+
+**Symptom:** GA4 scripts don't load at all, even after accepting cookies
+
+**Cause:** Analytics only load in production environment (`JEKYLL_ENV=production`), not localhost.
+
+**Verify:**
+- Check [.github/workflows/deploy.yml:37](.github/workflows/deploy.yml#L37) has `JEKYLL_ENV: production`
+- Local testing won't trigger analytics (by design)
+- Only test on live site: https://christaylor.codes
+
+#### 5. Measurement ID Configuration
+
+**Symptom:** GA4 loads but sends data to wrong property
+
+**Cause:** Incorrect measurement ID in `_config.yml`.
+
+**Solution:**
+1. Verify measurement ID in [_config.yml](_config.yml):
+   ```yaml
+   google_analytics: G-XXXXXXXXXX  # Should match GA4 property
+   ```
+2. Get correct ID from GA4: Admin → Data Streams → Web → Measurement ID
+3. Update `_config.yml` and deploy
+
+#### 6. Cloudflare Cache Serving Old Version
+
+**Symptom:** Changes deployed but old version still loads
+
+**Cause:** Cloudflare CDN is serving cached HTML without updated analytics code.
+
+**Solution:**
+1. Cloudflare Dashboard → Caching → Purge Everything
+2. Wait 30-60 seconds for propagation
+3. Test in fresh incognito window (hard refresh: Ctrl+Shift+R)
+4. Verify GitHub Actions deployment completed successfully
+
+### Checking Analytics Implementation
+
+**Browser Console Check:**
+1. Open https://christaylor.codes
+2. Press F12 (DevTools)
+3. Go to Console tab
+4. Look for:
+   - ✅ No CSP violation errors (red text)
+   - ✅ Cookie consent banner appears
+   - ✅ After accepting cookies: "gtag" function exists
+   - ✅ Network tab shows requests to google-analytics.com
+
+**GA4 Real-Time Check:**
+1. Open [GA4 Real-Time Report](https://analytics.google.com/)
+2. Visit your site in another window/tab
+3. Within 30 seconds: Should show 1 active user
+4. Click around site: Page views should update in real-time
+
+**Cloudflare Analytics Check:**
+1. Open [Cloudflare Analytics Dashboard](https://dash.cloudflare.com/)
+2. Select christaylor.codes → Analytics
+3. Should show page views within 1-2 minutes
+4. Note: Cloudflare is cookieless, always loads (unaffected by consent)
+
+### Common Console Errors
+
+**"Uncaught TypeError: Cannot read properties of undefined (reading 'initialise')"**
+- Cookie consent library (cookieconsent) didn't load
+- Check CSP allows `cdn.jsdelivr.net`
+- Check browser isn't blocking jsdelivr.net CDN
+
+**"Refused to load the script 'https://www.googletagmanager.com/gtag/js'"**
+- CSP is blocking Google Analytics
+- Add `www.googletagmanager.com` to `script-src` in CSP
+
+**"Refused to connect to 'https://www.google-analytics.com'"**
+- CSP is blocking GA4 API endpoints
+- Add `www.google-analytics.com` and `region1.google-analytics.com` to `connect-src` in CSP
+
+**"Tracking Prevention blocked access to storage"** (Orange warning)
+- Browser privacy features (Firefox Enhanced Tracking Prevention, Safari ITP)
+- This is expected behavior and won't affect GA4 functionality
+- Not an error, just browser protecting user privacy
+
+### Still Not Working?
+
+If you've tried all troubleshooting steps:
+
+1. **Check GitHub Actions**: Verify deployment succeeded with no errors
+2. **Wait 5 minutes**: Allow time for cache propagation
+3. **Test incognito**: Eliminate browser cache/extension interference
+4. **Review CSP**: Compare your Cloudflare CSP to [SECURITY-HEADERS-SETUP.md](SECURITY-HEADERS-SETUP.md)
+5. **Check GA4 setup**: Verify property is active and measurement ID is correct
+6. **Contact support**: Reach out to Chris Taylor (ctaylor@christaylor.codes)
+
+---
+
 ## Support Resources
 
 **Google Analytics:**
@@ -693,5 +849,9 @@ Weekly check:
 
 ---
 
-**Last Updated:** 2025-11-07
+**Last Updated:** 2025-01-08
 **Maintained By:** Chris Taylor (ctaylor@christaylor.codes)
+
+**Changelog:**
+- **2025-01-08**: Added comprehensive troubleshooting section for GA4 setup issues (CSP, cookie consent, ad blockers)
+- **2025-11-07**: Initial analytics setup documentation

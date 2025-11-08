@@ -1,6 +1,67 @@
 # Website TODO List
 
+**Project Type**: [PERSONAL]
+**Time Allocation**: Part of 12 hours/week personal brand work (post-recovery)
+
 This document tracks improvements and enhancements for christaylor.codes. Tasks are organized by priority to help maintain and enhance the website.
+
+## Time Allocation
+
+**Recovery Window (Nov 12-26, 2025)**:
+- **Week 1 (Nov 12-18)**: Blog content creation focus (Blog Posts #2-3) - 28-44 hours
+- **Week 2 (Nov 19-25)**: Website infrastructure (SEO, accessibility) - 20-30 hours
+
+**Post-Recovery (Nov 26+)**:
+- **Fridays**: 8-10 hours (primary deep work block for blog posts and LinkedIn content)
+- **Scattered**: 2-4 hours (engagement, small updates, monitoring)
+- **Monthly Total**: ~48 hours/month average (12 hours/week)
+
+---
+
+## Milestones
+
+### Milestone: 90-Day Post-Launch Review 🎯
+**Status:** Scheduled
+**Go-Live Date:** November 3, 2025
+**Review Date:** February 1, 2026 (90 days post-launch)
+**Type:** Major project milestone
+
+**Review Objectives:**
+- [ ] Analyze website performance and user engagement metrics
+  - Review Google Analytics / Cloudflare Analytics data
+  - Check PageSpeed Insights scores (compare to baseline)
+  - Review Core Web Vitals
+  - Analyze traffic sources and user behavior
+- [ ] Content performance assessment
+  - Blog post engagement (views, time on page, bounce rate)
+  - Most popular content and projects
+  - Identify content gaps or opportunities
+- [ ] Technical health check
+  - Review uptime and availability
+  - Check for broken links
+  - Review security (headers, CSP, dependencies)
+  - Verify all automated workflows are functioning
+- [ ] SEO effectiveness
+  - Check Google Search Console performance
+  - Review indexed pages and crawl errors
+  - Analyze search queries and rankings
+  - Assess structured data effectiveness
+- [ ] Accessibility review
+  - Re-run WAVE/axe/Lighthouse audits
+  - Compare to baseline scores
+  - Address any new issues
+- [ ] User feedback collection
+  - Review any contact form submissions
+  - Check GitHub discussions/issues
+  - Review social media engagement
+- [ ] Action items and priorities
+  - Document lessons learned
+  - Update TODO with new priorities based on data
+  - Plan next 90-day sprint goals
+
+**Coordinate with:** [WEBSITE-MATURITY-FRAMEWORK.md](WEBSITE-MATURITY-FRAMEWORK.md) quarterly review (2026-02-07)
+
+---
 
 ## Related Documentation
 
@@ -13,9 +74,14 @@ This document tracks improvements and enhancements for christaylor.codes. Tasks 
 - [CLAUDE.md](CLAUDE.md) - Complete project maintenance guide
 - [README.md](README.md) - Setup and deployment instructions
 
+**SEO & Growth:**
+- [BACKLINK-STRATEGY.md](BACKLINK-STRATEGY.md) - Comprehensive backlink building and organic discovery strategy
+- 10 core strategies with implementation roadmap
+- Metrics tracking and quarterly review process
+
 ## Sprint Planning
 
-Tasks below have been organized into 8 focused sprints that group similar work and optimize for efficiency. Each sprint is designed to minimize context switching and token usage.
+Tasks below have been organized into 9 focused sprints that group similar work and optimize for efficiency. Each sprint is designed to minimize context switching and token usage.
 
 ### Sprint 1: Performance & Image Optimization ✅ COMPLETE
 **Priority:** HIGH | **Token Usage:** MEDIUM (~75K tokens) | **Completed:** 2025-11-04
@@ -51,87 +117,235 @@ Foundation sprint establishing performance baselines and asset optimization work
 3. Test and deploy changes
 4. Measure actual performance improvements
 
-### Sprint 2: SEO & Accessibility
-**Priority:** HIGH | **Token Usage:** MEDIUM-HIGH | **Duration:** 2 sessions
+### Sprint 2: SEO & Accessibility ⏳ RECOVERY WINDOW (Nov 19-25)
+**Priority:** HIGH | **Project Type:** [PERSONAL] | **Duration:** 14-18 hours total
+**Timeline:** Recovery Week 2 (Nov 19-25, 2025)
 
-Critical improvements for discoverability and inclusivity.
+Critical improvements for discoverability and inclusivity during recovery window.
 
-**Session A - SEO:**
-- [ ] Add custom meta descriptions to all pages
-- [ ] Review and enhance existing structured data
+**SEO Optimization** (8-10 hours) - Nov 19-21:
+- [ ] Add custom meta descriptions to all pages [PERSONAL] [HIGH] (3-4 hours)
+  - Homepage, About, Blog, Projects, Contact, Terms, Privacy
+- [ ] Set up Google Analytics 4 or Cloudflare Web Analytics [PERSONAL] [HIGH] (2-3 hours)
+- [ ] Configure Google Search Console and submit sitemap [PERSONAL] [HIGH] (1-2 hours)
+- [ ] Set up conversion tracking (blog engagement, GitHub clicks) [PERSONAL] [HIGH] (1-2 hours)
+- [ ] Create analytics baseline dashboard [PERSONAL] [MEDIUM] (1 hour)
+- [ ] Review and enhance existing structured data [PERSONAL] [MEDIUM] (1 hour)
 
-**Session B - Accessibility:**
-- [ ] Add ARIA labels to navigation and interactive elements
-- [ ] Ensure all images have descriptive alt text
-- [ ] Add skip navigation link for keyboard users
-- [ ] Test color contrast ratios for WCAG compliance
-- [ ] Test with screen readers
+**Accessibility Improvements** (6-8 hours) - Nov 22-25:
+- [ ] Add ARIA labels to navigation and interactive elements [PERSONAL] [HIGH] (2-3 hours)
+- [ ] Ensure all images have descriptive alt text [PERSONAL] [HIGH] (2-3 hours)
+- [ ] Add skip navigation link for keyboard users [PERSONAL] [MEDIUM] (1 hour)
+- [ ] Run WAVE/axe/Lighthouse accessibility audits [PERSONAL] [HIGH] (1-2 hours)
+- [ ] Fix critical accessibility issues found [PERSONAL] [HIGH] (1-2 hours)
+- [ ] Test color contrast ratios for WCAG AA compliance [PERSONAL] [MEDIUM] (30 min)
+- [ ] Test with screen readers if time permits [PERSONAL] [LOW] (1-2 hours)
 
-### Sprint 3: Navigation & UX Enhancements
-**Priority:** MEDIUM | **Token Usage:** LOW-MEDIUM | **Duration:** 1 session
+### Sprint 3: Navigation & UX Enhancements 📅 DEFERRED (Q1 2026)
+**Priority:** MEDIUM | **Project Type:** [PERSONAL] | **Duration:** 4-6 hours
+**Timeline:** Q1 2026 (Friday workflow)
 
 **Tasks:**
-- [ ] Implement active navigation state for all pages
-- [ ] Add breadcrumb navigation for better UX
+- [ ] Implement active navigation state for all pages [PERSONAL] [MEDIUM] (2-3 hours)
+- [ ] Add breadcrumb navigation for better UX [PERSONAL] [MEDIUM] (2-3 hours)
 
-### Sprint 4: Analytics & Monitoring
-**Priority:** MEDIUM | **Token Usage:** LOW | **Duration:** 1 session
+### Sprint 4: Advanced Analytics 📅 DEFERRED (Q2 2026)
+**Priority:** LOW | **Project Type:** [PERSONAL] | **Duration:** 4-6 hours
+**Timeline:** Q2 2026 (after Sprint 2 basic analytics in place)
 
 **Context:** PSWebsiteHealth module suite in development to automate website monitoring. See [c:\_Code\CHRIS\projects\pswebsitehealth.md](c:\_Code\CHRIS\projects\pswebsitehealth.md)
 
 **Tasks:**
-- [ ] Add privacy-focused analytics (Plausible or Fathom)
-- [ ] Add performance monitoring (automated via PSLighthouse when complete)
-- [ ] Implement error tracking
-- [ ] Set up automated weekly performance checks
-- [ ] Create monitoring dashboard for maturity framework metrics
+- [ ] Add privacy-focused analytics (Plausible or Fathom) [PERSONAL] [LOW] (2-3 hours)
+- [ ] Add performance monitoring (automated via PSLighthouse) [PERSONAL] [LOW] (3-4 hours)
+- [ ] Implement error tracking [PERSONAL] [LOW] (2-3 hours)
+- [ ] Set up automated weekly performance checks [PERSONAL] [LOW] (2-3 hours)
+- [ ] Create monitoring dashboard for maturity framework metrics [PERSONAL] [LOW] (4-6 hours)
 
-### Sprint 5: Contact & Social Enhancements
-**Priority:** LOW-MEDIUM | **Token Usage:** LOW | **Duration:** 1 session
+**Note:** Sprint 2 includes basic analytics (GA4/Cloudflare). Sprint 4 is for advanced monitoring tools.
+
+### Sprint 5: Contact & Social Enhancements 📅 DEFERRED (Q2 2026)
+**Priority:** LOW | **Project Type:** [PERSONAL] | **Duration:** 2-3 hours
+**Timeline:** Q2 2026
 
 **Tasks:**
-- [ ] Add professional social media links (Twitter, etc.)
-- [ ] Consider adding Calendly/scheduling link for consultations
+- [ ] Add professional social media links (Twitter, etc.) [PERSONAL] [LOW] (1-2 hours)
+- [ ] Consider adding Calendly/scheduling link for consultations [PERSONAL] [LOW] (1 hour)
 
-### Sprint 6: Advanced Interactive Features
-**Priority:** MEDIUM | **Token Usage:** HIGH | **Duration:** 2-3 sessions
+### Sprint 6: Advanced Interactive Features 📅 DEFERRED (Q3 2026)
+**Priority:** MEDIUM | **Project Type:** [PERSONAL] | **Duration:** 20-30 hours
+**Timeline:** Q3 2026 (low priority, nice-to-have features)
 
 **Session A - Theme Toggle:**
-- [ ] Add dark/light mode toggle (currently dark only)
+- [ ] Add dark/light mode toggle (currently dark only) [PERSONAL] [MEDIUM] (8-10 hours)
 
 **Session B - Print & Export:**
-- [ ] Add print stylesheet
-- [ ] Create PDF export functionality for blog posts
+- [ ] Add print stylesheet [PERSONAL] [LOW] (2-3 hours)
+- [ ] Create PDF export functionality for blog posts [PERSONAL] [LOW] (6-8 hours)
 
 **Session C - Gallery:**
-- [ ] Add image galleries/lightbox for projects
+- [ ] Add image galleries/lightbox for projects [PERSONAL] [MEDIUM] (6-8 hours)
 
-### Sprint 7: Content Types Expansion
-**Priority:** LOW-MEDIUM | **Token Usage:** HIGH | **Duration:** 2-3 sessions
+### Sprint 7: Content Types Expansion 📅 DEFERRED (Q4 2026)
+**Priority:** LOW | **Project Type:** [PERSONAL] | **Duration:** 38-52 hours
+**Timeline:** Q4 2026 (after core brand established)
 
 **Tasks:**
-- [ ] Create "Case Studies" section for detailed project write-ups
-- [ ] Add "Talks" or "Presentations" section
-- [ ] Add "Tools" or "Resources" page for useful automation tools
-- [ ] Create newsletter signup functionality
+- [ ] Create "Case Studies" section for detailed project write-ups [PERSONAL] [LOW] (10-12 hours)
+- [ ] Add "Talks" or "Presentations" section [PERSONAL] [LOW] (4-6 hours)
+- [ ] Add "Tools" or "Resources" page for useful automation tools [PERSONAL] [LOW] (6-8 hours)
+- [ ] Create newsletter signup functionality [PERSONAL] [LOW] (6-8 hours)
+- [ ] Add "Books" section for recommended reading or reading list [PERSONAL] [LOW] (6-8 hours)
+  - Professional development books, technical references, favorites
+  - Cover images, ratings, and personal notes/reviews
+  - Consider integration with Goodreads or similar service
+  - Group by categories (PowerShell, Automation, Leadership, etc.)
+- [ ] Add "Careers/Jobs" section with Google JobPosting structured data [PERSONAL] [LOW] (8-12 hours)
+  - **Goal:** Enable posting job opportunities with proper schema.org/JobPosting markup for Google Jobs integration
+  - **Implementation Tasks:**
+    - Add `_jobs` collection to `_config.yml` (similar to projects collection)
+    - Create `_layouts/job.html` with job detail display and JSON-LD structured data
+    - Create `jobs.html` listing page with filterable job cards
+    - Add `_sass/oceanic/_jobs.scss` for styling (import in oceanic.scss)
+    - Create example job posting template in `_jobs/` directory
+    - Add "Careers" navigation link
+    - Document usage in CLAUDE.md
+  - **Required Structured Data Fields:**
+    - `title` - Job title
+    - `description` - Full job description (HTML formatted)
+    - `datePosted` - Posting date (ISO 8601 format)
+    - `validThrough` - Application deadline
+    - `hiringOrganization` - Company info (name, logo, URL)
+    - `jobLocation` - Location (address or remote)
+    - `employmentType` - FULL_TIME, PART_TIME, CONTRACTOR, etc.
+    - `baseSalary` - Salary range (optional but recommended)
+  - **Design Decisions Needed:**
+    - Hiring organization name (i.t.NOW vs. Chris Taylor personal brand)
+    - Default job types and locations (remote vs. specific locations)
+    - Application process (contact form, email, external ATS)
+    - Salary display preferences (show publicly or not)
+    - Auto-hide expired jobs (after validThrough date)
+  - **Testing/Validation:**
+    - Test with Google Rich Results Test tool (https://search.google.com/test/rich-results)
+    - Verify JSON-LD validates against schema.org/JobPosting
+    - Check mobile responsiveness
+    - Test filtering and search functionality
+  - **References:**
+    - Schema.org: https://schema.org/JobPosting
+    - Google Search Central: https://developers.google.com/search/docs/appearance/structured-data/job-posting
 
-### Sprint 8: Development Workflow & Testing
-**Priority:** MEDIUM | **Token Usage:** MEDIUM | **Duration:** 1-2 sessions
+### Sprint 8: Development Workflow & Testing ⏳ IN PROGRESS
+**Priority:** HIGH → MEDIUM | **Project Type:** [PERSONAL] | **Duration:** 12-16 hours
+**Timeline:** Phase 1 Complete (Nov 2025), Phase 2 Deferred (Q2-Q3 2026)
 
-**Session A - Testing & Automation:**
-- [ ] Set up automated testing for HTML validation
-- [ ] Add link checker to prevent broken links
-- [ ] Create CI/CD pipeline for automated deployments
-- [ ] Add accessibility testing in build process
+**Phase 1 - Core CI/CD Pipeline ✅ COMPLETE (Nov 8, 2025)**
+- [x] Create dev branch workflow with automated promotion tooling [PERSONAL] [HIGH] (4-5 hours)
+  - Created `dev` branch as primary development environment
+  - Built comprehensive promotion script (`promote-to-main.ps1`) with safety checks
+  - Documented complete workflow in CLAUDE.md
+- [x] Set up automated testing for HTML validation [PERSONAL] [HIGH] (2-3 hours)
+  - Implemented html-proofer for link checking and HTML validation
+  - Validates images, scripts, and internal links on every dev branch push
+- [x] Add markdown linting for blog posts [PERSONAL] [HIGH] (1-2 hours)
+  - Configured markdownlint with sensible rules for technical content
+  - Ensures consistent formatting across all blog posts
+- [x] Add Lighthouse CI for performance/accessibility/SEO [PERSONAL] [HIGH] (2-3 hours)
+  - Automated performance testing on 5 key pages
+  - Tracks accessibility, SEO, and best practices scores
+  - Saves results as artifacts for trend analysis
 
-**Session B - Git & Tooling:**
-- [ ] Add `.gitattributes` for consistent line endings
-- [ ] Create git tags for major releases
-- [ ] Add GitHub issue templates and PR template
-- [ ] Add npm scripts for common tasks
-- [ ] Consider adding Webpack/Gulp for asset pipeline
-- [ ] Add CSS linting (stylelint)
-- [ ] Add HTML validation in development
+**Phase 2 - Enhanced Quality Checks 📅 PLANNED (Q2 2026)**
+**Estimated Duration:** 6-8 hours
+
+**Session A - Content Quality (3-4 hours):**
+- [ ] Add front matter validation for blog posts [PERSONAL] [MEDIUM] (1-2 hours)
+  - Verify required fields: layout, title, date, excerpt, categories
+  - Ensure consistent metadata across all posts
+  - Prevent publishing posts with missing SEO data
+- [ ] Add spell checking for markdown content [PERSONAL] [MEDIUM] (1-2 hours)
+  - Automated spell checking for blog posts and documentation
+  - Custom dictionary for technical terms and abbreviations
+  - Catches typos before publication
+- [ ] Add structured data validation [PERSONAL] [MEDIUM] (1-2 hours)
+  - Validate JSON-LD schema markup
+  - Ensure schema.org compliance for rich search results
+  - Test with Google Rich Results validator
+
+**Session B - Code Quality & Security (3-4 hours):**
+- [ ] Add SCSS linting (stylelint) [PERSONAL] [MEDIUM] (2-3 hours)
+  - Enforce consistent SCSS formatting
+  - Catch CSS syntax errors and best practice violations
+  - Maintain clean, maintainable stylesheets
+- [ ] Add security scanning for dependencies [PERSONAL] [MEDIUM] (1 hour)
+  - bundler-audit for Ruby gem vulnerabilities
+  - Automated alerts for security updates
+  - Integrate with GitHub security features
+- [ ] Add HTML validation in development [PERSONAL] [LOW] (1-2 hours)
+  - W3C HTML validator integration
+  - Catch markup errors during local development
+
+**Session C - Git & Tooling (2-3 hours):**
+- [ ] Add `.gitattributes` for consistent line endings [PERSONAL] [LOW] (30 min)
+- [ ] Create git tags for major releases [PERSONAL] [LOW] (1 hour)
+- [ ] Add GitHub issue templates and PR template [PERSONAL] [LOW] (2 hours)
+- [ ] Add npm scripts for common tasks [PERSONAL] [LOW] (1-2 hours)
+
+**Benefits of Completed Phase 1:**
+- ✅ Safe development environment (dev branch prevents accidental production deployments)
+- ✅ Automated quality checks catch issues before production
+- ✅ Performance/accessibility/SEO monitoring with every build
+- ✅ Professional-grade CI pipeline with comprehensive validation
+- ✅ Lighthouse scores tracked over time for continuous improvement
+
+### Sprint 9: SEO & Link Building 📅 PLANNED (Q1-Q2 2026)
+**Priority:** MEDIUM-HIGH | **Project Type:** [PERSONAL] | **Duration:** 12-16 hours total
+**Timeline:** Q1-Q2 2026 (after Sprint 2 basic SEO foundation)
+
+**Strategy Document:** [BACKLINK-STRATEGY.md](BACKLINK-STRATEGY.md) - Comprehensive backlink building strategy
+
+Strategic sprint to build domain authority and organic discovery through natural, high-quality backlinks from relevant sources in the MSP, PowerShell, and IT automation communities.
+
+**Target Metrics (6 months):**
+- Total backlinks: 50-100
+- Referring domains: 30-50 unique domains
+- Domain Authority: Increase to 25+
+- Referral traffic: 200-500 visits/month
+
+**Month 1-2: Quick Wins** (4-6 hours) - Low effort, immediate impact:
+- [ ] Update all GitHub README files with links to tutorials and christaylor.codes [PERSONAL] [HIGH] (2 hours)
+- [ ] Add comprehensive metadata to PowerShell Gallery modules [PERSONAL] [MEDIUM] (1 hour)
+- [ ] Cross-post top 3 blog posts to Dev.to and Hashnode with canonical links [PERSONAL] [MEDIUM] (1-2 hours)
+- [ ] Submit modules to awesome-powershell GitHub list [PERSONAL] [MEDIUM] (30 min)
+- [ ] Create author accounts: Stack Overflow, Reddit, PowerShell.org [PERSONAL] [MEDIUM] (1 hour)
+- [ ] Join and participate in r/PowerShell, r/msp communities [PERSONAL] [MEDIUM] (ongoing)
+- [ ] Answer 5 ConnectWise/PowerShell questions on Stack Overflow [PERSONAL] [MEDIUM] (2 hours)
+- [ ] Reach out to 5 MSP bloggers with "Free tools for your readers" pitch [PERSONAL] [LOW] (1 hour)
+
+**Month 3-4: Content Creation** (4-6 hours) - Medium effort, high long-term value:
+- [ ] Create "Ultimate Guide to ConnectWise Manage API Automation" (5000+ words) [PERSONAL] [HIGH] (6-8 hours)
+- [ ] Design one infographic: "MSP Automation Maturity Model" [PERSONAL] [MEDIUM] (2-3 hours)
+- [ ] Write guest post for Dev.to or DZone [PERSONAL] [MEDIUM] (4-5 hours)
+- [ ] Create "PowerShell for MSPs" resource list page on site [PERSONAL] [MEDIUM] (2 hours)
+- [ ] Competitor backlink analysis (identify 20 link opportunities) [PERSONAL] [LOW] (2 hours)
+- [ ] Broken link building outreach (10 site owners) [PERSONAL] [LOW] (2 hours)
+
+**Month 5-6: Outreach & Scaling** (4-6 hours) - Higher effort, compounding returns:
+- [ ] Pitch guest posts to Channel Futures, MSP Alliance [PERSONAL] [MEDIUM] (2-3 hours)
+- [ ] Apply for ConnectWise integration partner listing [PERSONAL] [LOW] (1-2 hours)
+- [ ] Create second linkable asset: "50 MSP Automation Scripts" [PERSONAL] [MEDIUM] (6-8 hours)
+- [ ] Reach out to 10 more MSP bloggers with new resource [PERSONAL] [LOW] (1-2 hours)
+- [ ] Submit tools to 5 additional directories [PERSONAL] [LOW] (1 hour)
+- [ ] Continue Stack Overflow participation (target 20 answers total) [PERSONAL] [LOW] (ongoing)
+
+**Ongoing Activities** (1-2 hours/week):
+- [ ] Sign up for HARO and respond to 2-3 queries/week [PERSONAL] [LOW] (30 min/week)
+- [ ] Monitor backlinks monthly in Google Search Console [PERSONAL] [MEDIUM] (30 min/month)
+- [ ] Track referral traffic and domain authority growth [PERSONAL] [MEDIUM] (quarterly)
+
+**Integration:**
+- Builds on Sprint 2 SEO foundation (meta descriptions, analytics, Search Console)
+- Supports christaylor-codes-brand.md Phase 5: SEO & Discovery
+- Aligns with WEBSITE-MATURITY-FRAMEWORK.md SEO dimension (current 30% → target 60%)
 
 ---
 
@@ -181,6 +395,12 @@ Critical improvements for discoverability and inclusivity.
 
 ### Contact Enhancements
 - [x] Add LinkedIn profile link (uncomment in [_config.yml:10](_config.yml#L10)) (Completed 2025-11-04)
+- [x] Add Professional Resume section to About page (Completed 2025-11-08)
+  - Added resume download section with call-to-action
+  - LinkedIn and contact page links
+  - Placeholder for PDF resume (ready to activate)
+  - Styled with gradient background and cyan border
+  - Documented in CLAUDE.md
 - [ ] Add professional social media links (Twitter, etc.)
 - [ ] Consider adding calendly/scheduling link for consultations
 
@@ -196,6 +416,14 @@ Critical improvements for discoverability and inclusivity.
 - [x] Add Open Graph tags for better social media sharing (Completed 2025-11-03)
 - [x] Add Twitter Card meta tags (Completed 2025-11-03)
 - [x] Add structured data (JSON-LD) for better search results (Completed 2025-11-04 - Enhanced schema for all page types)
+- [x] Enhance Person structured data for recruiter discovery (Completed 2025-11-08)
+  - Added givenName/familyName fields
+  - Added knowsLanguage field
+  - Added experience years to hasOccupation
+  - Added support for credentials/certifications
+  - Added interaction statistics (blog posts, projects)
+  - Fixed "seeks" field (removed incorrect JobPosting type)
+  - Documented in CLAUDE.md with testing instructions
 
 ### Performance
 Work to correct pagespeed errors
