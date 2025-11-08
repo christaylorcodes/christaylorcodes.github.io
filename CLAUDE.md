@@ -1896,17 +1896,20 @@ Comprehensive quality assurance pipeline that runs on every push to `dev` branch
 Tests 5 key pages: home, about, blog, projects, contact
 
 - **Performance**: Minimum score 85% (warns if below)
-- **Accessibility**: Minimum score 90% (fails if below - critical for professional site)
+- **Accessibility**: Minimum score 85% (warns if below)
 - **Best Practices**: Minimum score 85% (warns if below)
 - **SEO**: Minimum score 90% (warns if below - critical for discoverability)
 
-**Key Accessibility Checks:**
-- ARIA required children
-- Color contrast ratios (WCAG compliance)
-- Document title presence
-- HTML lang attribute
-- Image alt attributes
-- Meta descriptions
+**Key Accessibility Checks (Critical - Fail Build):**
+- ARIA required children (error)
+- Document title presence (error)
+- HTML lang attribute (error)
+- Image alt attributes (error)
+- Meta descriptions (error)
+
+**Accessibility Warnings (Don't Fail Build):**
+- Color contrast ratios (warn - should be addressed but won't block deployment)
+- Overall accessibility score target: 85% minimum
 
 **Results:**
 - Lighthouse reports saved as artifacts (viewable in GitHub Actions)
@@ -2066,19 +2069,26 @@ git push origin main
 - Check Actions tab for specific file and line number
 
 **Lighthouse CI fails or scores below threshold:**
-- **Performance < 85%**:
+- **Performance < 85%** (warning):
   - Check for large unoptimized images
   - Review JavaScript bundle size
   - Consider implementing lazy loading
-- **Accessibility < 90%** (critical - blocks promotion):
-  - Missing alt attributes on images
-  - Insufficient color contrast
-  - Missing ARIA labels
+- **Accessibility < 85%** (warning):
+  - Missing alt attributes on images (error - will fail build)
+  - Insufficient color contrast (warning - won't fail build)
+  - Missing ARIA labels (error - will fail build)
   - Invalid heading hierarchy
-- **SEO < 90%**:
-  - Missing meta description
+  - Missing document title (error - will fail build)
+- **SEO < 90%** (warning):
+  - Missing meta description (error - will fail build)
   - Missing or duplicate page titles
   - Missing structured data
+- **Critical accessibility errors** (will fail build):
+  - Missing image alt attributes
+  - Missing document title
+  - Missing HTML lang attribute
+  - Missing meta descriptions
+  - Invalid ARIA structure
 - View detailed Lighthouse report in GitHub Actions artifacts
 
 **Viewing Lighthouse Reports:**
