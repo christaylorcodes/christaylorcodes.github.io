@@ -38,8 +38,16 @@
     <link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.1/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
     <noscript><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.1/css/all.min.css"></noscript>
 
-    <!-- Oceanic Theme Stylesheet -->
-    <link rel="stylesheet" href="{{ '/assets/css/styles.css' | relative_url }}">
+    <!-- Critical CSS - Inlined for immediate above-the-fold rendering -->
+    {% include critical-css.html %}
+
+    <!-- Oceanic Theme Stylesheet - Deferred to prevent render blocking -->
+    <link rel="preload" href="{{ '/assets/css/styles.css' | relative_url }}" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <noscript><link rel="stylesheet" href="{{ '/assets/css/styles.css' | relative_url }}"></noscript>
+
+    <!-- Analytics -->
+    {% include google-analytics.html %}
+    {% include cloudflare-analytics.html %}
 </head>
 <body>
     {% include navigation.html %}

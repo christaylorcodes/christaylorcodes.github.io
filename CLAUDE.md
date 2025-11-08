@@ -1419,6 +1419,49 @@ GitHub Secrets (already configured):
 
 **For detailed setup instructions**, see: [CLOUDFLARE-SETUP.md](CLOUDFLARE-SETUP.md)
 
+### Automated Project Statistics Updates
+
+The site uses a GitHub Actions workflow that automatically updates GitHub star counts and PowerShell Gallery download counts for all projects.
+
+**Workflow:** `.github/workflows/update-project-stats.yml`
+
+**Schedule:**
+- Runs weekly on Mondays at 9 AM UTC (1 AM PST / 2 AM PDT)
+- Can be triggered manually via workflow_dispatch
+
+**Process:**
+1. **Fetch GitHub Stars**: Queries GitHub API for star counts from all project repositories
+2. **Fetch Gallery Downloads**: Runs `sync-project-stats.ps1` to get PowerShell Gallery download counts
+3. **Update Files**: Updates both `_data/project-stats.yml` and individual project front matter
+4. **Commit Changes**: Automatically commits and pushes changes if statistics changed
+5. **Trigger Deployment**: Push triggers the main deployment workflow
+
+**What Gets Updated:**
+- `_data/project-stats.yml` - Centralized statistics file
+- `_projects/*.md` - Front matter `stars` and `gallery_downloads` fields
+- Last updated timestamp in stats file
+
+**Manual Updates:**
+```powershell
+# Locally update all stats (including gallery downloads)
+.\sync-project-stats.ps1 -FetchGalleryStats
+
+# Commit and push
+git add _data/project-stats.yml _projects/*.md
+git commit -m "Update project statistics"
+git push
+```
+
+**Monitoring:**
+- View workflow runs: https://github.com/christaylorcodes/christaylorcodes.github.io/actions/workflows/update-project-stats.yml
+- Check job summary for statistics changes
+- Review commit history for automated updates
+
+**Setup Required:**
+- No secrets needed (uses built-in `GITHUB_TOKEN`)
+- `contents: write` permission for commits
+- PowerShell Gallery API is public (no auth required)
+
 ### Deployment Workflow
 
 ```bash
@@ -1813,6 +1856,85 @@ description: "SEO meta description for search and social media"
 ```
 
 See template for complete documentation on creating posts with social media optimization.
+
+## Analytics & Metrics Collection
+
+The site supports comprehensive analytics and metrics collection through multiple services. For detailed setup instructions, see: [ANALYTICS-SETUP.md](ANALYTICS-SETUP.md)
+
+### Available Analytics Tools
+
+**Google Analytics 4 (GA4):**
+- Comprehensive user behavior analytics
+- Traffic sources and acquisition channels
+- Demographics and technology reports
+- Custom event tracking (form submissions, outbound links)
+- Real-time visitor tracking
+- Conversion tracking
+
+**Cloudflare Web Analytics:**
+- Privacy-friendly, cookieless analytics
+- GDPR/CCPA compliant by default
+- Page views, unique visitors, traffic sources
+- Performance metrics and Core Web Vitals
+- Geographic distribution
+- No personal data collection
+
+**Google Search Console:**
+- Search performance (queries, clicks, impressions)
+- Indexing status and coverage
+- SEO insights and Core Web Vitals
+- Structured data validation
+- Mobile usability
+- Rich results monitoring
+
+### Configuration
+
+Analytics are configured in `_config.yml`:
+
+```yaml
+# Google Analytics 4
+google_analytics: G-XXXXXXXXXX  # Your GA4 measurement ID
+
+# Cloudflare Web Analytics (privacy-friendly)
+cloudflare_analytics: YOUR_BEACON_TOKEN_HERE
+```
+
+The analytics includes are located in:
+- [_includes/google-analytics.html](_includes/google-analytics.html) - GA4 tracking with custom events
+- [_includes/cloudflare-analytics.html](_includes/cloudflare-analytics.html) - Cloudflare beacon
+
+Both are loaded in [_layouts/default.html:49-50](_layouts/default.html#L49-L50) and only activate in production (not localhost).
+
+### Custom Event Tracking (Preconfigured)
+
+The GA4 implementation includes automatic tracking for:
+- **Outbound links:** GitHub repository clicks, PowerShell Gallery links
+- **Social media:** LinkedIn, Twitter/X clicks
+- **Conversions:** Contact form submissions
+- **Navigation:** Internal page navigation
+
+### Privacy Features
+
+- IP anonymization enabled in GA4
+- Secure cookie flags
+- Only loads in production environment
+- Cloudflare Analytics is completely cookieless
+- No personal data sold or shared
+
+### Setup Quick Start
+
+1. **Create GA4 Property** at [analytics.google.com](https://analytics.google.com/)
+2. **Enable Cloudflare Analytics** in your Cloudflare Dashboard
+3. **Add measurement IDs** to `_config.yml`
+4. **Verify Search Console** ownership via DNS
+5. **Deploy changes** and verify tracking
+
+See [ANALYTICS-SETUP.md](ANALYTICS-SETUP.md) for:
+- Step-by-step setup instructions
+- What metrics each tool provides
+- Dashboard configuration recommendations
+- Privacy compliance guidelines
+- Weekly/monthly monitoring checklists
 
 ## Backup and Version Control
 

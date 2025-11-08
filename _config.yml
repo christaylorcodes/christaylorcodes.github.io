@@ -34,6 +34,16 @@ twitter:
   card: summary_large_image
   username: christaylorAI
 
+# Analytics Configuration
+# Get your Google Analytics measurement ID: https://analytics.google.com/
+# Format: G-XXXXXXXXXX
+google_analytics: G-FMRJQ6FDPJ
+
+# Get your Cloudflare Web Analytics beacon token: https://dash.cloudflare.com/?to=/:account/web-analytics
+cloudflare_analytics: 6110fc51fbf24e7dbe0fb1b3bb30fedd
+
+# See ANALYTICS-SETUP.md for detailed setup instructions
+
 # Build settings
 markdown: kramdown
 highlighter: rouge
