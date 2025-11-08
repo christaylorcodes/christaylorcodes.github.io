@@ -7,12 +7,27 @@ This document contains all the information needed to understand and maintain thi
 This is a personal portfolio and blog website built with Jekyll and hosted on GitHub Pages. The site features a modern, responsive design with custom layouts and styles.
 
 **Live Site:** https://christaylor.codes (primary) / https://christaylorcodes.github.io (GitHub Pages URL)
+**Go-Live Date:** November 3, 2025
 **Repository:** https://github.com/christaylorcodes/christaylorcodes.github.io
 **Static Site Generator:** Jekyll
 **Hosting:** GitHub Pages
 **CDN/Security:** Cloudflare (proxied, cache enabled)
 **DNS:** Cloudflare
 **Owner:** Chris Taylor (ctaylor@christaylor.codes)
+
+## Project Milestones
+
+### Milestone 1: Website Launch ✅
+- **Date:** November 3, 2025
+- **Status:** Complete
+- **Description:** Initial launch of christaylor.codes with custom domain, blog, projects showcase, and privacy compliance framework
+
+### Milestone 2: 90-Day Post-Launch Review 🎯
+- **Date:** February 1, 2026
+- **Status:** Scheduled
+- **Description:** Comprehensive review of website performance, content effectiveness, SEO, accessibility, and user engagement
+- **Details:** See [TODO.md](TODO.md) for full review checklist
+- **Coordinates with:** Quarterly maturity framework review (February 7, 2026)
 
 ## Key Documentation
 
@@ -1549,6 +1564,319 @@ git push origin main
 - Common issues: YAML syntax, Liquid template errors, missing files
 - Test locally first with `.\build.ps1` to catch errors early
 
+## Development Workflow
+
+The site uses a **dev branch workflow** to provide a safe development environment separate from production. This allows you to develop, test, and iterate on changes before deploying to the live site.
+
+### Branch Structure
+
+**`main` branch (Production):**
+- Automatically deploys to https://christaylor.codes
+- Protected branch - only receives changes via promotion from dev
+- Every push triggers full deployment pipeline
+- Should always be in a working, deployable state
+
+**`dev` branch (Development):**
+- Primary development branch for all changes
+- Builds are verified but NOT deployed to production
+- Safe space for experimentation and iteration
+- Can be freely committed to without affecting live site
+
+### Workflow Process
+
+**Standard development workflow:**
+
+1. **Start on dev branch:**
+   ```bash
+   git checkout dev
+   ```
+
+2. **Make changes and test locally:**
+   ```powershell
+   # Test changes with live reload
+   .\build.ps1
+   ```
+
+3. **Commit and push to dev:**
+   ```bash
+   git add .
+   git commit -m "Description of changes"
+   git push origin dev
+   ```
+
+4. **Verify CI build passes:**
+   - GitHub Actions automatically builds dev branch
+   - Check workflow status: [Actions](https://github.com/christaylorcodes/christaylorcodes.github.io/actions)
+   - Ensure build completes successfully with no errors
+
+5. **Promote to production:**
+   ```powershell
+   # Automated promotion with safety checks
+   .\promote-to-main.ps1
+   ```
+
+6. **Continue development:**
+   - Script automatically returns you to dev branch
+   - Main branch is deployed to production
+   - Continue working on next changes
+
+### Promotion Script (`promote-to-main.ps1`)
+
+The promotion script provides a safe, automated way to deploy changes to production.
+
+**Features:**
+- Comprehensive pre-flight safety checks
+- Automated build verification (optional)
+- Interactive confirmation before promotion
+- Automatic merge and deployment
+- Returns to dev branch after completion
+
+**Safety Checks:**
+- ✅ Verifies you're on dev branch
+- ✅ Checks for uncommitted changes
+- ✅ Ensures dev is up to date with remote
+- ✅ Runs local Jekyll build (validates site)
+- ✅ Confirms fast-forward merge is possible
+- ✅ Provides deployment status and tracking
+
+**Usage:**
+
+**Standard promotion (recommended):**
+```powershell
+.\promote-to-main.ps1
+```
+
+**Skip build verification (faster, but less safe):**
+```powershell
+.\promote-to-main.ps1 -SkipBuild
+```
+
+**Force promotion from non-dev branch (use with caution):**
+```powershell
+.\promote-to-main.ps1 -Force
+```
+
+**What happens during promotion:**
+1. Runs all safety checks
+2. Verifies local build succeeds
+3. Asks for confirmation
+4. Checks out main branch
+5. Pulls latest main from remote
+6. Merges dev into main (fast-forward)
+7. Pushes main to GitHub
+8. Returns to dev branch
+9. GitHub Actions deploys to production
+
+**Typical promotion output:**
+```
+╔════════════════════════════════════════════════════════════╗
+║  Dev → Main Promotion Script                              ║
+║  christaylor.codes                                         ║
+╚════════════════════════════════════════════════════════════╝
+
+==> Verifying git repository
+✅ Git repository detected
+
+==> Checking current branch
+✅ On dev branch
+
+==> Checking for uncommitted changes
+✅ Working directory clean
+
+==> Fetching latest from remote
+✅ Fetched latest from origin
+
+==> Checking if dev is up to date
+✅ Branch is up to date with remote
+
+==> Running local build verification
+✅ Local build successful
+
+╔════════════════════════════════════════════════════════════╗
+║  Ready to promote dev → main (PRODUCTION)                 ║
+╚════════════════════════════════════════════════════════════╝
+
+Continue with promotion? (yes/no): yes
+
+==> Checking out main branch
+✅ Switched to main branch
+
+==> Pulling latest main from remote
+✅ Main branch updated
+
+==> Merging dev into main
+✅ Merged dev into main
+
+==> Pushing main to GitHub
+✅ Pushed main to GitHub
+
+==> Returning to dev branch
+✅ Back on dev branch
+
+╔════════════════════════════════════════════════════════════╗
+║  ✅ PROMOTION SUCCESSFUL!                                  ║
+╚════════════════════════════════════════════════════════════╝
+
+Changes from dev have been promoted to main.
+
+Deployment status:
+  • GitHub Actions is building and deploying to production
+  • View progress: https://github.com/christaylorcodes/christaylorcodes.github.io/actions
+  • Deployment typically takes 2-3 minutes
+  • Site will be live at: https://christaylor.codes
+```
+
+### GitHub Actions Workflows
+
+**Dev Branch Workflow (`.github/workflows/dev-build.yml`):**
+- Triggers on push to `dev` branch
+- Runs Jekyll build with development environment
+- Validates critical files exist (index.html, styles.css)
+- Provides build summary in GitHub Actions UI
+- Does NOT deploy to production
+
+**Main Branch Workflow (`.github/workflows/deploy.yml`):**
+- Triggers on push to `main` branch
+- Builds Jekyll site with production environment
+- Deploys to GitHub Pages
+- Purges Cloudflare cache
+- Takes 2-3 minutes end-to-end
+
+### Best Practices
+
+**Do:**
+- Always develop on dev branch
+- Test locally before pushing
+- Verify CI build passes before promoting
+- Use the promotion script for deployments
+- Keep dev branch in sync with main
+
+**Don't:**
+- Commit directly to main (use dev → main promotion)
+- Skip local testing before pushing
+- Promote without verifying CI build passes
+- Force push to either branch
+- Deploy without reviewing changes
+
+### Common Scenarios
+
+**Making a simple change:**
+```bash
+# 1. Ensure on dev branch
+git checkout dev
+
+# 2. Make changes, test locally
+.\build.ps1
+
+# 3. Commit and push
+git add .
+git commit -m "Fix typo in about page"
+git push origin dev
+
+# 4. Wait for CI build to pass
+
+# 5. Promote to production
+.\promote-to-main.ps1
+```
+
+**Working on a major feature:**
+```bash
+# 1. Start on dev
+git checkout dev
+
+# 2. Make incremental changes
+# ... edit files ...
+git add .
+git commit -m "Add new project showcase section"
+git push origin dev
+
+# 3. Continue iterating
+# ... more edits ...
+git add .
+git commit -m "Refine project showcase styling"
+git push origin dev
+
+# 4. When feature is complete and tested
+.\promote-to-main.ps1
+```
+
+**Hotfix workflow:**
+```bash
+# If you need to make an urgent fix to production:
+
+# 1. Start from main
+git checkout main
+git pull origin main
+
+# 2. Make fix
+# ... edit files ...
+
+# 3. Test locally
+.\build.ps1
+
+# 4. Commit and push directly to main
+git add .
+git commit -m "Hotfix: Fix broken contact form"
+git push origin main
+
+# 5. Merge fix back to dev
+git checkout dev
+git merge main
+git push origin dev
+```
+
+**Syncing dev with main:**
+```bash
+# If main has changes that dev doesn't (e.g., after hotfix):
+git checkout dev
+git merge main
+git push origin dev
+```
+
+### Troubleshooting Development Workflow
+
+**Promotion script fails with "not on dev branch":**
+- You're currently on a different branch
+- Solution: `git checkout dev` or use `-Force` parameter (not recommended)
+
+**Promotion fails with "uncommitted changes":**
+- You have unsaved changes in your working directory
+- Solution: Commit changes (`git add . && git commit`) or stash them (`git stash`)
+
+**Fast-forward merge not possible:**
+- Main has commits that dev doesn't have
+- Solution: Sync dev with main first (`git checkout dev && git merge main`)
+
+**CI build fails on dev:**
+- Jekyll build error in your changes
+- Solution: Check Actions tab for error details, fix locally, push again
+
+**Changes not appearing after promotion:**
+- Wait 2-3 minutes for deployment pipeline
+- Check Actions tab for workflow status
+- Hard refresh browser (Ctrl+F5)
+- Verify Cloudflare cache purge succeeded
+
+**Need to undo a promotion:**
+```bash
+# Revert the most recent commit on main
+git checkout main
+git revert HEAD
+git push origin main
+
+# This creates a new commit that undoes the changes
+# Original commit history is preserved
+```
+
+### When to Skip the Dev Branch
+
+You may occasionally push directly to main for:
+- **Hotfixes** - Critical production issues requiring immediate fix
+- **Documentation only changes** - README, CLAUDE.md updates with no site impact
+- **Configuration tweaks** - _config.yml changes that don't affect functionality
+
+**For everything else, use the dev → main workflow for safety.**
+
 ## Dependencies (Gemfile)
 
 ```ruby
@@ -1882,6 +2210,170 @@ description: "SEO meta description for search and social media"
 ```
 
 See template for complete documentation on creating posts with social media optimization.
+
+## Structured Data & Resume Discoverability
+
+The site implements comprehensive schema.org structured data to improve discoverability by search engines and recruiters. This is particularly important for making your professional profile searchable by recruiting tools and AI-powered search systems.
+
+### Person Structured Data
+
+The about page includes rich Person schema markup optimized for recruiter discovery and professional search.
+
+**Implementation:**
+- Structured data include: [_includes/structured-data-person.html](_includes/structured-data-person.html)
+- Data source: [_data/author.yml](_data/author.yml) `structured_data` section
+- Included on: [about.html:8](about.html#L8)
+
+**Schema Fields Included:**
+
+**Basic Identity:**
+- `name`, `givenName`, `familyName` - Full name and components
+- `url` - Website URL
+- `email` - Contact email
+- `image` - Profile photo
+- `jobTitle` - Current professional title
+- `description` - Professional summary
+
+**Professional Information:**
+- `worksFor` - Current employer (Organization schema)
+- `hasOccupation` - Detailed occupation info with:
+  - Job title and location
+  - Skills taxonomy
+  - Years of experience
+- `knowsAbout` - Array of expertise areas (searchable skills)
+- `knowsLanguage` - Language proficiency
+
+**Background:**
+- `alumniOf` - Previous employer or education (Organization schema)
+- `hasCredential` - Certifications and credentials (optional, commented in author.yml)
+
+**Connections:**
+- `sameAs` - Social media profiles (LinkedIn, GitHub, etc.)
+- Links to professional networks for verification
+
+**Portfolio Metrics:**
+- `interactionStatistic` - Quantifiable achievements:
+  - Number of blog posts written
+  - Number of open source projects
+
+**Career Intent:**
+- `seeks` - Open to consulting/opportunities statement
+
+### Configuring Your Professional Data
+
+All professional information is centralized in [_data/author.yml](_data/author.yml). Update the `structured_data` section:
+
+```yaml
+structured_data:
+  job_title: "Network Operations Chief"
+  description: "Network Operations Chief, vCTO, and Automation Engineer with 20+ years..."
+  occupation_skills: "PowerShell, Infrastructure Automation, Network Architecture..."
+  seeking: "Open to consulting opportunities in MSP automation, AI integration..."
+
+  # Optional: Add certifications
+  credentials:
+    - name: "Microsoft Certified: Azure Administrator Associate"
+      category: "Professional Certification"
+```
+
+### Resume Download Section
+
+The about page includes a prominent "Professional Resume" section with:
+- Call-to-action for consulting opportunities
+- LinkedIn profile link
+- Contact page link
+- Placeholder for downloadable PDF resume (commented, ready to activate)
+
+**Location:** [about.html:99-118](about.html#L99-L118)
+**Styling:** [_sass/oceanic/_about.scss:474-512](_sass/oceanic/_about.scss#L474-L512)
+
+**To Add PDF Resume:**
+1. Create professional resume PDF
+2. Save as `assets/downloads/Chris-Taylor-Resume.pdf`
+3. Uncomment the download button in [about.html:108-110](about.html#L108-L110)
+4. Deploy changes
+
+### SEO Benefits for Recruiter Discovery
+
+**How Structured Data Helps:**
+- **Search engines** can understand your professional background
+- **Recruiting tools** can parse skills and experience
+- **AI assistants** can answer questions about your expertise
+- **Social platforms** display rich professional cards
+- **Google Knowledge Panel** eligibility for personal brand
+
+**Keywords for Discoverability:**
+The structured data includes these searchable elements:
+- Job titles (Network Operations Chief, vCTO, Automation Engineer)
+- Skills and technologies (PowerShell, Azure, MSP Operations, etc.)
+- Years of experience (20+ years)
+- Industry context (MSP, managed services, multi-tenant)
+- Location (United States)
+- Availability (consulting opportunities)
+
+### Testing Structured Data
+
+**Google Rich Results Test:**
+1. Visit: https://search.google.com/test/rich-results
+2. Enter URL: `https://christaylor.codes/about`
+3. Verify Person schema is detected
+4. Check for errors or warnings
+5. Fix any validation issues
+
+**Schema.org Validator:**
+1. Visit: https://validator.schema.org/
+2. Enter URL or paste markup
+3. Review structured data parsing
+4. Verify all fields are correct
+
+**Common Issues:**
+- **Invalid JSON-LD**: Check for syntax errors in Liquid templates
+- **Missing required fields**: Ensure `name` and `url` are present
+- **Broken URLs**: Verify all `sameAs` links are valid
+- **Type mismatches**: Ensure values match expected schema types
+
+### Other Structured Data on Site
+
+**Website Schema:**
+- Location: [_includes/structured-data-website.html](_includes/structured-data-website.html)
+- Type: `WebSite` with search action
+- Included on: All pages via [_layouts/default.html](_layouts/default.html)
+
+**Blog Posts:**
+- Type: `BlogPosting` (via jekyll-seo-tag)
+- Automatic schema for all posts
+- Includes author, publication date, headline
+
+**Projects:**
+- Type: `SoftwareApplication` (planned)
+- Future enhancement for project pages
+
+### Best Practices
+
+**Keep Data Fresh:**
+- Update experience years annually
+- Add new certifications as earned
+- Update skills as expertise grows
+- Refresh professional summary quarterly
+
+**Align Across Platforms:**
+- Match LinkedIn profile information
+- Synchronize with resume PDF
+- Use consistent job titles
+- Maintain same skills taxonomy
+
+**Privacy Considerations:**
+- Only include public contact information
+- Use business email (not personal)
+- LinkedIn profile should be public
+- Consider what's searchable by recruiters
+
+**Recruiter-Friendly Keywords:**
+- Use industry-standard job titles
+- Include specific technologies and tools
+- Mention years of experience
+- Add location if relevant for local jobs
+- Include buzzwords recruiters search for
 
 ## Analytics & Metrics Collection
 

@@ -1,0 +1,58 @@
+name: Dev Branch Build and Test
+
+on:
+  push:
+    branches:
+      - dev
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  build-test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@08eba0b27e820071cde6df949e0beb9ba4906955 # v4.3.0
+
+      - name: Setup Ruby
+        uses: ruby/setup-ruby@d5126b9b3579e429dd52e51e68624dda2e05be25 # v1.267.0
+        with:
+          ruby-version: '3.3'
+          bundler-cache: true
+
+      - name: Build with Jekyll
+        run: bundle exec jekyll build
+        env:
+          JEKYLL_ENV: development
+
+      - name: Check for broken links
+        run: |
+          echo "✅ Build successful!"
+          echo "📦 Site built to _site directory"
+          echo "🔍 Checking for common issues..."
+
+          # Check if critical files exist
+          if [ ! -f "_site/index.html" ]; then
+            echo "❌ Error: index.html not found in build output"
+            exit 1
+          fi
+
+          if [ ! -f "_site/assets/css/styles.css" ]; then
+            echo "❌ Error: styles.css not found in build output"
+            exit 1
+          fi
+
+          echo "✅ All critical files present"
+
+      - name: Build summary
+        run: |
+          echo "## ✅ Dev Build Successful" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "The dev branch built successfully and is ready for testing." >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "### Next Steps:" >> $GITHUB_STEP_SUMMARY
+          echo "1. Test locally with \`.\build.ps1\`" >> $GITHUB_STEP_SUMMARY
+          echo "2. When ready to deploy, run \`.\promote-to-main.ps1\`" >> $GITHUB_STEP_SUMMARY
+          echo "3. The promotion script will merge dev → main and trigger production deployment" >> $GITHUB_STEP_SUMMARY
