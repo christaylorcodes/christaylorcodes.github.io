@@ -59,14 +59,14 @@ This document tracks improvements and enhancements for christaylor.codes. Tasks 
   - Update TODO with new priorities based on data
   - Plan next 90-day sprint goals
 
-**Coordinate with:** [WEBSITE-MATURITY-FRAMEWORK.md](WEBSITE-MATURITY-FRAMEWORK.md) quarterly review (2026-02-07)
+**Coordinate with:** [docs/WEBSITE-MATURITY-FRAMEWORK.md](docs/WEBSITE-MATURITY-FRAMEWORK.md) quarterly review (2026-02-07)
 
 ---
 
 ## Related Documentation
 
 **Site Maturity Tracking:**
-- [WEBSITE-MATURITY-FRAMEWORK.md](WEBSITE-MATURITY-FRAMEWORK.md) - Comprehensive maturity assessment and growth roadmap
+- [docs/WEBSITE-MATURITY-FRAMEWORK.md](docs/WEBSITE-MATURITY-FRAMEWORK.md) - Comprehensive maturity assessment and growth roadmap
 - Review quarterly to track progress across 7 key dimensions
 - Next review: 2026-02-07
 
@@ -75,7 +75,7 @@ This document tracks improvements and enhancements for christaylor.codes. Tasks 
 - [README.md](README.md) - Setup and deployment instructions
 
 **SEO & Growth:**
-- [BACKLINK-STRATEGY.md](BACKLINK-STRATEGY.md) - Comprehensive backlink building and organic discovery strategy
+- [docs/BACKLINK-STRATEGY.md](docs/BACKLINK-STRATEGY.md) - Comprehensive backlink building and organic discovery strategy
 - 10 core strategies with implementation roadmap
 - Metrics tracking and quarterly review process
 
@@ -301,7 +301,7 @@ Critical improvements for discoverability and inclusivity during recovery window
 **Priority:** MEDIUM-HIGH | **Project Type:** [PERSONAL] | **Duration:** 12-16 hours total
 **Timeline:** Q1-Q2 2026 (after Sprint 2 basic SEO foundation)
 
-**Strategy Document:** [BACKLINK-STRATEGY.md](BACKLINK-STRATEGY.md) - Comprehensive backlink building strategy
+**Strategy Document:** [docs/BACKLINK-STRATEGY.md](docs/BACKLINK-STRATEGY.md) - Comprehensive backlink building strategy
 
 Strategic sprint to build domain authority and organic discovery through natural, high-quality backlinks from relevant sources in the MSP, PowerShell, and IT automation communities.
 
@@ -345,7 +345,77 @@ Strategic sprint to build domain authority and organic discovery through natural
 **Integration:**
 - Builds on Sprint 2 SEO foundation (meta descriptions, analytics, Search Console)
 - Supports christaylor-codes-brand.md Phase 5: SEO & Discovery
-- Aligns with WEBSITE-MATURITY-FRAMEWORK.md SEO dimension (current 30% → target 60%)
+- Aligns with docs/WEBSITE-MATURITY-FRAMEWORK.md SEO dimension (current 30% → target 60%)
+
+---
+
+### Sprint 10: Code Quality Standards Improvement 📅 PLANNED (Q2-Q3 2026)
+**Priority:** LOW | **Project Type:** [PERSONAL] | **Duration:** 8-12 hours total
+**Timeline:** Q2-Q3 2026 (after higher priority content and SEO work)
+
+This sprint restores stricter quality standards that were temporarily relaxed to get the CI/CD pipeline operational. While the site currently meets minimum quality thresholds, these improvements will bring it up to professional best-practice standards.
+
+**Context:**
+During CI/CD implementation (November 2025), we relaxed certain quality standards to accommodate existing content:
+- **Markdown linting**: Relaxed 6 cosmetic rules (MD022, MD025, MD031, MD032, MD040, MD049)
+- **Accessibility**: Lowered threshold from 90% to 85%, made color-contrast a warning
+- **Current state**: Site passes all critical checks, but has improvement opportunities
+
+**Phase 1: Markdown Quality Restoration** (4-6 hours):
+- [ ] Fix markdown linting violations in existing blog posts (98 errors across 15 posts) [PERSONAL] [LOW] (3-4 hours)
+  - Most common: MD032 (blanks around lists), MD031 (blanks around code), MD040 (code language)
+  - Use `markdownlint _posts/*.md` to identify specific issues
+  - Fix systematically, starting with posts that have most errors
+  - Update posts in batches to avoid large commits
+- [ ] Re-enable strict markdown rules in `.markdownlint.json` [PERSONAL] [LOW] (30 min)
+  - MD022: true (blanks around headings)
+  - MD025: true (single H1)
+  - MD031: true (blanks around fences)
+  - MD032: true (blanks around lists)
+  - MD040: true (code language specification)
+  - MD049: { "style": "underscore" } (consistent emphasis)
+- [ ] Verify all posts pass strict linting [PERSONAL] [LOW] (30 min)
+- [ ] Update CLAUDE.md to reflect restored standards [PERSONAL] [LOW] (30 min)
+
+**Phase 2: Accessibility Improvements** (4-6 hours):
+- [ ] Fix color contrast issues causing 88% accessibility score [PERSONAL] [LOW] (2-3 hours)
+  - Identify elements with insufficient contrast (check Lighthouse report)
+  - Review secondary text color (#cbd5e1) on backgrounds
+  - Test button text contrast on all color variations
+  - Verify link colors meet WCAG AA standards (4.5:1 minimum)
+  - Update CSS variables in `_sass/oceanic/_variables.scss` as needed
+- [ ] Restore stricter Lighthouse thresholds in `.lighthouserc.json` [PERSONAL] [LOW] (30 min)
+  - categories:accessibility: ["error", {"minScore": 0.90}]
+  - color-contrast: "error" (from current "warn")
+- [ ] Verify all pages pass 90% accessibility threshold [PERSONAL] [LOW] (1-2 hours)
+  - Run Lighthouse on all 5 key pages
+  - Address any remaining issues
+  - Document any intentional exceptions
+- [ ] Update CLAUDE.md and workflow documentation [PERSONAL] [LOW] (30 min)
+
+**Success Criteria:**
+- [ ] All blog posts pass strict markdown linting (0 errors)
+- [ ] All pages achieve 90%+ accessibility score
+- [ ] Color contrast meets WCAG AA standards (4.5:1 for normal text, 3:1 for large)
+- [ ] CI/CD enforces strict standards without false positives
+
+**Benefits:**
+- **Professional quality**: Site meets industry best practices for content formatting
+- **Accessibility**: Better experience for users with visual impairments
+- **Maintainability**: Consistent formatting makes content easier to update
+- **SEO**: Search engines favor well-structured, accessible content
+- **Brand reputation**: Demonstrates attention to detail and quality
+
+**Dependencies:**
+- Sprint 2 (Blog Posts 2-4) should be complete to avoid rework
+- Can be done incrementally without impacting site functionality
+- No user-facing changes (improvements are in source quality only)
+
+**Related Documentation:**
+- [.markdownlint.json](.markdownlint.json) - Current relaxed configuration
+- [.lighthouserc.json](.lighthouserc.json) - Current Lighthouse thresholds
+- [CLAUDE.md - Markdown Standards](CLAUDE.md#markdown-formatting-standards) - Full documentation
+- [CLAUDE.md - Development Workflow](CLAUDE.md#development-workflow) - Quality check process
 
 ---
 
