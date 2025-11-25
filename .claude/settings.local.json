@@ -63,7 +63,12 @@
       "Bash(mkdir:*)",
       "Bash(move \"c:\\_Code\\Website\\ScreepsMemory.htm\" \"c:\\_Code\\Website\\tools\\screeps-memory.html\")",
       "Bash(mv:*)",
-      "Bash(git -C \"c:\\_Code\\Website\" add .claude/settings.local.json TODO.md tools/ MAP.md)"
+      "Bash(git -C \"c:\\_Code\\Website\" add .claude/settings.local.json TODO.md tools/ MAP.md)",
+      "Bash(git -C \"c:\\_Code\\Website\" commit -m \"$(cat <<''EOF''\nUpdate documentation and add Screeps Memory Visualizer tool\n\nDocumentation Updates:\n- Update Claude settings with recent command history\n- Document Sprint 8 completion in TODO.md:\n  - HTML validation configuration (removed overly strict Favicon check)\n  - Lighthouse CI threshold adjustments (85% accessibility, warnings for color-contrast)\n  - Removed \"lighthouse:recommended\" preset (restoration planned in Sprint 10 Phase 3)\n  - JavaScript minification implementation (40-50% file size reduction)\n  - Comprehensive CI/CD improvements changelog\n\nNew Tool:\n- Add Screeps Memory Visualizer (tools/screeps-memory.html)\n  - Standalone HTML tool for visualizing Screeps game memory\n  - Accessible at /tools/screeps-memory.html\n\nProject Planning:\n- Add MAP.md strategic roadmap document for website evolution tracking\n\n🤖 Generated with [Claude Code](https://claude.com/claude-code)\n\nCo-Authored-By: Claude <noreply@anthropic.com>\nEOF\n)\")",
+      "Bash(bundle exec jekyll build:*)",
+      "Bash(start:*)",
+      "Bash(pwsh -NoProfile -Command \".\\scripts\\sync-project-stats.ps1 -WhatIf\")",
+      "Bash(git -C \"c:\\_Code\\Website\" add scripts/sync-project-stats.ps1 .claude/settings.local.json)"
     ],
     "deny": [],
     "ask": []

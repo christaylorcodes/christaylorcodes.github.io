@@ -58,7 +58,9 @@ Write-Host "=====================================" -ForegroundColor Cyan
 Write-Host ""
 
 # Load the centralized stats
-$statsFile = Join-Path $PSScriptRoot "_data\project-stats.yml"
+# Get repository root (parent of scripts directory)
+$repoRoot = Split-Path $PSScriptRoot -Parent
+$statsFile = Join-Path $repoRoot "_data\project-stats.yml"
 if (-not (Test-Path $statsFile)) {
     Write-Host "[ERROR] Stats file not found: $statsFile" -ForegroundColor Red
     exit 1
@@ -91,7 +93,7 @@ if ($FetchGalleryStats) {
     Write-Host ""
 
     # Read project files to get package names
-    $projectsDir = Join-Path $PSScriptRoot "_projects"
+    $projectsDir = Join-Path $repoRoot "_projects"
     $projectFiles = Get-ChildItem "$projectsDir\*.md"
 
     foreach ($file in $projectFiles) {
@@ -169,7 +171,7 @@ $projectId`:
 }
 
 # Process each project file
-$projectsDir = Join-Path $PSScriptRoot "_projects"
+$projectsDir = Join-Path $repoRoot "_projects"
 $projectFiles = Get-ChildItem "$projectsDir\*.md"
 
 Write-Host "[SYNC] Updating project files..." -ForegroundColor Yellow
