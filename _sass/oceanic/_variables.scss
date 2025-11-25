@@ -9,12 +9,12 @@
    - Background uses deep slate for comfortable dark theme
    - All colors defined as CSS variables for easy theming
 
-   ======================================== */
+   Font Loading Strategy:
+   - Google Fonts loaded with display=swap parameter (prevents FOIT)
+   - Font metric overrides in critical CSS prevent layout shift (CLS)
+   - Font Awesome loaded async to prevent render blocking
 
-/* Font display swap prevents invisible text during font loading (FOIT prevention) */
-@font-face {
-    font-display: swap;
-}
+   ======================================== */
 
 :root {
     /* Primary Colors - Electric Blue Theme (for highlights, links, accents) */

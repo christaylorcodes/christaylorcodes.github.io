@@ -2,6 +2,17 @@
      Inlined to eliminate render-blocking requests
      Full stylesheet loads deferred after initial paint -->
 <style>
+/* Font Metric Overrides - Prevent layout shift while web fonts load
+   These size-adjust values match Inter's metrics to system fonts */
+@font-face {
+    font-family: 'Inter Fallback';
+    src: local('Arial'), local('Helvetica'), local('sans-serif');
+    size-adjust: 107%;
+    ascent-override: 90%;
+    descent-override: 22%;
+    line-gap-override: 0%;
+}
+
 /* Variables - Required by all components */
 :root {
     --primary-color: #06b6d4;
@@ -35,10 +46,26 @@
 
 /* Body - Core styles for initial render */
 body {
-    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+    font-family: 'Inter', 'Inter Fallback', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
     line-height: 1.6;
     color: var(--text-dark);
     background-color: var(--bg-dark);
+}
+
+/* Font Awesome Icon Fallback - Reserve space for icons while Font Awesome loads */
+.fas, .far, .fab {
+    display: inline-block;
+    width: 1em;
+    text-align: center;
+}
+
+/* Prevent icon layout shift by reserving minimum dimensions */
+.feature-icon {
+    min-width: 60px;
+    min-height: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 /* Container - Used by navigation and hero */
