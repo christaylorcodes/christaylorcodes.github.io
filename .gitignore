@@ -33,3 +33,4 @@ Desktop.ini
 
 # Generated JavaScript (minified during build)
 assets/js/*.min.js
+.claude/settings.local.json
