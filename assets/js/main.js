@@ -868,17 +868,28 @@ document.addEventListener('DOMContentLoaded', function() {
             }, 250);
         });
 
-        // Start with a random background image
-        let currentBackgroundIndex = Math.floor(Math.random() * backgroundLayers.length);
-
-        // Set the initial random background as active
+        // Find which background is already active (set inline in HTML for LCP)
+        // or start with a random one if none is active
+        let currentBackgroundIndex = -1;
         backgroundLayers.forEach((layer, index) => {
-            if (index === currentBackgroundIndex) {
-                layer.classList.add('active');
-            } else {
-                layer.classList.remove('active');
+            if (layer.classList.contains('active')) {
+                currentBackgroundIndex = index;
             }
         });
+
+        // If no background was pre-activated, start with a random one
+        if (currentBackgroundIndex === -1) {
+            currentBackgroundIndex = Math.floor(Math.random() * backgroundLayers.length);
+
+            // Set the initial random background as active
+            backgroundLayers.forEach((layer, index) => {
+                if (index === currentBackgroundIndex) {
+                    layer.classList.add('active');
+                } else {
+                    layer.classList.remove('active');
+                }
+            });
+        }
 
         // Background slideshow with blend transitions
         function rotateBackground() {
@@ -898,18 +909,44 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 
     // Enhanced parallax scrolling effect for all background layers
+    // Cache section dimensions to avoid forced reflows on every scroll
     let ticking = false;
+    let viewportHeight = window.innerHeight;
+    const sectionCache = new Map();
+
+    // Cache section dimensions and background layers
+    function cacheSectionDimensions() {
+        viewportHeight = window.innerHeight;
+        sectionsWithBackgrounds.forEach(function(section) {
+            sectionCache.set(section, {
+                top: section.offsetTop,
+                height: section.offsetHeight,
+                layers: section.querySelectorAll('.hero-background')
+            });
+        });
+    }
+
+    // Initial cache
+    cacheSectionDimensions();
+
+    // Update cache on resize (debounced with existing resize handler)
+    let parallaxResizeTimeout;
+    window.addEventListener('resize', function() {
+        clearTimeout(parallaxResizeTimeout);
+        parallaxResizeTimeout = setTimeout(cacheSectionDimensions, 250);
+    });
 
     function updateParallax() {
         const scrollPosition = window.pageYOffset;
 
         sectionsWithBackgrounds.forEach(function(section) {
-            const backgroundLayers = section.querySelectorAll('.hero-background');
-            const sectionTop = section.offsetTop;
-            const sectionHeight = section.offsetHeight;
+            const cached = sectionCache.get(section);
+            if (!cached) return;
+
+            const { top: sectionTop, height: sectionHeight, layers: backgroundLayers } = cached;
 
             // Only apply parallax while section is in viewport
-            if (scrollPosition + window.innerHeight > sectionTop && scrollPosition < sectionTop + sectionHeight) {
+            if (scrollPosition + viewportHeight > sectionTop && scrollPosition < sectionTop + sectionHeight) {
                 // Move background upward at 50% of scroll speed for parallax effect
                 // Negative values move background up, revealing top of zoomed image as user scrolls down
                 const sectionScrollPosition = scrollPosition - sectionTop;
@@ -1048,18 +1085,29 @@ document.addEventListener('DOMContentLoaded', function() {
         const transitionDuration = 1200; // 1.2 seconds for smoother animation
         const autoPlayDelay = 12000; // 12 seconds between slides
 
+        // Cache dimensions to avoid forced reflows
+        let cachedContainerWidth = carouselContainer.offsetWidth;
+        let cachedCardWidth = cards[0] ? cards[0].offsetWidth : 0;
+        let cachedGap = parseInt(getComputedStyle(track).gap) || 32;
+        const isBlogPostsCarousel = carouselContainer.closest('.recent-posts') !== null;
+
+        // Update cached dimensions on resize
+        function updateCachedDimensions() {
+            cachedContainerWidth = carouselContainer.offsetWidth;
+            cachedCardWidth = cards[0] ? cards[0].offsetWidth : 0;
+            cachedGap = parseInt(getComputedStyle(track).gap) || 32;
+        }
+
         // Get number of cards visible at current viewport size
         function getVisibleCardCount() {
-            const containerWidth = carouselContainer.offsetWidth;
-            const isBlogPostsCarousel = carouselContainer.closest('.recent-posts') !== null;
-
+            // Use cached container width to avoid reflow
             // Blog posts carousel: 3 cards on desktop
             // Features carousel: 4 cards on desktop
             // Both: 2 cards on tablet, 1 card on mobile
-            if (containerWidth > 900) {
+            if (cachedContainerWidth > 900) {
                 return isBlogPostsCarousel ? 3 : 4;
             }
-            if (containerWidth > 600) return 2;
+            if (cachedContainerWidth > 600) return 2;
             return 1;
         }
 
@@ -1094,25 +1142,21 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Update carousel position
     function updateCarouselPosition(animated = true) {
-        const firstCard = cards[0];
-        if (!firstCard) return;
+        if (!cards[0]) return;
 
-        const cardWidth = firstCard.offsetWidth;
-        const gap = parseInt(getComputedStyle(track).gap) || 32;
-        const cardStep = cardWidth + gap;
+        // Use cached dimensions to avoid forced reflows
+        const cardStep = cachedCardWidth + cachedGap;
         const offset = -(currentIndex * cardStep);
 
         if (!animated) {
             track.style.transition = 'none';
+            // Use void instead of offsetHeight to force style application without layout read
+            void track.offsetWidth;
         } else {
             track.style.transition = '';
         }
 
         track.style.transform = `translateX(${offset}px)`;
-
-        if (!animated) {
-            track.offsetHeight; // Force reflow
-        }
 
         updateIndicators();
     }
@@ -1193,6 +1237,8 @@ document.addEventListener('DOMContentLoaded', function() {
     function handleResize() {
         clearTimeout(resizeTimeout);
         resizeTimeout = setTimeout(() => {
+            // Update cached dimensions first
+            updateCachedDimensions();
             // Adjust position if needed after resize
             const visibleCards = getVisibleCardCount();
             const maxIndex = totalCards - visibleCards;

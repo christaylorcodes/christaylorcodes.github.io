@@ -196,14 +196,86 @@ The deployment process follows this sequence:
 3. Test workflow (Step 5)
 4. Revoke old token in Cloudflare Dashboard
 
+## Cache Lifetimes Configuration
+
+GitHub Pages sets short default cache TTLs (~10 minutes). Cloudflare can extend these for better performance.
+
+### Why Extend Cache Lifetimes?
+
+Lighthouse flags assets with short cache TTLs as optimization opportunities. By extending cache lifetimes in Cloudflare, repeat visitors experience faster page loads.
+
+**Assets to cache longer:**
+- Images (WebP, PNG, JPG, SVG): 1 year (versioned/content-addressed)
+- CSS/JS: 1 year (fingerprinted in production)
+- Fonts: 1 year (immutable)
+- HTML pages: 1 hour (dynamic content)
+
+### Configure Cache Rules
+
+1. **Navigate to Caching Settings**:
+   - Cloudflare Dashboard → christaylor.codes
+   - Click "Caching" in left sidebar
+   - Click "Cache Rules" tab
+
+2. **Create Rule for Static Assets**:
+   - Click "Create rule"
+   - Rule name: `Static Assets - Long TTL`
+   - When incoming requests match:
+     ```
+     (http.request.uri.path.extension in {"webp" "png" "jpg" "jpeg" "gif" "svg" "ico" "woff2" "woff" "ttf" "eot"})
+     ```
+   - Then:
+     - **Cache eligibility**: Eligible for cache
+     - **Edge TTL**: Override origin → 1 year (31536000 seconds)
+     - **Browser TTL**: Override origin → 1 year
+   - Deploy
+
+3. **Create Rule for CSS/JS**:
+   - Click "Create rule"
+   - Rule name: `CSS JS - Long TTL`
+   - When incoming requests match:
+     ```
+     (http.request.uri.path.extension in {"css" "js"})
+     ```
+   - Then:
+     - **Cache eligibility**: Eligible for cache
+     - **Edge TTL**: Override origin → 1 week (604800 seconds)
+     - **Browser TTL**: Override origin → 1 week
+   - Deploy
+
+4. **HTML Pages (Optional)**:
+   - Leave at default (respects origin headers)
+   - Or create rule for 1 hour TTL
+
+### Verify Cache Configuration
+
+1. **Test with curl**:
+   ```bash
+   curl -I https://christaylor.codes/assets/images/hero-background-1280w.webp
+   ```
+   Look for: `cf-cache-status: HIT` and `cache-control: max-age=31536000`
+
+2. **Test in Lighthouse**:
+   - Run Lighthouse audit
+   - Check "Serve static assets with efficient cache policy" diagnostic
+   - Should show improved cache lifetimes
+
+### Important Notes
+
+- **Cache invalidation**: Long TTLs are safe because deployment purges Cloudflare cache
+- **Browser cache**: Users may need hard refresh after deployments
+- **Fingerprinting**: If adding content-hash to filenames, set TTL to 1 year for immutable caching
+- **Order matters**: More specific rules should be higher in the list
+
 ## Additional Resources
 
 - [Cloudflare API Documentation](https://developers.cloudflare.com/api/)
+- [Cloudflare Cache Rules](https://developers.cloudflare.com/cache/how-to/cache-rules/)
 - [GitHub Actions Secrets](https://docs.github.com/en/actions/security-guides/encrypted-secrets)
 - [Jekyll on GitHub Pages](https://docs.github.com/en/pages/setting-up-a-github-pages-site-with-jekyll)
 
 ---
 
-**Last Updated**: 2025-11-05  
-**Workflow Version**: 1.0  
+**Last Updated**: 2025-11-25
+**Workflow Version**: 1.0
 **Tested With**: Ruby 3.3, Jekyll 4.x, GitHub Actions

@@ -122,5 +122,54 @@ This issue is documented for tracking purposes. Once the root cause is identifie
 
 ---
 
-**Last Updated:** 2025-11-08
-**Next Review:** 2025-11-15
+## Font Awesome Font-Display Performance Warning
+
+**Status:** Documented / Accepted
+**First Observed:** 2025-11-25
+**Severity:** Very Low (20-30ms delay, minor Lighthouse warning)
+
+### Symptoms
+
+Lighthouse reports "Ensure text remains visible during webfont load" with ~30ms estimated savings for Font Awesome font files from cdnjs.cloudflare.com.
+
+### Impact
+
+- **Performance:** Minimal - 20-30ms delay showing icon fonts
+- **User Experience:** Icons may flash briefly when loading
+- **Lighthouse Score:** Minor warning, does not significantly impact performance score
+
+### Technical Details
+
+Font Awesome fonts are loaded from cdnjs.cloudflare.com CDN. The `@font-face` rules in Font Awesome's CSS may use `font-display: block` instead of `swap`.
+
+**What we've tried:**
+- Added `@font-face` overrides in `_includes/critical-css.html` with `font-display: swap`
+- However, CSS `@font-face` overrides without a matching `src` property don't override the CDN's rules
+
+### Why This Can't Be Fully Fixed (Without Trade-offs)
+
+1. **CDN fonts:** We can't modify Font Awesome's CSS served from cdnjs
+2. **Self-hosting:** Would require downloading FA fonts and managing updates manually
+3. **SVG sprites:** Better performance but requires significant refactoring
+
+### Current Mitigation
+
+- `font-display: swap` declarations in critical CSS (partial effect)
+- Icon placeholders reserve space via CSS (prevents layout shift)
+- Preconnect to cdnjs.cloudflare.com speeds up font loading
+
+### Possible Future Solutions
+
+1. **Self-host Font Awesome** - Full control over font-display, but maintenance burden
+2. **Use SVG icon sprites** - Better performance, but refactoring required
+3. **Subset Font Awesome** - Only include icons actually used (~8 icons vs 2000+)
+4. **Wait for CDN update** - cdnjs may update FA defaults in future
+
+### Recommendation
+
+Accept this minor warning. The 20-30ms impact is negligible and the trade-off of self-hosting or converting to SVG sprites isn't worth the maintenance cost for such a small gain.
+
+---
+
+**Last Updated:** 2025-11-25
+**Next Review:** 2026-02-01
