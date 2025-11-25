@@ -24,7 +24,11 @@ layout: default
         <div class="project-detail-content">
             {% if page.image %}
             <section class="project-hero-image">
-                <img src="{{ page.image | relative_url }}" alt="{{ page.title }} - Main Screenshot" loading="lazy">
+                <img src="{{ page.image | relative_url }}"
+                     alt="{{ page.title }} - Main Screenshot"
+                     width="1200"
+                     height="630"
+                     loading="eager">
             </section>
             {% endif %}
 
@@ -162,7 +166,11 @@ layout: default
                 <div class="screenshots-grid">
                     {% for screenshot in page.screenshots %}
                     <div class="screenshot-item">
-                        <img src="{{ screenshot | relative_url }}" alt="{{ page.title }} - Screenshot {{ forloop.index }}" loading="lazy">
+                        <img src="{{ screenshot | relative_url }}"
+                             alt="{{ page.title }} - Screenshot {{ forloop.index }}"
+                             width="1920"
+                             height="1080"
+                             loading="lazy">
                     </div>
                     {% endfor %}
                 </div>

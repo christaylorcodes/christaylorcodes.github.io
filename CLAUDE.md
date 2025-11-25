@@ -2314,14 +2314,348 @@ The theme uses a hierarchical width system optimized for readability and user ex
 **Modifying Widths:**
 All max-width values are set in the respective SCSS partials in `_sass/oceanic/`. To change content width, edit the `max-width` property in the relevant component file.
 
-## Performance Considerations
+## Core Performance Principles
 
-- Static site (very fast)
-- CSS: Single file, no preprocessor
-- JavaScript: Minimal, vanilla JS
-- Images: Store in `assets/images/`, optimize before upload
-- Fonts: Google Fonts CDN
-- Icons: Font Awesome CDN
+The site is designed with performance as a core requirement, targeting Lighthouse scores of 90+ across all pages. These principles must be followed for all new features and content.
+
+### Performance Targets
+
+**Core Web Vitals:**
+- **LCP (Largest Contentful Paint):** <2.5s (good), <4.0s (acceptable)
+- **FCP (First Contentful Paint):** <1.8s (good), <3.0s (acceptable)
+- **CLS (Cumulative Layout Shift):** <0.1 (good), <0.25 (acceptable)
+- **TBT (Total Blocking Time):** <200ms (good), <600ms (acceptable)
+
+**Lighthouse Scores:**
+- Performance: 90+ (target), 75+ (minimum)
+- Accessibility: 90+ (target), 85+ (minimum)
+- Best Practices: 90+ (target), 85+ (minimum)
+- SEO: 95+ (target), 90+ (minimum)
+
+### 1. Layout Shift Prevention (CLS <0.1)
+
+**Problem:** Elements shifting during page load create poor user experience and hurt SEO.
+
+**Mandatory Practices:**
+
+**Reserve Space for Dynamic Content:**
+- Add `min-height` to containers that load content asynchronously
+- Use explicit `width` and `height` attributes on ALL images
+- Reserve space for icon fonts before they load
+
+**Examples:**
+```scss
+// Hero sections - prevent collapse while background loads
+.hero {
+    min-height: 600px; /* Reserves vertical space */
+}
+
+// Stat cards - prevent grid shift while content populates
+.highlight-stat {
+    min-height: 220px; /* Prevents card collapse */
+}
+```
+
+```html
+<!-- Always include explicit dimensions on images -->
+<img src="profile.webp" alt="Profile" width="400" height="400" loading="eager">
+
+<!-- Even small images need dimensions -->
+<img src="badge.svg" alt="Badge" width="100" height="24" loading="lazy">
+```
+
+**Font Loading Strategy:**
+- Use `font-display: swap` for all web fonts
+- Provide fallback fonts with similar metrics
+- Define `@font-face` overrides in critical CSS
+
+```css
+/* Force font-display: swap for third-party fonts */
+@font-face {
+    font-family: 'Font Awesome 6 Free';
+    font-display: swap; /* Show fallback immediately */
+}
+```
+
+**Animation Considerations:**
+- Animations that start with `opacity: 0` cause layout shift
+- Elements must be visible by default to reserve space
+- Use `will-change` to hint transforms to browser
+
+```scss
+/* BAD - Causes layout shift */
+.fade-in {
+    opacity: 0; /* Element invisible, no space reserved */
+    animation: fadeIn 0.5s ease forwards;
+}
+
+/* GOOD - Reserves space, no shift */
+.fade-in {
+    opacity: 1; /* Visible by default */
+    transform: translateY(0);
+}
+
+.fade-in.animate {
+    animation: fadeIn 0.5s ease;
+    will-change: transform, opacity;
+}
+```
+
+### 2. Critical Resource Optimization (LCP <2.5s)
+
+**Problem:** Above-the-fold content loads slowly, delaying user interaction.
+
+**Mandatory Practices:**
+
+**Preload Critical Images:**
+- Hero backgrounds, profile photos, and LCP elements must be preloaded
+- Use `fetchpriority="high"` for LCP images
+- Conditional preloading per page
+
+```html
+{% if page.url == "/" %}
+<!-- Preload hero background for faster LCP on homepage -->
+<link rel="preload" as="image" href="/assets/images/hero-background.webp" fetchpriority="high">
+{% endif %}
+
+{% if page.url == "/about/" %}
+<!-- Preload profile photo for faster LCP on about page -->
+<link rel="preload" as="image" href="/assets/images/profile-photo.webp" fetchpriority="high">
+{% endif %}
+```
+
+**Loading Attributes:**
+- Above-the-fold images: `loading="eager"`
+- Below-the-fold images: `loading="lazy"`
+- LCP images: Always `loading="eager"`
+
+```html
+<!-- Above the fold - load immediately -->
+<img src="hero.webp" alt="Hero" loading="eager" fetchpriority="high">
+
+<!-- Below the fold - defer loading -->
+<img src="screenshot.webp" alt="Screenshot" loading="lazy">
+```
+
+**Resource Hints:**
+- `preconnect` for critical third-party origins
+- `dns-prefetch` for less critical origins
+- `preload` for critical same-origin resources
+
+```html
+<!-- Critical third-party resources -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+<!-- Same-origin critical resources -->
+<link rel="preload" as="style" href="/assets/css/styles.css">
+```
+
+### 3. Image Optimization
+
+**Problem:** Large images slow down page load and waste bandwidth.
+
+**Mandatory Practices:**
+
+**Format Selection:**
+- Use WebP for all photos and graphics (90% smaller than PNG)
+- Use SVG for logos, icons, and simple graphics
+- Provide fallbacks for older browsers if needed
+
+**Sizing:**
+- Never serve images larger than display size
+- Use responsive images with `srcset` for multiple sizes
+- Optimize before upload (TinyPNG, Squoosh, ImageOptim)
+
+**Specifications:**
+- Hero images: 1920x1080px WebP, <500KB
+- Profile photos: 400x400px WebP, <100KB
+- Screenshots: 800x600px or 1920x1080px WebP, <300KB each
+- Social sharing images: 1200x630px, <500KB
+
+**Example:**
+```html
+<!-- Responsive image with multiple sizes -->
+<img srcset="/assets/images/hero-640.webp 640w,
+             /assets/images/hero-1280.webp 1280w,
+             /assets/images/hero-1920.webp 1920w"
+     sizes="(max-width: 640px) 640px,
+            (max-width: 1280px) 1280px,
+            1920px"
+     src="/assets/images/hero-1920.webp"
+     alt="Hero background"
+     width="1920"
+     height="1080"
+     loading="eager">
+```
+
+### 4. Font Performance
+
+**Problem:** Web fonts block rendering and cause layout shift.
+
+**Mandatory Practices:**
+
+**Font Display:**
+- Always use `font-display: swap` or `optional`
+- Provide fallback fonts with similar metrics
+- Use font metric overrides to prevent shift
+
+```css
+/* Font fallback with size adjustments */
+@font-face {
+    font-family: 'Inter Fallback';
+    src: local('Arial'), local('Helvetica');
+    size-adjust: 107%;
+    ascent-override: 90%;
+    descent-override: 22%;
+}
+```
+
+**Font Loading:**
+- Async load non-critical fonts
+- Preload critical fonts
+- Subset fonts to include only needed characters
+
+```html
+<!-- Async font loading -->
+<link rel="preload" href="fonts.css" as="style" onload="this.rel='stylesheet'">
+<noscript><link rel="stylesheet" href="fonts.css"></noscript>
+```
+
+**Icon Fonts:**
+- Consider switching to SVG sprites (better performance)
+- If using Font Awesome, subset to only needed icons
+- Add `font-display: swap` override
+
+### 5. CSS and JavaScript Optimization
+
+**Mandatory Practices:**
+
+**CSS:**
+- Inline critical above-the-fold CSS
+- Defer full stylesheet loading
+- Remove unused CSS (especially icon libraries)
+- Minify in production
+
+**JavaScript:**
+- Use `defer` or `async` on all scripts
+- Load non-critical scripts after page load
+- Minify in production
+- Avoid render-blocking scripts
+
+```html
+<!-- Critical CSS inlined -->
+<style>
+    /* Above-the-fold styles here */
+</style>
+
+<!-- Full stylesheet deferred -->
+<link rel="preload" href="styles.css" as="style" onload="this.rel='stylesheet'">
+
+<!-- Scripts deferred -->
+<script src="main.js" defer></script>
+```
+
+### 6. Animation Performance
+
+**Mandatory Practices:**
+
+**Use GPU-Accelerated Properties Only:**
+- Animate `transform` and `opacity` only
+- Avoid animating `width`, `height`, `top`, `left`, `margin`, `padding`
+- Use `will-change` sparingly for critical animations
+
+```scss
+/* GOOD - GPU accelerated */
+.card:hover {
+    transform: translateY(-5px) scale(1.02);
+    opacity: 0.95;
+    will-change: transform, opacity;
+}
+
+/* BAD - Causes layout recalculation */
+.card:hover {
+    margin-top: -5px; /* Forces reflow */
+    width: 102%; /* Forces reflow */
+}
+```
+
+**Prevent Layout Shift from Animations:**
+- Elements must be visible from the start
+- Animations triggered by user interaction are okay
+- Automatic animations on page load must not cause shift
+
+### 7. Performance Testing
+
+**Mandatory Before Deployment:**
+
+**Local Testing:**
+```powershell
+# Build site
+.\build.ps1
+
+# Run Lighthouse benchmark
+.\scripts\benchmark-performance.ps1 -Target local -Device desktop -HTMLReport
+```
+
+**Verify Metrics:**
+- Performance score 75+
+- CLS <0.1 on all pages
+- LCP <4.0s on all pages
+- No layout shift from animations
+
+**Production Testing:**
+```powershell
+# After deployment
+.\scripts\benchmark-performance.ps1 -Target production -Device desktop -HTMLReport
+.\scripts\benchmark-performance.ps1 -Target production -Device mobile -HTMLReport
+```
+
+### 8. Performance Checklist
+
+**For Every New Feature:**
+- [ ] Images have explicit `width` and `height`
+- [ ] Above-the-fold images use `loading="eager"`
+- [ ] Containers with dynamic content have `min-height`
+- [ ] Animations use `transform` and `opacity` only
+- [ ] New fonts include `font-display: swap`
+- [ ] Critical resources are preloaded
+- [ ] Local Lighthouse test passes (75+ score)
+
+**For Every New Page:**
+- [ ] Identify LCP element
+- [ ] Preload LCP image with `fetchpriority="high"`
+- [ ] Test on mobile (480px) and desktop (1920px)
+- [ ] Verify CLS <0.1
+- [ ] Verify LCP <4.0s
+
+### 9. Common Performance Pitfalls
+
+**Avoid These:**
+- ❌ Images without dimensions (causes CLS)
+- ❌ Lazy loading above-the-fold images (delays LCP)
+- ❌ Animations starting with `opacity: 0` (causes CLS)
+- ❌ Large unoptimized images (>500KB)
+- ❌ Render-blocking CSS/JS in `<head>`
+- ❌ Font Awesome without subsetting (21KB unused CSS)
+- ❌ Animating layout properties (width, margin, etc.)
+- ❌ Missing `font-display: swap`
+
+### 10. Performance Monitoring
+
+**Weekly:**
+- Check Cloudflare Analytics for Core Web Vitals
+- Review Google Search Console for CWV issues
+
+**Monthly:**
+- Run full Lighthouse audit on all pages
+- Update this section with new learnings
+
+**References:**
+- [Web.dev Core Web Vitals](https://web.dev/vitals/)
+- [Lighthouse Performance Scoring](https://web.dev/performance-scoring/)
+- [Cumulative Layout Shift (CLS)](https://web.dev/cls/)
+- [Largest Contentful Paint (LCP)](https://web.dev/lcp/)
 
 ## SEO Features
 

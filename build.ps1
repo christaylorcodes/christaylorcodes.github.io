@@ -8,11 +8,14 @@
     Handles dependency installation, building, and serving with live reload.
 
 .PARAMETER Mode
-    Build mode: 'serve' (default), 'build', 'clean', or 'sync-stats'
+    Build mode: 'serve' (default), 'build', 'clean', 'sync-stats', 'benchmark', 'optimize-images', or 'validate-images'
     - serve: Build and serve with live reload at http://localhost:4000
     - build: Build only (outputs to _site/)
     - clean: Clean build artifacts and cache
     - sync-stats: Sync project stats from _data/project-stats.yml to project files
+    - benchmark: Run performance benchmarks and check for regressions
+    - optimize-images: Convert images to WebP, extract dimensions, validate performance
+    - validate-images: Check all images meet performance standards
 
 .EXAMPLE
     .\build.ps1
@@ -29,11 +32,23 @@
 .EXAMPLE
     .\build.ps1 -Mode sync-stats
     Syncs centralized stats to project files for GitHub Pages compatibility
+
+.EXAMPLE
+    .\build.ps1 -Mode benchmark
+    Runs performance benchmarks to check for regressions
+
+.EXAMPLE
+    .\build.ps1 -Mode optimize-images
+    Optimizes images to WebP format with performance validation
+
+.EXAMPLE
+    .\build.ps1 -Mode validate-images
+    Validates all images meet performance standards
 #>
 
 [CmdletBinding()]
 param(
-    [ValidateSet('serve', 'build', 'clean', 'sync-stats')]
+    [ValidateSet('serve', 'build', 'clean', 'sync-stats', 'benchmark', 'optimize-images', 'validate-images')]
     [string]$Mode = 'serve'
 )
 
@@ -64,6 +79,159 @@ if ($Mode -eq 'sync-stats') {
     Write-Host ""
     & $syncScript
     exit $LASTEXITCODE
+}
+
+# Optimize images mode
+if ($Mode -eq 'optimize-images') {
+    Write-Host "`n[OPTIMIZE] Starting image optimization workflow..." -ForegroundColor Yellow
+    Write-Host "  This will convert images to WebP and validate performance" -ForegroundColor Gray
+    Write-Host ""
+
+    # Step 1: Optimize and convert images
+    Write-Host "[STEP 1/4] Converting images to WebP..." -ForegroundColor Cyan
+    $optimizeScript = Join-Path $PSScriptRoot "scripts\optimize-images.ps1"
+    if (-not (Test-Path $optimizeScript)) {
+        Write-Host "[ERROR] scripts\optimize-images.ps1 not found!" -ForegroundColor Red
+        exit 1
+    }
+    & $optimizeScript -ConvertAll
+    if ($LASTEXITCODE -ne 0) {
+        Write-Host "`n[FAILED] Image optimization failed!" -ForegroundColor Red
+        exit 1
+    }
+
+    # Step 2: Update references
+    Write-Host "`n[STEP 2/4] Updating image references in HTML/MD files..." -ForegroundColor Cyan
+    $updateScript = Join-Path $PSScriptRoot "scripts\update-image-references.ps1"
+    if (-not (Test-Path $updateScript)) {
+        Write-Host "[ERROR] scripts\update-image-references.ps1 not found!" -ForegroundColor Red
+        exit 1
+    }
+    & $updateScript -AddLoadingAttributes -AddFetchPriority
+    if ($LASTEXITCODE -ne 0) {
+        Write-Host "`n[FAILED] Reference update failed!" -ForegroundColor Red
+        exit 1
+    }
+
+    # Step 3: Generate responsive sizes (optional, only for hero images)
+    Write-Host "`n[STEP 3/4] Generating responsive image sizes..." -ForegroundColor Cyan
+    $responsiveScript = Join-Path $PSScriptRoot "scripts\generate-responsive-sizes.ps1"
+    if (-not (Test-Path $responsiveScript)) {
+        Write-Host "[ERROR] scripts\generate-responsive-sizes.ps1 not found!" -ForegroundColor Red
+        exit 1
+    }
+    & $responsiveScript -ImageTypes Hero,Screenshot
+    if ($LASTEXITCODE -ne 0) {
+        Write-Host "`n[WARN] Responsive size generation had issues (continuing)" -ForegroundColor Yellow
+    }
+
+    # Step 4: Validate performance
+    Write-Host "`n[STEP 4/4] Validating performance compliance..." -ForegroundColor Cyan
+    $validateScript = Join-Path $PSScriptRoot "scripts\validate-image-performance.ps1"
+    if (-not (Test-Path $validateScript)) {
+        Write-Host "[ERROR] scripts\validate-image-performance.ps1 not found!" -ForegroundColor Red
+        exit 1
+    }
+    & $validateScript -GenerateReport
+
+    Write-Host "`n[SUCCESS] Image optimization workflow complete!" -ForegroundColor Green
+    Write-Host "  Next steps:" -ForegroundColor Cyan
+    Write-Host "    1. Review the changes in git" -ForegroundColor Gray
+    Write-Host "    2. Test the site locally: .\build.ps1" -ForegroundColor Gray
+    Write-Host "    3. Commit changes if everything looks good" -ForegroundColor Gray
+    exit 0
+}
+
+# Validate images mode
+if ($Mode -eq 'validate-images') {
+    Write-Host "`n[VALIDATE] Checking image performance compliance..." -ForegroundColor Yellow
+    Write-Host "  Standards: CLAUDE.md performance guidelines" -ForegroundColor Gray
+    Write-Host ""
+
+    $validateScript = Join-Path $PSScriptRoot "scripts\validate-image-performance.ps1"
+    if (-not (Test-Path $validateScript)) {
+        Write-Host "[ERROR] scripts\validate-image-performance.ps1 not found!" -ForegroundColor Red
+        exit 1
+    }
+
+    & $validateScript -GenerateReport -FailOnWarnings
+    exit $LASTEXITCODE
+}
+
+# Benchmark mode
+if ($Mode -eq 'benchmark') {
+    Write-Host "`n[BENCHMARK] Running performance regression tests..." -ForegroundColor Yellow
+    Write-Host "  This will check for performance degradation since last optimization" -ForegroundColor Gray
+    Write-Host ""
+
+    # Check if server is running
+    try {
+        $null = Invoke-WebRequest -Uri "http://localhost:4000" -UseBasicParsing -TimeoutSec 2 -ErrorAction Stop
+    } catch {
+        Write-Host "[ERROR] Local server not running at http://localhost:4000" -ForegroundColor Red
+        Write-Host "  Please start the server first with: .\build.ps1" -ForegroundColor Yellow
+        exit 1
+    }
+
+    # Run benchmark script
+    $benchmarkScript = Join-Path $PSScriptRoot "scripts\benchmark-performance.ps1"
+    if (-not (Test-Path $benchmarkScript)) {
+        Write-Host "[ERROR] scripts\benchmark-performance.ps1 not found!" -ForegroundColor Red
+        exit 1
+    }
+
+    Write-Host "[BENCHMARK] Testing homepage..." -ForegroundColor Cyan
+    & $benchmarkScript -Target local -Device desktop
+
+    if ($LASTEXITCODE -ne 0) {
+        Write-Host "`n[FAILED] Homepage benchmark failed!" -ForegroundColor Red
+        exit 1
+    }
+
+    Write-Host "`n[BENCHMARK] Testing about page..." -ForegroundColor Cyan
+    & lighthouse http://localhost:4000/about/ `
+        --output=json `
+        --output-path=benchmarks/lighthouse_about_benchmark.json `
+        --quiet `
+        --chrome-path="C:\Program Files\Google\Chrome\Application\chrome.exe" `
+        --chrome-flags="--headless" `
+        --preset=desktop
+
+    if ($LASTEXITCODE -eq 0) {
+        # Display about page results
+        $aboutResults = Get-Content benchmarks/lighthouse_about_benchmark.json | ConvertFrom-Json
+        $perfScore = [math]::Round($aboutResults.categories.performance.score * 100)
+        $clsScore = [math]::Round($aboutResults.audits.'cumulative-layout-shift'.numericValue, 3)
+
+        Write-Host "`n[RESULTS] About Page Performance:" -ForegroundColor Cyan
+        Write-Host "  Performance: $perfScore/100" -ForegroundColor $(if ($perfScore -ge 90) { 'Green' } else { 'Yellow' })
+        Write-Host "  CLS: $clsScore" -ForegroundColor $(if ($clsScore -le 0.1) { 'Green' } else { 'Red' })
+
+        # Check thresholds
+        $failed = $false
+        if ($perfScore -lt 90) {
+            Write-Host "`n[WARN] Performance score below 90% threshold" -ForegroundColor Yellow
+            $failed = $true
+        }
+        if ($clsScore -gt 0.1) {
+            Write-Host "`n[FAIL] CLS exceeds 0.1 threshold - layout shift regression detected!" -ForegroundColor Red
+            $failed = $true
+        }
+
+        if ($failed) {
+            Write-Host "`n[FAILED] Performance regression detected!" -ForegroundColor Red
+            Write-Host "  Review benchmarks in: benchmarks/" -ForegroundColor Gray
+            exit 1
+        } else {
+            Write-Host "`n[SUCCESS] All performance benchmarks passed!" -ForegroundColor Green
+            Write-Host "  ✅ Performance: $perfScore% (target: 90%)" -ForegroundColor Green
+            Write-Host "  ✅ CLS: $clsScore (target: <0.1)" -ForegroundColor Green
+            exit 0
+        }
+    } else {
+        Write-Host "`n[ERROR] About page benchmark failed!" -ForegroundColor Red
+        exit 1
+    }
 }
 
 # Clean mode

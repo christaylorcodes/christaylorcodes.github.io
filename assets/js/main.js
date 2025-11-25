@@ -153,7 +153,13 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
-    // Add animation on scroll
+    // DISABLED: Animation on scroll causes CLS
+    // Per CLAUDE.md performance principles: "Elements must be visible by default to reserve space"
+    // This code was setting opacity: 0 on page load, causing Cumulative Layout Shift
+    //
+    // To re-enable without CLS: Only animate elements that start below the fold
+    // Or use CSS classes that don't set opacity: 0 by default
+    /*
     const observerOptions = {
         threshold: 0.1,
         rootMargin: '0px 0px -50px 0px'
@@ -175,6 +181,7 @@ document.addEventListener('DOMContentLoaded', function() {
         card.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
         observer.observe(card);
     });
+    */
 });
 
 // Add active state to current page in navigation
@@ -821,12 +828,44 @@ document.addEventListener('DOMContentLoaded', function() {
             return; // No background layers in this section
         }
 
-        // Load background images
+        // Function to get appropriate image size based on viewport width
+        function getResponsiveImageSrc(layer) {
+            const viewportWidth = window.innerWidth;
+
+            // Choose image size based on viewport and device pixel ratio
+            if (viewportWidth <= 640) {
+                return layer.dataset.bg640;
+            } else if (viewportWidth <= 1280) {
+                return layer.dataset.bg1280;
+            } else {
+                return layer.dataset.bg1920;
+            }
+        }
+
+        // Load background images with responsive sizing
         backgroundLayers.forEach(function(layer) {
-            const imageSrc = layer.dataset.bg;
+            const imageSrc = getResponsiveImageSrc(layer);
             if (imageSrc) {
                 layer.style.backgroundImage = 'url(' + imageSrc + ')';
+                layer.dataset.currentBg = imageSrc; // Track current image
             }
+        });
+
+        // Update images on resize (debounced) - single listener for all layers
+        let resizeTimeout;
+        window.addEventListener('resize', function() {
+            clearTimeout(resizeTimeout);
+            resizeTimeout = setTimeout(function() {
+                backgroundLayers.forEach(function(layer) {
+                    const newSrc = getResponsiveImageSrc(layer);
+                    const currentSrc = layer.dataset.currentBg;
+
+                    if (newSrc && newSrc !== currentSrc) {
+                        layer.style.backgroundImage = 'url(' + newSrc + ')';
+                        layer.dataset.currentBg = newSrc;
+                    }
+                });
+            }, 250);
         });
 
         // Start with a random background image

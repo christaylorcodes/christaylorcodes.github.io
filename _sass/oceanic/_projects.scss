@@ -695,11 +695,14 @@
     overflow: hidden;
     box-shadow: var(--shadow-lg);
     border: 1px solid var(--border-color);
+    aspect-ratio: 16 / 9; /* Reserve space to prevent layout shift (matches 1200x630 recommendation) */
+    background-color: var(--bg-light); /* Placeholder while image loads */
 }
 
 .project-hero-image img {
     width: 100%;
-    height: auto;
+    height: 100%; /* Fill aspect-ratio container */
+    object-fit: cover; /* Maintain aspect ratio, crop if needed */
     display: block;
     transition: transform 0.3s ease;
 }
@@ -735,6 +738,7 @@
     transition: all 0.3s ease;
     cursor: pointer;
     background-color: var(--bg-light);
+    aspect-ratio: 16 / 9; /* Reserve space to prevent layout shift */
 }
 
 .screenshot-item:hover {
@@ -745,7 +749,8 @@
 
 .screenshot-item img {
     width: 100%;
-    height: auto;
+    height: 100%; /* Fill aspect-ratio container */
+    object-fit: cover; /* Maintain aspect ratio, crop if needed */
     display: block;
     transition: transform 0.3s ease;
 }

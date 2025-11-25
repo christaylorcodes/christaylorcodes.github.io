@@ -1,0 +1,37 @@
+{
+  "LastUpdated": "2025-11-24 22:08:15",
+  "Images": [
+    {
+      "Compliant": true,
+      "SizeKB": 76.9,
+      "Width": 1920,
+      "Path": "assets\\images\\hero-background-2.webp",
+      "Type": "Hero",
+      "Height": 1080
+    },
+    {
+      "Compliant": true,
+      "SizeKB": 64.5,
+      "Width": 1920,
+      "Path": "assets\\images\\hero-background-3.webp",
+      "Type": "Hero",
+      "Height": 1080
+    },
+    {
+      "Compliant": true,
+      "SizeKB": 38.2,
+      "Width": 1920,
+      "Path": "assets\\images\\hero-background.webp",
+      "Type": "Hero",
+      "Height": 1080
+    },
+    {
+      "Compliant": true,
+      "SizeKB": 6.25,
+      "Width": 448,
+      "Path": "assets\\images\\profile-photo.webp",
+      "Type": "Profile",
+      "Height": 404
+    }
+  ]
+}

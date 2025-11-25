@@ -11,6 +11,7 @@
    6rem top/bottom padding provides generous breathing room for hero content */
 .hero {
     padding: 6rem 0;
+    min-height: 600px; /* Reserve space to prevent layout shift */
     position: relative;
     color: white;
     text-align: center;
@@ -27,7 +28,6 @@
         background-size: cover; /* Use standardized 1920x1080 images at actual size */
         background-position: center center; /* Center the image */
         background-repeat: no-repeat;
-        background-attachment: fixed; /* Creates parallax effect */
         opacity: 0;
         transition: opacity 4s ease-in-out; /* Smooth blend transition */
         z-index: 0;

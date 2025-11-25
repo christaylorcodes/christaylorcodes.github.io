@@ -23,6 +23,7 @@
 .highlight-stat {
     background: linear-gradient(135deg, var(--bg-light) 0%, var(--bg-darker) 100%);
     padding: 2rem;
+    min-height: 220px; /* Reserve space to prevent layout shift */
     border-radius: 1rem;
     text-align: center;
     border: 2px solid var(--border-color);

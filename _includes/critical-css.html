@@ -13,6 +13,29 @@
     line-gap-override: 0%;
 }
 
+/* Font Awesome - Force font-display: swap to prevent FOIT (Flash of Invisible Text)
+   These override Font Awesome's default @font-face rules to show fallback text immediately */
+@font-face {
+    font-family: 'Font Awesome 6 Free';
+    font-style: normal;
+    font-weight: 400;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Font Awesome 6 Free';
+    font-style: normal;
+    font-weight: 900;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Font Awesome 6 Brands';
+    font-style: normal;
+    font-weight: 400;
+    font-display: swap;
+}
+
 /* Variables - Required by all components */
 :root {
     --primary-color: #06b6d4;
@@ -161,6 +184,7 @@ body {
 /* Hero Section - Homepage above the fold */
 .hero {
     padding: 6rem 0;
+    min-height: 600px; /* Reserve space to prevent layout shift */
     position: relative;
     color: white;
     text-align: center;

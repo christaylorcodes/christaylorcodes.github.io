@@ -61,16 +61,15 @@ if ($Target -eq 'local') {
 
 # Build output paths
 $BaseFilename = "$OutputDir/lighthouse_${Target}_${Device}_$Timestamp"
-$JSONPath = "$BaseFilename.json"
-$HTMLPath = "$BaseFilename.html"
+# When Lighthouse outputs multiple formats, it adds .report before extension
+$JSONPath = if ($HTMLReport) { "$BaseFilename.report.json" } else { "$BaseFilename.json" }
+$HTMLPath = "$BaseFilename.report.html"
 
-# Check for Chrome/Edge installation
+# Check for Chrome installation
 $ChromePath = $null
-$EdgePath = "C:\Program Files (x86)\Microsoft\Edge\Application\msedge.exe"
 $ChromePaths = @(
     "C:\Program Files\Google\Chrome\Application\chrome.exe",
-    "C:\Program Files (x86)\Google\Chrome\Application\chrome.exe",
-    $EdgePath
+    "C:\Program Files (x86)\Google\Chrome\Application\chrome.exe"
 )
 
 foreach ($path in $ChromePaths) {
@@ -81,7 +80,7 @@ foreach ($path in $ChromePaths) {
 }
 
 if (-not $ChromePath) {
-    Write-Error "No Chrome or Edge installation found. Please install Google Chrome or Microsoft Edge."
+    Write-Error "Google Chrome is required for Lighthouse CLI. Please install Chrome from https://www.google.com/chrome/"
     exit 1
 }
 
@@ -219,6 +218,13 @@ if ($HTMLReport) {
 
     if ($OpenReport) {
         Write-Header 'Opening HTML report...'
-        Start-Process $HTMLPath
+        # Resolve to absolute path for Start-Process
+        $HTMLPathResolved = (Resolve-Path $HTMLPath -ErrorAction SilentlyContinue).Path
+        if ($HTMLPathResolved -and (Test-Path $HTMLPathResolved)) {
+            Start-Process $HTMLPathResolved
+        }
+        else {
+            Write-Host "  [WARNING] HTML file not found at: $HTMLPath" -ForegroundColor Yellow
+        }
     }
 }

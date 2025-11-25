@@ -21,31 +21,41 @@
     }
 }
 
-/* Staggered Animation Timing:
-   Hero elements animate in sequence with 0.1s delays
-   Creates cascading effect: title → subtitle → description → buttons
-   0.8s duration balances smooth motion with quick page load feel */
+/* Staggered Animation Timing (DISABLED to prevent CLS):
+   Hero animations removed to prevent Cumulative Layout Shift.
+   Per CLAUDE.md performance principles: "Elements must be visible by default to reserve space"
+   and "Animations that start with opacity: 0 cause layout shift"
+
+   Hero elements are now immediately visible without animation.
+   This eliminates CLS while maintaining fast, readable content delivery.
+
+   To re-enable animations without CLS:
+   1. Use JavaScript to trigger animations AFTER first paint
+   2. Add 'animate' class to elements after page load
+   3. Use the .fade-in-up.animate pattern (defined below) instead */
+
+/* Uncomment to re-enable hero animations (will cause CLS):
 .hero-content > * {
-    animation: fadeInUp 0.8s ease-out backwards;
+    animation: fadeInUp 0.8s ease-out;
 }
+.hero-title { animation-delay: 0.1s; }
+.hero-subtitle { animation-delay: 0.2s; }
+.hero-description { animation-delay: 0.3s; }
+.hero-buttons { animation-delay: 0.4s; }
+*/
 
-.hero-title {
-    animation-delay: 0.1s;      /* First to animate */
-}
-
-.hero-subtitle {
-    animation-delay: 0.2s;      /* Second to animate */
-}
-
-.hero-description {
-    animation-delay: 0.3s;      /* Third to animate */
-}
-
-.hero-buttons {
-    animation-delay: 0.4s;      /* Last to animate */
-}
-
-/* Utility class for JavaScript-triggered fade-in animations */
+/* Utility class for JavaScript-triggered fade-in animations
+   Start visible to reserve space and prevent layout shift
+   Only animate on user interaction or after initial paint */
 .fade-in-up {
+    /* Elements are visible by default - no layout shift */
+    opacity: 1;
+    transform: translateY(0);
+    /* Animation only runs when explicitly triggered */
+}
+
+/* When animation is triggered, use this class */
+.fade-in-up.animate {
     animation: fadeInUp 0.5s ease;
+    will-change: transform, opacity;
 }

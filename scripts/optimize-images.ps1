@@ -49,7 +49,7 @@ param(
 )
 
 $ErrorActionPreference = 'Stop'
-$imagesPath = Join-Path $PSScriptRoot 'assets\images'
+$imagesPath = Join-Path $PSScriptRoot '..\assets\images'
 
 # Color output functions
 function Write-ColorOutput {
@@ -62,6 +62,62 @@ function Write-ColorOutput {
         'White'  = [ConsoleColor]::White
     }
     Write-Host $Message -ForegroundColor $colors[$Color]
+}
+
+# Image type detection and performance targets
+function Get-ImageTypeInfo {
+    param(
+        [string]$ImageName,
+        [int]$Width,
+        [int]$Height
+    )
+
+    # Detect type by filename patterns and dimensions
+    if ($ImageName -match '^hero-background') {
+        return @{
+            Type = 'Hero'
+            MaxSizeKB = 500
+            TargetDimensions = '1920x1080'
+            RecommendedQuality = 40
+            Description = 'Hero background image'
+        }
+    }
+    elseif ($ImageName -match 'profile|avatar|headshot|photo') {
+        return @{
+            Type = 'Profile'
+            MaxSizeKB = 100
+            TargetDimensions = '400x400'
+            RecommendedQuality = 80
+            Description = 'Profile photo'
+        }
+    }
+    elseif ($ImageName -match 'screenshot|terminal|ui-|demo-') {
+        return @{
+            Type = 'Screenshot'
+            MaxSizeKB = 300
+            TargetDimensions = '800x600 or 1920x1080'
+            RecommendedQuality = 70
+            Description = 'Screenshot or demo image'
+        }
+    }
+    elseif ($ImageName -match 'social|og-image|card|share') {
+        return @{
+            Type = 'Social'
+            MaxSizeKB = 500
+            TargetDimensions = '1200x630'
+            RecommendedQuality = 75
+            Description = 'Social sharing image'
+        }
+    }
+    else {
+        return @{
+            Type = 'General'
+            MaxSizeKB = 500
+            TargetDimensions = 'Varies'
+            RecommendedQuality = 65
+            Description = 'General image'
+        }
+    }
 }
 
 Write-ColorOutput "`n=== Website Image Optimization ===" 'Cyan'
@@ -125,21 +181,34 @@ if (-not $cwebpPath) {
 
 Write-ColorOutput "Using cwebp: $cwebpPath`n" 'Green'
 
-# Get images to process
+# Get images to process (convert JPG/PNG to WebP)
 $minSize = if ($ConvertAll) { 0 } else { 50KB }
-$images = Get-ChildItem -Path $imagesPath -Recurse -File |
+$imagesToConvert = Get-ChildItem -Path $imagesPath -Recurse -File |
     Where-Object {
         $_.Extension -match '\.(jpg|jpeg|png)$' -and
         $_.Length -gt $minSize
     } |
     Sort-Object Length -Descending
 
-if ($images.Count -eq 0) {
-    Write-ColorOutput "No images to optimize (threshold: $([math]::Round($minSize/1KB, 2)) KB)" 'Yellow'
+# Also scan existing WebP files to generate metadata
+$existingWebP = Get-ChildItem -Path $imagesPath -Recurse -File |
+    Where-Object { $_.Extension -eq '.webp' } |
+    Sort-Object Length -Descending
+
+if ($imagesToConvert.Count -eq 0 -and $existingWebP.Count -eq 0) {
+    Write-ColorOutput "No images found in $imagesPath" 'Yellow'
     exit 0
 }
 
-Write-ColorOutput "Found $($images.Count) image(s) to optimize:`n" 'Cyan'
+if ($imagesToConvert.Count -eq 0) {
+    Write-ColorOutput "No JPG/PNG images to convert (all images already optimized)" 'Green'
+    Write-ColorOutput "Scanning $($existingWebP.Count) existing WebP image(s) for metadata...`n" 'Cyan'
+}
+else {
+    Write-ColorOutput "Found $($imagesToConvert.Count) image(s) to convert:`n" 'Cyan'
+}
+
+$images = $imagesToConvert
 
 $totalOriginal = 0
 $totalOptimized = 0
@@ -230,8 +299,34 @@ foreach ($image in $images) {
             $totalOriginal += $originalSize
             $totalOptimized += $webpSize
 
+            # Extract WebP dimensions
+            $webpWidth = 0
+            $webpHeight = 0
+            $webpDimensionsArgs = @('identify', '-format', '%w %h', $webpPath)
+            $webpDimensionsOutput = & $magickPath $webpDimensionsArgs 2>&1
+
+            if ($LASTEXITCODE -eq 0 -and $webpDimensionsOutput -match '(\d+) (\d+)') {
+                $webpWidth = [int]$matches[1]
+                $webpHeight = [int]$matches[2]
+            }
+
+            # Detect image type and get performance targets
+            $imageTypeInfo = Get-ImageTypeInfo -ImageName $image.Name -Width $webpWidth -Height $webpHeight
+
             Write-ColorOutput "  -> Created: $([System.IO.Path]::GetFileName($webpPath)) ($webpSizeKB KB, quality: $qualityToUse)" 'Green'
+            Write-ColorOutput "  -> Dimensions: ${webpWidth}x${webpHeight}" 'White'
+            Write-ColorOutput "  -> Image type: $($imageTypeInfo.Description)" 'Cyan'
             Write-ColorOutput "  -> Saved: $savedKB KB ($savedPercent%)" 'Green'
+
+            # Validate against performance targets
+            $sizeCompliant = $webpSizeKB -le $imageTypeInfo.MaxSizeKB
+            if (-not $sizeCompliant) {
+                Write-ColorOutput "  -> WARNING: Exceeds performance target of $($imageTypeInfo.MaxSizeKB) KB" 'Yellow'
+                Write-ColorOutput "  -> Consider reducing quality or dimensions" 'Yellow'
+            }
+            else {
+                Write-ColorOutput "  -> Performance target: PASS (<$($imageTypeInfo.MaxSizeKB) KB)" 'Green'
+            }
 
             # Delete original background image files after successful conversion
             if ($isBackgroundImage) {
@@ -240,13 +335,19 @@ foreach ($image in $images) {
             }
 
             $results += [PSCustomObject]@{
-                Original     = $relativePath
-                OriginalKB   = $originalSizeKB
-                WebP         = $webpPath.Replace("$PSScriptRoot\", '')
-                WebPKB       = $webpSizeKB
-                SavedKB      = $savedKB
-                SavedPercent = $savedPercent
-                Type         = if ($isBackgroundImage) { 'Background' } else { 'Regular' }
+                Original          = $relativePath
+                OriginalKB        = $originalSizeKB
+                WebP              = $webpPath.Replace("$PSScriptRoot\..\", '')
+                WebPKB            = $webpSizeKB
+                Width             = $webpWidth
+                Height            = $webpHeight
+                SavedKB           = $savedKB
+                SavedPercent      = $savedPercent
+                Type              = $imageTypeInfo.Type
+                Description       = $imageTypeInfo.Description
+                TargetSizeKB      = $imageTypeInfo.MaxSizeKB
+                TargetDimensions  = $imageTypeInfo.TargetDimensions
+                SizeCompliant     = $sizeCompliant
             }
         }
         else {
@@ -265,49 +366,131 @@ foreach ($image in $images) {
     Write-Host ''
 }
 
+# Process existing WebP files to generate metadata
+if ($existingWebP.Count -gt 0) {
+    Write-ColorOutput "`nScanning existing WebP images for metadata..." 'Cyan'
+
+    $rootPath = Split-Path $PSScriptRoot -Parent
+
+    foreach ($webpImage in $existingWebP) {
+        $webpPath = $webpImage.FullName
+        $relativePath = $webpPath.Replace("$rootPath\", '')
+        $webpSize = $webpImage.Length
+        $webpSizeKB = [math]::Round($webpSize / 1KB, 2)
+
+        # Extract dimensions
+        $webpWidth = 0
+        $webpHeight = 0
+        $webpDimensionsArgs = @('identify', '-format', '%w %h', $webpPath)
+        $webpDimensionsOutput = & $magickPath $webpDimensionsArgs 2>&1
+
+        if ($LASTEXITCODE -eq 0 -and $webpDimensionsOutput -match '(\d+) (\d+)') {
+            $webpWidth = [int]$matches[1]
+            $webpHeight = [int]$matches[2]
+        }
+
+        # Detect image type and get performance targets
+        $imageTypeInfo = Get-ImageTypeInfo -ImageName $webpImage.Name -Width $webpWidth -Height $webpHeight
+
+        # Validate against performance targets
+        $sizeCompliant = $webpSizeKB -le $imageTypeInfo.MaxSizeKB
+
+        Write-ColorOutput "  $($webpImage.Name): ${webpWidth}x${webpHeight}, $webpSizeKB KB - $($imageTypeInfo.Type)" $(if ($sizeCompliant) { 'Green' } else { 'Yellow' })
+
+        # Add to results for metadata export
+        $results += [PSCustomObject]@{
+            Original          = $relativePath
+            OriginalKB        = $webpSizeKB
+            WebP              = $relativePath
+            WebPKB            = $webpSizeKB
+            Width             = $webpWidth
+            Height            = $webpHeight
+            SavedKB           = 0
+            SavedPercent      = 0
+            Type              = $imageTypeInfo.Type
+            Description       = $imageTypeInfo.Description
+            TargetSizeKB      = $imageTypeInfo.MaxSizeKB
+            TargetDimensions  = $imageTypeInfo.TargetDimensions
+            SizeCompliant     = $sizeCompliant
+        }
+    }
+}
+
 # Summary
 if ($results.Count -gt 0) {
     Write-ColorOutput "`n=== Optimization Summary ===" 'Cyan'
 
-    $backgroundImages = $results | Where-Object Type -eq 'Background'
-    $regularImages = $results | Where-Object Type -eq 'Regular'
+    # Group by type
+    $imagesByType = $results | Group-Object -Property Type
 
-    if ($backgroundImages) {
-        $bgQualityText = "Background Images (1920x1080, quality $BackgroundQuality):"
-        Write-ColorOutput "`n$bgQualityText" 'Cyan'
-        Write-ColorOutput "  Files processed: $($backgroundImages.Count)" 'White'
-        foreach ($bg in $backgroundImages) {
-            Write-ColorOutput "  - $($bg.WebP): $($bg.WebPKB) KB (saved $($bg.SavedPercent)%)" 'Green'
+    foreach ($typeGroup in $imagesByType) {
+        $typeName = $typeGroup.Name
+        $typeImages = $typeGroup.Group
+        $nonCompliantCount = ($typeImages | Where-Object { -not $_.SizeCompliant }).Count
+
+        Write-ColorOutput "`n$typeName Images:" 'Cyan'
+        Write-ColorOutput "  Files processed: $($typeImages.Count)" 'White'
+
+        foreach ($img in $typeImages) {
+            $complianceStatus = if ($img.SizeCompliant) { 'PASS' } else { 'FAIL' }
+            $complianceColor = if ($img.SizeCompliant) { 'Green' } else { 'Yellow' }
+            $dimensionsText = "$($img.Width)x$($img.Height)"
+            Write-ColorOutput "  - $($img.WebP)" 'White'
+            Write-ColorOutput "    Size: $($img.WebPKB) KB | Dimensions: $dimensionsText | Target: <$($img.TargetSizeKB) KB | Status: $complianceStatus" $complianceColor
         }
-        Write-ColorOutput "  Original files deleted (WebP only)" 'Yellow'
-    }
 
-    if ($regularImages) {
-        $regQualityText = "Regular Images (quality $Quality):"
-        Write-ColorOutput "`n$regQualityText" 'Cyan'
-        Write-ColorOutput "  Files processed: $($regularImages.Count)" 'White'
-        foreach ($reg in $regularImages) {
-            Write-ColorOutput "  - $($reg.WebP): $($reg.WebPKB) KB (saved $($reg.SavedPercent)%)" 'Green'
+        if ($nonCompliantCount -gt 0) {
+            Write-ColorOutput "  Performance warnings: $nonCompliantCount image(s) exceed size targets" 'Yellow'
+        }
+        else {
+            Write-ColorOutput "  All images meet performance targets" 'Green'
         }
     }
-
-    $totalOriginalKB = [math]::Round($totalOriginal / 1KB, 2)
-    $totalOptimizedKB = [math]::Round($totalOptimized / 1KB, 2)
-    $totalSavedKB = [math]::Round(($totalOriginal - $totalOptimized) / 1KB, 2)
-    $totalSavedPercent = [math]::Round((($totalOriginal - $totalOptimized) / $totalOriginal) * 100, 1)
 
     Write-ColorOutput "`nTotal Statistics:" 'Cyan'
-    Write-ColorOutput "  Original size: $totalOriginalKB KB" 'White'
-    Write-ColorOutput "  WebP size: $totalOptimizedKB KB" 'Green'
-    $savedMessage = "  Total saved: $totalSavedKB KB ($totalSavedPercent%)"
-    Write-ColorOutput $savedMessage 'Green'
 
-    if ($regularImages) {
-        Write-ColorOutput "`nNext steps:" 'Cyan'
-        Write-ColorOutput '1. Update HTML/CSS to use WebP with fallbacks for regular images' 'Yellow'
-        Write-ColorOutput '2. Test WebP images load correctly' 'Yellow'
-        Write-ColorOutput '3. Consider removing original images after verification' 'Yellow'
+    if ($totalOriginal -gt 0) {
+        $totalOriginalKB = [math]::Round($totalOriginal / 1KB, 2)
+        $totalOptimizedKB = [math]::Round($totalOptimized / 1KB, 2)
+        $totalSavedKB = [math]::Round(($totalOriginal - $totalOptimized) / 1KB, 2)
+        $totalSavedPercent = [math]::Round((($totalOriginal - $totalOptimized) / $totalOriginal) * 100, 1)
+
+        Write-ColorOutput "  Original size: $totalOriginalKB KB" 'White'
+        Write-ColorOutput "  WebP size: $totalOptimizedKB KB" 'Green'
+        Write-ColorOutput "  Total saved: $totalSavedKB KB ($totalSavedPercent%)" 'Green'
     }
+    else {
+        Write-ColorOutput "  Images scanned: $($results.Count)" 'White'
+        $totalSizeKB = ($results | Measure-Object -Property WebPKB -Sum).Sum
+        Write-ColorOutput "  Total size: $([math]::Round($totalSizeKB, 2)) KB" 'Green'
+    }
+
+    $totalCompliant = ($results | Where-Object SizeCompliant).Count
+    $totalNonCompliant = ($results | Where-Object { -not $_.SizeCompliant }).Count
+    Write-ColorOutput "  Performance compliance: $totalCompliant/$($results.Count) images" $(if ($totalNonCompliant -eq 0) { 'Green' } else { 'Yellow' })
+
+    # Export metadata
+    $metadataPath = Join-Path $PSScriptRoot '..\assets\images\image-metadata.json'
+    $metadata = @{
+        LastUpdated = (Get-Date -Format 'yyyy-MM-dd HH:mm:ss')
+        Images = $results | ForEach-Object {
+            @{
+                Path = $_.WebP
+                Width = $_.Width
+                Height = $_.Height
+                SizeKB = $_.WebPKB
+                Type = $_.Type
+                Compliant = $_.SizeCompliant
+            }
+        }
+    }
+    $metadata | ConvertTo-Json -Depth 10 | Set-Content $metadataPath -Encoding UTF8
+    Write-ColorOutput "`nMetadata exported to: $metadataPath" 'Cyan'
+
+    Write-ColorOutput "`nNext steps:" 'Cyan'
+    Write-ColorOutput '1. Run update-image-references.ps1 to update HTML/MD files' 'Yellow'
+    Write-ColorOutput '2. Run generate-responsive-sizes.ps1 for hero/large images' 'Yellow'
+    Write-ColorOutput '3. Run validate-image-performance.ps1 to verify compliance' 'Yellow'
 }
 else {
     Write-ColorOutput 'No images were optimized.' 'Yellow'
