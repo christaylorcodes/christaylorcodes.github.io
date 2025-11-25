@@ -418,8 +418,13 @@ Your content here in Markdown...
 - `categories`: 1-2 broad categories
 - `tags`: 3-6 specific topics
 - `author`: Post author name
-- `excerpt`: Brief summary for post previews and search results (standardized at 50 words, 8th grade reading level)
-  - **Length**: Target 50 words (acceptable range: 45-55 words)
+- `excerpt`: Brief summary for post previews and search results (8th grade reading level, length varies by title length for visual balance)
+  - **Length** (Dynamic based on display title length):
+    - **Short display title** (≤35 characters): 50-55 words - Fills card nicely with more detail
+    - **Medium display title** (36-50 characters): 40-45 words - Balanced card appearance
+    - **Long display title** (>50 characters): 35-40 words - Prevents card from looking cramped
+    - **Note**: "Display title" = `short_title` if present, otherwise full `title`
+    - **Rationale**: Shorter titles leave more visual space for longer excerpts; longer titles need shorter excerpts to maintain card balance
   - **Reading Level**: 8th grade (clear, accessible language that anyone can understand)
   - **Purpose**: Appears on blog cards, search results, and social media previews
   - **Style**: Concise, direct, and engaging using simple vocabulary
@@ -429,7 +434,10 @@ Your content here in Markdown...
     - Keep sentences short and punchy
     - Focus on one main benefit or outcome
     - Be specific, not abstract
-  - **Examples**: See existing posts for reference patterns
+  - **Examples**:
+    - Short title "The AI Doom Coefficient" (27 chars) → 50-word excerpt
+    - Medium title "Advanced ConnectWiseManageAPI Automation" (41 chars) → 36-word excerpt
+    - Long title "Best Practices and Tips for ConnectWiseManageAPI" (49 chars) → 39-word excerpt
 
 **Post Features:**
 - Automatic post navigation (previous/next)

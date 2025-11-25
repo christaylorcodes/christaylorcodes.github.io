@@ -1,13 +1,13 @@
-ABOUT TOPIC
-    about_ChrisTaylor
+.NAME
+    Chris Taylor
 
-SHORT DESCRIPTION
+.SYNOPSIS
     Network Operations Chief with 20+ years building infrastructure automation
     that actually gets used - 327+ GitHub stars, 6+ PowerShell Gallery modules,
     and active AI integration in production MSP environments. I turn complex
     enterprise tools into practical solutions teams love to use.
 
-LONG DESCRIPTION
+.DESCRIPTION
     Chris Taylor is a seasoned technology leader with 20+ years of professional
     experience (since 2002) in infrastructure automation, systems integration,
     and managed services operations. Currently serving as Network Operations
@@ -29,13 +29,13 @@ LONG DESCRIPTION
     disparate systems through APIs, he thrives on finding elegant solutions
     that make a real impact.
 
-  PROFESSIONAL ROLE
+  .PROFESSIONAL ROLE
     Title       : Network Operations Chief, vCTO, Automation Engineer
     Company     : i.t.NOW (Global Managed Services Provider)
     Location    : United States
     Experience  : 20+ years (2002-Present)
 
-  EXPERTISE AREAS
+  .EXPERTISE AREAS
     PowerShell & Automation
         - Expert-level PowerShell development and automation
         - Infrastructure as Code (IaC)
@@ -71,7 +71,7 @@ LONG DESCRIPTION
         - AI-assisted operations
         - Intelligent process automation
 
-  REAL-WORLD IMPACT
+  .REAL-WORLD IMPACT
     What I Enable for Organizations:
         - Reduce ticket resolution time through intelligent automation
         - Eliminate manual client onboarding (hours → minutes)
@@ -86,7 +86,7 @@ LONG DESCRIPTION
         - "We want to use AI but don't know where to start"
         - "We need 24/7 coverage without burning out our team"
 
-  TECHNOLOGIES & PLATFORMS
+  .TECHNOLOGIES & PLATFORMS
     Languages & Scripting:
         - PowerShell (Expert)
         - TypeScript
@@ -111,7 +111,7 @@ LONG DESCRIPTION
         - Jekyll (Static site generation)
         - GitHub Actions (CI/CD)
 
-  OPEN SOURCE PROJECTS
+  .OPEN SOURCE PROJECTS
     Community Impact:
         - 327+ GitHub stars across active projects
         - 118 stars on ConnectWiseManageAPI (69 forks, actively maintained)
@@ -249,7 +249,7 @@ LONG DESCRIPTION
     GitHub  : https://github.com/christaylorcodes
     LinkedIn: https://linkedin.com/in/christaylorcodes
 
-EXAMPLES
+.EXAMPLES
     Example 1: View Chris Taylor's PowerShell modules
     ----------------------------
     Find-Module -Author 'christaylorcodes' | Format-Table -AutoSize
@@ -303,7 +303,7 @@ EXAMPLES
         Write-Warning "Ticket not found. Check permissions, rate limits, and API version."
     }
 
-SEE ALSO
+.SEE ALSO
     Online Resources:
         Website     : https://christaylor.codes
         Blog        : https://christaylor.codes/blog/
@@ -319,14 +319,14 @@ SEE ALSO
         about_Functions_Advanced
         about_Comment_Based_Help
 
-KEYWORDS
+.KEYWORDS
     PowerShell, Automation, MSP, API, Integration, Infrastructure, Cloud,
     Azure, AWS, ConnectWise, ImmyBot, Rewst, DevOps, CI/CD
 
-COPYRIGHT
+.COPYRIGHT
     Copyright (c) 2025 Chris Taylor. All rights reserved.
     MIT License - https://opensource.org/licenses/MIT
 
-VERSION
+.VERSION
     1.0.0
     Last Updated: 2025-11-04

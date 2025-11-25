@@ -21,8 +21,9 @@ social:
 
 # Default social sharing image (used when page doesn't specify one)
 # This appears when links are shared on social media
+# Using WebP format for 96% smaller file size (6.3KB vs 175KB)
 # TODO: Create a proper 1200x630px social card image for better sharing
-logo: /assets/images/profile-photo.png
+logo: /assets/images/profile-photo.webp
 
 # Author defaults for blog posts
 author:

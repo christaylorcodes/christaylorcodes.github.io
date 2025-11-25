@@ -30,6 +30,8 @@ Before implementing optimizations, establish baseline metrics for comparison.
 
 ## Sprint 1 Optimizations Implemented
 
+**Completed:** 2024-11-04
+
 ### 1. WebP Image Conversion
 
 **Changes:**
@@ -78,6 +80,46 @@ Before implementing optimizations, establish baseline metrics for comparison.
 - Uncompressed: ~45-50 KB
 - Compressed: ~30-35 KB
 - **Total Savings:** ~15 KB (30% reduction)
+
+## Sprint 2 Optimizations Implemented
+
+**Completed:** 2024-11-24
+
+### 1. Render-Blocking Resource Elimination
+
+**Changes:**
+- Google Fonts: Async loading with preload technique ([_layouts/default.html:36](c:\_Code\Website\_layouts\default.html#L36))
+- Font Awesome: Already async loaded ([_layouts/default.html:40](c:\_Code\Website\_layouts\default.html#L40))
+- Cookie Consent CSS: Async loading ([_includes/cookie-consent.html:3](c:\_Code\Website\_includes\cookie-consent.html#L3))
+- Cookie Consent JS: Deferred loading ([_includes/cookie-consent.html:5](c:\_Code\Website\_includes\cookie-consent.html#L5))
+- Main stylesheet: Already async loaded
+- JavaScript: Already deferred
+- Added preconnect hints for all external CDNs ([_layouts/default.html:29-33](c:\_Code\Website\_layouts\default.html#L29-L33))
+
+**Expected Impact:**
+- **First Contentful Paint (FCP):** -200 to -500ms
+- **Largest Contentful Paint (LCP):** -300 to -800ms
+- **Time to Interactive (TTI):** -500 to -1000ms
+- **Total Blocking Time (TBT):** -100 to -300ms
+- **Render-blocking resources:** 0 (complete elimination)
+
+### 2. Additional Image Optimization
+
+**Changes:**
+- Logo: PNG (175KB) → WebP (6.3KB) in structured data ([_config.yml:26](c:\_Code\Website\_config.yml#L26))
+- Added lazy loading to footer security badge ([_includes/footer.html:41](c:\_Code\Website\_includes\footer.html#L41))
+
+**Savings:**
+- **Logo:** 175KB → 6.3KB (96% reduction, -169KB)
+
+### 3. Code Cleanup
+
+**Changes:**
+- Removed legacy `main.css` (32KB, 1454 lines unused code)
+- Site now uses only modular Oceanic SCSS system
+
+**Savings:**
+- **Unused CSS removed:** -32KB
 
 ## Post-Optimization Target Metrics
 
@@ -310,6 +352,73 @@ Set and enforce performance budgets:
 3. Audit third-party scripts
 4. Run full performance audit
 5. Optimize offending resources
+
+## Automated Benchmark Tooling
+
+### Lighthouse CLI Scripts
+
+**Location:** `scripts/benchmark-performance.ps1` and `scripts/compare-benchmarks.ps1`
+
+**Prerequisites:**
+- Node.js and npm installed
+- Lighthouse CLI installed: `npm install -g lighthouse`
+
+### Running Benchmarks
+
+**Baseline Benchmark (before changes):**
+```powershell
+# Start local server
+.\build.ps1
+
+# Run benchmark (saves to benchmarks/ directory)
+.\scripts\benchmark-performance.ps1 -Target local -Device desktop -HTMLReport -OpenReport
+```
+
+**Production Benchmark (after deployment):**
+```powershell
+# Test live site
+.\scripts\benchmark-performance.ps1 -Target production -Device desktop -HTMLReport
+```
+
+**Script Options:**
+- `-Target`: `local` (localhost:4000) or `production` (christaylor.codes)
+- `-Device`: `desktop` or `mobile`
+- `-HTMLReport`: Generate HTML report in addition to JSON
+- `-OpenReport`: Automatically open HTML report in browser
+- `-OutputDir`: Custom output directory (default: `benchmarks/`)
+
+**Output:**
+- JSON results: `benchmarks/lighthouse_[target]_[device]_[timestamp].json`
+- HTML report: `benchmarks/lighthouse_[target]_[device]_[timestamp].html` (if requested)
+- Displays scores and Core Web Vitals in terminal
+
+### Comparing Results
+
+**Compare two benchmark runs:**
+```powershell
+.\scripts\compare-benchmarks.ps1 -Baseline 'benchmarks/lighthouse_local_desktop_2024-11-24_10-00-00.json' -Current 'benchmarks/lighthouse_local_desktop_2024-11-24_11-30-00.json'
+```
+
+**Comparison Output:**
+- Performance score changes (+/- points)
+- Core Web Vitals improvements (FCP, LCP, TBT, CLS, Speed Index)
+- Summary of total improvements vs. regressions
+- Color-coded results (green = improved, red = regressed)
+
+### Recommended Workflow
+
+**Before making performance changes:**
+1. Run baseline benchmark: `.\scripts\benchmark-performance.ps1 -Target local -Device desktop -HTMLReport`
+2. Note the baseline file path
+3. Make your optimizations
+4. Rebuild: `.\build.ps1 -Mode clean && .\build.ps1 -Mode build`
+5. Run new benchmark: `.\scripts\benchmark-performance.ps1 -Target local -Device desktop -HTMLReport`
+6. Compare results: `.\scripts\compare-benchmarks.ps1 -Baseline [baseline-path] -Current [new-path]`
+
+**After deploying to production:**
+1. Wait 5 minutes for deployment
+2. Run production benchmark: `.\scripts\benchmark-performance.ps1 -Target production -Device desktop`
+3. Compare with local results to verify improvements carried over
 
 ## Tools and Resources
 

@@ -35,7 +35,11 @@ description: "Optional SEO meta description if different from excerpt. Used in s
   - Suggested tags: ConnectWise, PowerShell Gallery, REST API, Scripts, Network Operations, Infrastructure, Azure, AWS, GCP, DevOps
 - **author**: Your name (Chris Taylor)
 - **excerpt**: Brief summary for previews (appears on blog index, home page, and social media)
-  - **Target length**: 50 words (acceptable range: 45-55 words)
+  - **Target length** (Dynamic based on display title length for visual card balance):
+    - **Short display title** (≤35 characters): 50-55 words - Fills card with more detail
+    - **Medium display title** (36-50 characters): 40-45 words - Balanced appearance
+    - **Long display title** (>50 characters): 35-40 words - Prevents cramped card
+    - **Note**: "Display title" = `short_title` if present, otherwise full `title`
   - **Reading level**: 8th grade - use clear, simple language anyone can understand
   - **Style**: Concise, direct, engaging
   - **Guidelines**:
@@ -45,6 +49,10 @@ description: "Optional SEO meta description if different from excerpt. Used in s
     - Be specific, not abstract
   - **Content**: Should explain the main problem this post solves and what readers will learn
   - **Purpose**: Quick preview that helps readers decide if the post is right for them
+  - **Examples**:
+    - Short title "The AI Doom Coefficient" (27 chars) → 50-word excerpt
+    - Medium title "Advanced ConnectWiseManageAPI Automation" (41 chars) → 36-word excerpt
+    - Long title "Best Practices and Tips for ConnectWiseManageAPI" (49 chars) → 39-word excerpt
 - **image** (Optional): Custom social sharing image path (recommended size: 1200x630px)
   - When shared on social media, this image appears as the preview
   - If not specified, the site's default image is used
