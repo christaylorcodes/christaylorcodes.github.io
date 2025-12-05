@@ -327,6 +327,232 @@
             }
         }
 
+        /* Drag and drop overlay */
+        .drop-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 122, 204, 0.15);
+            border: 4px dashed #007acc;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 9999;
+            pointer-events: none;
+            opacity: 0;
+            transition: opacity 0.2s ease;
+        }
+
+        .drop-overlay.active {
+            opacity: 1;
+        }
+
+        .drop-overlay-content {
+            background: #252526;
+            padding: 40px 60px;
+            border-radius: 12px;
+            text-align: center;
+            border: 2px solid #007acc;
+            box-shadow: 0 8px 32px rgba(0,0,0,0.5);
+        }
+
+        .drop-overlay-icon {
+            font-size: 48px;
+            margin-bottom: 15px;
+        }
+
+        .drop-overlay-text {
+            font-size: 18px;
+            color: #d4d4d4;
+        }
+
+        /* Diff modal */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.8);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 10000;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.2s, visibility 0.2s;
+        }
+
+        .modal-overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .modal {
+            background: #252526;
+            border-radius: 8px;
+            border: 1px solid #3c3c3c;
+            max-width: 900px;
+            width: 95%;
+            max-height: 85vh;
+            display: flex;
+            flex-direction: column;
+            box-shadow: 0 8px 32px rgba(0,0,0,0.5);
+        }
+
+        .modal-header {
+            padding: 15px 20px;
+            border-bottom: 1px solid #3c3c3c;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .modal-title {
+            font-size: 16px;
+            font-weight: bold;
+            color: #007acc;
+        }
+
+        .modal-close {
+            background: none;
+            border: none;
+            color: #858585;
+            font-size: 24px;
+            cursor: pointer;
+            padding: 0 5px;
+        }
+
+        .modal-close:hover {
+            color: #d4d4d4;
+        }
+
+        .modal-body {
+            padding: 20px;
+            overflow-y: auto;
+            flex: 1;
+        }
+
+        .snapshot-selector {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+        }
+
+        .snapshot-select-group {
+            flex: 1;
+            min-width: 200px;
+        }
+
+        .snapshot-select-group label {
+            display: block;
+            font-size: 12px;
+            color: #858585;
+            margin-bottom: 5px;
+        }
+
+        .snapshot-select-group select {
+            width: 100%;
+            padding: 8px;
+            background: #1e1e1e;
+            border: 1px solid #3c3c3c;
+            color: #d4d4d4;
+            font-family: inherit;
+            font-size: 12px;
+            border-radius: 4px;
+        }
+
+        .snapshot-select-group select:focus {
+            outline: none;
+            border-color: #007acc;
+        }
+
+        .diff-results {
+            background: #1e1e1e;
+            border-radius: 6px;
+            padding: 15px;
+            max-height: 400px;
+            overflow-y: auto;
+        }
+
+        .diff-summary {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+
+        .diff-stat {
+            background: #2d2d30;
+            padding: 12px;
+            border-radius: 6px;
+            text-align: center;
+        }
+
+        .diff-stat-value {
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+
+        .diff-stat-value.positive { color: #f44336; }
+        .diff-stat-value.negative { color: #4caf50; }
+        .diff-stat-value.neutral { color: #858585; }
+
+        .diff-stat-label {
+            font-size: 11px;
+            color: #858585;
+        }
+
+        .diff-section-list {
+            margin-top: 15px;
+        }
+
+        .diff-section-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 8px 12px;
+            background: #2d2d30;
+            border-radius: 4px;
+            margin-bottom: 6px;
+            font-size: 12px;
+        }
+
+        .diff-section-name {
+            font-family: 'Consolas', monospace;
+            color: #d4d4d4;
+        }
+
+        .diff-section-change {
+            font-weight: bold;
+            padding: 2px 8px;
+            border-radius: 3px;
+        }
+
+        .diff-section-change.increased {
+            background: rgba(244, 67, 54, 0.2);
+            color: #f44336;
+        }
+
+        .diff-section-change.decreased {
+            background: rgba(76, 175, 80, 0.2);
+            color: #4caf50;
+        }
+
+        .diff-section-change.new {
+            background: rgba(33, 150, 243, 0.2);
+            color: #2196f3;
+        }
+
+        .diff-section-change.removed {
+            background: rgba(156, 39, 176, 0.2);
+            color: #9c27b0;
+        }
+
         .fullscreen-btn {
             position: absolute;
             top: 10px;
@@ -414,6 +640,40 @@
     </style>
 </head>
 <body>
+    <!-- Drag and drop overlay -->
+    <div class="drop-overlay" id="dropOverlay">
+        <div class="drop-overlay-content">
+            <div class="drop-overlay-icon">📂</div>
+            <div class="drop-overlay-text">Drop JSON file to analyze</div>
+        </div>
+    </div>
+
+    <!-- Diff modal -->
+    <div class="modal-overlay" id="diffModal">
+        <div class="modal">
+            <div class="modal-header">
+                <span class="modal-title">📊 Compare Snapshots</span>
+                <button class="modal-close" id="closeDiffModal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="snapshot-selector">
+                    <div class="snapshot-select-group">
+                        <label>Older Snapshot (Base)</label>
+                        <select id="snapshotOlder"></select>
+                    </div>
+                    <div class="snapshot-select-group">
+                        <label>Newer Snapshot (Compare)</label>
+                        <select id="snapshotNewer"></select>
+                    </div>
+                    <button id="runDiffBtn" style="align-self: flex-end;">Compare</button>
+                </div>
+                <div class="diff-results" id="diffResults">
+                    <p style="color: #858585; text-align: center;">Select two snapshots and click Compare</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <div class="header" id="header">
         <div class="title-row">
             <div class="title">
@@ -482,8 +742,11 @@
                     <li>Copy the <strong>JSON output</strong> from the console</li>
                     <li>Paste it into the <strong>textarea</strong> in the header and click <strong>🔍 Analyze</strong></li>
                 </ol>
-                <div style="padding: 12px; background: #1e3a5f; border-radius: 4px; font-size: 12px; border-left: 3px solid #2196f3;">
+                <div style="padding: 12px; background: #1e3a5f; border-radius: 4px; font-size: 12px; border-left: 3px solid #2196f3; margin-bottom: 12px;">
                     <strong>💡 Tip:</strong> The command is <code style="background: #2d2d30; padding: 2px 6px; border-radius: 3px; font-family: 'Consolas', monospace;">JSON.stringify(Memory)</code>
+                </div>
+                <div style="padding: 12px; background: #2d4a1e; border-radius: 4px; font-size: 12px; border-left: 3px solid #4caf50;">
+                    <strong>📂 Or:</strong> Drag & drop a JSON file directly onto this page
                 </div>
             </div>
 
@@ -510,7 +773,7 @@
         </div>
     </div>
 
-    <script src="https://cdn.jsdelivr.net/npm/echarts@5/dist/echarts.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/echarts@6/dist/echarts.min.js"></script>
     <script>
         // Initialize
         const dom = document.getElementById("container");
@@ -544,6 +807,13 @@
         const fullscreenBtn = document.getElementById('fullscreenBtn');
         const chartOverlay = document.getElementById('chartOverlay');
         const instructionsPanel = document.getElementById('instructionsPanel');
+        const dropOverlay = document.getElementById('dropOverlay');
+        const diffModal = document.getElementById('diffModal');
+        const closeDiffModal = document.getElementById('closeDiffModal');
+        const snapshotOlder = document.getElementById('snapshotOlder');
+        const snapshotNewer = document.getElementById('snapshotNewer');
+        const runDiffBtn = document.getElementById('runDiffBtn');
+        const diffResults = document.getElementById('diffResults');
 
         // Utilities
         function getByteSize(str) {
@@ -1126,15 +1396,9 @@
             const command = 'JSON.stringify(Memory)';
             navigator.clipboard.writeText(command).then(() => {
                 notify('✓ Command copied! Paste in Screeps console');
-            }).catch(() => {
-                // Fallback for older browsers
-                const textarea = document.createElement('textarea');
-                textarea.value = command;
-                document.body.appendChild(textarea);
-                textarea.select();
-                document.execCommand('copy');
-                document.body.removeChild(textarea);
-                notify('✓ Command copied! Paste in Screeps console');
+            }).catch((err) => {
+                console.error('Clipboard write failed:', err);
+                notify('⚠️ Copy failed - use Ctrl+C manually');
             });
         });
 
@@ -1332,8 +1596,258 @@ Generated by Screeps Memory Visualizer`;
             maxDepthInput.value = savedMaxDepth;
         }
 
+        // ==========================================
+        // Drag and Drop
+        // ==========================================
+        let dragCounter = 0;
+
+        document.addEventListener('dragenter', function(e) {
+            e.preventDefault();
+            dragCounter++;
+            dropOverlay.classList.add('active');
+        });
+
+        document.addEventListener('dragleave', function(e) {
+            e.preventDefault();
+            dragCounter--;
+            if (dragCounter === 0) {
+                dropOverlay.classList.remove('active');
+            }
+        });
+
+        document.addEventListener('dragover', function(e) {
+            e.preventDefault();
+        });
+
+        document.addEventListener('drop', function(e) {
+            e.preventDefault();
+            dragCounter = 0;
+            dropOverlay.classList.remove('active');
+
+            const files = e.dataTransfer.files;
+            if (files.length === 0) return;
+
+            const file = files[0];
+
+            // Check if it's a JSON file or text file
+            if (!file.type.match(/json|text/) && !file.name.endsWith('.json') && !file.name.endsWith('.txt')) {
+                notify('⚠️ Please drop a JSON or text file');
+                return;
+            }
+
+            const reader = new FileReader();
+            reader.onload = function(event) {
+                const content = event.target.result;
+
+                // Validate JSON
+                try {
+                    JSON.parse(content);
+                    jsonInput.value = content;
+                    notify('✓ File loaded: ' + file.name);
+
+                    // Auto-analyze
+                    setTimeout(() => update(content), 100);
+                } catch (err) {
+                    notify('⚠️ Invalid JSON in file');
+                }
+            };
+            reader.onerror = function() {
+                notify('⚠️ Failed to read file');
+            };
+            reader.readAsText(file);
+        });
+
+        // ==========================================
+        // Snapshot Diff
+        // ==========================================
+        function populateSnapshotSelects() {
+            snapshotOlder.innerHTML = '';
+            snapshotNewer.innerHTML = '';
+
+            if (snapshots.length === 0) {
+                snapshotOlder.innerHTML = '<option value="">No snapshots saved</option>';
+                snapshotNewer.innerHTML = '<option value="">No snapshots saved</option>';
+                return;
+            }
+
+            // Add "Current" option to newer if we have current memory
+            if (currentMemory) {
+                const opt = document.createElement('option');
+                opt.value = 'current';
+                opt.textContent = '📍 Current Analysis';
+                snapshotNewer.appendChild(opt);
+            }
+
+            snapshots.forEach((snapshot, i) => {
+                const optOlder = document.createElement('option');
+                optOlder.value = i;
+                optOlder.textContent = `${snapshot.date} (${formatBytes(snapshot.size)})`;
+                snapshotOlder.appendChild(optOlder);
+
+                const optNewer = document.createElement('option');
+                optNewer.value = i;
+                optNewer.textContent = `${snapshot.date} (${formatBytes(snapshot.size)})`;
+                snapshotNewer.appendChild(optNewer);
+            });
+
+            // Default: oldest vs newest
+            if (snapshots.length >= 2) {
+                snapshotOlder.value = snapshots.length - 1;
+                snapshotNewer.value = currentMemory ? 'current' : 0;
+            }
+        }
+
+        function getSectionSizes(memoryStr) {
+            try {
+                const obj = JSON.parse(memoryStr);
+                const sections = {};
+                for (let key in obj) {
+                    sections[key] = getByteSize(JSON.stringify(obj[key]));
+                }
+                return sections;
+            } catch {
+                return {};
+            }
+        }
+
+        function computeDiff(olderData, newerData) {
+            const olderSections = getSectionSizes(olderData);
+            const newerSections = getSectionSizes(newerData);
+            const olderSize = getByteSize(olderData);
+            const newerSize = getByteSize(newerData);
+
+            const allKeys = new Set([...Object.keys(olderSections), ...Object.keys(newerSections)]);
+            const changes = [];
+
+            allKeys.forEach(key => {
+                const oldSize = olderSections[key] || 0;
+                const newSize = newerSections[key] || 0;
+                const diff = newSize - oldSize;
+
+                if (diff !== 0 || oldSize === 0 || newSize === 0) {
+                    changes.push({
+                        key,
+                        oldSize,
+                        newSize,
+                        diff,
+                        type: oldSize === 0 ? 'new' : newSize === 0 ? 'removed' : diff > 0 ? 'increased' : 'decreased'
+                    });
+                }
+            });
+
+            // Sort by absolute change
+            changes.sort((a, b) => Math.abs(b.diff) - Math.abs(a.diff));
+
+            return {
+                olderSize,
+                newerSize,
+                sizeDiff: newerSize - olderSize,
+                changes
+            };
+        }
+
+        function renderDiff(diff) {
+            const sizeChange = diff.sizeDiff;
+            const percentChange = diff.olderSize > 0 ? ((sizeChange / diff.olderSize) * 100).toFixed(1) : 0;
+            const sizeClass = sizeChange > 0 ? 'positive' : sizeChange < 0 ? 'negative' : 'neutral';
+            const arrow = sizeChange > 0 ? '↑' : sizeChange < 0 ? '↓' : '→';
+
+            let html = `
+                <div class="diff-summary">
+                    <div class="diff-stat">
+                        <div class="diff-stat-value ${sizeClass}">${arrow} ${formatBytes(Math.abs(sizeChange))}</div>
+                        <div class="diff-stat-label">Size Change (${percentChange}%)</div>
+                    </div>
+                    <div class="diff-stat">
+                        <div class="diff-stat-value neutral">${formatBytes(diff.olderSize)}</div>
+                        <div class="diff-stat-label">Older Size</div>
+                    </div>
+                    <div class="diff-stat">
+                        <div class="diff-stat-value neutral">${formatBytes(diff.newerSize)}</div>
+                        <div class="diff-stat-label">Newer Size</div>
+                    </div>
+                    <div class="diff-stat">
+                        <div class="diff-stat-value neutral">${diff.changes.length}</div>
+                        <div class="diff-stat-label">Sections Changed</div>
+                    </div>
+                </div>
+            `;
+
+            if (diff.changes.length > 0) {
+                html += '<div class="diff-section-list">';
+                html += '<div style="font-size: 12px; color: #858585; margin-bottom: 10px;">Section Changes (sorted by impact)</div>';
+
+                diff.changes.forEach(change => {
+                    const changeText = change.type === 'new' ? 'NEW' :
+                                       change.type === 'removed' ? 'REMOVED' :
+                                       `${change.diff > 0 ? '+' : ''}${formatBytes(change.diff)}`;
+
+                    html += `
+                        <div class="diff-section-item">
+                            <span class="diff-section-name">Memory.${change.key}</span>
+                            <span class="diff-section-change ${change.type}">${changeText}</span>
+                        </div>
+                    `;
+                });
+
+                html += '</div>';
+            } else {
+                html += '<p style="color: #858585; text-align: center; margin-top: 20px;">No changes detected between snapshots</p>';
+            }
+
+            diffResults.innerHTML = html;
+        }
+
+        compareBtn.addEventListener('click', function() {
+            if (snapshots.length === 0 && !currentMemory) {
+                notify('⚠️ Save at least one snapshot first');
+                return;
+            }
+            populateSnapshotSelects();
+            diffModal.classList.add('active');
+        });
+
+        closeDiffModal.addEventListener('click', function() {
+            diffModal.classList.remove('active');
+        });
+
+        diffModal.addEventListener('click', function(e) {
+            if (e.target === diffModal) {
+                diffModal.classList.remove('active');
+            }
+        });
+
+        runDiffBtn.addEventListener('click', function() {
+            const olderIdx = snapshotOlder.value;
+            const newerIdx = snapshotNewer.value;
+
+            if (olderIdx === '' || newerIdx === '') {
+                notify('⚠️ Select both snapshots');
+                return;
+            }
+
+            const olderData = snapshots[parseInt(olderIdx)].data;
+            const newerData = newerIdx === 'current' ? currentMemory : snapshots[parseInt(newerIdx)].data;
+
+            if (olderData === newerData) {
+                notify('⚠️ Select different snapshots');
+                return;
+            }
+
+            const diff = computeDiff(olderData, newerData);
+            renderDiff(diff);
+        });
+
+        // Escape key to close modal
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape' && diffModal.classList.contains('active')) {
+                diffModal.classList.remove('active');
+            }
+        });
+
         console.log('🧠 Screeps Memory Visualizer loaded');
         console.log('⌨️  Shortcuts: Ctrl+Enter (Analyze), Ctrl+K (Clear)');
+        console.log('📂 Drag & drop JSON files supported');
     </script>
 </body>
 </html>
