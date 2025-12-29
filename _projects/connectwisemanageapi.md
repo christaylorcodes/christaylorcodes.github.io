@@ -24,6 +24,6 @@ screenshots:
   - /assets/images/projects/connectwisemanageapi-intellisense.svg
   - /assets/images/projects/connectwisemanageapi-example.svg
 stars: 118
-gallery_downloads: 488425
+gallery_downloads: 491971
 order: 10
 ---
