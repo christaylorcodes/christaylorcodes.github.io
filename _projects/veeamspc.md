@@ -19,6 +19,6 @@ tags:
 github_url: "https://github.com/christaylorcodes/VeeamSPC"
 powershell_gallery_url: "https://www.powershellgallery.com/packages/VeeamSPC"
 stars: 1
-gallery_downloads: 85013
+gallery_downloads: 85083
 order: 70
 ---
