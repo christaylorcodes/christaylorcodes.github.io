@@ -32,13 +32,6 @@
     <link rel="preconnect" href="https://cdnjs.cloudflare.com">
     <link rel="preconnect" href="https://cdn.jsdelivr.net">
 
-    <!-- Preload Inter font file directly to prevent CLS from font swap -->
-    <link rel="preload"
-          href="https://fonts.gstatic.com/s/inter/v14/UcC73FwrK3iLTeHuS_fvQtMwCp50KnMa1ZL7.woff2"
-          as="font"
-          type="font/woff2"
-          crossorigin>
-
     {% if page.url == "/" %}
     <!-- Preload hero background image for faster LCP on homepage - responsive sizes -->
     <link rel="preload"
@@ -76,9 +69,11 @@
     {% include cloudflare-analytics.html %}
 </head>
 <body>
+    <a href="#main-content" class="skip-nav">Skip to main content</a>
+
     {% include navigation.html %}
 
-    <main class="main-content">
+    <main id="main-content" class="main-content">
         {{ content }}
     </main>
 

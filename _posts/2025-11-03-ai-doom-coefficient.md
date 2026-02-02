@@ -11,8 +11,6 @@ image: /assets/images/profile-photo.png
 description: "A lighthearted but fact-based statistical formula for calculating the odds of AI causing catastrophic harm to humanity, with real-world data and sarcastic commentary."
 ---
 
-# Calculating AI Doom: A Statistical Approach to Existential Dread
-
 Humans are notoriously bad at assessing risk. We're afraid of sharks (12 deaths per year) while texting and driving (1.6 million crashes annually). We panic about plane crashes while ignoring heart disease. So naturally, when it comes to artificial intelligence potentially ending civilization as we know it, we're handling it with our usual grace and rationality.
 
 Which is to say: not at all.

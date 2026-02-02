@@ -52,7 +52,7 @@ description: "Chris Taylor - Network Operations Chief and PowerShell automation 
                     <i class="fas fa-cogs"></i>
                 </div>
                 <h3><a href="{{ '/blog' | relative_url }}#filter=automation" class="card-main-link">Automation & Scripting</a></h3>
-                <p>Building powerful PowerShell scripts and automation solutions that streamline operations and eliminate repetitive tasks.</p>
+                <p>I write PowerShell scripts that turn hours of manual work into seconds of automation. If you're clicking through the same process every day, there's probably a script for that.</p>
             </div>
 
             <div class="feature-card feature-card-clickable">
@@ -60,7 +60,7 @@ description: "Chris Taylor - Network Operations Chief and PowerShell automation 
                     <i class="fas fa-network-wired"></i>
                 </div>
                 <h3><a href="{{ '/blog' | relative_url }}#filter=msp" class="card-main-link">Network Operations</a></h3>
-                <p>Designing and managing robust network infrastructure that ensures reliable, high-performance connectivity.</p>
+                <p>I design and manage the network infrastructure that keeps everything connected and running. When the network's working, nobody notices - that's the goal.</p>
             </div>
 
             <div class="feature-card feature-card-clickable">
@@ -68,7 +68,7 @@ description: "Chris Taylor - Network Operations Chief and PowerShell automation 
                     <i class="fas fa-project-diagram"></i>
                 </div>
                 <h3><a href="{{ '/blog' | relative_url }}#filter=msp" class="card-main-link">MSP Operations</a></h3>
-                <p>Architecting and managing multi-tenant infrastructure with focus on scalability, security, and SLA compliance for managed service providers.</p>
+                <p>I build and manage infrastructure that serves multiple clients from shared systems. Keeping things isolated, secure, and meeting Service Level Agreements (SLAs) across dozens of environments is the daily puzzle.</p>
             </div>
 
             <div class="feature-card feature-card-clickable">
@@ -76,7 +76,7 @@ description: "Chris Taylor - Network Operations Chief and PowerShell automation 
                     <i class="fas fa-robot"></i>
                 </div>
                 <h3><a href="{{ '/blog' | relative_url }}#filter=ai" class="card-main-link">AI Integration</a></h3>
-                <p>Integrating AI technologies into MSP operations and automation workflows to enhance efficiency and enable predictive capabilities.</p>
+                <p>I'm putting AI to work in MSP operations - not as a buzzword, but as a practical tool for automating decisions, analyzing patterns, and handling tasks that used to require human judgment.</p>
             </div>
 
             <div class="feature-card feature-card-clickable">
@@ -84,7 +84,7 @@ description: "Chris Taylor - Network Operations Chief and PowerShell automation 
                     <i class="fas fa-plug"></i>
                 </div>
                 <h3><a href="{{ '/blog' | relative_url }}#filter=development" class="card-main-link">API Development</a></h3>
-                <p>Creating robust PowerShell modules that wrap REST APIs, enabling seamless integration between business systems and automation workflows.</p>
+                <p>I build PowerShell modules that wrap REST APIs so you can interact with business systems from the command line. No more manual data entry between platforms.</p>
             </div>
 
             <div class="feature-card feature-card-clickable">
@@ -92,7 +92,7 @@ description: "Chris Taylor - Network Operations Chief and PowerShell automation 
                     <i class="fas fa-cloud"></i>
                 </div>
                 <h3><a href="{{ '/blog' | relative_url }}#filter=powershell" class="card-main-link">Cloud Infrastructure</a></h3>
-                <p>Managing Azure services, implementing secure cloud solutions with Key Vault integration, and designing multi-tenant cloud architectures.</p>
+                <p>I work with Azure for cloud infrastructure - Key Vault for secrets management, multi-tenant architectures, and the plumbing that makes cloud services work securely for MSPs.</p>
             </div>
 
             <div class="feature-card feature-card-clickable">
@@ -100,7 +100,7 @@ description: "Chris Taylor - Network Operations Chief and PowerShell automation 
                     <i class="fas fa-puzzle-piece"></i>
                 </div>
                 <h3><a href="{{ '/blog' | relative_url }}#filter=connectwisemanageapi" class="card-main-link">ConnectWise Integration</a></h3>
-                <p>Deep expertise in ConnectWise Manage, Automate, and Control with custom PowerShell modules for PSA and RMM automation.</p>
+                <p>I've built open source PowerShell modules for ConnectWise Manage, Automate, and Control. If you're using ConnectWise and PowerShell, chances are we can automate it.</p>
             </div>
 
             <div class="feature-card feature-card-clickable">
@@ -139,7 +139,7 @@ description: "Chris Taylor - Network Operations Chief and PowerShell automation 
                     <h3><a href="{{ project.url | relative_url }}" class="card-main-link">{{ project.title }}</a></h3>
                     <div class="podium-stats">
                         <div class="podium-stars">
-                            <i class="fas fa-star"></i> {{ project.stars }} stars
+                            <i class="fas fa-star"></i> {{ project.stars }} {% if project.stars == 1 %}star{% else %}stars{% endif %}
                         </div>
                         {% if project.gallery_downloads %}
                         <div class="podium-downloads">
@@ -173,7 +173,7 @@ description: "Chris Taylor - Network Operations Chief and PowerShell automation 
                     <h3><a href="{{ project.url | relative_url }}" class="card-main-link">{{ project.title }}</a></h3>
                     <div class="podium-stats">
                         <div class="podium-stars">
-                            <i class="fas fa-star"></i> {{ project.stars }} stars
+                            <i class="fas fa-star"></i> {{ project.stars }} {% if project.stars == 1 %}star{% else %}stars{% endif %}
                         </div>
                         {% if project.gallery_downloads %}
                         <div class="podium-downloads">
@@ -207,7 +207,7 @@ description: "Chris Taylor - Network Operations Chief and PowerShell automation 
                     <h3><a href="{{ project.url | relative_url }}" class="card-main-link">{{ project.title }}</a></h3>
                     <div class="podium-stats">
                         <div class="podium-stars">
-                            <i class="fas fa-star"></i> {{ project.stars }} stars
+                            <i class="fas fa-star"></i> {{ project.stars }} {% if project.stars == 1 %}star{% else %}stars{% endif %}
                         </div>
                         {% if project.gallery_downloads %}
                         <div class="podium-downloads">

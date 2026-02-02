@@ -17,9 +17,7 @@ window.addEventListener('load', function() {
             }
         },
         theme: "classic",
-        // TEMPORARY: Changed to "info" for GA4 testing - analytics loads by default
-        // TODO: Change back to "opt-in" after verifying GA4 is working for GDPR/CCPA compliance
-        type: "info",
+        type: "opt-in",
         content: {
             message: "This website uses cookies to analyze traffic and improve your experience. We respect your privacy and comply with GDPR/CCPA.",
             dismiss: "Decline",
@@ -128,6 +126,32 @@ function loadAnalytics() {
                 });
             });
         });
+
+        // Track contact page visits as a conversion event
+        if (window.location.pathname === '/contact' || window.location.pathname === '/contact/') {
+            gtag('event', 'contact_page_visit', {
+                'event_category': 'engagement',
+                'event_label': 'contact_page'
+            });
+        }
+
+        // Track blog post reads (scroll depth 75% = meaningful read)
+        if (document.querySelector('.post-content')) {
+            var postReadFired = false;
+            var postContent = document.querySelector('.post-content');
+            window.addEventListener('scroll', function() {
+                if (postReadFired) return;
+                var rect = postContent.getBoundingClientRect();
+                var scrolledThrough = (window.innerHeight - rect.top) / rect.height;
+                if (scrolledThrough >= 0.75) {
+                    postReadFired = true;
+                    gtag('event', 'blog_post_read', {
+                        'event_category': 'engagement',
+                        'event_label': document.title
+                    });
+                }
+            });
+        }
     };
 
     // Cloudflare Web Analytics (cookieless, always loads)

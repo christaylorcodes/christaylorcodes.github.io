@@ -21,6 +21,41 @@ body {
     background-color: var(--bg-dark);
 }
 
+/* Global Focus Styles - Visible focus ring for keyboard navigation (WCAG 2.1 AA)
+   Uses :focus-visible to only show for keyboard users, not mouse clicks */
+:focus-visible {
+    outline: 3px solid var(--primary-color);
+    outline-offset: 2px;
+}
+
+:focus:not(:focus-visible) {
+    outline: none;
+}
+
+/* Skip Navigation Link - Visually hidden until focused (WCAG 2.1 AA)
+   First focusable element allows keyboard users to bypass navigation */
+.skip-nav {
+    position: absolute;
+    top: -100%;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: var(--primary-color);
+    color: var(--bg-darker);
+    padding: 0.75rem 1.5rem;
+    border-radius: 0 0 0.5rem 0.5rem;
+    font-weight: 600;
+    font-size: 1rem;
+    text-decoration: none;
+    z-index: 10000;
+    transition: top 0.2s ease;
+
+    &:focus {
+        top: 0;
+        outline: 3px solid var(--secondary-color);
+        outline-offset: 2px;
+    }
+}
+
 /* Container: 1200px max-width balances readability with modern wide-screen usage
    20px horizontal padding ensures content doesn't touch screen edges on mobile
 

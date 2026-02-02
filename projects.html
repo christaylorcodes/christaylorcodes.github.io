@@ -8,6 +8,7 @@ permalink: /projects/
 <section class="projects-header">
     <div class="container">
         <h1 class="section-title">My Projects</h1>
+        <p class="section-subtitle">Open source PowerShell modules and automation tools for ConnectWise, Azure, and MSP operations.</p>
     </div>
 </section>
 
@@ -64,14 +65,14 @@ permalink: /projects/
                                 <i class="fas {{ project.icon }}"></i>
                             </div>
                             <div class="project-content">
-                                <h3>{{ project.title }}</h3>
+                                <h2>{{ project.title }}</h2>
                                 <p>{{ project.short_description }}</p>
 
                                 <div class="project-card-stats">
                                     {% if project_stars %}
                                     <span class="stat-item">
                                         <i class="fas fa-star"></i>
-                                        {{ project_stars }} stars
+                                        {{ project_stars }} {% if project_stars == 1 %}star{% else %}stars{% endif %}
                                     </span>
                                     {% endif %}
                                     {% if project_downloads %}

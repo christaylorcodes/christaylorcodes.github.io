@@ -1,42 +1,31 @@
 ---
 layout: post
-title: "Troubleshooting ConnectWise Automate Agents Like a Pro with PowerShell"
-short_title: "Troubleshooting Automate Agents with PowerShell"
+title: "Troubleshooting ConnectWise Automate Agents with PowerShell"
+short_title: "Troubleshooting Automate Agents"
 date: 2024-03-04 10:00:00 -0000
 categories: [PowerShell, Troubleshooting]
 tags: [PowerShell, ConnectWise, Automate, RMM, Troubleshooting, Diagnostics, MSP]
 author: Chris Taylor
-excerpt: "47 agents offline at 2 AM? PowerShell diagnostics fix agent problems in seconds instead of hours. Learn quick diagnostic commands, automated health checks, and monitoring that fixes issues automatically."
+excerpt: "Structured troubleshooting workflows for ConnectWise Automate agents using PowerShell. Covers offline agents, intermittent connectivity, stopped services, log analysis, bulk health checks, and automated remediation scripts you can run from your workstation."
 ---
 
-## The Midnight Alert
+## What This Covers
 
-It's 2 AM. Your phone buzzes. "Critical: 47 agents offline at ClientXYZ."
+The ConnectWiseAutomateAgent module includes a set of diagnostic and remediation functions for troubleshooting ConnectWise Automate (CWA) agents. This post walks through the common scenarios -- agent won't come online, connectivity issues, services stopping, log analysis -- and the PowerShell commands that address each one.
 
-You know the drill: remote into the server, check the Automate console, try to figure out which machines are actually down versus which agents just got stuck. Start the tedious process of remote desktop, log hunting, service restarting...
+These are structured workflows, not emergency procedures. The goal is a repeatable troubleshooting toolkit you can reach for whenever an agent needs attention.
 
-**There's a better way.**
-
-## PowerShell-Powered Diagnostics
-
-The ConnectWiseAutomateAgent module isn't just for deployment—it's a powerful troubleshooting toolkit that puts everything you need at your fingertips via the command line.
+---
 
 ## Common Scenarios and Solutions
 
-### Scenario 1: "The Agent Just Won't Come Online"
+### Scenario 1: Agent Won't Come Online
 
-**Symptoms**: Agent installed but not showing up in Automate console.
+**Symptoms:** Agent is installed but not reporting to the Automate console.
 
-**Traditional approach**:
-- RDP to the machine
-- Check Services console
-- Navigate to C:\Windows\LTSVC
-- Open LTErrors.txt in Notepad
-- Scroll through thousands of lines
-- Try to find relevant errors
-- Google cryptic error codes
+The traditional approach involves an RDP session, manually checking services, navigating to `C:\Windows\LTSVC`, opening `LTErrors.txt` in Notepad, and scrolling through thousands of lines looking for something relevant.
 
-**PowerShell approach**:
+The module approach runs the same checks from your workstation in one block:
 
 ```powershell
 # Quick diagnostic - all from your workstation
@@ -48,20 +37,20 @@ Invoke-Command -ComputerName PROBLEM-PC -ScriptBlock {
     Get-CWAAInfo | Format-List
 
     # Check recent errors
-    Get-CWAAError -Tail 50 | Where-Object { $_ -match "ERROR|CRITICAL" }
+    Get-CWAAError | Select-Object -Last 50 | Where-Object { $_ -match "ERROR|CRITICAL" }
 
     # Test connectivity to server
     Test-CWAAPort -Server "https://automate.yourmsp.com"
 }
 ```
 
-**Time saved**: 15 minutes → 30 seconds
+That covers services, configuration, recent errors, and port connectivity in a single remote call.
 
-### Scenario 2: "Connectivity Issues"
+### Scenario 2: Intermittent Connectivity
 
-**Symptoms**: Agent keeps going offline and online randomly.
+**Symptoms:** Agent keeps going offline and coming back on its own.
 
-**Diagnosis script**:
+Start with a port check, then look at proxy configuration if the standard ports fail:
 
 ```powershell
 # Comprehensive connectivity check
@@ -77,7 +66,7 @@ if ($proxySettings.ProxyServerURL) {
     Write-Host "Proxy configured: $($proxySettings.ProxyServerURL)" -ForegroundColor Yellow
 
     # Test if proxy is the issue
-    Set-CWAAProxy -ProxyServerURL $null -ProxyUsername $null
+    Set-CWAAProxy -ResetProxy
     Restart-CWAA
     Start-Sleep 30
 
@@ -86,11 +75,11 @@ if ($proxySettings.ProxyServerURL) {
 }
 ```
 
-### Scenario 3: "Agent Services Keep Stopping"
+### Scenario 3: Agent Services Keep Stopping
 
-**Symptoms**: LTService or LTSvcMon randomly stops.
+**Symptoms:** LTService or LTSvcMon stops unexpectedly.
 
-**Quick fix**:
+Start with the lightest fix and escalate only if needed:
 
 ```powershell
 # Restart services
@@ -101,7 +90,7 @@ Start-Sleep 10
 Get-Service LTService, LTSvcMon | Format-Table Name, Status, StartType
 
 # If still failing, check the probe errors
-Get-CWAAProbeError -Tail 100
+Get-CWAAProbeError | Select-Object -Last 100
 
 # Nuclear option: reinstall
 $info = Get-CWAAInfo
@@ -110,11 +99,11 @@ Redo-CWAA -Server $info.Server `
           -LocationID $info.LocationID
 ```
 
-### Scenario 4: "Need to Check Multiple Machines"
+### Scenario 4: Checking Multiple Machines
 
-**Symptoms**: You need to diagnose agent health across many endpoints.
+If you need to assess agent health across a fleet, the module's `Test-CWAAHealth` function handles this per-endpoint. For a full walkthrough of bulk health monitoring with automated remediation, see the [Self-Healing Agents]({% post_url 2024-03-01-self-healing-connectwise-automate-agents %}) post -- it covers scheduled health checks, escalation logic, and event log integration.
 
-**Bulk health check script**:
+For a quick ad-hoc sweep across Active Directory (AD), a script like this pulls basic status from each machine:
 
 ```powershell
 # Get all computers from Active Directory
@@ -162,13 +151,19 @@ $healthReport | Out-GridView -Title "Agent Health Report"
 $healthReport | Export-Csv "AgentHealthReport-$(Get-Date -Format 'yyyyMMdd-HHmmss').csv" -NoTypeInformation
 ```
 
-## Deep Dive: Understanding Agent Logs
+This is a point-in-time snapshot. For ongoing monitoring, the scheduled health check system in `Register-CWAAHealthCheckTask` is a better fit.
 
-### Reading LTErrors.txt
+---
+
+## Understanding Agent Logs
+
+### LTErrors.txt
+
+The `Get-CWAAError` function reads the agent's error log so you don't have to open the file manually. A few useful patterns:
 
 ```powershell
 # Get recent errors with context
-Get-CWAAError -Tail 100
+Get-CWAAError | Select-Object -Last 100
 
 # Filter for specific issues
 Get-CWAAError | Where-Object { $_ -match "heartbeat|timeout|connection" }
@@ -179,35 +174,43 @@ Get-CWAAError | Group-Object | Sort-Object Count -Descending | Select-Object -Fi
 
 ### Probe Errors
 
+Probe errors come from the agent's internal health checks. Same idea -- pull them and look for patterns:
+
 ```powershell
 # Probe errors indicate agent health checks
-Get-CWAAProbeError -Tail 50
+Get-CWAAProbeError | Select-Object -Last 50
 
 # Look for recurring patterns
 Get-CWAAProbeError | Select-String "FAIL|ERROR" | Group-Object
 ```
 
-## Advanced Troubleshooting Techniques
+---
 
-### Technique 1: Adjusting Log Levels
+## Advanced Techniques
 
-Sometimes you need more verbose logging:
+### Adjusting Log Levels
+
+When the default logs don't show enough detail, temporarily increase verbosity:
 
 ```powershell
 # Increase logging verbosity
-Set-CWAALogLevel -Level 1000
+Set-CWAALogLevel -Level Verbose
 
 # Reproduce the issue (wait for it to occur)
 Start-Sleep 300
 
 # Check detailed logs
-Get-CWAAError -Tail 200
+Get-CWAAError | Select-Object -Last 200
 
 # Reset to normal logging
-Set-CWAALogLevel -Level 1
+Set-CWAALogLevel -Level Normal
 ```
 
-### Technique 2: Force Agent Commands
+Don't forget to set it back. Verbose logging on hundreds of endpoints generates a lot of disk I/O.
+
+### Forcing Agent Commands
+
+You can tell the agent to perform specific actions immediately rather than waiting for its next scheduled cycle:
 
 ```powershell
 # Force agent to send inventory
@@ -227,7 +230,9 @@ Invoke-CWAACommand -Command "Update Schedule"
 # - And 14 more...
 ```
 
-### Technique 3: Comparing Settings
+### Comparing Settings
+
+If an agent was working before and isn't now, compare current settings against the backup:
 
 ```powershell
 # Get current settings
@@ -240,9 +245,11 @@ $backup = Get-CWAAInfoBackup
 Compare-Object $current.PSObject.Properties $backup.PSObject.Properties -Property Name, Value
 ```
 
-### Technique 4: Security Decoding
+The module creates backups automatically during certain operations. `Get-CWAAInfoBackup` reads from the most recent one.
 
-Sometimes you need to decode encrypted values:
+### Security Decoding
+
+For cases where you need to inspect encrypted agent values:
 
 ```powershell
 # Decode server password or other encrypted values
@@ -250,9 +257,11 @@ $encodedValue = "Base64EncodedValueFromRegistry"
 $decoded = ConvertFrom-CWAASecurity -InputString $encodedValue -Key "YourKey"
 ```
 
-## Proactive Monitoring Script
+---
 
-Don't wait for alerts. Run this daily:
+## Proactive Monitoring
+
+Rather than waiting for something to break, a scheduled script can sweep your environment daily and flag issues before they become tickets:
 
 ```powershell
 # Daily agent health check script
@@ -283,7 +292,7 @@ foreach ($computer in $computers) {
             }
 
             # Check for recent errors
-            $recentErrors = Get-CWAAError -Tail 50 | Where-Object { $_ -match "CRITICAL|FATAL" }
+            $recentErrors = Get-CWAAError | Select-Object -Last 50 | Where-Object { $_ -match "CRITICAL|FATAL" }
             if ($recentErrors) {
                 $problems += "Critical errors in log"
             }
@@ -326,9 +335,13 @@ else {
 }
 ```
 
-## Troubleshooting Decision Tree
+For automated remediation on top of detection, see `Register-CWAAHealthCheckTask` and the [Self-Healing Agents]({% post_url 2024-03-01-self-healing-connectwise-automate-agents %}) post.
 
-Use this flowchart approach:
+---
+
+## Custom Decision Tree
+
+The module includes `Repair-CWAA`, which handles escalating remediation natively (restart, reinstall, fresh install). If you need custom logic beyond what `Repair-CWAA` provides -- different escalation thresholds, additional diagnostic steps, or environment-specific checks -- you can build your own decision tree:
 
 ```powershell
 function Repair-CWAAAgent {
@@ -348,8 +361,8 @@ function Repair-CWAAAgent {
 
         # Step 2: Can we reach the server?
         $info = Get-CWAAInfo
-        $portTest = Test-CWAAPort -Server $info.Server
-        if ($portTest | Where-Object { $_.Open -eq $false }) {
+        $portOutput = Test-CWAAPort -Server $info.Server
+        if ($portOutput -match 'Connection failed') {
             Write-Host "  Issue: Connectivity problem detected" -ForegroundColor Yellow
 
             # Check if proxy needed
@@ -361,7 +374,7 @@ function Repair-CWAAAgent {
         }
 
         # Step 3: Check for errors
-        $errors = Get-CWAAError -Tail 50 | Where-Object { $_ -match "ERROR|CRITICAL" }
+        $errors = Get-CWAAError | Select-Object -Last 50 | Where-Object { $_ -match "ERROR|CRITICAL" }
         if ($errors) {
             Write-Host "  Issue: Errors in log" -ForegroundColor Yellow
 
@@ -372,7 +385,7 @@ function Repair-CWAAAgent {
             }
         }
 
-        # Step 4: Nuclear option
+        # Step 4: Nothing obvious found
         Write-Host "  Issue unclear. Recommending reinstall." -ForegroundColor Red
         return "Needs manual investigation or reinstall"
     }
@@ -382,9 +395,13 @@ function Repair-CWAAAgent {
 Repair-CWAAAgent -ComputerName "PROBLEM-PC"
 ```
 
-## Emergency Response Kit
+For most environments, the built-in `Repair-CWAA` with `Register-CWAAHealthCheckTask` handles the common cases without custom scripting.
 
-Save this as your "emergency script":
+---
+
+## Multi-Machine Repair Script
+
+When you need to push a restart-then-reinstall sequence to a list of machines:
 
 ```powershell
 # Emergency Agent Repair Script
@@ -421,34 +438,20 @@ foreach ($computer in $ComputerName) {
             }
         }
 
-        Write-Host "✓ $computer processed successfully" -ForegroundColor Green
+        Write-Host "[OK] $computer processed successfully" -ForegroundColor Green
     }
     catch {
-        Write-Host "✗ $computer failed: $($_.Exception.Message)" -ForegroundColor Red
+        Write-Host "[FAIL] $computer failed: $($_.Exception.Message)" -ForegroundColor Red
     }
 }
 ```
 
-## Conclusion
-
-Troubleshooting ConnectWise Automate agents doesn't have to mean hours of clicking through GUIs and hunting through log files. With the ConnectWiseAutomateAgent PowerShell module, you can:
-
-- Diagnose issues in seconds, not minutes
-- Automate health checks across your entire fleet
-- Fix common problems with one-line commands
-- Build proactive monitoring systems
-- Sleep better knowing your agents are monitored
-
-The next time you get that 2 AM alert, you'll have PowerShell on your side.
-
 ---
 
-## Resources
+**Getting started:**
 
-- **Module**: `Install-Module ConnectWiseAutomateAgent`
-- **GitHub**: [https://github.com/christaylorcodes/ConnectWiseAutomateAgent](https://github.com/christaylorcodes/ConnectWiseAutomateAgent)
-- **Previous Posts**:
-  - [Introducing ConnectWiseAutomateAgent]({% post_url 2024-02-12-introducing-connectwise-automate-agent %})
-  - [Mass Agent Deployment]({% post_url 2024-02-26-mass-agent-deployment-connectwise-automate %})
+```powershell
+Install-Module ConnectWiseAutomateAgent
+```
 
-**Next in series**: 10 real-world use cases for ConnectWiseAutomateAgent beyond deployment and troubleshooting.
+Full function reference and examples: [GitHub Repository](https://github.com/christaylorcodes/ConnectWiseAutomateAgent)

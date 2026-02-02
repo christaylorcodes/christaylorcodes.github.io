@@ -100,13 +100,25 @@ document.addEventListener('DOMContentLoaded', function() {
     const navToggle = document.querySelector('.nav-toggle');
     const navMenu = document.querySelector('.nav-menu');
 
+    // Helper to close mobile menu and reset ARIA state
+    function closeMobileMenu() {
+        navMenu.classList.remove('active');
+        const hamburger = navToggle.querySelector('.hamburger');
+        if (hamburger) hamburger.classList.remove('active');
+        navToggle.setAttribute('aria-expanded', 'false');
+    }
+
     if (navToggle) {
         navToggle.addEventListener('click', function() {
+            const isExpanded = navMenu.classList.contains('active');
             navMenu.classList.toggle('active');
 
             // Animate hamburger
             const hamburger = this.querySelector('.hamburger');
             hamburger.classList.toggle('active');
+
+            // Update ARIA expanded state
+            this.setAttribute('aria-expanded', !isExpanded);
         });
     }
 
@@ -115,7 +127,7 @@ document.addEventListener('DOMContentLoaded', function() {
     navLinks.forEach(link => {
         link.addEventListener('click', function() {
             if (window.innerWidth <= 768) {
-                navMenu.classList.remove('active');
+                closeMobileMenu();
             }
         });
     });
@@ -124,7 +136,24 @@ document.addEventListener('DOMContentLoaded', function() {
     document.addEventListener('click', function(event) {
         const isClickInsideNav = navMenu.contains(event.target) || navToggle.contains(event.target);
         if (!isClickInsideNav && navMenu.classList.contains('active')) {
-            navMenu.classList.remove('active');
+            closeMobileMenu();
+        }
+    });
+
+    // Close mobile menu and filter dropdowns on Escape key
+    document.addEventListener('keydown', function(event) {
+        if (event.key === 'Escape') {
+            // Close mobile menu if open
+            if (navMenu && navMenu.classList.contains('active')) {
+                closeMobileMenu();
+                navToggle.focus();
+            }
+
+            // Close filter dropdown if open
+            const dropdown = document.querySelector('.filter-dropdown.active');
+            if (dropdown) {
+                dropdown.classList.remove('active');
+            }
         }
     });
 

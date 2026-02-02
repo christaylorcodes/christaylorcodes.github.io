@@ -60,6 +60,29 @@
     --shadow-lg: 0 20px 25px -5px rgba(0, 0, 0, 0.6), 0 10px 10px -5px rgba(0, 0, 0, 0.4);
 }
 
+/* Skip Navigation - Must be in critical CSS since it's the first focusable element */
+.skip-nav {
+    position: absolute;
+    top: -100%;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: var(--primary-color);
+    color: var(--bg-darker);
+    padding: 0.75rem 1.5rem;
+    border-radius: 0 0 0.5rem 0.5rem;
+    font-weight: 600;
+    font-size: 1rem;
+    text-decoration: none;
+    z-index: 10000;
+    transition: top 0.2s ease;
+}
+
+.skip-nav:focus {
+    top: 0;
+    outline: 3px solid var(--secondary-color);
+    outline-offset: 2px;
+}
+
 /* Base Reset */
 * {
     margin: 0;

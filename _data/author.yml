@@ -20,7 +20,7 @@ roles_list:
 # Experience
 experience_years: "20+"
 experience_since: 2002
-experience_description: "With 20+ years of experience in MSP operations, I specialize in infrastructure automation, AI integration, and building scalable solutions for complex multi-tenant environments."
+experience_description: "20+ years in Managed Service Provider (MSP) operations. I build the automation, infrastructure, and integrations that make multi-tenant environments actually work."
 
 # Employment
 company: i.t.NOW
@@ -89,19 +89,18 @@ career_start_description: "Started professional career in 2002 with EchoStar doi
 # Bio Paragraphs (for About page)
 bio:
   introduction: |
-    I'm a Network Operations Chief, vCTO, and Automation Engineer at i.t.NOW, a global
-    managed services provider. With 20+ years of professional experience (since 2002),
-    I specialize in infrastructure automation, AI integration, and building scalable
-    multi-tenant solutions that power MSP operations across diverse industries.
+    I run network operations and automation at i.t.NOW, a Managed Service Provider
+    (MSP). I've been doing this since 2002 - building the infrastructure and tooling
+    that keeps MSP operations running across multiple clients and environments. Most
+    of my work lives at the intersection of PowerShell, APIs, and making complex
+    systems talk to each other.
 
   background: |
-    My journey in technology began in elementary school, where I spent my time
-    helping the school librarian troubleshoot and fix computer issues. That early
-    spark of curiosity grew into a lifelong passion for understanding how systems
-    work and finding better ways to make them run. I started my professional career
-    in 2002 with EchoStar doing satellite communications, and over the past two decades,
-    I've evolved into a leader who specializes in MSP operations, infrastructure
-    automation, and AI-driven solutions.
+    I started fixing computers for the school librarian in elementary school and
+    never really stopped. My professional career kicked off in 2002 at EchoStar
+    doing satellite communications. Since then I've moved through the MSP world -
+    from hands-on network engineering to building automation frameworks and
+    integrating AI into daily operations.
 
 # Structured Data (for schema.org Person markup - optimized for recruiter discovery)
 structured_data:

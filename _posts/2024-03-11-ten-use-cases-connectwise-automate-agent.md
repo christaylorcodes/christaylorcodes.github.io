@@ -1,28 +1,29 @@
 ---
 layout: post
-title: "10 Real-World Use Cases for ConnectWiseAutomateAgent"
+title: "Practical Use Cases for ConnectWiseAutomateAgent"
+short_title: "ConnectWiseAutomateAgent Use Cases"
 date: 2024-03-11 10:00:00 -0000
 categories: [PowerShell, Automation]
 tags: [PowerShell, ConnectWise, Automate, RMM, Use Cases, Automation, MSP]
 author: Chris Taylor
-excerpt: "10 real ways IT teams use ConnectWiseAutomateAgent: automated new hire setup, compliance reporting, disaster recovery prep, multi-location deployment, health checks, version management, and emergency response. Each includes production code."
+excerpt: "Practical PowerShell examples for ConnectWiseAutomateAgent beyond basic installation. Covers new hire provisioning, compliance reporting, disaster recovery, version audits, multi-tenant deployment, proxy management, migrations, and department branding."
 ---
 
-## Beyond Basic Installation
+## What This Covers
 
-Most people think of the ConnectWiseAutomateAgent module as just an installation tool. While it excels at deploying agents, its real power comes from solving everyday MSP challenges through automation.
+The ConnectWiseAutomateAgent module handles more than agent installation. It exposes functions for health checks, configuration management, proxy settings, branding, and uninstallation -- all scriptable, all composable with standard PowerShell tooling.
 
-Here are 10 real-world use cases that will change how you work with ConnectWise Automate.
+This post walks through practical examples: onboarding, compliance reporting, DR testing, version audits, multi-tenant deployment, proxy changes, migrations, network testing, health monitoring, and department branding. Each one is a pattern you can adapt to your environment.
 
 ---
 
-## Use Case 1: Automated New Hire Provisioning
+## New Hire Provisioning
 
-**Scenario**: Your client onboards new employees weekly. Each new hire needs a workstation with the RMM agent installed, configured, and reporting.
+**Scenario**: Your client onboards new employees weekly. Each workstation needs an RMM (Remote Monitoring and Management) agent installed, configured, and reporting to the correct location.
 
-**Traditional approach**: HR notifies IT → IT provisions machine → IT manually installs agent → Agent appears in Automate... eventually
+**The manual version**: HR notifies IT, IT provisions the machine, IT manually installs the agent, and the agent eventually shows up in Automate.
 
-**PowerShell solution**:
+**Scripted version**:
 
 ```powershell
 # Integrated onboarding script
@@ -44,7 +45,9 @@ $locationID = $locationMap[$Department]
 $computer = New-ADComputer -Name "WKS-$EmployeeName" -Path "OU=$Department,DC=company,DC=com" -PassThru
 
 # Wait for computer to come online
-Wait-Computer -ComputerName $computer.Name
+do {
+    Start-Sleep -Seconds 30
+} until (Test-Connection -ComputerName $computer.Name -Count 1 -Quiet)
 
 # Install RMM agent
 Invoke-Command -ComputerName $computer.Name -ScriptBlock {
@@ -72,11 +75,11 @@ Send-MailMessage -To "it@company.com" `
 
 ---
 
-## Use Case 2: Compliance Reporting
+## Compliance Reporting
 
 **Scenario**: Monthly compliance reports require knowing which machines have RMM agents and which don't.
 
-**PowerShell solution**:
+**Scripted version**:
 
 ```powershell
 # Monthly compliance check
@@ -128,11 +131,11 @@ if ($nonCompliant) {
 
 ---
 
-## Use Case 3: Disaster Recovery Testing
+## Disaster Recovery Testing
 
-**Scenario**: Quarterly DR tests require removing and reinstalling agents to simulate disaster scenarios.
+**Scenario**: Quarterly DR tests require removing and reinstalling agents to verify you can recover from a complete loss.
 
-**PowerShell solution**:
+**Scripted version**:
 
 ```powershell
 # DR Test: Backup, remove, and restore agent configurations
@@ -175,11 +178,11 @@ foreach ($computer in $TestComputers) {
 
 ---
 
-## Use Case 4: Agent Version Audit and Update
+## Agent Version Audit and Update
 
-**Scenario**: Critical vulnerability found in agent version 11.1.2345. Need to identify and update all affected agents immediately.
+**Scenario**: A vulnerability is found in agent version 11.1.2345. You need to find and update all affected agents.
 
-**PowerShell solution**:
+**Scripted version**:
 
 ```powershell
 # Find and update vulnerable agents
@@ -224,11 +227,11 @@ Write-Host "Updates deployed to $($affectedSystems.Count) systems" -ForegroundCo
 
 ---
 
-## Use Case 5: Multi-Tenant Client Segregation
+## Multi-Tenant Client Segregation
 
-**Scenario**: MSP managing 50+ clients, each needs agents deployed to correct locations with proper naming.
+**Scenario**: You're an MSP managing 50+ clients. Each client's agents need to land in the correct location with the right display name.
 
-**PowerShell solution**:
+**Scripted version**:
 
 ```powershell
 # Client configuration database
@@ -271,11 +274,11 @@ Deploy-ClientAgent -ComputerName "ACME-WKS001" -ClientName "Acme Corp"
 
 ---
 
-## Use Case 6: Proxy Configuration Management
+## Proxy Configuration Management
 
-**Scenario**: Client changes proxy server. Need to update all 300 agents immediately.
+**Scenario**: A client changes their proxy server. You need to update all 300 agents.
 
-**PowerShell solution**:
+**Scripted version**:
 
 ```powershell
 # Update proxy on all agents
@@ -320,11 +323,11 @@ Write-Host "Updated proxy on $(($results | Where-Object Status -eq 'Updated').Co
 
 ---
 
-## Use Case 7: Pre-Migration Agent Removal
+## Pre-Migration Agent Removal
 
-**Scenario**: Migrating client from ConnectWise Automate to different RMM. Need clean agent removal from 400 endpoints.
+**Scenario**: You're migrating a client to a different RMM. You need clean agent removal from 400 endpoints, with verification that nothing is left behind.
 
-**PowerShell solution**:
+**Scripted version**:
 
 ```powershell
 # Mass agent removal with verification
@@ -377,11 +380,11 @@ Write-Host "Successfully removed agents from $successful / $($computers.Count) c
 
 ---
 
-## Use Case 8: Network Segmentation Testing
+## Network Segmentation Testing
 
-**Scenario**: Testing firewall rules for new office. Need to verify RMM connectivity from test subnet.
+**Scenario**: You're testing firewall rules for a new office and need to verify RMM connectivity from the test subnet before deploying agents.
 
-**PowerShell solution**:
+**Scripted version**:
 
 ```powershell
 # Network connectivity verification script
@@ -394,18 +397,15 @@ $testResults = foreach ($computer in $TestComputers) {
     Invoke-Command -ComputerName $computer -ScriptBlock {
         Import-Module ConnectWiseAutomateAgent
 
-        # Test all required ports
-        $portTests = Test-CWAAPort -Server $using:Server
+        # Test all required ports (output is string-based, not objects)
+        $portOutput = Test-CWAAPort -Server $using:Server
+        $failedPorts = $portOutput | Where-Object { $_ -match 'Connection failed' }
 
-        # Get detailed results
         [PSCustomObject]@{
             Computer = $env:COMPUTERNAME
             Subnet = (Get-NetIPAddress -AddressFamily IPv4 | Where-Object { $_.InterfaceAlias -notmatch 'Loopback' } | Select-Object -First 1).IPAddress
-            Port70 = ($portTests | Where-Object Port -eq 70).Open
-            Port80 = ($portTests | Where-Object Port -eq 80).Open
-            Port443 = ($portTests | Where-Object Port -eq 443).Open
-            Port8002 = ($portTests | Where-Object Port -eq 8002).Open
-            AllPortsOpen = -not ($portTests | Where-Object { -not $_.Open })
+            PortTestOutput = ($portOutput -join "`n")
+            AllPortsOpen = ($failedPorts.Count -eq 0)
         }
     }
 }
@@ -416,7 +416,7 @@ $failures = $testResults | Where-Object { -not $_.AllPortsOpen }
 
 if ($failures) {
     Write-Host "`nFirewall issues detected on $($failures.Count) computers:" -ForegroundColor Red
-    $failures | Format-Table Computer, Subnet, Port70, Port80, Port443, Port8002
+    $failures | Format-Table Computer, Subnet, PortTestOutput
 }
 else {
     Write-Host "All network connectivity tests passed!" -ForegroundColor Green
@@ -427,11 +427,15 @@ else {
 
 ---
 
-## Use Case 9: Scheduled Health Monitoring
+## Fleet Health Monitoring
 
-**Scenario**: Daily health check of all agents with automatic remediation of common issues.
+**Scenario**: You want a daily sweep of all agents that catches issues and attempts basic remediation, with a report of what it found.
 
-**PowerShell solution**:
+If you're looking for per-endpoint self-healing that runs as a scheduled task on each machine, see [Self-Healing Agents]({% post_url 2024-03-01-self-healing-connectwise-automate-agents %}). That post covers `Repair-CWAA`, escalation logic, and the health check task in detail.
+
+This pattern is different -- it's a centralized sweep you run from a management server against your whole fleet.
+
+**Scripted version**:
 
 ```powershell
 # Daily agent health check with auto-remediation
@@ -465,7 +469,7 @@ foreach ($computer in $computers) {
             }
 
             # Issue 3: Critical errors in logs
-            $errors = Get-CWAAError -Tail 100 | Where-Object { $_ -match "CRITICAL|FATAL" }
+            $errors = Get-CWAAError | Select-Object -Last 100 | Where-Object { $_ -match "CRITICAL|FATAL" }
             if ($errors) {
                 $problems += "Critical errors in log: $($errors.Count) entries"
             }
@@ -511,11 +515,11 @@ if ($issues.Count -gt 0) {
 
 ---
 
-## Use Case 10: Custom Agent Branding Per Department
+## Department-Based Agent Branding
 
-**Scenario**: Large enterprise wants different agent display names per department for charge-back reporting.
+**Scenario**: A large enterprise wants different agent display names per department for charge-back reporting.
 
-**PowerShell solution**:
+**Scripted version**:
 
 ```powershell
 # Department-based agent naming
@@ -548,19 +552,17 @@ foreach ($computer in $computers) {
 
 ---
 
-## Common Patterns Across Use Cases
+## Patterns Worth Noting
 
-These use cases all leverage common patterns:
+A few things show up across most of these examples:
 
-1. **Parallel execution** - Process many machines simultaneously
-2. **Error handling** - Graceful failure management
-3. **Reporting** - CSV exports and email notifications
-4. **Verification** - Always confirm actions succeeded
-5. **Integration** - Work with AD, ticketing, monitoring systems
+- **Parallel execution** -- `ForEach-Object -Parallel` keeps things fast when you're hitting hundreds of machines
+- **Error handling** -- every script accounts for machines being offline or unreachable
+- **Reporting** -- CSV exports and email notifications so you have a record of what happened
+- **Verification** -- confirm the action worked, don't assume it did
+- **Composability** -- module functions combine naturally with AD, email, and your existing tooling
 
-## Building Your Own Use Cases
-
-The ConnectWiseAutomateAgent module provides the building blocks. Combine functions to solve your unique challenges:
+Here's a starter template if you want to build your own:
 
 ```powershell
 # Template for custom use cases
@@ -598,21 +600,12 @@ $results = $Computers | ForEach-Object -Parallel {
 $results | Export-Csv "Results.csv" -NoTypeInformation
 ```
 
-## Conclusion
-
-ConnectWiseAutomateAgent isn't just an installation tool—it's a comprehensive automation framework for RMM management. Whether you're provisioning new hires, ensuring compliance, managing disasters, or solving unique business challenges, the module provides the tools you need.
-
-What use case will you automate next?
-
 ---
 
-## Resources
+**Getting started:**
 
-- **Install Module**: `Install-Module ConnectWiseAutomateAgent`
-- **GitHub**: [https://github.com/christaylorcodes/ConnectWiseAutomateAgent](https://github.com/christaylorcodes/ConnectWiseAutomateAgent)
-- **Series Posts**:
-  - [Introducing ConnectWiseAutomateAgent]({% post_url 2024-02-12-introducing-connectwise-automate-agent %})
-  - [Mass Agent Deployment]({% post_url 2024-02-26-mass-agent-deployment-connectwise-automate %})
-  - [Troubleshooting Guide]({% post_url 2024-03-04-troubleshooting-connectwise-automate-agents-powershell %})
+```powershell
+Install-Module ConnectWiseAutomateAgent
+```
 
-**Share your use case**: If you've built something cool with this module, submit it as a GitHub issue tagged "Community Use Case" and we'll feature it!
+Full function reference and examples: [GitHub Repository](https://github.com/christaylorcodes/ConnectWiseAutomateAgent)

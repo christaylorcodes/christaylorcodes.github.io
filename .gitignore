@@ -37,3 +37,9 @@ assets/js/*.min.js
 
 # Performance benchmarks (local testing data)
 benchmarks/
+
+# Playwright MCP
+.playwright-mcp/
+
+# Windows null device artifact
+nul

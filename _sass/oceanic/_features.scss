@@ -223,8 +223,8 @@
     width: 0.75rem;
     height: 0.75rem;
     border-radius: 50%;
-    background: var(--border-color);
-    border: none;
+    background: rgba(148, 163, 184, 0.4);
+    border: 1px solid rgba(148, 163, 184, 0.3);
     cursor: pointer;
     transition: all 0.3s ease;
     padding: 0;

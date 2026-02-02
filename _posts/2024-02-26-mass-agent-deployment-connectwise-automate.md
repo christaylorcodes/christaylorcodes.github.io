@@ -1,50 +1,56 @@
 ---
 layout: post
-title: "Mass Agent Deployment: From 500 Machines to Done in Under an Hour"
+title: "Mass Agent Deployment: Deploying ConnectWise Automate Agents at Scale"
 short_title: "Mass Agent Deployment with PowerShell"
 date: 2024-02-26 10:00:00 -0000
 categories: [PowerShell, Deployment]
 tags: [PowerShell, ConnectWise, Automate, RMM, Deployment, Automation, MSP]
 author: Chris Taylor
-excerpt: "Deploy Automate agents to 500 computers in under an hour. This PowerShell script runs parallel deployments with error handling and verification. Complete code included for production use."
+excerpt: "Deploy ConnectWise Automate agents to hundreds of machines in parallel using PowerShell remoting. Covers inventory, phased rollouts, failure handling, verification, and integration with GPO and PDQ Deploy."
 ---
 
-## The Challenge
+## What This Covers
 
-You just signed a major client: 500 workstations, 50 servers, 3 office locations. They need monitoring **now**. The clock is ticking, and manual deployment isn't an option.
+The ConnectWiseAutomateAgent module handles mass deployment of ConnectWise Automate agents via PowerShell remoting. You build an inventory from Active Directory (AD), run parallel installations across your target machines, retry failures, and verify the results -- all from a single console.
 
-Traditional RMM agent deployment at scale is a nightmare:
+This post walks through a full deployment: preparation, the deployment script, failure handling, verification, and a few advanced patterns for staged rollouts and integration with other tools.
+
+---
+
+## Why Script It
+
+Deploying a Remote Monitoring and Management (RMM) agent to a handful of machines is straightforward. Deploying to hundreds is where the usual approaches start to fall apart:
+
 - GPO deployments that fail silently
 - Login scripts that run... sometimes
 - Email campaigns with download links (chaos)
 - Sneakernet USB drives (it's 2025, really?)
 - One-by-one remote installations (enjoy your weekend)
 
-**There's a better way.**
+PowerShell remoting gives you parallel execution, per-machine error handling, and a CSV report at the end. The ConnectWiseAutomateAgent module provides the installation, configuration, and verification functions. Together, they turn a multi-day project into a scripted operation.
 
-## The ConnectWiseAutomateAgent Approach
+---
 
-With PowerShell and the ConnectWiseAutomateAgent module, you can deploy to hundreds of machines in parallel, with full visibility, error handling, and reporting.
+## Scenario: Multi-Site Client Onboarding
 
-Let's walk through a real-world mass deployment scenario.
+The examples below use a representative scenario. Adjust the values to match your environment.
 
-## Scenario: New Client Onboarding
-
-**Client**: Manufacturing company
-**Infrastructure**:
+**Infrastructure:**
 - 500 Windows 10/11 workstations
 - 50 Windows Servers (mix of 2016/2019/2022)
 - 3 office locations (each with different proxy requirements)
 - Active Directory environment
 - Some machines behind restrictive firewalls
 
-**Requirements**:
+**Requirements:**
 - Agent must be hidden from Add/Remove Programs
 - Custom display name: "SecureWatch Monitoring"
 - Different LocationIDs per office
 - Proxy configuration for Site B
 - No user disruption during deployment
 - Complete within business hours
+
+---
 
 ## Phase 1: Preparation
 
@@ -97,6 +103,8 @@ $allComputers | Export-Csv "Deployment-Inventory.csv" -NoTypeInformation
 
 Write-Host "Total machines to deploy: $($allComputers.Count)" -ForegroundColor Cyan
 ```
+
+---
 
 ## Phase 2: Deployment Script
 
@@ -180,6 +188,11 @@ $results = $computers | ForEach-Object -Parallel {
             # Import module
             Import-Module ConnectWiseAutomateAgent -ErrorAction Stop
 
+            # Configure proxy if specified (proxy is set at module level, not on Install-CWAA)
+            if ($prx) {
+                Set-CWAAProxy -ProxyServerURL $prx
+            }
+
             # Build installation parameters
             $installParams = @{
                 Server = $srv
@@ -188,11 +201,6 @@ $results = $computers | ForEach-Object -Parallel {
                 Hide = $true
                 Rename = "SecureWatch Monitoring"
                 ErrorAction = 'Stop'
-            }
-
-            # Add proxy if specified
-            if ($prx) {
-                $installParams.Proxy = $prx
             }
 
             # Install
@@ -283,7 +291,11 @@ Offline: 5
 Average deployment time: 44 seconds
 ```
 
+---
+
 ## Phase 3: Handling Failures
+
+Some machines won't succeed on the first pass. Common reasons: machine was powered off, WinRM wasn't enabled, or a firewall rule blocked the connection. The deployment script exports a CSV with per-machine results, so retrying is straightforward.
 
 ### Retry Failed Deployments
 
@@ -309,7 +321,7 @@ $retryList | Export-Csv "Deployment-Retry.csv" -NoTypeInformation
 
 ### Manual Investigation
 
-For persistent failures:
+For machines that fail repeatedly, this script checks the basics -- network reachability, WinRM status, and whether an agent is already installed:
 
 ```powershell
 $problemComputers = Import-Csv "Deployment-Retry.csv" |
@@ -348,7 +360,11 @@ foreach ($pc in $problemComputers) {
 }
 ```
 
+---
+
 ## Phase 4: Verification
+
+After deployment completes, verify independently that agents are installed and reporting. Don't just trust the deployment script's output -- confirm it.
 
 ### Verify All Deployments
 
@@ -401,11 +417,13 @@ $verification | Export-Csv "Deployment-Verification-$(Get-Date -Format 'yyyyMMdd
 Write-Host "`nCheck your ConnectWise Automate console for agent check-ins..."
 ```
 
+---
+
 ## Advanced Techniques
 
 ### Staged Rollout
 
-Deploy in waves to minimize risk:
+Deploying everything at once is tempting but risky. A staged rollout lets you validate the process on a small group before committing to the full inventory.
 
 ```powershell
 # Deploy to 10% first (pilot group)
@@ -420,6 +438,8 @@ $wave2 | Export-Csv "Wave2-Main.csv" -NoTypeInformation
 $wave3 = $allComputers | Select-Object -Skip 275
 $wave3 | Export-Csv "Wave3-Final.csv" -NoTypeInformation
 ```
+
+Run each wave through the same `Deploy-Agents.ps1` script and review the results before moving on. If your pilot wave surfaces a consistent failure (wrong LocationID, firewall rule, etc.), you can fix it before it affects 450 machines instead of 50.
 
 ### Integration with PDQ Deploy
 
@@ -473,38 +493,42 @@ if (-not (Test-Path $marker)) {
 }
 ```
 
-## Real-World Results
+---
 
-**Actual deployment from 500-seat client**:
+## What to Expect at Scale
 
-- **Total time**: 43 minutes
-- **Success rate**: 97.4% (487/500)
-- **Average deployment time per machine**: 44 seconds
-- **Failures**: 8 (WinRM not enabled)
-- **Offline machines**: 5 (powered off)
-- **Manual intervention needed**: 13 machines (2.6%)
+The numbers you'll see depend on your environment -- network speed, WinRM configuration, server load, and how many machines are actually online. As a rough guide for a 500-machine deployment with 20-25 parallel threads:
 
-**Time comparison**:
-- Manual deployment estimate: 25-40 hours (500 machines × 3-5 min each)
-- PowerShell deployment: 43 minutes
-- **Time saved**: ~35 hours
+- **Total time**: Under an hour for the deployment pass
+- **Success rate**: 95%+ if WinRM is pre-configured and machines are online
+- **Per-machine install time**: 40-50 seconds on average
+- **Common failures**: WinRM not enabled, machine powered off, firewall blocking the connection
+
+The remaining 2-5% typically need one retry pass or manual attention (enable WinRM, power on the machine, open a firewall port). The retry workflow in Phase 3 handles most of these.
+
+For comparison, manual deployment of 500 agents at 3-5 minutes each is roughly 25-40 hours of technician time. The scripted approach compresses that into under an hour of execution plus review time.
+
+---
 
 ## Best Practices
 
-1. **Test on pilot group first** - Deploy to 5-10% before full rollout
-2. **Enable WinRM ahead of time** - Use GPO to enable PowerShell remoting
-3. **Stagger deployments** - Don't hammer your Automate server
-4. **Monitor server load** - Watch server resources during deployment
-5. **Keep installer tokens secure** - Don't commit to Git, use secure vaults
-6. **Verify check-ins** - Confirm agents appear in Automate console
-7. **Document LocationIDs** - Keep a mapping of sites to IDs
-8. **Save deployment reports** - Useful for billing and documentation
+- **Test on a pilot group first.** Deploy to 5-10% before the full rollout.
+- **Enable WinRM ahead of time.** Use GPO to enable PowerShell remoting across the target environment.
+- **Stagger your deployments.** Don't send 500 simultaneous installs at your Automate server.
+- **Monitor server load.** Keep an eye on your Automate server's resources during large deployments.
+- **Keep installer tokens secure.** Don't commit them to Git. Use a credential vault or pass them as parameters.
+- **Verify check-ins.** Confirm agents appear in the Automate console after deployment, not just in your script output.
+- **Document LocationIDs.** Maintain a mapping of sites to IDs. You'll reference it every time you onboard a new site.
+- **Save deployment reports.** The CSV exports are useful for billing, documentation, and troubleshooting later.
+
+---
 
 ## Troubleshooting Common Issues
 
 ### Issue: "Access Denied" Errors
 
-**Solution**: Ensure proper credentials and WinRM enabled
+**Cause**: WinRM not enabled or insufficient permissions on the target machine.
+
 ```powershell
 # Enable WinRM via GPO or run on each machine:
 Enable-PSRemoting -Force
@@ -512,7 +536,8 @@ Enable-PSRemoting -Force
 
 ### Issue: "Module Not Found" on Remote Machines
 
-**Solution**: Install module on target machines first or use `-Scope AllUsers`
+**Cause**: The module isn't installed on the target. `Invoke-Command` runs on the remote machine, so the module needs to be there.
+
 ```powershell
 # Pre-install module via GPO or:
 Invoke-Command -ComputerName $computers -ScriptBlock {
@@ -522,34 +547,26 @@ Invoke-Command -ComputerName $computers -ScriptBlock {
 
 ### Issue: Proxy Authentication Failures
 
-**Solution**: Configure proxy credentials
+**Cause**: The target machine needs proxy configuration before the installer can reach the Automate server. Proxy is set at the module level, not as a parameter on `Install-CWAA`.
+
 ```powershell
+# Set proxy at the module level (proxy is not a parameter of Install-CWAA)
+$proxyPass = ConvertTo-SecureString "password" -AsPlainText -Force
+Set-CWAAProxy -ProxyServerURL "http://proxy:8080" `
+              -ProxyUsername "domain\user" `
+              -ProxyPassword $proxyPass
+
 Install-CWAA -Server $server `
              -InstallerToken $token `
-             -LocationID $loc `
-             -Proxy "http://proxy:8080" `
-             -ProxyUsername "domain\user" `
-             -ProxyPassword "password"
+             -LocationID $loc
 ```
-
-## Conclusion
-
-Mass deployment of RMM agents doesn't have to be a multi-day ordeal. With ConnectWiseAutomateAgent and PowerShell, you can:
-
-- Deploy to hundreds of machines in under an hour
-- Achieve 95%+ success rates
-- Get detailed reporting and error handling
-- Retry failures automatically
-- Verify deployments programmatically
-
-The next time you onboard a large client, you'll be ready to deploy at scale.
 
 ---
 
-## Resources
+**Getting started:**
 
-- **Install Module**: `Install-Module ConnectWiseAutomateAgent`
-- **GitHub**: [https://github.com/christaylorcodes/ConnectWiseAutomateAgent](https://github.com/christaylorcodes/ConnectWiseAutomateAgent)
-- **Previous Post**: [Introducing ConnectWiseAutomateAgent]({% post_url 2024-02-12-introducing-connectwise-automate-agent %})
+```powershell
+Install-Module ConnectWiseAutomateAgent
+```
 
-**Next in series**: Troubleshooting ConnectWise Automate agents like a pro with PowerShell diagnostics.
+Full function reference and examples: [GitHub Repository](https://github.com/christaylorcodes/ConnectWiseAutomateAgent)

@@ -97,3 +97,4 @@ exclude:
   - KNOWN-ISSUES.md
   - prototypes/
   - docs/
+  - nul

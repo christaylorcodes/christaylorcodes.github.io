@@ -40,7 +40,7 @@ This guide is part of a comprehensive documentation suite:
 
 **Site Maturity & Growth:**
 - [docs/WEBSITE-MATURITY-FRAMEWORK.md](docs/WEBSITE-MATURITY-FRAMEWORK.md) - Comprehensive maturity assessment across 7 dimensions
-  - Current overall maturity: Level 2.5 (Developing → Defined) - 37%
+  - Current overall maturity: Level 3 (Defined) - 55%
   - Quarterly review schedule and scoring methodology
   - Phased improvement roadmaps with specific tasks and timelines
   - Success metrics and tracking process
@@ -665,11 +665,19 @@ This section defines standards for creating and maintaining content on the site 
 - Technology decision-makers
 
 **Content Voice & Style:**
-- **Professional but approachable** - Expert without being condescending
-- **Practical and actionable** - Focus on real-world application
-- **Specific over generic** - Concrete examples, not abstract concepts
-- **Show, don't just tell** - Code examples, screenshots, demonstrations
-- **Explain the why** - Context and reasoning, not just instructions
+
+All content must follow the voice model defined in [C:\_Code\Purview\AGENTS\CHRIS.AI\model\voice.md](C:\_Code\Purview\AGENTS\CHRIS.AI\model\voice.md). Key rules:
+
+- **Natural contractions always** - "don't", "I've", "it's", "we'll". Writing without contractions sounds robotic
+- **Address the reader directly** - Use "you" and "your", not passive or third-person constructions
+- **No corporate buzzwords** - Never use "robust", "seamless", "leverage", "enhance efficiency", "diverse industries"
+- **Answer-first structure** - Lead with the key info, elaborate after
+- **Dry humor where natural** - Situational, never forced. See the AI Doom post as the gold standard
+- **Active voice** - "I build modules" not "Modules are built"
+- **Define acronyms on first use** - "Managed Service Provider (MSP)" then "MSP" after
+- **Short sentences** - If it needs a semicolon, it's probably two sentences
+- **Convey meaning, not impress** - No "I thrive on", "I believe in the power of", "elegant solutions"
+- **The test**: Would Chris actually say this out loud?
 
 **Writing Quality Standards:**
 - Clear, concise writing with proper grammar and spelling
