@@ -19,6 +19,6 @@ github_url: "https://github.com/christaylorcodes/ConnectWiseControlAPI"
 powershell_gallery_url: "https://www.powershellgallery.com/packages/ConnectWiseControlAPI"
 docs_url: "https://github.com/christaylorcodes/ConnectWiseControlAPI/tree/master/Docs"
 stars: 85
-gallery_downloads: 1730301
+gallery_downloads: 1730474
 order: 20
 ---
