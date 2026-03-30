@@ -18,6 +18,6 @@ tags:
 github_url: "https://github.com/christaylorcodes/AzureKeyVaultHelper"
 powershell_gallery_url: "https://www.powershellgallery.com/packages/AzureKeyVaultHelper"
 stars: 13
-gallery_downloads: 5441
+gallery_downloads: 5444
 order: 40
 ---

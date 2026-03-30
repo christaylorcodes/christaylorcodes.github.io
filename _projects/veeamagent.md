@@ -19,6 +19,6 @@ tags:
 github_url: "https://github.com/christaylorcodes/VeeamAgent"
 powershell_gallery_url: "https://www.powershellgallery.com/packages/VeeamAgent"
 stars: 5
-gallery_downloads: 50904
+gallery_downloads: 51004
 order: 80
 ---
