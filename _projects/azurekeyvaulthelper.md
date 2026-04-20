@@ -17,7 +17,7 @@ tags:
   - Automation
 github_url: "https://github.com/christaylorcodes/AzureKeyVaultHelper"
 powershell_gallery_url: "https://www.powershellgallery.com/packages/AzureKeyVaultHelper"
-stars: 13
-gallery_downloads: 5451
+stars: 14
+gallery_downloads: 5453
 order: 40
 ---

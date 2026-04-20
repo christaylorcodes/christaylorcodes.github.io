@@ -1,5 +1,5 @@
 # Project Statistics - GitHub Stars and PowerShell Gallery Downloads
-# Last Updated: 2026-04-13
+# Last Updated: 2026-04-20
 #
 # This file centralizes all project statistics to enable easy updates
 # without modifying individual project files. Update these values
@@ -12,20 +12,20 @@
 
 # Azurekeyvaulthelper
 azurekeyvaulthelper:
-  stars: 13
-  gallery_downloads: 5451
+  stars: 14
+  gallery_downloads: 5453
 # Connectwiseautomateagent
 connectwiseautomateagent:
   stars: 14
-  gallery_downloads: 1642271
+  gallery_downloads: 1643082
 # Connectwisecontrolapi
 connectwisecontrolapi:
   stars: 85
-  gallery_downloads: 1730920
+  gallery_downloads: 1731062
 # Connectwisemanageapi
 connectwisemanageapi:
   stars: 123
-  gallery_downloads: 574428
+  gallery_downloads: 581058
 # Initialize psgallery
 initialize-psgallery:
   stars: 21
@@ -37,12 +37,12 @@ screeps-kleaner-bot:
 # Veeamagent
 veeamagent:
   stars: 5
-  gallery_downloads: 51218
+  gallery_downloads: 51313
 # Veeamspc
 veeamspc:
   stars: 1
-  gallery_downloads: 86509
+  gallery_downloads: 86614
 # Webrootunity
 webrootunity:
   stars: 9
-  gallery_downloads: 60263
+  gallery_downloads: 60359

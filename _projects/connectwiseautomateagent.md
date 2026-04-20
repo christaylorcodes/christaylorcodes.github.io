@@ -23,6 +23,6 @@ screenshots:
   - /assets/images/projects/connectwiseautomateagent-repair.svg
   - /assets/images/projects/connectwiseautomateagent-config.svg
 stars: 14
-gallery_downloads: 1642271
+gallery_downloads: 1643082
 order: 50
 ---
