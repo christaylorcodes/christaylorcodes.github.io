@@ -987,6 +987,50 @@
     font-weight: 600;
 }
 
+/* Spoiler / "show solution" reveal sections */
+.post-content details {
+    background-color: var(--bg-light);
+    border: 1px solid var(--border-color);
+    border-left: 4px solid var(--primary-color);
+    border-radius: 0.5rem;
+    padding: 0 1.5rem;
+    margin: 2rem 0;
+}
+
+.post-content details[open] {
+    padding-bottom: 0.5rem;
+}
+
+.post-content summary {
+    cursor: pointer;
+    list-style: none;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 1rem 0;
+    font-weight: 600;
+    color: var(--primary-color);
+    user-select: none;
+}
+
+.post-content summary::-webkit-details-marker {
+    display: none;
+}
+
+.post-content summary::before {
+    content: "\25B8"; /* ▸ */
+    color: var(--primary-color);
+    transition: transform 0.2s ease;
+}
+
+.post-content details[open] summary::before {
+    transform: rotate(90deg);
+}
+
+.post-content summary:hover {
+    color: var(--primary-light);
+}
+
 /* Post Footer (Navigation and Share) */
 .post-footer {
     background-color: var(--bg-light);
