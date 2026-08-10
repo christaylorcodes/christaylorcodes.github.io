@@ -17,7 +17,7 @@ tags:
   - Automation
   - Hobby Project
 github_url: "https://github.com/christaylorcodes/Screeps-Kleaner-bot"
-stars: 13
+stars: 14
 gallery_downloads: 0
 order: 90
 ---
