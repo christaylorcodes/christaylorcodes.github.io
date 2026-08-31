@@ -1,5 +1,5 @@
 # Project Statistics - GitHub Stars and PowerShell Gallery Downloads
-# Last Updated: 2026-08-24
+# Last Updated: 2026-08-31
 #
 # This file centralizes all project statistics to enable easy updates
 # without modifying individual project files. Update these values
@@ -20,7 +20,7 @@ connectwiseautomateagent:
   gallery_downloads: 2338212
 # Connectwisecontrolapi
 connectwisecontrolapi:
-  stars: 84
+  stars: 85
   gallery_downloads: 1732867
 # Connectwisemanageapi
 connectwisemanageapi:
