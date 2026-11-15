@@ -1,13 +1,21 @@
 ---
 layout: post
-title: "Troubleshooting ConnectWise Automate Agents with PowerShell"
+title: "Troubleshooting ConnectWise Automate Agents: LTService, LTSvcMon and PowerShell"
 short_title: "Troubleshooting Automate Agents"
 date: 2024-03-04 10:00:00 -0000
 categories: [PowerShell, Troubleshooting]
 tags: [PowerShell, ConnectWise, Automate, RMM, Troubleshooting, Diagnostics, MSP]
 author: Chris Taylor
 excerpt: "Structured troubleshooting workflows for ConnectWise Automate agents using PowerShell. Covers offline agents, intermittent connectivity, stopped services, log analysis, bulk health checks, and automated remediation scripts you can run from your workstation."
+description: "Fix offline ConnectWise Automate (ConnectWise RMM) agents with PowerShell. Check LTService and LTSvcMon, read the agent error log, test server ports, reset proxies, and reinstall stuck agents."
 ---
+
+> **Update (November 2026):** ConnectWiseAutomateAgent is on version 2.x now, and 2.1.0 is the current stable release. Every command in this post exists in 2.x under the `CWAA` names shown, and the old `LT` aliases like `Get-LTServiceInfo` and `Get-LTErrors` still work. A few things that help when troubleshooting:
+>
+> - **`Test-CWAAServerConnectivity` is new.** It checks whether the server answers on its agent endpoint, which is a quicker "is the server up?" test than the full port check. Add `-Quiet` for a plain `True` or `False`.
+> - **`Get-CWAAError` returns objects** with `ServiceVersion`, `Timestamp`, and `Message`. Filter on `$_.Message` and group on `Message` for cleaner results than matching the whole object.
+> - **Destructive commands support `-WhatIf`.** That includes `Restart-CWAA`, `Redo-CWAA`, and `Set-CWAALogLevel`.
+> - **`Repair-CWAAAgent` below is a custom example function**, not part of the module. The module's built-in `Repair-CWAA` is covered in {% assign health_post = site.posts | where: "slug", "automate-agent-health-checks" | first %}{% if health_post %}[ConnectWise Automate Agent Health Checks]({{ health_post.url }}){% else %}the upcoming post on agent health checks{% endif %}.
 
 ## What This Covers
 

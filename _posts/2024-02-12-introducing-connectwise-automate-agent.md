@@ -1,13 +1,20 @@
 ---
 layout: post
-title: "Introducing ConnectWiseAutomateAgent: PowerShell Automation for Your RMM"
+title: "ConnectWise Automate Agent: Install, Repair and Manage It with PowerShell"
 short_title: "ConnectWiseAutomateAgent"
 date: 2024-02-12 10:00:00 -0000
 categories: [PowerShell, RMM]
 tags: [PowerShell, ConnectWise, Automate, RMM, Automation, MSP]
 author: Chris Taylor
 excerpt: "ConnectWiseAutomateAgent is a PowerShell module with 30 functions for managing ConnectWise Automate agents on Windows endpoints. It covers the full agent lifecycle from deployment through troubleshooting and maintenance, all from the command line. Open source, MIT licensed, available on the PowerShell Gallery."
+description: "Manage the ConnectWise Automate (ConnectWise RMM) agent from PowerShell. Install, reinstall, update, and repair LTService and LTSvcMon, read agent logs, and set proxies with the free ConnectWiseAutomateAgent module."
 ---
+
+> **Update (November 2026):** ConnectWiseAutomateAgent is on version 2.x now, and 2.1.0 is the current stable release. The examples below already use the `CWAA` command names. All 32 original `LT` aliases, like `Install-LTService` and `Get-LTServiceInfo`, still work, so older scripts run unchanged.
+>
+> Version 2 added health checks and self-repair (`Test-CWAAHealth`, `Repair-CWAA`, `Register-CWAAHealthCheckTask`), Windows Event Log entries for every action, `-WhatIf` and `-Confirm` on destructive commands, and testing on Windows PowerShell 5.1 and PowerShell 7. For a safe way to roll out self-healing, see {% assign health_post = site.posts | where: "slug", "automate-agent-health-checks" | first %}{% if health_post %}[ConnectWise Automate Agent Health Checks]({{ health_post.url }}){% else %}the upcoming post on agent health checks{% endif %}.
+>
+> One fix: the `raw.githubusercontent.com/.../main/ConnectWiseAutomateAgent.ps1` fallback URL below no longer exists. Use `Install-Module`, or the `ConnectWiseAutomateAgent.psm1` file attached to each [GitHub release](https://github.com/christaylorcodes/ConnectWiseAutomateAgent/releases).
 
 ## What This Is
 

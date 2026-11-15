@@ -5,7 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>{% if page.title %}{{ page.title }} | {% endif %}{{ site.title }}</title>
-    <meta name="description" content="{{ page.description | default: site.description }}">
+    {%- comment -%} Project pages carry a multi-paragraph markdown description; prefer the card-length short_description for search snippets {%- endcomment -%}
+    <meta name="description" content="{{ page.short_description | default: page.description | default: site.description | markdownify | strip_html | normalize_whitespace | truncate: 160 | escape }}">
 
     <!-- SEO, Open Graph, and Twitter Cards -->
     <!-- The jekyll-seo-tag plugin generates comprehensive meta tags including:

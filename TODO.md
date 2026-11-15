@@ -156,8 +156,8 @@ Foundation sprint establishing performance baselines and asset optimization work
   - Person schema enhanced (Nov 8, 2025): givenName, familyName, knowsLanguage, credentials, interaction stats
 
 **SEO Optimization** - Carried to Sprint 11:
-- [ ] Configure Google Search Console and submit sitemap [PERSONAL] [HIGH]
-- [ ] Create analytics baseline dashboard [PERSONAL] [MEDIUM]
+- [x] Configure Google Search Console and submit sitemap [PERSONAL] [HIGH] (done, see Search Console section below)
+- [x] Create analytics baseline dashboard [PERSONAL] [MEDIUM] (docs/ANALYTICS-BASELINE-2026-02.md, docs/ANALYTICS-SNAPSHOT-2026-11.md)
 
 **Accessibility** - Completed:
 - [x] Add ARIA labels to navigation and interactive elements [PERSONAL] [HIGH]

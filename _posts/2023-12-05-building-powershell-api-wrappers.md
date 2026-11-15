@@ -9,6 +9,8 @@ author: Chris Taylor
 excerpt: "Lessons from building a PowerShell API wrapper with 81+ GitHub stars. Learn design decisions, code organization, error handling, and common mistakes. Practical advice from maintaining production modules that IT professionals actually use."
 ---
 
+> **Update (November 2026):** ConnectWise renamed Control back to ScreenConnect, and ConnectWiseControlAPI 0.5.0 is out. The code in this post is simplified to show the design ideas. It isn't the module's real code, so don't copy it as usage. Some of the ideas here went further in 0.5.0: every API call now goes through one internal helper, errors carry IDs like `CWC.NotConnected` and `CWC.Http404` you can branch on, safe reads retry on HTTP 500, `-Debug` output redacts auth headers, and `Remove-CWCSession` now uses `ConfirmImpact = 'High'`, so it prompts unless you pass `-Confirm:$false`. The connection lives in a script-scoped variable, not the global one shown here, and the source moved to a `source/` folder. For the user-facing changes, read {% assign sc_post = site.posts | where: "slug", "screenconnect-api-powershell" | first %}{% if sc_post %}[ScreenConnect API with PowerShell: MFA, API Secrets and ConnectWiseControlAPI 0.5]({{ sc_post.url }}){% else %}the upcoming ScreenConnect API post{% endif %}.
+
 ## Why Build API Wrappers?
 
 After 20+ years in MSP operations, I've built PowerShell wrappers for several REST APIs—ConnectWise Manage, ConnectWise Control, and various other vendor platforms. Each time, the goal is the same: make complex APIs accessible to operations teams who need automation but don't want to become API experts.

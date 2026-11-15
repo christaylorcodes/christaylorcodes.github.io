@@ -1,13 +1,18 @@
 ---
 layout: post
-title: "Introducing ConnectWiseManageAPI: PowerShell Automation for MSPs"
+title: "Introducing ConnectWiseManageAPI: PowerShell for the ConnectWise PSA (Manage) API"
 short_title: "ConnectWiseManageAPI: PowerShell for MSPs"
 date: 2024-09-16 10:00:00 -0000
 categories: [PowerShell, PSA, ConnectWiseManageAPI]
 tags: [PowerShell, ConnectWise, Manage, PSA, Automation, MSP, API]
 author: Chris Taylor
 excerpt: "Stop clicking through ConnectWise Manage for every task. This PowerShell module provides 180+ commands to automate tickets, time entries, reports, and integrations. Eliminate repetitive work with simple scripts."
+description: "ConnectWiseManageAPI is a PowerShell module for the ConnectWise PSA (Manage) REST API. Automate tickets, time entries, companies and reports with cmdlets instead of raw REST calls."
 ---
+
+{% assign upgrade_post = site.posts | where: "slug", "upgrading-connectwisemanageapi-0-5" | first %}
+
+> **Update (November 2026):** ConnectWise now calls Manage "ConnectWise PSA", and ConnectWiseManageAPI 0.5.0 is out with breaking changes. The code in this post still works as written. It doesn't use `Connect-CWM -Version` or any of the removed parameters. What's different: the module needs PowerShell 5.1 or later (it used to accept 3.0), it always talks to your server's current API version, and it's grown to 250+ cmdlets. If you're upgrading from 0.4.x, read {% if upgrade_post %}[Upgrading to ConnectWiseManageAPI 0.5]({{ upgrade_post.url }}){% else %}the upcoming post on upgrading to ConnectWiseManageAPI 0.5{% endif %} first.
 
 ## The Challenge of Manual PSA Management
 

@@ -8,6 +8,17 @@ author: Chris Taylor
 excerpt: "Learn how to build ConnectWiseManageAPI automation that actually runs reliably in production. This guide covers security, performance, error handling, and deployment strategies from years of real-world experience."
 ---
 
+{% assign upgrade_post = site.posts | where: "slug", "upgrading-connectwisemanageapi-0-5" | first %}
+
+> **Update (November 2026):** ConnectWiseManageAPI 0.5.0 is out with breaking changes. I've updated the code in this post to match it, and fixed a few calls that never worked:
+>
+> - The update examples now use `-PatchOperations`. The originals passed an array of changes to `-Operation`, which only takes `add`, `replace` or `remove`.
+> - The batch example no longer uses `ForEach-Object -Parallel`. Each parallel runspace loads the module fresh, without your `Connect-CWM` session. Sending all of a ticket's changes in one `-PatchOperations` request is the better win.
+> - `Get-CWMAuditTrail` needs `-type` and `-id`, and `Get-CWMServiceBoard` takes `-id`.
+> - The encrypted credential file example converts back to a hashtable, so `Connect-CWM @EncryptedCreds` can splat it.
+>
+> The module now retries 429 responses, plus 502, 503 and 504 on reads, by itself. Keep the retry wrapper below for other failures, but don't use it to retry writes on a 5xx. The first attempt may have gone through. Also: the module needs PowerShell 5.1 or later, `Connect-CWM` always uses your server's current API version, and `Connect-CWM -MemberID` now really runs every request as that member, so check that member's permissions. Upgrading from 0.4.x? Read {% if upgrade_post %}[Upgrading to ConnectWiseManageAPI 0.5]({{ upgrade_post.url }}){% else %}the upcoming post on upgrading to ConnectWiseManageAPI 0.5{% endif %}.
+
 After years of building automation solutions with ConnectWiseManageAPI across numerous MSP environments, I've learned what works—and what doesn't. This post shares battle-tested best practices, performance optimization tips, and lessons learned from real-world implementations.
 
 ## Security Best Practices
@@ -80,7 +91,7 @@ $CWMCreds | ConvertTo-Json |
 $EncryptedCreds = Get-Content 'C:\Secure\CWM-Creds.enc' |
     ConvertTo-SecureString |
     ConvertFrom-SecureString -AsPlainText |
-    ConvertFrom-Json
+    ConvertFrom-Json -AsHashtable  # Splatting needs a hashtable (PowerShell 7+)
 
 Connect-CWM @EncryptedCreds
 ```
@@ -97,14 +108,13 @@ Create service accounts specifically for API integrations:
 
 ### Audit Your Automation
 
-Use ConnectWise's audit trail to monitor API activity:
+Use ConnectWise's audit trail to check what your automation changed. Audit trails are per record, so pick a record your automation touches:
 
 ```powershell
-# Review recent API actions
-$AuditTrail = Get-CWMAuditTrail -condition "deviceIdentifier contains 'ConnectWiseManageAPI'" -all
+# Review the audit trail for a ticket your automation updates
+$AuditTrail = Get-CWMAuditTrail -type Ticket -id 12345 -all
 
-# Look for suspicious patterns
-$AuditTrail | Group-Object type | Select-Object Name, Count | Sort-Object Count -Descending
+$AuditTrail | Format-Table
 ```
 
 ## Performance Optimization
@@ -120,7 +130,7 @@ The `-all` parameter automatically handles pagination, but it can be slow for la
 Get-CWMServiceBoard -all
 
 # Good: Filtered results
-Get-CWMTicket -condition "closedDate>'2025-01-01'" -all
+Get-CWMTicket -condition "closedDate>[2025-01-01]" -all
 ```
 
 **When to Paginate Manually:**
@@ -193,7 +203,7 @@ function Get-CWMServiceBoardCached {
     param([int]$BoardID)
 
     if (-not $script:BoardCache.ContainsKey($BoardID)) {
-        $script:BoardCache[$BoardID] = Get-CWMServiceBoard -BoardID $BoardID
+        $script:BoardCache[$BoardID] = Get-CWMServiceBoard -id $BoardID
     }
 
     return $script:BoardCache[$BoardID]
@@ -205,15 +215,15 @@ $Board = Get-CWMServiceBoardCached -BoardID 1
 
 ### Batch Operations When Possible
 
-Instead of making individual API calls in a loop, batch operations:
+Instead of making one API call per field, send all of a record's changes in one request:
 
 **Less Efficient:**
 
 ```powershell
-# Individual update for each ticket
+# Two requests per ticket, plus a manual delay
 foreach ($TicketID in $TicketIDs) {
-    $Ops = @(@{op='replace'; path='status'; value=@{id=5}})
-    Update-CWMTicket -TicketID $TicketID -Operation $Ops
+    Update-CWMTicket -id $TicketID -Operation replace -Path 'status' -Value @{ id = 5 }
+    Update-CWMTicket -id $TicketID -Operation replace -Path 'owner' -Value @{ id = 50 }
     Start-Sleep -Milliseconds 100  # Rate limiting
 }
 ```
@@ -221,13 +231,16 @@ foreach ($TicketID in $TicketIDs) {
 **More Efficient:**
 
 ```powershell
-# Use a single search and bulk update if applicable
-# Or at minimum, remove unnecessary operations inside the loop
-$UpdateOps = @(@{op='replace'; path='status'; value=@{id=5}})
+# One request per ticket with -PatchOperations (0.5.0 and later).
+# The module retries 429 responses itself, so there's no manual delay.
+$UpdateOps = @(
+    @{ op = 'replace'; path = 'status'; value = @{ id = 5 } }
+    @{ op = 'replace'; path = 'owner'; value = @{ id = 50 } }
+)
 
-$TicketIDs | ForEach-Object -Parallel {
-    Update-CWMTicket -TicketID $_ -Operation $using:UpdateOps
-} -ThrottleLimit 5
+foreach ($TicketID in $TicketIDs) {
+    Update-CWMTicket -id $TicketID -PatchOperations $UpdateOps
+}
 ```
 
 ## Error Handling Patterns
@@ -261,7 +274,7 @@ function Get-CompanySafely {
 
 ### Implement Retry Logic for Transient Failures
 
-Network issues and server problems happen. Implement retry logic:
+Network issues and server problems happen. Since 0.5.0 the module retries 429 responses, and 502, 503 and 504 on reads, by itself. Use a wrapper like this for other transient failures, and don't wrap writes with it. A write that failed with a 5xx may have gone through.
 
 ```powershell
 function Invoke-CWMWithRetry {
@@ -504,7 +517,7 @@ function Update-CWMCompanyAddress {
         @{op='replace'; path='zip'; value=$Zip}
     )
 
-    Update-CWMCompany -CompanyID $CompanyID -Operation $UpdateOps
+    Update-CWMCompany -id $CompanyID -PatchOperations $UpdateOps
 }
 ```
 
@@ -515,7 +528,7 @@ Always confirm critical changes:
 ```powershell
 # Update ticket
 $UpdateOps = @(@{op='replace'; path='status'; value=@{id=5}})
-Update-CWMTicket -TicketID 12345 -Operation $UpdateOps
+Update-CWMTicket -id 12345 -PatchOperations $UpdateOps
 
 # Verify the change
 $UpdatedTicket = Get-CWMTicket -TicketID 12345
@@ -547,19 +560,20 @@ function Update-BulkTickets {
     [CmdletBinding(SupportsShouldProcess)]
     param(
         [int[]]$TicketIDs,
-        [hashtable]$UpdateData
+        [object[]]$UpdateOperations
     )
 
     foreach ($TicketID in $TicketIDs) {
-        if ($PSCmdlet.ShouldProcess("Ticket $TicketID", "Update with $($UpdateData | ConvertTo-Json -Compress)")) {
+        if ($PSCmdlet.ShouldProcess("Ticket $TicketID", "Update with $(ConvertTo-Json -InputObject $UpdateOperations -Compress)")) {
             # Perform actual update
-            Update-CWMTicket -TicketID $TicketID -Operation $UpdateData
+            Update-CWMTicket -id $TicketID -PatchOperations $UpdateOperations
         }
     }
 }
 
 # Test run without making changes
-Update-BulkTickets -TicketIDs @(123, 456, 789) -UpdateData $UpdateOps -WhatIf
+$UpdateOps = @(@{ op = 'replace'; path = 'status'; value = @{ id = 5 } })
+Update-BulkTickets -TicketIDs @(123, 456, 789) -UpdateOperations $UpdateOps -WhatIf
 ```
 
 ### Start Small, Scale Gradually
@@ -672,7 +686,7 @@ Synchronizes tickets between ConnectWise Manage and ServiceNow.
 Runs every 15 minutes via scheduled task.
 
 ## Prerequisites
-- ConnectWiseManageAPI module v0.4.16+
+- ConnectWiseManageAPI module v0.5.0+
 - ServiceNow API credentials in Azure Key Vault
 - PowerShell 7.0+
 
@@ -742,8 +756,8 @@ Use this checklist when building new automation:
 ---
 
 **Series Navigation:**
-- Previous: [Advanced Automation Scenarios](/2024/12/09/advanced-automation-connectwisemanageapi.html)
-- Start: [Introducing ConnectWiseManageAPI](/2024/11/25/introducing-connectwisemanageapi.html)
+- Previous: [Advanced Automation Scenarios](/powershell/psa/connectwisemanageapi/2024/09/30/advanced-automation-connectwisemanageapi.html)
+- Start: [Introducing ConnectWiseManageAPI](/powershell/psa/connectwisemanageapi/2024/09/16/introducing-connectwisemanageapi.html)
 
 **Additional Resources:**
 - [GitHub Repository](https://github.com/christaylorcodes/ConnectWiseManageAPI)

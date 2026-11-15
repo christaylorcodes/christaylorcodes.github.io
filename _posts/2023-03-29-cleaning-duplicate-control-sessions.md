@@ -9,6 +9,8 @@ author: Chris Taylor
 excerpt: "Automatically find and remove duplicate ConnectWise Control sessions with PowerShell. Real-world story shows how to clean up hundreds of duplicate sessions in minutes instead of hours. Includes working code."
 ---
 
+> **Update (November 2026):** ConnectWise renamed Control back to ScreenConnect, and ConnectWiseControlAPI 0.5.0 is out. Three fixes for this script. First, **`Remove-CWCSession` now asks for confirmation by default**, so the scheduled run needs `$Confirm = $false` (a task started with `-NonInteractive` fails at the prompt and removes nothing). Second, the original sort was backwards: `LastConnectedEventTime` is seconds since the last connection, so sorting it descending kept the *oldest* session. The script below now sorts ascending, and sessions that never connected sort last. Third, `Get-Credential` can't prompt in a scheduled task, so load a stored credential instead. Add `-Uninstall` if you also want the client removed from the machine. For MFA sign-in and the rest of 0.5.0, read {% assign sc_post = site.posts | where: "slug", "screenconnect-api-powershell" | first %}{% if sc_post %}[ScreenConnect API with PowerShell: MFA, API Secrets and ConnectWiseControlAPI 0.5]({{ sc_post.url }}){% else %}the upcoming ScreenConnect API post{% endif %}.
+
 ## The Problem: Hundreds of Duplicate Sessions
 
 Picture this: You open your ConnectWise Control console and see hundreds of duplicate sessions. A customer's laptop appears three times, a server shows up with four different session IDs, and your "All Machines" group is filled with ghosts of computers past. Every time a machine is reimaged or rejoins the domain, another duplicate appears.
@@ -63,7 +65,8 @@ $GroupName = 'All Machines'
 $WhatIf = $true
 $Confirm = $true
 
-# Get credentials
+# Get credentials. A scheduled task can't answer a prompt, so use a stored credential there:
+# $Credentials = Import-Clixml -Path 'C:\Secure\CWC-Credential.xml'
 $Credentials = Get-Credential -Message "Enter Control service account credentials"
 
 # Import module
@@ -100,8 +103,11 @@ Write-Host "Found $($duplicateGroups.Count) sets of duplicate sessions" -Foregro
 $sessionsToRemove = foreach ($group in $duplicateGroups) {
     Write-Host "`nDuplicate: $($group.Name) has $($group.Count) sessions" -ForegroundColor Yellow
 
-    # Sort by last connection time (most recent first)
-    $sorted = $group.Group | Sort-Object -Property LastConnectedEventTime -Descending
+    # LastConnectedEventTime is seconds since the last connection, so ascending puts the
+    # most recent first. Sessions that never connected (no time) sort last.
+    $sorted = $group.Group | Sort-Object -Property {
+        if ($null -eq $_.LastConnectedEventTime) { [double]::MaxValue } else { [double]$_.LastConnectedEventTime }
+    }
 
     # The first one (most recent) is kept
     $keepSession = $sorted | Select-Object -First 1
@@ -131,10 +137,11 @@ if ($WhatIf) {
 
 $removalResults = foreach ($session in $sessionsToRemove) {
     $params = @{
-        GUID    = $session.SessionID
-        Group   = $GroupName
-        Confirm = $Confirm
-        WhatIf  = $WhatIf
+        GUID        = $session.SessionID
+        Group       = $GroupName
+        Confirm     = $Confirm
+        WhatIf      = $WhatIf
+        ErrorAction = 'Stop'  # So the catch block sees failures
     }
 
     try {
@@ -201,13 +208,15 @@ PowerShell's `Group-Object` cmdlet groups sessions by the `Name` property. Any g
 ### Step 4: Sort and Select
 
 ```powershell
-$sorted = $group.Group | Sort-Object -Property LastConnectedEventTime -Descending
+$sorted = $group.Group | Sort-Object -Property {
+    if ($null -eq $_.LastConnectedEventTime) { [double]::MaxValue } else { [double]$_.LastConnectedEventTime }
+}
 $keepSession = $sorted | Select-Object -First 1
 $removeThese = $sorted | Select-Object -Skip 1
 ```
 
 For each duplicate group:
-1. Sort by `LastConnectedEventTime` with most recent first
+1. Sort by `LastConnectedEventTime` (seconds since the last connection) so the most recent is first
 2. Keep the first session (most recently connected)
 3. Mark all others for removal
 
@@ -240,7 +249,7 @@ Review the output carefully:
 After verifying the preview looks correct:
 
 1. Edit the script: Set `$WhatIf = $false`
-2. Optionally set `$Confirm = $false` if you're confident
+2. Set `$Confirm = $false` if you're confident. Since 0.5.0, an unattended run must use `$false`, or it stops at the confirmation prompt
 3. Run the script again
 
 ```powershell
@@ -306,7 +315,7 @@ foreach ($session in $sessionsToRemove) {
         -Status "Processing $i of $($sessionsToRemove.Count)" `
         -PercentComplete (($i / $sessionsToRemove.Count) * 100)
 
-    Remove-CWCSession -GUID $session.SessionID -Group $GroupName
+    Remove-CWCSession -GUID $session.SessionID -Group $GroupName -Confirm:$false
 }
 ```
 

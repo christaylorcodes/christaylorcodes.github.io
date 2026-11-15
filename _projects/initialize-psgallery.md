@@ -3,19 +3,18 @@ layout: project
 title: PSGallery Initializer
 icon: fa-box-open
 category: PowerShell
-short_description: Automatically diagnoses and fixes PowerShell Gallery connectivity issues, ensuring reliable module installation across diverse environments.
+short_description: "Fixes the usual reasons Install-Module fails on Windows: no TLS 1.2, a missing NuGet provider, broken PowerShellGet, or an untrusted PSGallery."
 description: |
-  Intelligent PowerShell utility that automatically diagnoses and resolves the most common connectivity issues preventing PowerShell Gallery access across diverse Windows environments. Detects and configures TLS 1.2 protocol support which is required but often missing in older Windows installations, eliminating cryptic "unable to connect" errors. Validates NuGet provider installation and automatically installs missing providers with appropriate version selection for the PowerShell version in use.
+  When `Install-Module` won't work on a machine, this script fixes the usual causes so you can get on with your day. It's a single function you run before touching the PowerShell Gallery, which makes it handy at the top of Remote Monitoring and Management (RMM) scripts that land on machines you've never seen. It isn't on the Gallery itself, for obvious reasons. Run it straight from GitHub: `Invoke-RestMethod 'https://raw.githubusercontent.com/christaylorcodes/Initialize-PSGallery/main/PSGalleryHelper.ps1' | Invoke-Expression`.
 
-  Configures PowerShell Gallery as a trusted repository to bypass interactive confirmation prompts that break unattended automation. Tests actual connectivity to gallery endpoints with detailed diagnostic output including DNS resolution, SSL certificate validation, and proxy detection for rapid troubleshooting. Identifies and reports on proxy server configurations that may be blocking module downloads, providing actionable guidance for network administrators. Handles legacy PowerShell 5.1 environments on Windows 7/2008R2 systems where default security settings are incompatible with modern gallery requirements.
+  It checks for PowerShell 3+ and .NET 4.5+, turns on TLS 1.2, and confirms it can reach the Gallery. Then it installs the NuGet provider if it's missing and reinstalls PackageManagement and PowerShellGet if they're broken or below the minimum versions it needs. Last, it registers PSGallery if needed and marks it trusted so installs don't stop for a prompt. Environment cleanup steps like execution policy and PSModulePath are best-effort, so a Group Policy (GPO) lock or a non-admin session won't stop the run.
 
-  Essential for RMM deployments where scripts run across hundreds of customer environments with unknown configurations and security policies. Prevents automation script failures caused by missing dependencies that should be installed from the gallery. Dramatically reduces support time for "Install-Module not working" scenarios from 30+ minutes of manual troubleshooting to under 60 seconds of automated diagnosis and repair.
+  The November 2026 update handles machines where PackageManagement is gone entirely, which used to fail before any repair started. The fallback downloads moved off a retired CDN host to the Gallery's own package URLs. Each fallback package is checked against a pinned SHA256 hash and validated before the installed copy is replaced.
 tags:
   - PowerShell
   - Automation
   - DevOps
 github_url: "https://github.com/christaylorcodes/Initialize-PSGallery"
-powershell_gallery_url: "https://www.powershellgallery.com/packages/Initialize-PSGallery"
 stars: 21
 gallery_downloads: 1
 order: 30

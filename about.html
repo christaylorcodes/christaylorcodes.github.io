@@ -16,7 +16,7 @@ permalink: /about/
             {% for highlight in site.data.author.about_highlights %}
             <div class="highlight-stat">
                 <i class="fas {{ highlight.icon }}"></i>
-                <div class="stat-number">{{ highlight.number }}</div>
+                <div class="stat-number">{% if highlight.source == "projects" %}{{ site.projects.size }}{% elsif highlight.source == "posts" %}{{ site.posts.size }}{% else %}{{ highlight.number }}{% endif %}</div>
                 <div class="stat-label">{{ highlight.label }}</div>
             </div>
             {% endfor %}

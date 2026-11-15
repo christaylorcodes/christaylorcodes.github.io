@@ -1,13 +1,16 @@
 ---
 layout: post
-title: "Automating ConnectWise Control: A PowerShell Module for MSPs"
+title: "Automating ConnectWise ScreenConnect (Control): A PowerShell Module for MSPs"
 short_title: "ConnectWiseControlAPI: PowerShell for MSPs"
 date: 2023-03-15 10:00:00 -0000
 categories: [PowerShell, MSP, ConnectWiseControlAPI]
 tags: [PowerShell, ConnectWise, Control, ScreenConnect, MSP, Automation, API]
 author: Chris Taylor
 excerpt: "Automate ConnectWise Control with PowerShell instead of clicking through web interfaces. This module handles session management, user administration, and remote commands. Turn hours of manual work into seconds of scripted automation."
+description: "ConnectWiseControlAPI is a PowerShell module for the ConnectWise ScreenConnect (formerly Control) API: find and remove sessions, run remote commands, update custom properties and manage users."
 ---
+
+> **Update (November 2026):** ConnectWise renamed Control back to ScreenConnect, and ConnectWiseControlAPI 0.5.0 is out with 35 commands. The module and its `CWC` command names didn't change. Two things in this post are different now: you no longer need an account without MFA (`Connect-CWC` supports `-Mfa`, `-TotpSecret` and `-ApiSecret`), and `Remove-CWCSession` asks for confirmation by default, so unattended scripts need `-Confirm:$false`. I've also fixed examples below that never worked as written: `Get-CWCSession` needs `-Type`, `Update-CWCCustomProperty -Property` takes the property's number, and `LastConnectedEventTime` is seconds since the last connection, not a date. For what's new, read {% assign sc_post = site.posts | where: "slug", "screenconnect-api-powershell" | first %}{% if sc_post %}[ScreenConnect API with PowerShell: MFA, API Secrets and ConnectWiseControlAPI 0.5]({{ sc_post.url }}){% else %}the upcoming ScreenConnect API post{% endif %}.
 
 ## The Problem with Manual Remote Management
 
@@ -45,7 +48,7 @@ Here's how simple it becomes to find and clean up redundant sessions. Instead of
 
 ```powershell
 # Connect to your Control server
-Connect-CWC -Server 'https://control.yourdomain.com' -Credential (Get-Credential)
+Connect-CWC -Server 'control.yourdomain.com' -Credentials (Get-Credential)
 
 # Find all duplicate sessions (same name, multiple entries)
 $duplicates = Get-CWCSession -Type Access -Group 'All Machines' |
@@ -78,7 +81,7 @@ $servers = Get-CWCSession -Type Access -Group 'Production Servers'
 
 # Execute a maintenance command
 $servers | ForEach-Object {
-    Invoke-CWCCommand -GUID $_.SessionID -Command 'Update-WindowsDefender' -PowerShell
+    Invoke-CWCCommand -GUID $_.SessionID -Command 'Update-MpSignature' -PowerShell
 }
 ```
 
@@ -87,10 +90,10 @@ $servers | ForEach-Object {
 Update custom properties for better organization and reporting:
 
 ```powershell
-# Tag all sessions in a client group with client identifier
-$sessions = Get-CWCSession -Group 'Client ABC'
+# Tag all sessions in a client group with client identifier (custom property 1)
+$sessions = Get-CWCSession -Type Access -Group 'Client ABC'
 $sessions | ForEach-Object {
-    Update-CWCCustomProperty -GUID $_.SessionID -Property 'ClientID' -Value 'ABC-001'
+    Update-CWCCustomProperty -GUID $_.SessionID -Property 1 -Value 'ABC-001' -Group 'Client ABC'
 }
 ```
 
@@ -100,8 +103,9 @@ Generate reports about your Control environment:
 
 ```powershell
 # Find all sessions that haven't connected in 30 days
+# LastConnectedEventTime is seconds since the last connection
 $stale = Get-CWCSession -Type Access -Group 'All Machines' |
-    Where-Object { (Get-Date) - $_.LastConnectedEventTime -gt (New-TimeSpan -Days 30) }
+    Where-Object { $_.LastConnectedEventTime -gt (30 * 86400) }
 
 # Export to CSV for review
 $stale | Export-Csv -Path 'StaleControlSessions.csv' -NoTypeInformation
@@ -115,7 +119,7 @@ The module is available on the PowerShell Gallery, making installation a single 
 Install-Module -Name ConnectWiseControlAPI
 ```
 
-Authentication requires a Control user account **without MFA enabled**. For security, create a dedicated service account with appropriate permissions, and use a complex username and password. Your Control server must use HTTPS.
+When this post was written, authentication required a Control user account **without MFA enabled**. Since 0.5.0 you can sign in with an MFA account or with the RESTful API Manager extension's secret instead. For security, create a dedicated service account with appropriate permissions, and use a complex username and password. Your server must use HTTPS.
 
 Basic usage follows a simple pattern:
 
@@ -123,11 +127,11 @@ Basic usage follows a simple pattern:
 # Import the module
 Import-Module ConnectWiseControlAPI
 
-# Connect to your server (credentials are cached for the session)
-Connect-CWC -Server 'https://control.yourdomain.com' -Credential (Get-Credential)
+# Connect to your server (the connection is cached for the session)
+Connect-CWC -Server 'control.yourdomain.com' -Credentials (Get-Credential)
 
 # Start using Control cmdlets
-Get-CWCSession -Limit 10
+Get-CWCSession -Type Access -Limit 10
 ```
 
 ## Why Open Source?

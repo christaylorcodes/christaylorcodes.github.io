@@ -9,6 +9,15 @@ author: Chris Taylor
 excerpt: "When Automate agents fail, use Control to reach machines and fix them remotely. This post shows how to connect both tools and automate agent maintenance that used to take hours."
 ---
 
+> **Update (November 2026):** The reinstall command in this post downloads `bit.ly/LTPoSh`, which points to the older community LabTech PowerShell module, not ConnectWiseAutomateAgent. If you'd rather use ConnectWiseAutomateAgent 2.x (2.1.0 is current), the command keeps the same shape. Its `CWAA` commands still answer to the old `LT` names, so `Redo-LTService` works as an alias for `Redo-CWAA`:
+>
+> ```powershell
+> Invoke-RestMethod 'https://github.com/christaylorcodes/ConnectWiseAutomateAgent/releases/download/v2.1.0/ConnectWiseAutomateAgent.psm1' | Invoke-Expression
+> Redo-CWAA -InstallerToken 'YOUR-INSTALLER-TOKEN-HERE' -Server 'https://automate.yourdomain.com' -Backup
+> ```
+>
+> Version 2 also adds a scheduled health check that restarts or reinstalls a broken agent on the endpoint itself, so you reach for Control less often. See {% assign health_post = site.posts | where: "slug", "automate-agent-health-checks" | first %}{% if health_post %}[ConnectWise Automate Agent Health Checks]({{ health_post.url }}){% else %}the upcoming post on agent health checks{% endif %}. (`Install-LTAgent` in the manual steps below is shorthand, not a real command in either module.)
+
 ## The MSP Tech Stack Integration Challenge
 
 Most MSPs run ConnectWise Control alongside ConnectWise Automate (formerly LabTech). Control provides fast remote access, while Automate handles monitoring, patching, and automation. But when Automate agents fail or need reinstallation, you need a way to reach the machine—and that's where Control becomes critical.

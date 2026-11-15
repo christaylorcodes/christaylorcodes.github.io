@@ -1,5 +1,5 @@
 # Project Statistics - GitHub Stars and PowerShell Gallery Downloads
-# Last Updated: 2026-11-09
+# Last Updated: 2026-11-15
 #
 # This file centralizes all project statistics to enable easy updates
 # without modifying individual project files. Update these values
@@ -26,14 +26,26 @@ connectwisecontrolapi:
 connectwisemanageapi:
   stars: 127
   gallery_downloads: 652295
+# Dnsfilterapi
+dnsfilterapi:
+  stars: 0
+  gallery_downloads: 7224
 # Initialize psgallery
 initialize-psgallery:
   stars: 21
   gallery_downloads: 1
+# Psanthropic
+psanthropic:
+  stars: 1
+  gallery_downloads: 9262
 # Screeps kleaner bot
 screeps-kleaner-bot:
   stars: 14
   gallery_downloads: 0
+# Unifiapi
+unifiapi:
+  stars: 1
+  gallery_downloads: 10049
 # Veeamagent
 veeamagent:
   stars: 5

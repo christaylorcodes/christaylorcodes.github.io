@@ -1,5 +1,5 @@
 # Author/Professional Identity Data
-# Last Updated: 2025-11-05
+# Last Updated: 2026-11-15
 #
 # This file centralizes all professional identity and biographical information
 # used throughout the site. Update these values once to affect all pages.
@@ -37,10 +37,10 @@ about_highlights:
     number: "20+"
     label: "Years Experience"
   - icon: fa-code
-    number: "6"
+    source: projects  # number computed from the _projects collection in about.html
     label: "Open Source Projects"
   - icon: fa-blog
-    number: "12+"
+    source: posts  # number computed from published posts in about.html
     label: "Blog Posts"
   - icon: fa-infinity
     number: "∞"

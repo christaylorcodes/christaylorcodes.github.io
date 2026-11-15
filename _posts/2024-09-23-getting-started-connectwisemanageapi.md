@@ -9,13 +9,17 @@ author: Chris Taylor
 excerpt: "Step-by-step guide to start automating ConnectWise Manage. Learn how to get API credentials, install the module, connect to your server, and run your first automation tasks with troubleshooting help."
 ---
 
+{% assign upgrade_post = site.posts | where: "slug", "upgrading-connectwisemanageapi-0-5" | first %}
+
+> **Update (November 2026):** ConnectWiseManageAPI 0.5.0 is out with breaking changes, and ConnectWise now calls Manage "ConnectWise PSA". For this post: the module needs PowerShell 5.1 or later (the prerequisites below are updated), and `Connect-CWM` always uses your server's current API version, so the objects you get back follow the current ConnectWise PSA model. None of the examples here use `-Version`, the removed `New-CWMTicket` parameters or positional calls to the changed cmdlets. I also fixed two examples that never worked: board statuses come from `Get-CWMBoardStatus -parentId`, and `Get-CWMContact` takes `-id`. Upgrading from 0.4.x? Read {% if upgrade_post %}[Upgrading to ConnectWiseManageAPI 0.5]({{ upgrade_post.url }}){% else %}the upcoming post on upgrading to ConnectWiseManageAPI 0.5{% endif %}.
+
 In this guide, we'll walk through everything you need to know to start using ConnectWiseManageAPI in your environment. By the end, you'll have the module installed, configured, and you'll have executed your first automation tasks.
 
 ## Prerequisites
 
 Before we begin, you'll need:
 
-1. **PowerShell 3.0 or higher** (PowerShell 5.1+ recommended)
+1. **PowerShell 5.1 or higher** (PowerShell 7 recommended; it runs on Windows, Linux and macOS)
 2. **A ConnectWise Manage account** with API access
 3. **API credentials** from ConnectWise Manage
 4. **A Client ID** from the ConnectWise Developer Portal
@@ -93,7 +97,7 @@ View available commands:
 Get-Command -Module 'ConnectWiseManageAPI'
 ```
 
-You should see 180+ cmdlets available for use.
+You should see 250+ cmdlets available for use.
 
 ## Step 3: Connecting to ConnectWise Manage
 
@@ -267,7 +271,7 @@ Get-CWMServiceBoard -all
 Get statuses for a specific board:
 
 ```powershell
-Get-CWMServiceBoardStatus -BoardID 1 -all
+Get-CWMBoardStatus -parentId 1 -all
 ```
 
 ### Working with Contacts
@@ -281,7 +285,7 @@ Get-CWMContact -condition "company/id=123" -all
 Get contact details:
 
 ```powershell
-Get-CWMContact -ContactID 789
+Get-CWMContact -id 789
 ```
 
 ## Step 5: Understanding Common Parameters
@@ -440,7 +444,8 @@ Get-Help New-CWMTicket -Examples
 **Error:** "429 Too Many Requests"
 
 **Solutions:**
-- Implement delays between API calls
+- Since 0.5.0 the module retries 429 responses for you and honors the `Retry-After` header
+- If you still hit the limit, add delays between API calls
 - Use the `-all` parameter instead of manual pagination loops
 - Consider batching operations
 
@@ -468,5 +473,5 @@ In the next blog post, we'll explore advanced automation scenarios including bui
 ---
 
 **Series Navigation:**
-- Previous: [Introducing ConnectWiseManageAPI](/2024/11/25/introducing-connectwisemanageapi.html)
-- Next: [Advanced Automation Scenarios](/2024/12/09/advanced-automation-connectwisemanageapi.html)
+- Previous: [Introducing ConnectWiseManageAPI](/powershell/psa/connectwisemanageapi/2024/09/16/introducing-connectwisemanageapi.html)
+- Next: [Advanced Automation Scenarios](/powershell/psa/connectwisemanageapi/2024/09/30/advanced-automation-connectwisemanageapi.html)

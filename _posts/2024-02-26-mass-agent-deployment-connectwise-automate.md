@@ -9,6 +9,14 @@ author: Chris Taylor
 excerpt: "Deploy ConnectWise Automate agents to hundreds of machines in parallel using PowerShell remoting. Covers inventory, phased rollouts, failure handling, verification, and integration with GPO and PDQ Deploy."
 ---
 
+> **Update (November 2026):** ConnectWiseAutomateAgent is on version 2.x now, and 2.1.0 is the current stable release. The examples below already use the `CWAA` names, and the old `LT` aliases like `Install-LTService` still work. Three changes matter for mass deployment:
+>
+> - **Certificate checks are stricter.** Version 2 accepts IP addresses and tolerates hostname mismatches, but rejects a broken certificate chain unless you add `-SkipCertificateCheck` to `Install-CWAA`. Fix the certificate if you can.
+> - **WMI gets enforced.** As of 2.1.0, `Install-CWAA` sets the `winmgmt` service to Automatic and starts it before installing.
+> - **Old servers get a warning.** `Install-CWAA` warns when your Automate server is older than v200.197, the June 2020 security fix.
+>
+> After the install, consider adding `Register-CWAAHealthCheckTask -InstallerToken $token` so each agent repairs itself. See {% assign health_post = site.posts | where: "slug", "automate-agent-health-checks" | first %}{% if health_post %}[ConnectWise Automate Agent Health Checks]({{ health_post.url }}){% else %}the upcoming post on agent health checks{% endif %} for a safe rollout plan.
+
 ## What This Covers
 
 The ConnectWiseAutomateAgent module handles mass deployment of ConnectWise Automate agents via PowerShell remoting. You build an inventory from Active Directory (AD), run parallel installations across your target machines, retry failures, and verify the results -- all from a single console.

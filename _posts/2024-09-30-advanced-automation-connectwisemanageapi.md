@@ -9,6 +9,17 @@ author: Chris Taylor
 excerpt: "Beyond the basics: real automation examples IT teams use daily. Learn automated ticket enrichment, bulk time entries, data quality monitoring, custom reporting, and system integrations with production-ready code."
 ---
 
+{% assign upgrade_post = site.posts | where: "slug", "upgrading-connectwisemanageapi-0-5" | first %}
+
+> **Update (November 2026):** ConnectWiseManageAPI 0.5.0 is out with breaking changes. I've updated the code in this post to match it, and fixed a few calls that never worked:
+>
+> - The ticket update now uses `-PatchOperations`. The original passed an array of changes to `-Operation`, which only takes `add`, `replace` or `remove`.
+> - Configurations are attached with `New-CWMTicketConfiguration` after the ticket is created. `New-CWMTicket` has no `-configurations` parameter.
+> - The data quality check looks up the fallback owner with `Get-CWMMember`. There's no `Get-CWMSystemMember`.
+> - Date conditions use the `[yyyy-MM-dd]` bracket format.
+>
+> The module needs PowerShell 5.1 or later and always uses your server's current API version. The reports here read fields like `actualHours`, `billableOption` and `agreementAmount`, so spot-check them against the current model. The module also retries 429 responses (and 502, 503 and 504 on reads) by itself now, so the rate limit helper near the end is optional. Upgrading from 0.4.x? Read {% if upgrade_post %}[Upgrading to ConnectWiseManageAPI 0.5]({{ upgrade_post.url }}){% else %}the upcoming post on upgrading to ConnectWiseManageAPI 0.5{% endif %}.
+
 Now that you're comfortable with the basics, let's explore some advanced automation scenarios that can transform your MSP operations. These examples demonstrate real-world use cases that save hours of manual work and improve service delivery.
 
 ## Scenario 1: Automated Ticket Enrichment from RMM
@@ -85,11 +96,12 @@ $( if ($ExistingTickets) {
         }}
     }
 
-    if ($Configuration) {
-        $TicketParams.Add('configurations', @(@{id = $Configuration.id}))
-    }
-
     $Ticket = New-CWMTicket @TicketParams
+
+    # Attach the device's configuration to the new ticket
+    if ($Configuration) {
+        $null = New-CWMTicketConfiguration -parentId $Ticket.id -id $Configuration.id
+    }
 
     # Add detailed note
     New-CWMTicketNote -ticketId $Ticket.id -text $Description -internalAnalysisFlag $true
@@ -297,10 +309,10 @@ function Invoke-CWMDataQualityCheck {
             AutoFixable = $AutoFix
         }
 
-        # Auto-fix: Assign to default team member for the board
+        # Auto-fix: Assign to a fallback member (change 'dispatch' to your own member identifier)
         if ($AutoFix) {
             try {
-                $DefaultMember = Get-CWMSystemMember -condition "defaultFlag=true" | Select-Object -First 1
+                $DefaultMember = Get-CWMMember -condition "identifier='dispatch'" | Select-Object -First 1
                 if ($DefaultMember) {
                     $UpdateOps = @(
                         @{
@@ -309,7 +321,7 @@ function Invoke-CWMDataQualityCheck {
                             value = @{id = $DefaultMember.id}
                         }
                     )
-                    Update-CWMTicket -TicketID $Ticket.id -Operation $UpdateOps
+                    Update-CWMTicket -id $Ticket.id -PatchOperations $UpdateOps
                     Write-Host "  Auto-fixed: Assigned ticket #$($Ticket.id) to $($DefaultMember.identifier)" -ForegroundColor Green
                 }
             }
@@ -424,7 +436,7 @@ function New-MonthlyClientReport {
             -PercentComplete (($Report.Count / $Companies.Count) * 100)
 
         # Get ticket metrics
-        $Tickets = Get-CWMTicket -condition "company/id=$($Company.id) and closedDate>='$($StartDate.ToString('yyyy-MM-dd'))' and closedDate<='$($EndDate.ToString('yyyy-MM-dd'))'" -all
+        $Tickets = Get-CWMTicket -condition "company/id=$($Company.id) and closedDate>=[$($StartDate.ToString('yyyy-MM-dd'))] and closedDate<=[$($EndDate.ToString('yyyy-MM-dd'))]" -all
 
         $TicketCount = $Tickets.Count
 
@@ -437,7 +449,7 @@ function New-MonthlyClientReport {
         } else { 0 }
 
         # Get time entries
-        $TimeEntries = Get-CWMTimeEntry -condition "company/id=$($Company.id) and timeStart>='$($StartDate.ToString('yyyy-MM-dd'))' and timeStart<='$($EndDate.ToString('yyyy-MM-dd'))'" -all
+        $TimeEntries = Get-CWMTimeEntry -condition "company/id=$($Company.id) and timeStart>=[$($StartDate.ToString('yyyy-MM-dd'))] and timeStart<=[$($EndDate.ToString('yyyy-MM-dd'))]" -all
 
         $TotalHours = ($TimeEntries | Measure-Object -Property actualHours -Sum).Sum
         $BillableHours = ($TimeEntries | Where-Object { $_.billableOption -eq 'Billable' } | Measure-Object -Property actualHours -Sum).Sum
@@ -575,5 +587,5 @@ In the next post, we'll cover best practices, performance optimization, and tips
 ---
 
 **Series Navigation:**
-- Previous: [Getting Started with ConnectWiseManageAPI](/2024/12/02/getting-started-connectwisemanageapi.html)
-- Next: [Best Practices and Tips](/2024/12/16/best-practices-connectwisemanageapi.html)
+- Previous: [Getting Started with ConnectWiseManageAPI](/powershell/psa/connectwisemanageapi/2024/09/23/getting-started-connectwisemanageapi.html)
+- Next: [Best Practices and Tips](/powershell/psa/connectwisemanageapi/2024/10/07/best-practices-connectwisemanageapi.html)

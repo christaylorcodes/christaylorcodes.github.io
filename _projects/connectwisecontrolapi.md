@@ -1,17 +1,18 @@
 ---
 layout: project
-title: ConnectWise Control API
+title: "ScreenConnect API (ConnectWiseControlAPI)"
 icon: fa-plug
 category: ConnectWiseControlAPI
-short_description: Automate remote support operations and integrate ConnectWise Control into ticketing workflows and monitoring systems with clean PowerShell cmdlets.
+short_description: Automates ScreenConnect from PowerShell. Find sessions, run commands, send Toolbox items and manage users, with MFA or API secret login.
 description: |
-  Feature-rich PowerShell module that streamlines ConnectWise Control (formerly ScreenConnect) automation by providing comprehensive programmatic access to remote support operations through intuitive cmdlets that follow PowerShell best practices. Manages session lifecycle operations including creation, termination, and retrieval with advanced filtering capabilities for quick identification of active connections. Controls guest access permissions, expiration times, and access URL generation for secure temporary support scenarios.
+  ConnectWiseControlAPI is a PowerShell module for the ScreenConnect web API (formerly ConnectWise Control). Install it from the PowerShell Gallery, run `Connect-CWC` once, and the module's other 34 commands use that connection. ConnectWise renamed the product, but the module name and the `CWC` command names stayed the same, so your scripts don't need renaming.
 
-  Automates extension deployment and management across server instances for consistent tooling availability. Provides host configuration management including custom properties, connection policies, and server settings through declarative PowerShell syntax. Features comprehensive error handling with detailed diagnostic information to accelerate troubleshooting during automation development. Supports bulk operations for managing hundreds of simultaneous sessions efficiently in large MSP environments.
+  Version 0.5.0 gives you three ways to sign in. Use a user account without MFA, an account with MFA (type the code, pass it in, or compute it from the authenticator secret for unattended scripts), or the secret from the RESTful API Manager extension. The API secret works on servers where every account needs MFA, but only for the session commands that extension supports.
 
-  Enables MSPs to integrate remote support capabilities directly into PSA ticketing workflows, automated remediation processes triggered by monitoring alerts, and compliance reporting systems. Transforms manual remote access workflows into scalable automation that can handle thousands of endpoints without proportional staff increases. Reduces average remote support initiation time from 2-3 minutes to under 10 seconds by eliminating manual portal navigation and session setup steps.
+  You can find sessions, run commands and read their output, send Toolbox items, chat messages and notes, rename sessions and set custom properties, wake machines, join a session from the console, manage users and MFA secrets, read the audit log, and set up Remote Workforce. Commands that delete things ask first, and safe reads retry when the server returns HTTP 500.
 tags:
   - PowerShell
+  - ScreenConnect
   - ConnectWise
   - API Wrapper
   - MSP Tools

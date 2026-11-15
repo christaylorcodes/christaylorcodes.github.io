@@ -9,6 +9,13 @@ author: Chris Taylor
 excerpt: "Practical PowerShell examples for ConnectWiseAutomateAgent beyond basic installation. Covers new hire provisioning, compliance reporting, disaster recovery, version audits, multi-tenant deployment, proxy management, migrations, and department branding."
 ---
 
+> **Update (November 2026):** ConnectWiseAutomateAgent is on version 2.x now, and 2.1.0 is the current stable release. The examples below already use the `CWAA` names, and the old `LT` aliases like `Install-LTService` still work. Two fixes for the examples:
+>
+> - **Disaster recovery test:** `New-CWAABackup` returns a status message, not the settings, so the exported file won't have `Server` or `LocationID`. Run `New-CWAABackup`, then export the output of `Get-CWAAInfoBackup` instead.
+> - **Anything that uninstalls the agent:** if you've registered the health check task in Install mode, it'll reinstall the agent on its next run. Remove it first with `Unregister-CWAAHealthCheckTask`.
+>
+> For agents that repair themselves on a schedule, see {% assign health_post = site.posts | where: "slug", "automate-agent-health-checks" | first %}{% if health_post %}[ConnectWise Automate Agent Health Checks]({{ health_post.url }}){% else %}the upcoming post on agent health checks{% endif %}.
+
 ## What This Covers
 
 The ConnectWiseAutomateAgent module handles more than agent installation. It exposes functions for health checks, configuration management, proxy settings, branding, and uninstallation -- all scriptable, all composable with standard PowerShell tooling.

@@ -1,13 +1,24 @@
 ---
 layout: post
-title: "Self-Healing Agents: Automated Health Monitoring for ConnectWise Automate"
+title: "Self-Healing ConnectWise Automate Agents: Auto-Repair with PowerShell"
 short_title: "Self-Healing Automate Agents"
 date: 2024-03-01 10:00:00 -0000
 categories: [PowerShell, RMM]
 tags: [PowerShell, ConnectWise, Automate, RMM, Health Monitoring, Self-Healing, MSP]
 author: Chris Taylor
 excerpt: "Deploy a scheduled health check that monitors and repairs ConnectWise Automate agents automatically. Escalating remediation restarts services, reinstalls agents, and logs every action to the Windows Event Log for auditing."
+description: "Make ConnectWise Automate (ConnectWise RMM) agents self-healing. A scheduled PowerShell health check restarts LTService and LTSvcMon, reinstalls broken agents, and logs every repair to the Windows Event Log."
 ---
+
+> **Update (November 2026):** Planning to turn this on across a few hundred endpoints? Read {% assign health_post = site.posts | where: "slug", "automate-agent-health-checks" | first %}{% if health_post %}[ConnectWise Automate Agent Health Checks]({{ health_post.url }}){% else %}the upcoming post on agent health checks{% endif %} first. It covers dry runs with `-WhatIf`, reading the event log, and rolling out in rings.
+>
+> The health check system shipped in ConnectWiseAutomateAgent 2.0, and 2.1.0 is the current stable release. Every `CWAA` command still has its `LT` alias (`Repair-LTService`, `Test-LTHealth`, `Register-LTHealthCheckTask`), so older scripts keep working. A few corrections and additions:
+>
+> - **`Healthy` doesn't check how recent the last contact is.** It's `True` when the agent is installed, both services are running, and a `LastContact` value exists. Check the age of `LastContact` yourself.
+> - **The scheduled task always uses the default thresholds** (restart after 2 hours, reinstall after 5 days). `Register-CWAAHealthCheckTask` doesn't pass `-HoursRestart` or `-HoursReinstall`, so the custom threshold examples below only apply when you run `Repair-CWAA` yourself.
+> - **Install the module in Windows PowerShell 5.1 with `-Scope AllUsers`.** The task runs `powershell.exe`, which doesn't see modules installed from PowerShell 7.
+> - **2.1.0 adds a WMI check.** `Repair-CWAA` sets the `winmgmt` service to Automatic and starts it before anything else, logged as Event IDs 2030 to 2032.
+> - **The `raw.githubusercontent.com/.../main/ConnectWiseAutomateAgent.ps1` fallback URL below no longer exists.** Use the `ConnectWiseAutomateAgent.psm1` file attached to each [GitHub release](https://github.com/christaylorcodes/ConnectWiseAutomateAgent/releases) instead.
 
 ## What This Covers
 
