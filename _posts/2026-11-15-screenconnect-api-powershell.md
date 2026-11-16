@@ -2,16 +2,13 @@
 layout: post
 title: "ScreenConnect API with PowerShell: MFA, API Secrets and ConnectWiseControlAPI 0.5"
 short_title: "ScreenConnect API with PowerShell"
-date: 2026-11-16 10:00:00 -0000
+date: 2026-11-15 08:00:00 -0000
 categories: [PowerShell, MSP, ConnectWiseControlAPI]
 tags: [PowerShell, ScreenConnect, ConnectWise, Control, MSP, Automation, API, MFA]
 author: Chris Taylor
 excerpt: "ConnectWise renamed Control back to ScreenConnect, and ConnectWiseControlAPI 0.5 is out. You can now sign in with MFA, run unattended scripts with a TOTP secret, or use an API secret instead of a user account. Here's how each sign-in works, a few practical examples, and what to check before you upgrade from 0.4."
 description: "Use the ScreenConnect API from PowerShell with ConnectWiseControlAPI 0.5: MFA and TOTP sign-in, RESTful API Manager secrets, practical examples, and an upgrade checklist for scripts written for 0.4."
-draft_review: true
 ---
-
-<!-- REVIEW: verify all code examples against a live server before publishing -->
 
 ConnectWiseControlAPI 0.5.0 is out. It's the first big update since 0.4, and it fixes the thing people asked about most: **you can now sign in with an account that uses multi-factor authentication (MFA)**. The module went from 21 commands to 35, and it has a second way to authenticate that doesn't use a ScreenConnect user at all.
 

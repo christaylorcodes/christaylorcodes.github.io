@@ -1,0 +1,12 @@
+{%- comment -%}
+  Formats a download count for display: 1732867 -> 1.7M, 52420 -> 52.4K, 850 -> 850.
+  Usage: {% include format-downloads.html count=project.gallery_downloads %}
+{%- endcomment -%}
+{%- assign download_count = include.count | plus: 0 -%}
+{%- if download_count >= 1000000 -%}
+{{ download_count | divided_by: 1000000.0 | round: 1 }}M
+{%- elsif download_count >= 1000 -%}
+{{ download_count | divided_by: 1000.0 | round: 1 }}K
+{%- else -%}
+{{ download_count }}
+{%- endif -%}

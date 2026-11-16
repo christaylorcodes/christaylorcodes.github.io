@@ -75,13 +75,13 @@ permalink: /projects/
                                         {{ project_stars }} {% if project_stars == 1 %}star{% else %}stars{% endif %}
                                     </span>
                                     {% endif %}
-                                    {% if project_downloads %}
+                                    {% if project_downloads and project_downloads > 0 %}
                                     <span class="stat-item">
                                         {% if project.title == "PSGallery Initializer" %}
                                         🐔🥚
                                         {% else %}
                                         <i class="fas fa-download"></i>
-                                        {{ project_downloads | divided_by: 1000.0 | round: 1 }}K downloads
+                                        {% include format-downloads.html count=project_downloads %} downloads
                                         {% endif %}
                                     </span>
                                     {% endif %}

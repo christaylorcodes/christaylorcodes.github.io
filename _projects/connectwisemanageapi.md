@@ -9,7 +9,7 @@ description: |
 
   Connect-CWM reads your server's API version and pins every request to it, so the objects you get back match the current ConnectWise PSA API model. Use -all and the module pages through results for you, 1,000 records at a time. Every Update-CWM* cmdlet takes -PatchOperations, so you can change several fields in one request. New-CWMProjectTicket creates tickets directly on a project. Reads retry on 429 and 502/503/504 responses; writes only retry on 429, so a retry can't create a duplicate record. Every function has comment-based help with examples (Get-Help Get-CWMTicket -Full).
 
-  Upgrading from 0.4.x? Version 0.5.0 has breaking changes. Read [Upgrading to ConnectWiseManageAPI 0.5](/powershell/psa/connectwisemanageapi/2026/11/16/upgrading-connectwisemanageapi-0-5.html) before you update anything that runs in production.
+  Upgrading from 0.4.x? Version 0.5.0 has breaking changes. Read [Upgrading to ConnectWiseManageAPI 0.5](/powershell/psa/connectwisemanageapi/2026/11/15/upgrading-connectwisemanageapi-0-5.html) before you update anything that runs in production.
 tags:
   - PowerShell
   - ConnectWise PSA

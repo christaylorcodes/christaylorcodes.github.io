@@ -2,16 +2,13 @@
 layout: post
 title: "ConnectWise Automate Agent Health Checks with Test-CWAAHealth and Repair-CWAA"
 short_title: "Automate Agent Health Checks"
-date: 2026-11-16 10:00:00 -0000
+date: 2026-11-15 08:00:00 -0000
 categories: [PowerShell, RMM]
 tags: [PowerShell, ConnectWise, Automate, RMM, Self-Healing, Health Monitoring, MSP]
 author: Chris Taylor
 excerpt: "Want self-healing Automate agents without the risk of a script reinstalling 500 machines overnight? Start read-only. This post shows what Test-CWAAHealth checks, how Repair-CWAA escalates from restart to reinstall, how to dry-run it with -WhatIf, schedule it to run on its own, read the event log, and roll it out in safe rings."
 description: "Set up safe self-healing for ConnectWise Automate (ConnectWise RMM) agents with PowerShell. Covers Test-CWAAHealth, Repair-CWAA, -WhatIf dry runs, scheduled health checks, event log monitoring, and ring-based rollouts."
-draft_review: true
 ---
-
-<!-- REVIEW: verify all code examples on a test endpoint before publishing -->
 
 Here's the short answer if you manage a few hundred Automate agents and want them to fix themselves without fixing themselves into a crater:
 

@@ -63,14 +63,14 @@ layout: default
                             <div>
                                 <h3>PowerShell Gallery</h3>
                                 <p>Install via PowerShell Gallery</p>
-                                {% if page.gallery_downloads %}
+                                {% if page.gallery_downloads and page.gallery_downloads > 0 %}
                                 <div class="project-stats">
                                     <span class="stat-item">
                                         {% if page.title == "PSGallery Initializer" %}
                                         🐔🥚
                                         {% else %}
                                         <i class="fas fa-download"></i>
-                                        {{ page.gallery_downloads | divided_by: 1000.0 | round: 1 }}K downloads
+                                        {% include format-downloads.html count=page.gallery_downloads %} downloads
                                         {% endif %}
                                     </span>
                                 </div>

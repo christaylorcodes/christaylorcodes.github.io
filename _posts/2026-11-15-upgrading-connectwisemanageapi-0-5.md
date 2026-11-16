@@ -2,16 +2,13 @@
 layout: post
 title: "Upgrading to ConnectWiseManageAPI 0.5: Breaking Changes and Migration"
 short_title: "Upgrading to ConnectWiseManageAPI 0.5"
-date: 2026-11-16 10:00:00 -0000
+date: 2026-11-15 08:00:00 -0000
 categories: [PowerShell, PSA, ConnectWiseManageAPI]
 tags: [PowerShell, ConnectWise, PSA, Manage, API, Migration]
 author: Chris Taylor
 excerpt: "ConnectWiseManageAPI 0.5 drops Connect-CWM -Version, needs PowerShell 5.1 or later, and moves project tickets to their own cmdlet. This checklist shows you how to find the calls that break in your scripts, fix them, and start using the new features."
 description: "How to upgrade your ConnectWise PSA (Manage) PowerShell scripts to ConnectWiseManageAPI 0.5: every breaking change, a script to find affected calls, and before/after fixes."
-draft_review: true
 ---
-
-<!-- REVIEW: verify all code examples against a live server before publishing -->
 
 ConnectWiseManageAPI 0.5.0 is out, and it has breaking changes. Most scripts need one or two small edits. A few need a closer look.
 

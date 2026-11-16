@@ -141,12 +141,12 @@ description: "Chris Taylor - Network Operations Chief and PowerShell automation 
                         <div class="podium-stars">
                             <i class="fas fa-star"></i> {{ project.stars }} {% if project.stars == 1 %}star{% else %}stars{% endif %}
                         </div>
-                        {% if project.gallery_downloads %}
+                        {% if project.gallery_downloads and project.gallery_downloads > 0 %}
                         <div class="podium-downloads">
                             {% if project.title == "PSGallery Initializer" %}
                             🐔🥚
                             {% else %}
-                            <i class="fas fa-download"></i> {{ project.gallery_downloads | divided_by: 1000.0 | round: 1 }}K downloads
+                            <i class="fas fa-download"></i> {% include format-downloads.html count=project.gallery_downloads %} downloads
                             {% endif %}
                         </div>
                         {% endif %}
@@ -175,12 +175,12 @@ description: "Chris Taylor - Network Operations Chief and PowerShell automation 
                         <div class="podium-stars">
                             <i class="fas fa-star"></i> {{ project.stars }} {% if project.stars == 1 %}star{% else %}stars{% endif %}
                         </div>
-                        {% if project.gallery_downloads %}
+                        {% if project.gallery_downloads and project.gallery_downloads > 0 %}
                         <div class="podium-downloads">
                             {% if project.title == "PSGallery Initializer" %}
                             🐔🥚
                             {% else %}
-                            <i class="fas fa-download"></i> {{ project.gallery_downloads | divided_by: 1000.0 | round: 1 }}K downloads
+                            <i class="fas fa-download"></i> {% include format-downloads.html count=project.gallery_downloads %} downloads
                             {% endif %}
                         </div>
                         {% endif %}
@@ -209,12 +209,12 @@ description: "Chris Taylor - Network Operations Chief and PowerShell automation 
                         <div class="podium-stars">
                             <i class="fas fa-star"></i> {{ project.stars }} {% if project.stars == 1 %}star{% else %}stars{% endif %}
                         </div>
-                        {% if project.gallery_downloads %}
+                        {% if project.gallery_downloads and project.gallery_downloads > 0 %}
                         <div class="podium-downloads">
                             {% if project.title == "PSGallery Initializer" %}
                             🐔🥚
                             {% else %}
-                            <i class="fas fa-download"></i> {{ project.gallery_downloads | divided_by: 1000.0 | round: 1 }}K downloads
+                            <i class="fas fa-download"></i> {% include format-downloads.html count=project.gallery_downloads %} downloads
                             {% endif %}
                         </div>
                         {% endif %}
